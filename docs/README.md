@@ -35,7 +35,7 @@ _Instituto de Informática e Ciências Exatas – Pontifícia Universidade Cató
 
 ---
 
-_**Resumo**. 
+Oferecer serviços online de fisioterapia, proporcionando atividades personalizadas para melhorar a saúde física. Os programas incluem exercícios guiados e acompanhamento virtual, visando a recuperação, fortalecimento e prevenção de lesões. 
 
 ---
 
