@@ -1,5 +1,7 @@
 ### **3.3.1 Processo 1 – Agendamento de Consulta**
 
+---
+
 Este processo descreve o agendamento de consultas de fisioterapia de forma online. O agendamento pode ser realizado pelo paciente ou fisioterapeuta.
 
 O processo começa quando o paciente ou fisioterapeuta acessa o sistema de agendamento. O usuário deve fornecer informações relevantes, como o nome do paciente, a data e a hora desejadas para a consulta, informações de contato, e o fisioterapeuta específico (se aplicável).
@@ -13,26 +15,10 @@ Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
 
 ![Exemplo de um Modelo BPMN do PROCESSO 1](images/process.png "Modelo BPMN do Processo 1.")
 >Observação: **Em desenvolvimento, imagem meramente ilustrativa.**
----
-#### **Detalhamento das atividades**
 
-> Abaixo estão descritas as propriedades das atividades do processo de agendamento de consultas. 
-> Estas estão relacionadas com o modelo de processo apresentado anteriormente.
->
->Os tipos de dados a serem utilizados são:
->
->* **Área de texto** - campo texto de múltiplas linhas
->* **Caixa de texto** - campo texto de uma linha
->* **Número** - campo numérico
->* **Data** - campo do tipo data (dd-mm-aaaa)
->* **Hora** - campo do tipo hora (hh:mm:ss)
->* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)
->* **Imagem** - campo contendo uma imagem
->* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivos >(tradicional radio button ou combobox)
->* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente >(tradicional checkbox ou listbox)
->* **Arquivo** - campo de upload de documento
->* **Link** - campo que armazena uma URL
->* **Tabela** - campo formado por uma matriz de valores
+### **Detalhamento das atividades**
+
+---
 
 **Nome da atividade 1: Preenchimento dos dados para agendamento de consulta**
 
