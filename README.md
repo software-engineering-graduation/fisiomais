@@ -1,5 +1,4 @@
-# Nome do projeto
-Fisio+
+# Fisio+
 
 ## Integrantes
 
