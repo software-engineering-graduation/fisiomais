@@ -202,9 +202,3 @@ _Atualizar os links e adicionar novos links para que a estrutura do código este
 
 
 [Vídeo da apresentação final](video/arquivo.mp4)
-
-
-
-
-
-
