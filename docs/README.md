@@ -1,4 +1,4 @@
-# TITULO DO PROJETO
+# Fisio+
 
 ### Lista de Contatos:
 - **Bruna Ribeiro Pérez**  
@@ -15,7 +15,6 @@
 
 - **Rubens Marcelo Ramos dos Santos**  
   **E-mail**: 1391000@sga.pucminas.br
-
 
 ---
 
@@ -71,7 +70,6 @@ _Nosso objetivo é criar um sistema integrado que atenda às demandas de pacient
 
 A concentração de especialistas nas capitais e grande cidades da região Sudeste e Sul e os desafios de locomoção enfrentados por pacientes e fisioterapeutas, tornam o acesso limitado. Nosso sistema de fisioterapia, supera as barreiras geográficas, proporcionando um atendimento acessível e econômico para ambos.
 
-
 ## 2. Participantes do processo
 
 ### Participante 1:
@@ -112,25 +110,25 @@ A concentração de especialistas nas capitais e grande cidades da região Sudes
 
 ### 3.1. Análise da situação atual
 
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos.
 
 ### 3.2. Descrição geral da proposta
 
-_Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias._
+Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas.
 
 ### 3.3. Modelagem dos processos
 
-[PROCESSO 1 - Nome do Processo](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
+[PROCESSO 1 - Agendamento de Consulta](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
 
-[PROCESSO 2 - Nome do Processo](processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
+[PROCESSO 2 - Controle de Consultas pelo Fisioterapeuta](processo-2-controle-de-consultas.md "Detalhamento do Processo 2.")
 
-[PROCESSO 3 - Nome do Processo](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
+[PROCESSO 3 - Cadastro de Paciente](processo-3-cadastro-de-pacientes.md "Detalhamento do Processo 3.")
 
-[PROCESSO 4 - Nome do Processo](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
+[PROCESSO 4 - Cadastro de Fisioterapeuta](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
 
-[PROCESSO 5 - Nome do Processo](processo-5-nome-do-processo.md "Detalhamento do Processo 5.")
+[PROCESSO 5 - Gerenciamento do Plano de Tratamento](processo-5-nome-do-processo.md "Detalhamento do Processo 5.")
 
-[PROCESSO 6 - Nome do Processo](processo-6-nome-do-processo.md "Detalhamento do Processo 6.")
+[PROCESSO 6 - Acompanhamento Virtual](processo-6-acompanhamento-virtual.md "Detalhamento do Processo 6.")
 
 ## 4. Projeto da solução
 
