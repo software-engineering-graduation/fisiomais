@@ -1,25 +1,31 @@
-# TITULO DO PROJETO
+# Fisio+
 
+### Lista de Contatos:
+- **Bruna Ribeiro Pérez**  
+  **E-mail**: 1426468@sga.pucminas.br
 
-**Nome completo do Aluno 1, email do aluno 1**
+- **Guilherme Henrique Coelho Santos**  
+  **E-mail**: 1395175@sga.pucminas.br
 
-**Nome completo do Aluno 2, email do aluno 2**
+- **José Victor Mendes Dias**  
+  **E-mail**: 1433596@sga.pucminas.br
 
-**Nome completo do Aluno 3, email do aluno 3**
+- **Marco Antonio Miranda Ferreira**  
+  **E-mail**: 28064@sga.pucminas.br
 
-**Nome completo do Aluno 4, email do aluno 4**
+- **Rubens Marcelo Ramos dos Santos**  
+  **E-mail**: 1391000@sga.pucminas.br
 
-**Nome completo do Aluno 5, email do aluno 5**
 
 ---
 
 Professores:
 
-** Prof. Nome do Prof 1 **
+**Prof. Danilo Boechat Seufitelli**
 
-** Prof. Nome do Prof 2 **
+**Prof. Hugo Bastos de Paula**
 
-** Prof. Nome do Prof 3 **
+**Prof. Luiz Henrique da Costa Silva**
 
 ---
 
@@ -29,57 +35,87 @@ _Instituto de Informática e Ciências Exatas – Pontifícia Universidade Cató
 
 ---
 
-_**Resumo**. Escrever aqui o resumo. O resumo deve contextualizar rapidamente o trabalho, descrever seu objetivo e, ao final, 
-mostrar algum resultado relevante do trabalho (até 10 linhas)._
+Oferecer serviços online de fisioterapia, proporcionando atividades personalizadas para melhorar a saúde física. Os programas incluem exercícios guiados e acompanhamento virtual, visando a recuperação, fortalecimento e prevenção de lesões. 
 
 ---
 
 
 ## 1. Introdução
 
-_Apresente uma frase introdutória definindo o que será apresentado._
+_O nosso sistema proporciona uma experiência integrada de cuidados de saúde, conectando pacientes e fisioterapeutas._
 
 ### 1.1 Contextualização
 
-_Na **contextualização**, o aluno deve dizer do que se trata o trabalho, em que área ou contexto se insere.
-A **contextualização** deve ser desenvolvida de algo mais genérico para algo mais específico. 
-A citação de pesquisas quantitativas é bem aceita aqui (corretamente referenciadas)._
+A fisioterapia, tradicionalmente utilizada para reabilitação pós-traumática, evoluiu ao longo dos anos e atualmente aborda uma série de complicações, como complicações motoras, cognitivas e neurológicas. Com o avanço da tecnologia, a fisioterapia online surge como uma ferramenta importante, proporcionando acesso flexível e remoto ao tratamento. Em um contexto pandêmico vivenciado por todos, a fisioterapia online garantiu e continua garantindo a continuidade de tratamentos, diante das dificuldades enfrentadas. Bruno Combat, fisioterapeuta do Conselho Regional de Fisioterapia e Terapia Ocupacional, destaca a necessidade de uma abordagem abrangente, enfatizando que, enquanto técnicas de autocuidado são úteis, a intervenção direta de fisioterapeutas qualificados é indispensável para uma recuperação completa. Neste contexto, a fisioterapia online demonstra sua versatilidade e importância na reabilitação de pacientes afetados pela Covid-19 ou por qualquer outro tipo de complicação.
+
+**Fonte: https://avozdaserra.com.br/noticias/o-importante-papel-da-fisioterapia-na-pandemia**
 
 ### 1.2 Problema
 
-_Em seguida o aluno deve caminhar a contextualização para descrever o **problema** que o trabalho trata. 
-O **problema** pode ser algo vivido em uma empresa específica. Neste caso, o aluno deve rapidamente apresentar 
-o cenário de problema da empresa. A empresa só deve ser citada explicitamente se o aluno tiver autorização 
-para tal._
+Consultas presenciais representam desafios para pacientes com restrições físicas, em termos de locomoção e custos associados a deslocamento e estacionamento. Além disso, com cerca de 70% dos médicos especialistas concentrados nas regiões Sudeste e Sul, muitas áreas enfrentam escassez desses profissionais. A telemedicina surge como solução, e um aplicativo dedicado poderia ampliar a acessibilidade e reduzir custos na área de fisioterapia.
+
 
 ### 1.3 Objetivo geral
 
-_O aluno deve escrever um pequeno parágrafo ou frase com o **objetivo geral** do trabalho. 
-O objetivo deve ser bem direto, específico e definido com verbos de ação (elaborar, propor, avaliar, comparar, etc.). No caso específico deste projeto, o objetivo deste trabalho é desenvolver um sistema para automação de processos para um problema específico._
+_Nosso objetivo é criar um sistema integrado que atenda às demandas de pacientes e fisioterapeutas._
 
 #### 1.3.1 Objetivos específicos
 
-_Apresente também alguns (pelo menos 2) **objetivos específicos** dependendo de onde você vai querer 
-concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho._
+* Estabelecer um sistema de marcação e gerenciamento de consultas online, facilitando agendamentos, alterações e cancelamentos de consultas em tempo real.
+* Integrar uma plataforma que facilite a “telefisioterapia”, permitindo consultas virtuais.
+* Implementar vídeos e materiais educativos que auxiliem pacientes em seu tratamento.
+* Implementar um sistema de notificações que mantenha pacientes e fisioterapeutas informados sobre suas consultas agendadas, canceladas e remarcadas.
+
 
 ### 1.4 Justificativas
 
-_Mostre também as **justificativas** para o 
-desenvolvimento do seu trabalho e, caso deseje, destaque alguma contribuição do trabalho._
+A concentração de especialistas nas capitais e grande cidades da região Sudeste e Sul e os desafios de locomoção enfrentados por pacientes e fisioterapeutas, tornam o acesso limitado. Nosso sistema de fisioterapia, supera as barreiras geográficas, proporcionando um atendimento acessível e econômico para ambos.
+
 
 ## 2. Participantes do processo
 
-_Apresente aqui os perfis dos usuários chave do sistema. Diversas são as informações que podem ser relevantes para a definição dos perfis dos usuários, tais como idade, gênero, aspectos culturais, nível de educação, entre outros. A pesquisa de mercado pode ser uma ferramenta poderosa para se identificar e caracterizar os perfis de usuários. Apresente claramente o papel a ser desempenhado por cada usuário._
+### Participante 1:
+**Nome:** Maria  
+**Idade:** 16 anos  
+**Gênero:** feminino  
+**Ocupação:** Estudante do ensino médio  
+**Descrição:** Adolescente com escoliose que passa muito tempo mexendo no computador. Seus pais trabalham o dia todo, o que impossibilita que alguém a leve para uma consulta.
+
+---
+
+### Participante 2:
+**Nome:** Augusto  
+**Idade:** 85 anos  
+**Gênero:** masculino  
+**Ocupação:** aposentado  
+**Descrição:** Idoso que mora em uma cidade pequena longe de uma capital, o que dificulta as possíveis consultas presenciais com um fisioterapeuta. Tem um familiar que é bom com tecnologia e o cadastrou no aplicativo para que ele pudesse tratar sua hérnia de disco.
+
+---
+
+### Participante 3:
+**Nome:** Lucas  
+**Idade:** 27 anos  
+**Gênero:** masculino  
+**Ocupação:** recém formado em fisioterapia  
+**Descrição:** Lucas é um recém formado que não dispõe de grande capital. Ainda não conseguiu um emprego fixo e deseja começar a carreira, podendo fidelizar sua clientela.
+
+---
+
+### Participante 4:
+**Nome:** Vitória  
+**Idade:** 50 anos  
+**Gênero:** feminino  
+**Ocupação:** 20 anos de carreira como fisioterapeuta  
+**Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
 
 ## 3. Modelagem do processo de negócio
 
 ### 3.1. Análise da situação atual
-
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos.
 
 ### 3.2. Descrição geral da proposta
 
-_Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias._
+Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas.
 
 ### 3.3. Modelagem dos processos
 
@@ -166,9 +202,3 @@ _Atualizar os links e adicionar novos links para que a estrutura do código este
 
 
 [Vídeo da apresentação final](video/arquivo.mp4)
-
-
-
-
-
-
