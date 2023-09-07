@@ -1,20 +1,18 @@
-# Nome do projeto
-
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+# Fisio+
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 5
+* Bruna Ribeiro Pérez | 1426468@sga.pucminas.br
+* Guilherme Henrique Coelho Santos | 1395175@sga.pucminas.br
+* José Victor Mendes Dias | 1433596@sga.pucminas.br
+* Marco Antonio Miranda Ferreira | 28064@sga.pucminas.br
+* Rubens Marcelo Ramos dos Santos | 1391000@sga.pucminas.br
 
 ## Professor
 
-* Nome completo do professor 1
-* Nome completo do professor 2
-* Nome completo do professor 3
+* Danilo Boechat Seufitelli
+* Hugo Bastos de Paula
+* Luiz Henrique da Costa Silva
 
 ## Instruções de utilização
 
