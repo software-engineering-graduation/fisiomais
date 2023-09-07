@@ -1,4 +1,4 @@
-### 3.3.6 Processo 6 – NOME DO PROCESSO
+### 3.3.6 Processo 6 – Acompanhar
 
 Apresente aqui o nome e as oportunidades de melhoria para o processo 6. 
 Em seguida, apresente o modelo do processo 6, descrito no padrão BPMN.
