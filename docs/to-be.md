@@ -1,7 +1,5 @@
 # Analise Situação To-Be
 
-## 3.3. Modelagem dos Processos
-
 ### **PROCESSO 1 - Agendar Consulta**
 
 - **Registro no Sistema**: O paciente se registra, escolhendo um fisioterapeuta com base em especialização, feedback e classificação.
