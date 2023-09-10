@@ -108,14 +108,14 @@ Esses são profissionais da fisioterapia buscando modernizar, expandir ou inicia
    - **Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
 
 ## 3. Modelagem do processo de negócio
-
+Neste capítulo, será discutido a modelagem do processo de negócio, apresentando uma proposta e detalhando os processos-chave envolvidos.
 ### 3.1. Análise da situação atual
 
-Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos.
+Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos. ([AS-IS](as_is.md))
 
 ### 3.2. Descrição geral da proposta
 
-Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas.
+Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas. ([TO-BE](to-be.md))
 
 ### 3.3. Modelagem dos processos
 
