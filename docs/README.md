@@ -71,40 +71,41 @@ _Nosso objetivo é criar um sistema integrado que atenda às demandas de pacient
 A concentração de especialistas nas capitais e grande cidades da região Sudeste e Sul e os desafios de locomoção enfrentados por pacientes e fisioterapeutas, tornam o acesso limitado. Nosso sistema de fisioterapia, supera as barreiras geográficas, proporcionando um atendimento acessível e econômico para ambos.
 
 ## 2. Participantes do processo
+Com base nas descrições fornecidas, podemos separar os participantes em dois grupos: 
 
-### Participante 1:
-**Nome:** Maria  
-**Idade:** 16 anos  
-**Gênero:** feminino  
-**Ocupação:** Estudante do ensino médio  
-**Descrição:** Adolescente com escoliose que passa muito tempo mexendo no computador. Seus pais trabalham o dia todo, o que impossibilita que alguém a leve para uma consulta.
+### Grupo de Pacientes:
+Esses são indivíduos que procuram tratamento e atendimento fisioterapêutico.
 
----
+1. **Participante 1:**
+   - **Nome:** Maria
+   - **Idade:** 16 anos
+   - **Gênero:** feminino
+   - **Ocupação:** Estudante do ensino médio
+   - **Descrição:** Adolescente com escoliose que passa muito tempo mexendo no computador. Seus pais trabalham o dia todo, o que impossibilita que alguém a leve para uma consulta.
 
-### Participante 2:
-**Nome:** Augusto  
-**Idade:** 85 anos  
-**Gênero:** masculino  
-**Ocupação:** aposentado  
-**Descrição:** Idoso que mora em uma cidade pequena longe de uma capital, o que dificulta as possíveis consultas presenciais com um fisioterapeuta. Tem um familiar que é bom com tecnologia e o cadastrou no aplicativo para que ele pudesse tratar sua hérnia de disco.
+2. **Participante 2:**
+   - **Nome:** Augusto
+   - **Idade:** 85 anos
+   - **Gênero:** masculino
+   - **Ocupação:** aposentado
+   - **Descrição:** Idoso que mora em uma cidade pequena longe de uma capital, o que dificulta as possíveis consultas presenciais com um fisioterapeuta. Tem um familiar que é bom com tecnologia e o cadastrou no aplicativo para que ele pudesse tratar sua hérnia de disco.
 
----
+### Grupo de Fisioterapeutas:
+Esses são profissionais da fisioterapia buscando modernizar, expandir ou iniciar suas práticas.
 
-### Participante 3:
-**Nome:** Lucas  
-**Idade:** 27 anos  
-**Gênero:** masculino  
-**Ocupação:** recém formado em fisioterapia  
-**Descrição:** Lucas é um recém formado que não dispõe de grande capital. Ainda não conseguiu um emprego fixo e deseja começar a carreira, podendo fidelizar sua clientela.
+1. **Participante 3:**
+   - **Nome:** Lucas
+   - **Idade:** 27 anos
+   - **Gênero:** masculino
+   - **Ocupação:** recém formado em fisioterapia
+   - **Descrição:** Lucas é um recém formado que não dispõe de grande capital. Ainda não conseguiu um emprego fixo e deseja começar a carreira, podendo fidelizar sua clientela.
 
----
-
-### Participante 4:
-**Nome:** Vitória  
-**Idade:** 50 anos  
-**Gênero:** feminino  
-**Ocupação:** 20 anos de carreira como fisioterapeuta  
-**Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
+2. **Participante 4:**
+   - **Nome:** Vitória
+   - **Idade:** 50 anos
+   - **Gênero:** feminino
+   - **Ocupação:** 20 anos de carreira como fisioterapeuta
+   - **Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
 
 ## 3. Modelagem do processo de negócio
 
