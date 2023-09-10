@@ -9,8 +9,6 @@ A representação BPMN (Business Process Model and Notation) deste processo aind
 
 ---
 
-#### Coleta de dados iniciais
-
 **Atividade: Coleta de Dados Iniciais**
 
 Os pacientes são responsáveis por fornecer informações pessoais, como nome, data de nascimento, endereço, número de telefone, e convênio.

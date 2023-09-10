@@ -11,7 +11,6 @@ constará o nome do profissional, celular de contato e endereço (caso seja prec
 
 O cadastro de fisioterapeuta constará o nome do profissional, telefone de contato e endereço de contato(situação de emergência)
 
-
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Nome            | Caixa de Texto   |                | Não possui        |
@@ -21,8 +20,6 @@ O cadastro de fisioterapeuta constará o nome do profissional, telefone de conta
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-|  |                   |                                |                   |
-|                      |                                |                   |
 | Confirmar            |  Confirmação do Cadastro       | default           |
 | Alterar              |  Tela Alteração do Cadastro    |                   |
 | Cancelar             |  Tela cancelamento do Cadastro |                   |

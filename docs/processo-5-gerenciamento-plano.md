@@ -57,6 +57,6 @@ Baseado no feedback e progresso do paciente, o fisioterapeuta pode fazer altera�
 | **Comandos**            |  **Destino**                               | **Tipo** |
 | ---                     | ---                                        | ---      |
 | Atualizar               | Confirmação de Atualização do Plano        | default  |
-| Cancelar Alterações     | Retorno ao Plano Original                 | cancel   |
+| Cancelar Alterações     | Retorno ao Plano Original                  | cancel   |
 
 ---

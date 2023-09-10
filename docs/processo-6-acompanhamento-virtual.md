@@ -17,7 +17,7 @@ O acompanhamento virtual é um processo essencial para a comunicação entre o f
 | **Comandos**         |  **Destino**                   | **Tipo**       |
 | ---                  | ---                            | ---            |
 | Iniciar Sessão       | Início da Videoconferência     | default        |
-| Cancelar Sessão      | Cancelamento da Videoconferência | cancel      |
+| Cancelar Sessão      | Cancelamento da Videoconferência | cancel       |
 
 **Atividade 2: Acesso a Recursos Educacionais**
 
