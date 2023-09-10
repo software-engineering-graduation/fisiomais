@@ -61,7 +61,7 @@ _Nosso objetivo é criar um sistema integrado que atenda às demandas de pacient
 #### 1.3.1 Objetivos específicos
 
 * Estabelecer um sistema de marcação e gerenciamento de consultas online, facilitando agendamentos, alterações e cancelamentos de consultas em tempo real.
-* Integrar uma plataforma que facilite a “telefisioterapia”, permitindo consultas virtuais.
+* Desenvolver uma plataforma que facilite a “telefisioterapia”, permitindo consultas virtuais.
 * Implementar vídeos e materiais educativos que auxiliem pacientes em seu tratamento.
 * Implementar um sistema de notificações que mantenha pacientes e fisioterapeutas informados sobre suas consultas agendadas, canceladas e remarcadas.
 
