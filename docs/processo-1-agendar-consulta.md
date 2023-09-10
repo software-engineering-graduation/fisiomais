@@ -1,4 +1,4 @@
-### **3.3.1 Processo 1 – Agendamento de Consulta**
+### **3.3.1 Processo 1 – Agendar Consulta**
 
 ---
 

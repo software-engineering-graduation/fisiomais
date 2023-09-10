@@ -1,4 +1,4 @@
-### 3.3.4 Processo 4 – Cadastro de Fisioterapeuta
+### 3.3.4 Processo 4 – Cadastrar Fisioterapeuta
 
 Este processo refere-se ao cadastro de  fisioterapeutas no sistema. Este cadastro é fundamental pois, ele se relaciona com o controle de consultas . Inicialmente, no cadastro de fisioterapeutas 
 constará o nome do profissional, celular de contato e endereço (caso seja preciso localizar o profisional em uma situação de emergência)

@@ -1,4 +1,4 @@
-### 3.3.7 Processo 7 - Cadastro de Mídias
+### 3.3.7 Processo 7 - Cadastrar Mídias
 
 Este processo permite ao fisioterapeuta adicionar vídeos explicativos ou demonstrativos, assim como imagens ilustrativas ou instrucionais para auxiliar no tratamento. Estas mídias visam garantir que os pacientes compreendam e realizem os exercícios corretamente.
 

@@ -1,4 +1,4 @@
-### 3.3.3 Processo 3 – CADASTRO DE PACIENTES
+### 3.3.3 Processo 3 – Cadastrar Pacientes
 
 O Cadastro de pacientes é um papel crucial desempenhado em sistemas de saúde e instituições  de fisioterapia. Esse papel envolve a coleta, armazenamento e manutenção de informações essenciais sobre os pacientes que recebem atendimento fisioterápico. Uma oportunidade de melhoria seria a automação do processo de cadastro de pacientes. Isso poderia ser feito através de um sistema de registro online, onde os próprios pacientes inserem suas informações. Isso economizaria tempo da equipe e reduziria erros de digitação.
 
