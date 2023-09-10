@@ -1,5 +1,4 @@
 # Análise da Situação Atual ("As-Is")
-
 ## 3.3. Modelagem dos Processos
 
 **Ambiente Regulatório e Profissional:**
