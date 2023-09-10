@@ -1,24 +1,31 @@
 # Analise Situação AS-IS
-## 3.3. Modelagem dos Processos
 
-**Ambiente Regulatório e Profissional:**
-- As clínicas de fisioterapia operam sob as regulamentações da ANVISA (Agência Nacional de Vigilância Sanitária) e ANS (Agência Nacional de Saúde Suplementar).
-- O mercado é formado predominantemente por fisioterapeutas e técnicos de saúde.
-- Há uma ênfase crescente em tratamentos inovadores, especialmente na reabilitação pós-traumática e pulmonar, em virtude do avanço da tecnologia e do conhecimento na área.
+### **Agendar Consulta**
 
-**Cultura Organizacional:**
-- A cultura predominante nas clínicas de fisioterapia é centrada em fornecer atendimento rápido e seguro, seguindo rigorosos padrões de higiene.
-- Os valores organizacionais frequentemente enfatizam o respeito e a dignidade dos pacientes.
-- A modalidade de atendimento primário é a presencial, com foco na interação direta entre o fisioterapeuta e o paciente.
+O paciente chega à clínica e completa um formulário de registro com informações pessoais essenciais. Em seguida, o paciente interage com um atendente na clínica para escolher uma data e horário que estejam disponíveis para a consulta médica, garantindo assim a conveniência e compatibilidade com sua agenda. Por fim, como parte do protocolo de atendimento, o paciente recebe um cartão de consulta, que contém todas as informações cruciais sobre a consulta.
 
-**Métodos de Agendamento:**
-- Os agendamentos são feitos principalmente por telefone ou presencialmente.
-- As secretárias ou atendentes utilizam agendas físicas ou planilhas digitais para gerenciar os horários, tornando o sistema propenso a erros ou sobreposições.
-- A confirmação da consulta é geralmente feita por telefone alguns dias antes da data agendada.
+---
 
-**Cadastro e Gerenciamento de Pacientes:**
-- O processo de cadastro e gerenciamento de pacientes é manual, usando também agendas físicas ou planilhas digitais.
-- Não há um sistema integrado ou automatizado para armazenar e acessar informações do paciente, o que pode levar a ineficiências ou falhas na comunicação e no acompanhamento.
+### **Controle de Consultas**
 
-**Segurança e Privacidade:**
-- Informações sensíveis dos pacientes são armazenadas em mídias que podem ser vulneráveis à perda, danos ou acesso não autorizado, dada a natureza manual do sistema atual.
+O fisioterapeuta mantém uma agenda física ou digital individual para registrar consultas e pode ajustar sua disponibilidade pessoalmente. Essa agenda pode ser ou não compartilhada com a estrutura de atendimento da clínica. 
+
+---
+
+### **Cadastro de Paciente**
+
+O paciente fornece seus dados pessoais diretamente ao atendente na clínica no momento do registro. Além disso, o paciente é solicitado a preencher um formulário com seu histórico médico durante esse mesmo registro. 
+
+---
+
+### **Cadastro de Fisioterapeuta**
+
+- O fisioterapeuta fornece suas credenciais e informações de especialização durante o processo de contratação na clínica.
+
+---
+
+### **Criar Plano de Tratamento**
+
+Durante o tratamento fisioterapêutico, o fisioterapeuta cria um plano personalizado com base na condição do paciente, essencialmente para ser executado durante o período no consultório. O progesso do paciente é acompanhado apenas durante as consultas subsequentes.
+
+---
