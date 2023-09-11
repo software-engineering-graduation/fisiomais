@@ -2,6 +2,9 @@
 
 Este processo permite ao fisioterapeuta adicionar vídeos explicativos ou demonstrativos, assim como imagens ilustrativas ou instrucionais para auxiliar no tratamento. Estas mídias visam garantir que os pacientes compreendam e realizem os exercícios corretamente.
 
+Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
+
+![Modelo BPMN do Processo 7](../assets/processes/processo-7-cadastrar-midia.png "Modelo BPMN do Processo 7.")
 #### Detalhamento das atividades
 ---
 
