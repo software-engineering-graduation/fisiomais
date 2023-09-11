@@ -2,7 +2,7 @@
 
 O acompanhamento virtual é um processo essencial para a comunicação entre o fisioterapeuta e o paciente em um cenário onde as consultas presenciais não são sempre possíveis ou práticas. Este processo envolve a realização de sessões de videoconferência, fornecimento de recursos educacionais e coleta de feedback e avaliação do atendimento virtual. As oportunidades de melhoria aqui focam na otimização da interface, conexão com outras plataformas de "telessaúde" e aprimoramento da experiência do usuário.
 
-**A representação BPMN deste processo ainda está em desenvolvimento, conforme espeficicado no cronograma da matéria.**
+![Imagem](../assets/processes/processo-6-acompanhar-paciente.png)
 
 #### Detalhamento das atividades
 
