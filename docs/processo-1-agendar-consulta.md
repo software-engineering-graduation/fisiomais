@@ -1,4 +1,4 @@
-### **3.3.1 Processo 1 – Agendamento de Consulta**
+### **3.3.1 Processo 1 – Agendar Consulta**
 
 ---
 
@@ -13,7 +13,7 @@ Este processo permite que os pacientes agendem suas consultas sem a necessidade 
 
 Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
 
-![Exemplo de um Modelo BPMN do PROCESSO 1](images/process.png "Modelo BPMN do Processo 1.")
+![Modelo BPMN do Processo 1](../assets/processes/processo-1-agendar-consulta.png "Modelo BPMN do Processo 1.")
 >Observação: **Em desenvolvimento, imagem meramente ilustrativa.**
 
 ### **Detalhamento das atividades**

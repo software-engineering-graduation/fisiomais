@@ -61,7 +61,7 @@ _Nosso objetivo é criar um sistema integrado que atenda às demandas de pacient
 #### 1.3.1 Objetivos específicos
 
 * Estabelecer um sistema de marcação e gerenciamento de consultas online, facilitando agendamentos, alterações e cancelamentos de consultas em tempo real.
-* Integrar uma plataforma que facilite a “telefisioterapia”, permitindo consultas virtuais.
+* Desenvolver uma plataforma que facilite a “telefisioterapia”, permitindo consultas virtuais.
 * Implementar vídeos e materiais educativos que auxiliem pacientes em seu tratamento.
 * Implementar um sistema de notificações que mantenha pacientes e fisioterapeutas informados sobre suas consultas agendadas, canceladas e remarcadas.
 
@@ -71,50 +71,51 @@ _Nosso objetivo é criar um sistema integrado que atenda às demandas de pacient
 A concentração de especialistas nas capitais e grande cidades da região Sudeste e Sul e os desafios de locomoção enfrentados por pacientes e fisioterapeutas, tornam o acesso limitado. Nosso sistema de fisioterapia, supera as barreiras geográficas, proporcionando um atendimento acessível e econômico para ambos.
 
 ## 2. Participantes do processo
+Com base nas descrições fornecidas, podemos separar os participantes em dois grupos: 
 
-### Participante 1:
-**Nome:** Maria  
-**Idade:** 16 anos  
-**Gênero:** feminino  
-**Ocupação:** Estudante do ensino médio  
-**Descrição:** Adolescente com escoliose que passa muito tempo mexendo no computador. Seus pais trabalham o dia todo, o que impossibilita que alguém a leve para uma consulta.
+### Grupo de Pacientes:
+Esses são indivíduos que procuram tratamento e atendimento fisioterapêutico.
 
----
+1. **Participante 1:**
+   - **Nome:** Maria
+   - **Idade:** 16 anos
+   - **Gênero:** feminino
+   - **Ocupação:** Estudante do ensino médio
+   - **Descrição:** Adolescente com escoliose que passa muito tempo mexendo no computador. Seus pais trabalham o dia todo, o que impossibilita que alguém a leve para uma consulta.
 
-### Participante 2:
-**Nome:** Augusto  
-**Idade:** 85 anos  
-**Gênero:** masculino  
-**Ocupação:** aposentado  
-**Descrição:** Idoso que mora em uma cidade pequena longe de uma capital, o que dificulta as possíveis consultas presenciais com um fisioterapeuta. Tem um familiar que é bom com tecnologia e o cadastrou no aplicativo para que ele pudesse tratar sua hérnia de disco.
+2. **Participante 2:**
+   - **Nome:** Augusto
+   - **Idade:** 85 anos
+   - **Gênero:** masculino
+   - **Ocupação:** aposentado
+   - **Descrição:** Idoso que mora em uma cidade pequena longe de uma capital, o que dificulta as possíveis consultas presenciais com um fisioterapeuta. Tem um familiar que é bom com tecnologia e o cadastrou no aplicativo para que ele pudesse tratar sua hérnia de disco.
 
----
+### Grupo de Fisioterapeutas:
+Esses são profissionais da fisioterapia buscando modernizar, expandir ou iniciar suas práticas.
 
-### Participante 3:
-**Nome:** Lucas  
-**Idade:** 27 anos  
-**Gênero:** masculino  
-**Ocupação:** recém formado em fisioterapia  
-**Descrição:** Lucas é um recém formado que não dispõe de grande capital. Ainda não conseguiu um emprego fixo e deseja começar a carreira, podendo fidelizar sua clientela.
+1. **Participante 3:**
+   - **Nome:** Lucas
+   - **Idade:** 27 anos
+   - **Gênero:** masculino
+   - **Ocupação:** recém formado em fisioterapia
+   - **Descrição:** Lucas é um recém formado que não dispõe de grande capital. Ainda não conseguiu um emprego fixo e deseja começar a carreira, podendo fidelizar sua clientela.
 
----
-
-### Participante 4:
-**Nome:** Vitória  
-**Idade:** 50 anos  
-**Gênero:** feminino  
-**Ocupação:** 20 anos de carreira como fisioterapeuta  
-**Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
+2. **Participante 4:**
+   - **Nome:** Vitória
+   - **Idade:** 50 anos
+   - **Gênero:** feminino
+   - **Ocupação:** 20 anos de carreira como fisioterapeuta
+   - **Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
 
 ## 3. Modelagem do processo de negócio
-
+Neste capítulo, será discutido a modelagem do processo de negócio, apresentando uma proposta e detalhando os processos-chave envolvidos.
 ### 3.1. Análise da situação atual
 
-Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos.
+Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos. ([AS-IS](as_is.md))
 
 ### 3.2. Descrição geral da proposta
 
-Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas.
+Os sistemas existentes carecem de uma solução completa e especializada, principalmente se tratando do acompanhamento depois da consulta. Nossa proposta visa preencher essa lacuna, oferecendo uma plataforma que gerencia desde agendamentos até acompanhamento de progresso, proporcionando uma experiência mais eficiente e personalizada para fisioterapeutas e pacientes. Isso automatizaria tarefas, melhoraria a comunicação e garantiria a segurança das informações médicas. ([TO-BE](to-be.md))
 
 ### 3.3. Modelagem dos processos
 

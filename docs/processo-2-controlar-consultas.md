@@ -1,8 +1,8 @@
-### 3.3.2 Processo 2 – Controle de Consultas Do Fisioterapeuta
+### 3.3.2 Processo 2 – Controlar Consultas Do Fisioterapeuta
 
 Esse processo refere-se ao gerenciamento de consultas por parte do fisioterapeuta. O gerenciamento de consultas desempenha um papel crucial no sistema, pois assegura que o profissional possa ter um controle adequado sobre sua agenda e seus pacientes. O fisioterapeuta poderá visualizar as consultas que estão agendadas para ele, podendo alterar o status da consulta, podendo ser: “Aguardando”, “Em andamento” e “Finalizada”. O fisioterapeuta também poderá visualizar o histórico de consultas, podendo filtrar por data, status e paciente. Como oportunidade de melhorias futuras, o fisioterapeuta poderá visualizar o histórico de consultas de um paciente específico, podendo filtrar por data e status.
 
-**A representação BPMN deste processo ainda será desenvolvida, conforme especificado no cronograma da matéria.**
+![Processo 2](../assets/processes/processo-2-controlar-consultas.png)
 
 #### Detalhamento das atividades
 ---

@@ -1,8 +1,8 @@
-### 3.3.6 Processo 6 – Acompanhamento Virtual
+### 3.3.6 Processo 6 – Acompanhar Paciente
 
-O acompanhamento virtual é um processo essencial para a integração e comunicação entre o fisioterapeuta e o paciente em um cenário onde as consultas presenciais não são sempre possíveis ou práticas. Este processo envolve a realização de sessões de videoconferência, fornecimento de recursos educacionais e coleta de feedback e avaliação do atendimento virtual. As oportunidades de melhoria aqui focam na otimização da interface, integração com outras plataformas de telessaúde e aprimoramento da experiência do usuário.
+O acompanhamento virtual é um processo essencial para a comunicação entre o fisioterapeuta e o paciente em um cenário onde as consultas presenciais não são sempre possíveis ou práticas. Este processo envolve a realização de sessões de videoconferência, fornecimento de recursos educacionais e coleta de feedback e avaliação do atendimento virtual. As oportunidades de melhoria aqui focam na otimização da interface, conexão com outras plataformas de "telessaúde" e aprimoramento da experiência do usuário.
 
-**A representação BPMN deste processo ainda está em desenvolvimento, conforme espeficicado no cronograma da matéria.**
+![Imagem](../assets/processes/processo-6-acompanhar-paciente.png)
 
 #### Detalhamento das atividades
 
@@ -17,7 +17,7 @@ O acompanhamento virtual é um processo essencial para a integração e comunica
 | **Comandos**         |  **Destino**                   | **Tipo**       |
 | ---                  | ---                            | ---            |
 | Iniciar Sessão       | Início da Videoconferência     | default        |
-| Cancelar Sessão      | Cancelamento da Videoconferência | cancel      |
+| Cancelar Sessão      | Cancelamento da Videoconferência | cancel       |
 
 **Atividade 2: Acesso a Recursos Educacionais**
 
