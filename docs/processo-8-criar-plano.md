@@ -2,6 +2,8 @@
 
 Este processo aborda a elaboração do plano de tratamento pelo fisioterapeuta. Ele engloba a adição de textos explicativos, seleção de mídias previamente cadastradas (como vídeos e imagens) e a organização do cronograma do plano. O plano de tratamento visa dar clareza e direcionamento ao paciente sobre os exercícios e etapas do tratamento.
 
+![Modelo BPMN do Processo 8](../assets/processes/processo-8-criar-plano.png "Modelo BPMN do Processo 8.")
+
 #### Detalhamento das atividades
 ---
 

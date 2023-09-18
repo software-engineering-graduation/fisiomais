@@ -14,7 +14,6 @@ Este processo permite que os pacientes agendem suas consultas sem a necessidade 
 Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
 
 ![Modelo BPMN do Processo 1](../assets/processes/processo-1-agendar-consulta.png "Modelo BPMN do Processo 1.")
->Observação: **Em desenvolvimento, imagem meramente ilustrativa.**
 
 ### **Detalhamento das atividades**
 
