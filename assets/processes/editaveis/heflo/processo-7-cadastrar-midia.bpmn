@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://heflo.com/definitions/bpmn/20191101" xmlns:appearh="http://heflo.com/schema/appearance/20191101" exporter="HEFLO BPM (https:/app.heflo.com)" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <process id="Id_3aba603a-31fd-49b3-abbe-b8e085c8edd1" name="Cadastrar Mídia">
+    <extensionElements>
+      <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+        <HEFLOProperties>
+          <HEFLOProperty name="authorName" value="José Victor Mendes Dias" />
+          <HEFLOProperty name="authorEmail" value="jose.dias.1433596@sga.pucminas.br" />
+          <HEFLOProperty name="showGridLines" value="false" />
+          <HEFLOProperty name="uniqueCode" value="fbb1aa17-192a-4d2b-8cf5-4c57c1e0e93b" />
+          <HEFLOProperty name="updatePositions" value="true" />
+          <HEFLOProperty name="refusalReason" />
+          <HEFLOProperty name="requiresRequestor" value="false" />
+          <HEFLOProperty name="requireCancelReason" value="false" />
+          <HEFLOProperty name="ZoomType" value="None" />
+          <HEFLOProperty name="PaddingTop" value="0" />
+          <HEFLOProperty name="PaddingBottom" value="0" />
+          <HEFLOProperty name="PaddingLeft" value="0" />
+          <HEFLOProperty name="PaddingRight" value="0" />
+        </HEFLOProperties>
+      </HEFLOExtensions>
+    </extensionElements>
+    <laneSet id="Id_a6aafbe2-2c8c-4d75-add8-c594f3293d97">
+      <lane id="Id_281314dc-6a1d-443b-a0c5-4146f80d387e" name="Fisioterapeuta">
+        <extensionElements>
+          <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+            <HEFLOProperties>
+              <HEFLOProperty name="bgColor" value="#f2f0e6" />
+              <HEFLOProperty name="borderColor" value="#f2f0e6" />
+              <HEFLOProperty name="UniqueCode" value="be915843-52b2-4855-850c-87d6988104e7" />
+            </HEFLOProperties>
+          </HEFLOExtensions>
+        </extensionElements>
+      </lane>
+    </laneSet>
+    <serviceTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_c27599e9-606d-4adc-bbbb-ea7b38b39de8" name="Salvar">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="dc1a4d5e-d987-4ae7-bdb8-1369d766a5b5" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_a8e3b6f2-2356-4bff-aad1-9737d3bc0a82</incoming>
+      <outgoing>Id_2da4a16d-25d0-413d-af02-f7c24d7ce4b9</outgoing>
+    </serviceTask>
+    <serviceTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_a660f74e-65c7-4345-8ced-9306c331a414" name="Deletar">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="2f6d58b6-95e9-47f1-aa14-980c7f024556" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_869c94fc-349b-46e8-bf88-aacde3b968de</incoming>
+      <outgoing>Id_5c7146c3-1826-4bf5-9998-7627aa199b68</outgoing>
+    </serviceTask>
+    <startEvent id="Id_56ae2206-7c5c-45be-a073-62445a7a81fe" name="Início">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#c2d644" />
+            <HEFLOProperty name="borderColor" value="#c2d644" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="76463fbd-c15a-4c4c-bcda-5977d8b3ca63" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <outgoing>Id_e20d5fa5-9dbe-411a-8af0-da0b8a8e0228</outgoing>
+    </startEvent>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_deff0a8f-232a-4bda-8e66-c8cb4fe7019f" name="Acessar o sistema">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="79eb6add-36de-4d05-8045-1af28ac24827" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_e20d5fa5-9dbe-411a-8af0-da0b8a8e0228</incoming>
+      <outgoing>Id_f3cbefe2-e1e8-46f8-9f32-05f472e94a5f</outgoing>
+    </userTask>
+    <exclusiveGateway id="Id_597419bd-1ffd-4368-8e9c-3002b7001152" name="Cadastrar mídia">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f3af17" />
+            <HEFLOProperty name="borderColor" value="#f3af17" />
+            <HEFLOProperty name="offset" value="0.5 1 0 0" />
+            <HEFLOProperty name="UniqueCode" value="8fddb08e-f447-4bf2-887e-f1bc5566e8c6" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_f3cbefe2-e1e8-46f8-9f32-05f472e94a5f</incoming>
+      <outgoing>Id_dff13c88-15fb-422a-b6fe-ceea85b6f9d4</outgoing>
+      <outgoing>Id_639db5cf-4bd5-4fde-883b-bda8fe5950f6</outgoing>
+    </exclusiveGateway>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_7961f72a-1553-4a26-9d0b-e3e58b6af754" name="Selecionar a(as) mídia(as)">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="f43a3916-02fd-4e2d-a4f3-6e0be8cee2d2" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_639db5cf-4bd5-4fde-883b-bda8fe5950f6</incoming>
+      <outgoing>Id_6dbdbd26-6b37-4e90-9197-3863f87a62a7</outgoing>
+    </userTask>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_1d5c80af-5d70-4e28-a1de-0f79639217e9" name="Selecionar o tipo de mídia">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="2687df7a-ea2a-47b4-ac8f-4e89c9bcbb16" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_dff13c88-15fb-422a-b6fe-ceea85b6f9d4</incoming>
+      <outgoing>Id_3a33c0f8-5cac-479a-8632-c6b3d5f19807</outgoing>
+    </userTask>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_d7ab7ec7-4f4e-4a40-a4e2-047b683834ac" name="Confirmar seleção">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="6dd2f100-884b-468c-abbd-0f3c49b31a6d" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_6dbdbd26-6b37-4e90-9197-3863f87a62a7</incoming>
+      <outgoing>Id_869c94fc-349b-46e8-bf88-aacde3b968de</outgoing>
+    </userTask>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_0295a87c-454f-454e-a681-dd546de53c90" name="Selecionar o arquivo/link">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="55b4bb42-532b-4642-be15-3ba7cc67303f" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_3a33c0f8-5cac-479a-8632-c6b3d5f19807</incoming>
+      <outgoing>Id_a92e5b67-195f-436b-ba4d-f109666ea545</outgoing>
+    </userTask>
+    <userTask isForCompensation="false" startQuantity="1" completionQuantity="1" id="Id_d8252618-7aaf-4c4f-91a0-8fb494aeaf1f" name="Adicionar título e descrição">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="09e26a75-b34a-4d07-9759-6e141d2c72b1" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_a92e5b67-195f-436b-ba4d-f109666ea545</incoming>
+      <outgoing>Id_a8e3b6f2-2356-4bff-aad1-9737d3bc0a82</outgoing>
+    </userTask>
+    <endEvent id="Id_b040958e-53e1-4f08-bd3c-a7355f8722c7" name="Fim">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f06f34" />
+            <HEFLOProperty name="borderColor" value="#f06f34" />
+            <HEFLOProperty name="adaptLabel" value="true" />
+            <HEFLOProperty name="UniqueCode" value="ae84a1e6-4775-4ffc-819c-c49d1a18ff1b" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+      <incoming>Id_5c7146c3-1826-4bf5-9998-7627aa199b68</incoming>
+      <incoming>Id_2da4a16d-25d0-413d-af02-f7c24d7ce4b9</incoming>
+    </endEvent>
+    <sequenceFlow id="Id_2da4a16d-25d0-413d-af02-f7c24d7ce4b9" sourceRef="Id_c27599e9-606d-4adc-bbbb-ea7b38b39de8" targetRef="Id_b040958e-53e1-4f08-bd3c-a7355f8722c7">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="390b1bc3-b7dd-419a-8765-1114b38df215" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_5c7146c3-1826-4bf5-9998-7627aa199b68" sourceRef="Id_a660f74e-65c7-4345-8ced-9306c331a414" targetRef="Id_b040958e-53e1-4f08-bd3c-a7355f8722c7">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="ca600ec3-b849-4d06-9ff5-659d00f13fb3" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_e20d5fa5-9dbe-411a-8af0-da0b8a8e0228" sourceRef="Id_56ae2206-7c5c-45be-a073-62445a7a81fe" targetRef="Id_deff0a8f-232a-4bda-8e66-c8cb4fe7019f">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="bc99c449-31d3-484d-89f3-f5ad84fd26d7" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_f3cbefe2-e1e8-46f8-9f32-05f472e94a5f" sourceRef="Id_deff0a8f-232a-4bda-8e66-c8cb4fe7019f" targetRef="Id_597419bd-1ffd-4368-8e9c-3002b7001152">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="b014e994-0ac2-4a5e-92e5-042b079d0281" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_639db5cf-4bd5-4fde-883b-bda8fe5950f6" sourceRef="Id_597419bd-1ffd-4368-8e9c-3002b7001152" targetRef="Id_7961f72a-1553-4a26-9d0b-e3e58b6af754" name="Excluir mídia">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="3c28190c-744c-4d16-bfb5-395c5d387fb1" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_dff13c88-15fb-422a-b6fe-ceea85b6f9d4" sourceRef="Id_597419bd-1ffd-4368-8e9c-3002b7001152" targetRef="Id_1d5c80af-5d70-4e28-a1de-0f79639217e9">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="62a2377c-1727-4563-9519-f18e34634f12" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_6dbdbd26-6b37-4e90-9197-3863f87a62a7" sourceRef="Id_7961f72a-1553-4a26-9d0b-e3e58b6af754" targetRef="Id_d7ab7ec7-4f4e-4a40-a4e2-047b683834ac">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="c175dd73-8598-49b1-a391-233c8b7a507e" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_3a33c0f8-5cac-479a-8632-c6b3d5f19807" sourceRef="Id_1d5c80af-5d70-4e28-a1de-0f79639217e9" targetRef="Id_0295a87c-454f-454e-a681-dd546de53c90">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="f6d6dfe4-3b20-46f1-b5d2-ee748fddba44" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_869c94fc-349b-46e8-bf88-aacde3b968de" sourceRef="Id_d7ab7ec7-4f4e-4a40-a4e2-047b683834ac" targetRef="Id_a660f74e-65c7-4345-8ced-9306c331a414">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="21c89e45-9a76-4db3-a783-f8e7c8b809ef" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_a92e5b67-195f-436b-ba4d-f109666ea545" sourceRef="Id_0295a87c-454f-454e-a681-dd546de53c90" targetRef="Id_d8252618-7aaf-4c4f-91a0-8fb494aeaf1f">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="7ff845a8-1c7d-4bca-b060-c072b1ba8b70" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Id_a8e3b6f2-2356-4bff-aad1-9737d3bc0a82" sourceRef="Id_d8252618-7aaf-4c4f-91a0-8fb494aeaf1f" targetRef="Id_c27599e9-606d-4adc-bbbb-ea7b38b39de8">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="84a11bb7-5ab7-4a2f-abcd-8776873cd800" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </sequenceFlow>
+  </process>
+  <collaboration id="Id_27ef5319-606e-48df-8769-16ac9185a0c9" name="Cadastrar Mídia">
+    <participant id="Id_2609befc-f75b-4f88-90ce-eebb4108a7ef" name="Cadastrar Mídia" processRef="Id_3aba603a-31fd-49b3-abbe-b8e085c8edd1">
+      <extensionElements>
+        <HEFLOExtensions xmlns="http://www.heflo.com/bpmn20">
+          <HEFLOProperties>
+            <HEFLOProperty name="bgColor" value="#f2f0e6" />
+            <HEFLOProperty name="borderColor" value="#f2f0e6" />
+            <HEFLOProperty name="UniqueCode" value="d086d486-358e-4952-9915-09567ec6608d" />
+          </HEFLOProperties>
+        </HEFLOExtensions>
+      </extensionElements>
+    </participant>
+  </collaboration>
+  <BPMNDiagram id="Id_c8411734-d92c-49cf-b5f9-75e343520c76" xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
+    <BPMNPlane bpmnElement="Id_27ef5319-606e-48df-8769-16ac9185a0c9" id="DiagramElement_bb56d4f5-34a5-4f29-bc9e-f2a4d8676c8d">
+      <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      <BPMNShape id="DiagramElement_2bc09ae3-c32d-4579-880b-198c14cec4c5" bpmnElement="Id_281314dc-6a1d-443b-a0c5-4146f80d387e" isHorizontal="true">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="-266.25" y="-440.00" height="275.69" width="1250.61" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_7b127716-6837-4bc2-a897-48901fdaa5ef" labelStyle="Style_6122e55b-17c3-47d4-af03-3e90ece403fa">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="10" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_c9cb6824-bfcc-40db-b194-2361a0f32d64" bpmnElement="Id_2609befc-f75b-4f88-90ce-eebb4108a7ef" isHorizontal="true">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="-266.25" y="-440.00" height="277.69" width="1278.52" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_d24e8e20-1010-4d09-919b-4bb1edb3c741" labelStyle="Style_a65ae8d0-c2c4-48db-ae7b-28696bd56bc3">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="10" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_e4f8b0b1-d380-4fb7-ae73-c941a0211d54" bpmnElement="Id_c27599e9-606d-4adc-bbbb-ea7b38b39de8">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="717.08" y="-264.31" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_6b45aa32-c528-42be-8244-2c2074164d45" labelStyle="Style_e66a0d72-ee03-4617-90eb-3c8d558ae2c3">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="777.08" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_96630fea-0bfb-4ce6-9e3d-09f5267f3fa6" bpmnElement="Id_a660f74e-65c7-4345-8ced-9306c331a414">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="717.08" y="-378.50" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_6a672c5e-d976-452c-bfb7-d7d4b9a4e538" labelStyle="Style_81558463-5932-4789-9db6-f9aed5447466">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="777.08" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_ff1a14a0-51cd-4b94-b472-7d6baba91195" bpmnElement="Id_56ae2206-7c5c-45be-a073-62445a7a81fe">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="-224.50" y="-360.00" height="42.00" width="42.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_39dc3d8e-58d1-45de-bd12-2633ea1c0266" labelStyle="Style_72f5fd97-83b9-4346-93d9-b8fd9657d2df">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="0" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_87a37fed-0434-4a77-bc15-d03642de7fb6" bpmnElement="Id_deff0a8f-232a-4bda-8e66-c8cb4fe7019f">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="-79.00" y="-378.50" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_4a86c1c8-3ed3-4d3e-91cc-d4425ce341c0" labelStyle="Style_84ed8c38-07bb-44d9-9ae3-0e5245e07510">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="0" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_fcaf8743-1b46-4f3a-ab2f-3e70aa478235" bpmnElement="Id_597419bd-1ffd-4368-8e9c-3002b7001152">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="119.50" y="-379.00" height="80.00" width="80.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_3b9e062c-88d4-4226-9bdf-ef41eb73fc1e" labelStyle="Style_db662244-0164-419f-83fa-b74e5fb76b43">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="159.500" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_cf9be037-57b7-43ed-90ed-d6a3c72a2573" bpmnElement="Id_7961f72a-1553-4a26-9d0b-e3e58b6af754">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="323.00" y="-378.50" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_8d0e0282-6e77-4283-a9ee-bcbce54a7afb" labelStyle="Style_2bd00ccf-892f-4919-bc5e-78527b8bcc81">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="383.00" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_8d22883f-9143-45e7-bd15-6cc2779e57bd" bpmnElement="Id_1d5c80af-5d70-4e28-a1de-0f79639217e9">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="100.00" y="-264.31" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_41cac600-f559-4ba3-add4-b63a4872afd1" labelStyle="Style_2632045a-56b1-4077-b47f-d82b6f7ae886">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="160.00" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_a760e0fb-7f07-4efe-9326-c385fb0f5a0b" bpmnElement="Id_d7ab7ec7-4f4e-4a40-a4e2-047b683834ac">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="524.03" y="-378.50" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_fdabcfdb-15a3-42eb-b9d4-c7bc323aa50f" labelStyle="Style_d7a9eec2-e2e4-49c4-b154-43646751a4e4">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="584.03" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_b69f1deb-6f03-4c55-9c7a-77a172eb8d0f" bpmnElement="Id_0295a87c-454f-454e-a681-dd546de53c90">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="323.00" y="-264.31" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_39c0faac-2dc0-405d-b91f-19a057141506" labelStyle="Style_b36ac520-19c1-453d-9766-2986a6120a06">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="383.00" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_6e6e9fd1-b0cc-499e-9666-6d5e6cce9759" bpmnElement="Id_d8252618-7aaf-4c4f-91a0-8fb494aeaf1f">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="524.03" y="-264.31" height="80.00" width="120.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_ae025704-1d17-4f68-882b-d593178641a2" labelStyle="Style_3a1b34ac-10a2-4ae5-afd8-ba7e26fdea24">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="584.03" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNShape id="DiagramElement_8330b034-4fc9-4877-89ac-a4b59f5bb32d" bpmnElement="Id_b040958e-53e1-4f08-bd3c-a7355f8722c7">
+        <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <Bounds x="919.36" y="-298.50" height="42.00" width="42.00" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        <BPMNLabel id="DiagramElement_14285ffe-c88b-4683-bd8e-362e3eada95f" labelStyle="Style_070304dc-857a-462d-ae1b-bdeb9de694c2">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="940.36" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNShape>
+      <BPMNEdge id="DiagramElement_3a465c6a-f8f9-4226-b3b5-9cdb8cac14bc" bpmnElement="Id_2da4a16d-25d0-413d-af02-f7c24d7ce4b9">
+        <waypoint x="837.08333" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="847.08333" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="873.22448" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="873.22448" y="-275.04434" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="899.36563" y="-275.04434" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="919.36563" y="-275.04434" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_d66fd910-7881-48aa-9350-636e01256b9d" bpmnElement="Id_5c7146c3-1826-4bf5-9998-7627aa199b68">
+        <waypoint x="837.08333" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="847.08333" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="873.22413" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="873.22413" y="-275.08146" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="899.36492" y="-275.08146" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="919.36492" y="-275.08146" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_63417ea8-1327-44c1-883e-20cd599eb8c9" bpmnElement="Id_e20d5fa5-9dbe-411a-8af0-da0b8a8e0228">
+        <waypoint x="-181.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="-171.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="-135.25" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="-135.25" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="-99" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="-79" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_c6eb148a-8027-4d22-a8d1-c64796ec384a" bpmnElement="Id_f3cbefe2-e1e8-46f8-9f32-05f472e94a5f">
+        <waypoint x="41" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="51" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="75.25" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="75.25" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="99.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="119.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_6da02a7c-bec3-49b6-987c-edee655c5ab1" bpmnElement="Id_639db5cf-4bd5-4fde-883b-bda8fe5950f6">
+        <waypoint x="200.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="210.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="210.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="210.5" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="303" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="323" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <BPMNLabel id="DiagramElement_98578c99-8f0e-4f91-bd59-7c0d8f0d92e3" labelStyle="Style_3da481fc-cd42-4b20-8edb-ec95135a810d">
+          <extension xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+          <Bounds x="220.795937" y="0" height="0" width="0" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+        </BPMNLabel>
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_a79daaa9-f9c1-4863-a145-22530098c221" bpmnElement="Id_dff13c88-15fb-422a-b6fe-ceea85b6f9d4">
+        <waypoint x="160" y="-298" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="160" y="-288" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="160" y="-286.15278" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="160" y="-286.15278" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="160" y="-284.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="160" y="-264.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_dbe6c6fa-120f-4405-b870-6cee3bd41734" bpmnElement="Id_6dbdbd26-6b37-4e90-9197-3863f87a62a7">
+        <waypoint x="443" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="453" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="478.51389" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="478.51389" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="504.02778" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="524.02778" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_3ef455b2-9aa7-4eb7-9dd1-7a0ed06a8d3c" bpmnElement="Id_3a33c0f8-5cac-479a-8632-c6b3d5f19807">
+        <waypoint x="220" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="230" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="266.5" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="266.5" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="303" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="323" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_cee2749d-4b9e-417e-8d97-45bd0d8e840d" bpmnElement="Id_869c94fc-349b-46e8-bf88-aacde3b968de">
+        <waypoint x="644.02778" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="654.02778" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="675.55556" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="675.55556" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="697.08333" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="717.08333" y="-338.5" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_861f875d-0845-403d-984c-66356c7b20b1" bpmnElement="Id_a92e5b67-195f-436b-ba4d-f109666ea545">
+        <waypoint x="443" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="453" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="478.51389" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="478.51389" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="504.02778" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="524.02778" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+      <BPMNEdge id="DiagramElement_5c852cc7-1a49-400f-8ba8-54f49f4383c5" bpmnElement="Id_a8e3b6f2-2356-4bff-aad1-9737d3bc0a82">
+        <waypoint x="644.02778" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="654.02778" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="675.55556" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="675.55556" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="697.08333" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+        <waypoint x="717.08333" y="-224.30556" xmlns="http://www.omg.org/spec/DD/20100524/DI" />
+      </BPMNEdge>
+    </BPMNPlane>
+    <BPMNLabelStyle id="Style_6122e55b-17c3-47d4-af03-3e90ece403fa">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_a65ae8d0-c2c4-48db-ae7b-28696bd56bc3">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_e66a0d72-ee03-4617-90eb-3c8d558ae2c3">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_81558463-5932-4789-9db6-f9aed5447466">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_72f5fd97-83b9-4346-93d9-b8fd9657d2df">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_84ed8c38-07bb-44d9-9ae3-0e5245e07510">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_db662244-0164-419f-83fa-b74e5fb76b43">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_2bd00ccf-892f-4919-bc5e-78527b8bcc81">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_2632045a-56b1-4077-b47f-d82b6f7ae886">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_d7a9eec2-e2e4-49c4-b154-43646751a4e4">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_b36ac520-19c1-453d-9766-2986a6120a06">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_3a1b34ac-10a2-4ae5-afd8-ba7e26fdea24">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_070304dc-857a-462d-ae1b-bdeb9de694c2">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+    <BPMNLabelStyle id="Style_3da481fc-cd42-4b20-8edb-ec95135a810d">
+      <Font name="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" xmlns="http://www.omg.org/spec/DD/20100524/DC" />
+    </BPMNLabelStyle>
+  </BPMNDiagram>
+</definitions>
