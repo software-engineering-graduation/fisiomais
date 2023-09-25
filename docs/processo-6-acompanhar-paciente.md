@@ -5,42 +5,115 @@ O acompanhamento virtual é um processo essencial para a comunicação entre o f
 ![Imagem](../assets/processes/processo-6-acompanhar-paciente.png)
 
 #### Detalhamento das atividades
+---
 
-**Atividade 1: Sessões de Videoconferência**
+#### **Atividade: Fazer Login**
 
-| **Campo**            | **Tipo**           | **Restrições**            | **Valor default** |
-| ---                  | ---                | ---                       | ---               |
-| Data da Sessão       | Data               | Futura                    | Data atual        |
-| Horário da Sessão    | Hora               | Conforme disponibilidade  |                   |
-| Link da Videoconferência | Link           | URL válida                |                   |
+**Objetivo:** Permitir que o usuário acesse sua conta pessoal no portal.
 
-| **Comandos**         |  **Destino**                   | **Tipo**       |
-| ---                  | ---                            | ---            |
-| Iniciar Sessão       | Início da Videoconferência     | default        |
-| Cancelar Sessão      | Cancelamento da Videoconferência | cancel       |
+| **Campo**       | **Tipo**       | **Restrições**               | **Valor default** |
+| --------------- | -------------- | ---------------------------- | ----------------- |
+| Nome de Usuário | Caixa de texto | -                            | -                 |
+| Senha           | Senha          | Mínimo de 6 caracteres       | -                 |
 
-**Atividade 2: Acesso a Recursos Educacionais**
+| **Comandos**    | **Destino**         | **Tipo** |
+| --------------- | ------------------ | -------- |
+| Entrar          | Acesso ao Portal   | default  |
+| Esqueci a Senha | Recuperação de Senha| link     |
 
-| **Campo**            | **Tipo**           | **Restrições**            | **Valor default** |
-| ---                  | ---                | ---                       | ---               |
-| Tipo de Recurso      | Seleção única      | Vídeo, Artigo, Animação   |                   |
-| Link do Recurso      | Link               | URL válida                |                   |
+---
 
-| **Comandos**         |  **Destino**                   | **Tipo**       |
-| ---                  | ---                            | ---            |
-| Acessar Recurso      | Visualização do Recurso        | default        |
-| Compartilhar Recurso | Compartilhamento com Paciente  |                |
+#### **Atividade: Acessar Portal**
 
-**Atividade 3: Feedback e Avaliação do Atendimento Virtual**
+**Objetivo:** Permitir que o usuário navegue pelo portal após fazer login.
 
-| **Campo**            | **Tipo**           | **Restrições**            | **Valor default** |
-| ---                  | ---                | ---                       | ---               |
-| Avaliação            | Número             | De 1 a 5                  |                   |
-| Comentários          | Área de texto      | Máximo de 500 caracteres  |                   |
+| **Campo**       | **Tipo** | **Restrições** | **Valor default** |
+| --------------- | -------- | ---------------| ----------------- |
+| Portal          | Link     | -               | -                 |
 
-| **Comandos**         |  **Destino**                   | **Tipo**       |
-| ---                  | ---                            | ---            |
-| Submeter Avaliação   | Registro de Feedback           | default        |
-| Cancelar Avaliação   | Cancelamento da Avaliação      | cancel         |
+---
+
+#### **Atividade: Realizar Acompanhamento**
+
+**Objetivo:** Facilitar o acompanhamento de pacientes, permitindo que o profissional visualize informações detalhadas.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Lista de Pacientes| Tabela       | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Selecionar      | Detalhes do Acompanhamento| link     |
+
+---
+
+#### **Atividade: Registrar Observações**
+
+**Objetivo:** Permitir que o profissional faça anotações importantes sobre o acompanhamento realizado.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Observações     | Área de texto  | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Salvar          | Salvar Observações        | default  |
+
+---
+
+#### **Atividade: Fazer Ajustes**
+
+**Objetivo:** Permitir que o profissional faça ajustes conforme necessário após o acompanhamento.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Ajustes         | Área de texto  | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Confirmar       | Confirmar Ajustes         | default  |
+
+---
+
+#### **Atividade: Enviar Ajustes ao Cliente**
+
+**Objetivo:** Comunicar ao paciente qualquer ajuste feito pelo profissional.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Mensagem        | Área de texto  | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Enviar          | Enviar Ajustes            | default  |
+
+---
+
+#### **Atividade: Receber Notificação de Ajustes Feitos**
+
+**Objetivo:** Garantir que o paciente seja informado sobre quaisquer ajustes realizados pelo profissional.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Notificação     | Área de texto  | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Visualizar      | Visualizar Notificação    | link     |
+
+---
+
+#### **Atividade: Confirmar Recebimento**
+
+**Objetivo:** Assegurar que o paciente confirmou o recebimento das notificações de ajustes.
+
+| **Campo**       | **Tipo**       | **Restrições** | **Valor default** |
+| --------------- | -------------- | ---------------| ----------------- |
+| Confirmar       | Botão          | -              | -                 |
+
+| **Comandos**    | **Destino**               | **Tipo** |
+| --------------- | ------------------------- | -------- |
+| Confirmar       | Confirmação do Recebimento| default  |
+|
 
 ---

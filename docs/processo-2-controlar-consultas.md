@@ -7,55 +7,91 @@ Esse processo refere-se ao gerenciamento de consultas por parte do fisioterapeut
 #### Detalhamento das atividades
 ---
 
-**Atividade: Visualizar Consultas**
+---
 
-O fisioterapeuta pode acessar uma lista com todas as consultas agendadas. Ele também terá opções para confirmar, alterar ou cancelar cada consulta, bem como visualizar detalhes específicos de uma consulta selecionada.
+#### **Atividade: Fazer Login no Portal**
 
-| **Campo**               | **Tipo**           | **Restrições**                             | **Valor default** |
-| ---                     | ---                | ---                                        | ---               |
-| Lista de Consultas      | Tabela             | -                                          | -                 |
-| Detalhes da Consulta    | Área de texto      | -                                          | -                 |
-| Status da Consulta      | Seleção única      | Pendente, Confirmada, Cancelada            | Pendente          |
+**Objetivo:** Permitir que o fisioterapeuta acesse sua conta pessoal no portal.
 
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Confirmar               | Confirmação da Consulta                    | default  |
-| Alterar                 | Tela de Alteração de Consulta              | -        |
-| Cancelar                | Tela de Cancelamento de Consulta           | -        |
+| **Campo**          | **Tipo**       | **Restrições**               | **Valor default** |
+| ------------------ | -------------- | ---------------------------- | ----------------- |
+| Nome de Usuário    | Caixa de texto | -                            | -                 |
+| Senha              | Senha          | Mínimo de 6 caracteres       | -                 |
+
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Entrar             | Acesso ao Portal                   | default  |
+| Esqueci a Senha    | Recuperação de Senha               | link     |
 
 ---
 
-**Atividade: Alterar Disponibilidade/Horário**
+#### **Atividade: Acessar Painel de Consultas**
 
-O fisioterapeuta pode definir quais são seus dias e horários disponíveis para consultas. Ele também pode indicar blocos específicos de horários em que não está disponível.
+**Objetivo:** Permitir que o fisioterapeuta visualize e gerencie suas consultas agendadas.
 
-| **Campo**               | **Tipo**               | **Restrições**                             | **Valor default** |
-| ---                     | ---                    | ---                                        | ---               |
-| Dias de Disponibilidade | Seleção múltipla       | Segunda a Domingo                          | -                 |
-| Horário de Início       | Hora                   | -                                          | -                 |
-| Horário de Término      | Hora                   | -                                          | -                 |
-| Blocos de Indisponibilidade | Tabela             | -                                          | -                 |
+| **Campo**          | **Tipo**       | **Restrições** | **Valor default** |
+| ------------------ | -------------- | --------------- | ----------------- |
+| Lista de Consultas | Tabela         | -               | -                 |
 
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Salvar                  | Confirmação de Alteração                   | default  |
-| Cancelar                | Retorno à Visualização de Consultas        | cancel   |
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Visualizar Detalhes| Detalhes da Consulta Agendada       | link     |
 
 ---
 
-**Atividade: Visualizar Histórico de Consultas**
+#### **Atividade: Revisar e Gerenciar Consultas Agendadas**
 
-O fisioterapeuta pode ver o histórico de consultas de um paciente específico, permitindo uma revisão detalhada de todas as sessões passadas.
+**Objetivo:** Permitir a revisão e gestão eficiente das consultas agendadas.
 
-| **Campo**               | **Tipo**               | **Restrições**                             | **Valor default** |
-| ---                     | ---                    | ---                                        | ---               |
-| Paciente Selecionado    | Caixa de texto         | -                                          | -                 |
-| Lista de Consultas Passadas | Tabela             | -                                          | -                 |
-| Detalhes da Consulta Antiga | Área de texto      | -                                          | -                 |
-| Buscar por Data         | Data                   | -                                          | -                 |
+| **Campo**          | **Tipo**            | **Restrições** | **Valor default** |
+| ------------------ | ------------------- | --------------- | ----------------- |
+| Consultas Agendadas| Tabela              | -               | -                 |
+| Status da Consulta | Seleção única       | Confirmada, Pendente, Cancelada | - |
 
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Visualizar              | Detalhamento da Consulta Antiga            | default  |
-| Voltar                  | Retorno à Visualização de Consultas        | cancel   |
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Alterar            | Tela de Alteração de Consulta       | link     |
+| Cancelar           | Tela de Cancelamento de Consulta    | link     |
+
+---
+
+#### **Atividade: Enviar Notificação de Alterações Relacionado à Consulta para o Paciente**
+
+**Objetivo:** Informar o paciente sobre qualquer mudança relacionada à consulta agendada.
+
+| **Campo**          | **Tipo**            | **Restrições** | **Valor default** |
+| ------------------ | ------------------- | --------------- | ----------------- |
+| Mensagem           | Área de texto       | -               | -                 |
+
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Enviar             | Envio de Notificação                | default  |
+
+---
+
+#### **Atividade: Receber Notificação de Alterações na Consulta**
+
+**Objetivo:** Garantir que o fisioterapeuta seja notificado sobre quaisquer alterações feitas pelo paciente na consulta agendada.
+
+| **Campo**          | **Tipo**      | **Restrições** | **Valor default** |
+| ------------------ | ------------- | --------------- | ----------------- |
+| Notificações       | Tabela        | -               | -                 |
+
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Visualizar Detalhes| Detalhes da Notificação            | link     |
+
+---
+
+#### **Atividade: Confirmar Recebimento**
+
+**Objetivo:** Confirmar o recebimento da notificação sobre as alterações feitas na consulta agendada.
+
+| **Campo**          | **Tipo**      | **Restrições** | **Valor default** |
+| ------------------ | ------------- | --------------- | ----------------- |
+| Confirmar          | Botão         | -               | -                 |
+
+| **Comandos**       | **Destino**                         | **Tipo** |
+| ------------------ | ---------------------------------- | -------- |
+| Confirmar          | Confirmação do Recebimento         | default  |
 
