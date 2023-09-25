@@ -2,71 +2,124 @@
 
 Este processo permite ao fisioterapeuta adicionar vídeos explicativos ou demonstrativos, assim como imagens ilustrativas ou instrucionais para auxiliar no tratamento. Estas mídias visam garantir que os pacientes compreendam e realizem os exercícios corretamente.
 
+Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
+
+![Modelo BPMN do Processo 7](../assets/processes/processo-7-cadastrar-midia.png "Modelo BPMN do Processo 7.")
+
 #### Detalhamento das atividades
----
-
-**Atividade: Upload de Vídeo**
-
-O fisioterapeuta pode fazer o upload de um vídeo do seu dispositivo ou inserir um link de um vídeo hospedado em uma plataforma externa.
-
-| **Campo**               | **Tipo**           | **Restrições**                             | **Valor default** |
-| ---                     | ---                | ---                                        | ---               |
-| Arquivo de Vídeo        | Arquivo            | Formatos suportados: .mp4, .mov, .avi      | -                 |
-| Link do Vídeo           | URL                | Deve ser um link válido                    | -                 |
-| Título do Vídeo         | Caixa de texto     | Máximo de 100 caracteres                   | -                 |
-| Descrição do Vídeo      | Área de texto      | Máximo de 500 caracteres                   | -                 |
-
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Salvar                  | Confirmação de Upload                      | default  |
-| Cancelar                | Retorno à Lista de Mídias                  | cancel   |
 
 ---
 
-**Atividade: Upload de Imagem**
+Nessa seção serão apresentadas descrições detalhadas de cada atividade, orientando sua execução no contexto do processo.
 
-O fisioterapeuta pode fazer o upload de uma imagem do seu dispositivo para ilustrar ou orientar melhor os exercícios.
-
-| **Campo**               | **Tipo**           | **Restrições**                             | **Valor default** |
-| ---                     | ---                | ---                                        | ---               |
-| Arquivo de Imagem       | Arquivo            | Formatos suportados: .jpg, .png, .gif      | -                 |
-| Título da Imagem        | Caixa de texto     | Máximo de 100 caracteres                   | -                 |
-| Descrição da Imagem     | Área de texto      | Máximo de 500 caracteres                   | -                 |
-
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Salvar                  | Confirmação de Upload                      | default  |
-| Cancelar                | Retorno à Lista de Mídias                  | cancel   |
+### Cadastro de mídia
 
 ---
 
-**Atividade: Edição de Mídia**
+**Atividade: Selecionar o tipo de mídia**
 
-Independentemente de ser um vídeo ou uma imagem, o fisioterapeuta pode editar os detalhes da mídia, como título ou descrição.
+Nesta etapa, o usuário pode selecionar o tipo de mídia que deseja adicionar.
 
-| **Campo**               | **Tipo**           | **Restrições**                             | **Valor default** |
-| ---                     | ---                | ---                                        | ---               |
-| Título da Mídia         | Caixa de texto     | Máximo de 100 caracteres                   | Valor atual       |
-| Descrição da Mídia      | Área de texto      | Máximo de 500 caracteres                   | Valor atual       |
+| **Campo**     | **Tipo**      | **Restrições**             | **Valor default** |
+| ------------- | ------------- | -------------------------- | ----------------- |
+| Tipo de Mídia | Seleção única | Opções: Vídeo, Imagem, GIF | Imagem            |
 
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Salvar Alterações       | Confirmação de Edição                      | default  |
-| Cancelar                | Retorno à Visualização da Mídia            | cancel   |
+| **Comandos** | **Destino**               | **Tipo** |
+| ------------ | ------------------------- | -------- |
+| Próximo      | Selecionar o arquivo/link | default  |
+| Cancelar     | Retorno ao menu principal | cancel   |
+
+---
+
+<br>
+
+**Atividade: Selecionar o arquivo/link**
+
+Nesta etapa, o usuário pode selecionar um arquivo ou fornecer um link para o conteúdo de mídia.
+
+| **Campo**        | **Tipo** | **Restrições**                           | **Valor default** |
+| ---------------- | -------- | ---------------------------------------- | ----------------- |
+| Arquivo de Mídia | Arquivo  | Formatos suportados: mp4, jpg, png, jpeg | -                 |
+| Link da Mídia    | URL      | Deve ser um link válido                  | -                 |
+
+| **Comandos** | **Destino**                    | **Tipo** |
+| ------------ | ------------------------------ | -------- |
+| Próximo      | Adicionar o título e descrição | default  |
+| Anterior     | Selecionar o tipo de mídia     | default  |
+| Cancelar     | Retorno ao menu principal      | cancel   |
 
 ---
 
-**Atividade: Exclusão de Mídia**
+<br>
 
-O fisioterapeuta pode optar por excluir uma mídia previamente cadastrada, seja ela vídeo ou imagem.
+**Atividade: Adicionar o título e descrição**
 
-| **Campo**               | **Tipo**           | **Restrições**                             | **Valor default** |
-| ---                     | ---                | ---                                        | ---               |
-| Seleção de Mídia        | Checkbox           | -                                          | -                 |
+Nesta etapa, o usuário pode adicionar um título e uma descrição para o conteúdo de mídia selecionado.
 
-| **Comandos**            |  **Destino**                               | **Tipo** |
-| ---                     | ---                                        | ---      |
-| Excluir                 | Confirmação de Exclusão                    | default  |
-| Cancelar                | Retorno à Lista de Mídias                  | cancel   |
+| **Campo**          | **Tipo**       | **Restrições**            | **Valor default** |
+| ------------------ | -------------- | ------------------------- | ----------------- |
+| Título do Mídia    | Caixa de texto | Máximo de 100 caracteres  | -                 |
+| Descrição do Mídia | Área de texto  | Máximo de 1000 caracteres | -                 |
+
+| **Comandos** | **Destino**               | **Tipo** |
+| ------------ | ------------------------- | -------- |
+| Salvar       | Confirmar o upload        | default  |
+| Anterior     | Selecionar o arquivo/link | default  |
+| Cancelar     | Retorno ao menu principal | cancel   |
 
 ---
+
+<br>
+
+**Atividade: Salvar**
+
+Nesta etapa, o usuário pode confirmar o upload do conteúdo de mídia com título e descrição.
+
+| **Comandos** | **Destino**                    | **Tipo** |
+| ------------ | ------------------------------ | -------- |
+| Salvar       | Confirmação de Upload          | default  |
+| Anterior     | Adicionar o título e descrição | default  |
+| Cancelar     | Retorno ao menu principal      | cancel   |
+
+### Excluir mídia
+
+---
+
+**Atividade: Selecionar a(as) mídias(as)**
+
+Nesta etapa, o usuário pode selecionar uma ou várias mídias da lista para realizar ações como deletar.
+
+| **Campo**           | **Tipo**         | **Restrições**                         | **Valor default** |
+| ------------------- | ---------------- | -------------------------------------- | ----------------- |
+| Mídias Selecionadas | Seleção múltipla | Selecionar uma ou mais mídias da lista | Nenhuma seleção   |
+
+| **Comandos**      | **Destino**                 | **Tipo** |
+| ----------------- | --------------------------- | -------- |
+| Confirmar seleção | Confirmar seleção de mídias | default  |
+| Cancelar          | Retorno à Lista de Mídias   | cancel   |
+
+---
+
+<br>
+
+**Atividade: Confirmar seleção**
+
+Nesta etapa, o usuário pode confirmar a seleção das mídias escolhidas.
+
+| **Comandos** | **Destino**                 | **Tipo** |
+| ------------ | --------------------------- | -------- |
+| Deletar      | Deletar mídias selecionadas | default  |
+| Cancelar     | Retorno à Lista de Mídias   | cancel   |
+
+---
+
+<br>
+
+**Atividade: Deletar**
+
+Nesta etapa, o usuário pode confirmar a exclusão das mídias selecionadas.
+
+| **Comandos** | **Destino**                       | **Tipo** |
+| ------------ | --------------------------------- | -------- |
+| Confirmar    | Confirmação de exclusão de mídias | default  |
+| Cancelar     | Retorno à Lista de Mídias         | cancel   |
