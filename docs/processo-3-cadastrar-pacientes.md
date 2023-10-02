@@ -4,6 +4,7 @@ O Cadastro de pacientes é um papel crucial desempenhado em sistemas de saúde e
 
 A representação BPMN (Business Process Model and Notation) deste processo ainda será desenvolvida, conforme especificado no cronograma da matéria.
 
+![Modelo BPMN do Processo 3](../assets/processes/processo-3-cadastrar-pacientes.png "Modelo BPMN do Processo 3.")
 
 #### Detalhamento das atividades
 
