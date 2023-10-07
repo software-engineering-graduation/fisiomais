@@ -131,6 +131,8 @@ Os sistemas existentes carecem de uma solução completa e especializada, princi
 
 [PROCESSO 6 - Acompanhamento Virtual](processo-6-acompanhamento-virtual.md "Detalhamento do Processo 6.")
 
+[PROCESSO 7 - Gerenciar Mídias](processo-7-gerenciar-midias.md "Detalhamento do Processo 7.")
+
 ## 4. Projeto da solução
 
 O documento a seguir apresenta o detalhamento do projeto da solução. São apresentadas cinco seções que descrevem, respectivamente: diagrama de classes, diagrama de componentes, diagrama de entidade-relacionamento, tecnologias utilizadas e guias de estilo.
