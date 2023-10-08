@@ -1,10 +1,10 @@
-### 3.3.7 Processo 7 - Cadastrar Mídias
+### 3.3.7 Processo 7 - Gerenciar Mídias
 
-Este processo permite ao fisioterapeuta adicionar vídeos explicativos ou demonstrativos, assim como imagens ilustrativas ou instrucionais para auxiliar no tratamento. Estas mídias visam garantir que os pacientes compreendam e realizem os exercícios corretamente.
+Este processo permite ao fisioterapeuta adicionar vídeos explicativos ou demonstrativos, assim como imagens ilustrativas ou instrucionais para auxiliar no tratamento. Assim como deletar o que já tem cadastrado. Estas mídias visam garantir que os pacientes compreendam e realizem os exercícios corretamente.
 
-Em seguida, apresentamos o modelo do processo 1, descrito no padrão BPMN.
+Em seguida, apresentamos o modelo do processo 7, descrito no padrão BPMN.
 
-![Modelo BPMN do Processo 7](../assets/processes/processo-7-cadastrar-midia.png "Modelo BPMN do Processo 7.")
+![Modelo BPMN do Processo 7](../assets/processes/processo-7-gerenciar-midia.png "Modelo BPMN do Processo 7.")
 
 #### Detalhamento das atividades
 
@@ -69,57 +69,36 @@ Nesta etapa, o usuário pode adicionar um título e uma descrição para o conte
 
 ---
 
-<br>
-
-**Atividade: Salvar**
-
-Nesta etapa, o usuário pode confirmar o upload do conteúdo de mídia com título e descrição.
-
-| **Comandos** | **Destino**                    | **Tipo** |
-| ------------ | ------------------------------ | -------- |
-| Salvar       | Confirmação de Upload          | default  |
-| Anterior     | Adicionar o título e descrição | default  |
-| Cancelar     | Retorno ao menu principal      | cancel   |
-
 ### Excluir mídia
 
 ---
+**Atividade: Listar mídias cadastradas**
+
+Nesta etapa, o sistema consulta o banco de dados e lista para o usuário todas as mídias previamente cadastradas.
+
+---
+
+<br>
 
 **Atividade: Selecionar a(as) mídias(as)**
 
-Nesta etapa, o usuário pode selecionar uma ou várias mídias da lista para realizar ações como deletar.
+Nesta etapa, o usuário pode selecionar uma ou várias mídias da lista.
 
 | **Campo**           | **Tipo**         | **Restrições**                         | **Valor default** |
 | ------------------- | ---------------- | -------------------------------------- | ----------------- |
 | Mídias Selecionadas | Seleção múltipla | Selecionar uma ou mais mídias da lista | Nenhuma seleção   |
 
-| **Comandos**      | **Destino**                 | **Tipo** |
-| ----------------- | --------------------------- | -------- |
-| Confirmar seleção | Confirmar seleção de mídias | default  |
-| Cancelar          | Retorno à Lista de Mídias   | cancel   |
+| **Comandos** | **Destino**       | **Tipo** |
+| ------------ | ----------------- | -------- |
+| Confirmar    | Confirmar seleção | default  |
 
 ---
 
-<br>
+**Confirmar seleção**
 
-**Atividade: Confirmar seleção**
+Deletar as mídias selecionadas.
 
-Nesta etapa, o usuário pode confirmar a seleção das mídias escolhidas.
-
-| **Comandos** | **Destino**                 | **Tipo** |
-| ------------ | --------------------------- | -------- |
-| Deletar      | Deletar mídias selecionadas | default  |
-| Cancelar     | Retorno à Lista de Mídias   | cancel   |
-
----
-
-<br>
-
-**Atividade: Deletar**
-
-Nesta etapa, o usuário pode confirmar a exclusão das mídias selecionadas.
-
-| **Comandos** | **Destino**                       | **Tipo** |
-| ------------ | --------------------------------- | -------- |
-| Confirmar    | Confirmação de exclusão de mídias | default  |
-| Cancelar     | Retorno à Lista de Mídias         | cancel   |
+| **Comandos** | **Destino**                                   | **Tipo** |
+| ------------ | --------------------------------------------- | -------- |
+| Deletar      | Deletar mídias selecionadas (Fim do processo) | default  |
+| Cancelar     | Retorno à Lista de Mídias                     | cancel   |
