@@ -69,10 +69,10 @@ Nesta etapa, o paciente escolhe a data e o horário da consulta.
 | Data da Consulta    | Data     | Pré-definidos pelo Fisioterapeuta | -                 |
 | Horário da Consulta | Hora     | Pré-definidos pelo Fisioterapeuta | -                 |
 
-| **Comandos** | **Destino**                          | **Tipo** |
-| ------------ | ------------------------------------ | -------- |
-| Próximo      | Confirmar solicitação de agendamento | default  |
-| Cancelar     | Retorno ao menu principal            | cancel   |
+| **Comandos** | **Destino**                       | **Tipo** |
+| ------------ | --------------------------------- | -------- |
+| Confirmar    | Enviar solicitação de agendamento | default  |
+| Cancelar     | Retorno ao menu principal         | cancel   |
 
 ---
 
@@ -86,19 +86,7 @@ Nesta etapa, o sistema envia a solicitação de agendamento para o fisioterapeut
 
 <br>
 
-**Atividade: Receber solicitação de agendamento**
-
-Nesta etapa, o sistema recebe uma solicitação de agendamento do paciente.
-
-- Se controle automático estiver ativado:
-
-  - Sistema verifica disponibilidade de horários do fisioterapeuta e confirma ou não o agendamento.
-
-- Caso contrário:
-
-<br>
-
-**Atividade: Confirmar agendamento**
+**Atividade: Confirmar agendamento (Manual)**
 
 Nesta etapa, o Fisioterapeuta decide se irá confirmar ou não o agendamento solicitado.
 
@@ -107,7 +95,13 @@ Nesta etapa, o Fisioterapeuta decide se irá confirmar ou não o agendamento sol
 | Confirmar   | Seleção única  | Opções: Sim, Não         | -                 |
 | Observações | Caixa de texto | Máximo de 500 caracteres | ---               |
 
-| **Comandos** | **Destino**                          | **Tipo** |
-| ------------ | ------------------------------------ | -------- |
-| Salvar      | Confirmar solicitação de agendamento | default  |
-| Cancelar     | Retorno ao menu principal            | cancel   |
+| **Comandos** | **Destino**                             | **Tipo** |
+| ------------ | --------------------------------------- | -------- |
+| Salvar       | Finalizar solicitação (Fim do processo) | default  |
+| Cancelar     | Retorno ao menu principal               | cancel   |
+
+<br>
+
+**Atividade: Confirmar agendamento (Automático)**
+
+Nesta etapa, o sistema compara a data e horário solicitados com as disponíveis cadastradas pelo Fisioterapeuta para efetuar ou não o agendamento.
