@@ -1,5 +1,9 @@
 # Fisio+
 
+<div style="text-align: center;">
+  <img src="docs/images/logo_stroke_white.svg" alt="Logo Fisiomais" style="width: 100%; max-width: 70%; display: block; margin: 0 auto;" />
+</div>
+
 ## Integrantes
 
 * Bruna Ribeiro Pérez | 1426468@sga.pucminas.br
