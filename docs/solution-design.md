@@ -8,25 +8,27 @@ A seguir o modelo de dados (DER) da aplicação:
 
 ### 4.2. Diagrama de classes
 
-![Diagrama de classes](images/classes.gif "Diagrama de classes")
+![Diagrama de classes](images/classes.png "Diagrama de classes")
 
-_Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes._
+<p style="color: yellow;">
+Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.
+</p>
 
 ### 4.3. Diagrama de componentes
 
 ![Diagrama de componentes](images/diagram-components.png "Diagrama de componentes")
 
-Interface Angular: Serve como a camada de apresentação do sistema. Utilizando Angular, fornece uma interface intuitiva para o usuário, e estabelece conexão com o servidor via APIs REST.
+**Interface Angular:** Serve como a camada de apresentação do sistema. Utilizando Angular, fornece uma interface intuitiva para o usuário, e estabelece conexão com o servidor via APIs REST.
 
-Servidor Spring Boot: É o núcleo do sistema, desenvolvido com Spring Boot. Responsável pela lógica de negócios e comunicação com a base de dados. Dentro deste, temos:
+**Servidor Spring Boot:** É o núcleo do sistema, desenvolvido com Spring Boot. Responsável pela lógica de negócios e comunicação com a base de dados. Dentro deste, temos:
 
-Módulo de Autenticação: Usando Spring Security, assegura a autenticação e autorização dos usuários.
+**Módulo de Autenticação:** Usando Spring Security, assegura a autenticação e autorização dos usuários.
 
-Módulo de Gestão de Consultas: Administra todos os aspectos relacionados às consultas fisioterapêuticas.
+**Módulo de Gestão de Consultas:** Administra todos os aspectos relacionados às consultas fisioterapêuticas.
 
-Módulo de Notificação: Gerencia as notificações enviadas aos usuários.
+**Módulo de Notificação:** Gerencia as notificações enviadas aos usuários.
 
-Repositório de Dados MySQL/JPA: Utiliza o MySQL como sistema de gestão de base de dados e o JPA como interface ORM. Garante a armazenagem e recuperação eficiente dos dados do sistema.
+**Repositório de Dados MySQL/JPA:** Utiliza o MySQL como sistema de gestão de base de dados e o JPA como interface ORM. Garante a armazenagem e recuperação eficiente dos dados do sistema.
 
 ### 4.4. Tecnologias
 
