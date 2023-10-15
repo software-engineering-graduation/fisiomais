@@ -14,16 +14,19 @@ _Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada um
 
 ### 4.3. Diagrama de componentes
 
-_Apresente o diagrama de componentes da aplicação, indicando os elementos da arquitetura e as interfaces entre eles. Faça uma descrição sucinta dos componentes indicando o papel de cada um deles dentro da arquitetura/estilo/padrão arquitetural. Indique também quais componentes serão reutilizados (navegadores, SGBDs, middlewares, etc), quais componentes serão adquiridos por serem proprietários e quais componentes precisam ser desenvolvidos._
+![Diagrama de componentes](images/diagram-components.png "Diagrama de componentes")
 
-![Diagrama de componentes](images/componentes.png "Diagrama de componentes")
+Interface Angular: Serve como a camada de apresentação do sistema. Utilizando Angular, fornece uma interface intuitiva para o usuário, e estabelece conexão com o servidor via APIs REST.
 
-_Apresente uma descrição detalhada dos artefatos que constituem o diagrama de componentes._
+Servidor Spring Boot: É o núcleo do sistema, desenvolvido com Spring Boot. Responsável pela lógica de negócios e comunicação com a base de dados. Dentro deste, temos:
 
-Exemplo: conforme diagrama apresentado, as entidades participantes da solução são:
+Módulo de Autenticação: Usando Spring Security, assegura a autenticação e autorização dos usuários.
 
-- **Componente 1** - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc magna, accumsan eget porta a, tincidunt sed mauris. Suspendisse orci nulla, sagittis a lorem laoreet, tincidunt imperdiet ipsum. Morbi malesuada pretium suscipit.
-- **Componente 2** - Praesent nec nisi hendrerit, ullamcorper tortor non, rutrum sem. In non lectus tortor. Nulla vel tincidunt eros.
+Módulo de Gestão de Consultas: Administra todos os aspectos relacionados às consultas fisioterapêuticas.
+
+Módulo de Notificação: Gerencia as notificações enviadas aos usuários.
+
+Repositório de Dados MySQL/JPA: Utiliza o MySQL como sistema de gestão de base de dados e o JPA como interface ORM. Garante a armazenagem e recuperação eficiente dos dados do sistema.
 
 ### 4.4. Tecnologias
 
@@ -38,7 +41,7 @@ A seguir, apresentamos uma descrição detalhada das tecnologias e ferramentas q
 | Versionamento           | [Git](https://git-scm.com/) + [Github](https://github.com/)                                  |
 | Criação dos estilos     | [Figma](https://www.figma.com/)                                                              |
 | Persistência            | [Hibernate](https://hibernate.org/)                                                          |
-| Front end               | [React](https://react.dev/) + [Tailwind CSS](https://tailwindcss.com/)                       |
+| Front end               | [Angular](https://angular.io/) + [Tailwind CSS](https://tailwindcss.com/)                       |
 | Back end                | [SpringBoot](https://spring.io/projects/spring-boot) + [Spring Security ]()                  |
 | Modelagem DB            | [MySQL Workbench](https://www.mysql.com/products/workbench)                                  |
 | Modelagem BPMN          | [Heflo](https://www.heflo.com/pt-br/)                                                        |
