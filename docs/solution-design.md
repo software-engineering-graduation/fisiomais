@@ -43,7 +43,7 @@ A seguir, apresentamos uma descrição detalhada das tecnologias e ferramentas q
 | Versionamento           | [Git](https://git-scm.com/) + [Github](https://github.com/)                                  |
 | Criação dos estilos     | [Figma](https://www.figma.com/)                                                              |
 | Persistência            | [Hibernate](https://hibernate.org/)                                                          |
-| Front end               | [Angular](https://angular.io/) + [Tailwind CSS](https://tailwindcss.com/)                       |
+| Front end               | [Angular](https://angular.io/) + [Tailwind CSS](https://tailwindcss.com/)                    |
 | Back end                | [SpringBoot](https://spring.io/projects/spring-boot) + [Spring Security ]()                  |
 | Modelagem DB            | [MySQL Workbench](https://www.mysql.com/products/workbench)                                  |
 | Modelagem BPMN          | [Heflo](https://www.heflo.com/pt-br/)                                                        |
