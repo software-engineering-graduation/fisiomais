@@ -64,7 +64,8 @@ Diagrama de interação das tecnologias e do usuário com o sistema
 ### 4.5. Guias de estilo
 
 <p style="color: yellow;">
-Layout padrão do site (HTML e CSS) que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
+O Layout é caracterizando por um cabeçalho horizontal, contendo a logo e o slogan do software. Logo abaixo temos a barra de navegação e abaixo desta o conteúdo. Por fim, os detalhes e informações do software se encontram no rodapé do site
+
 </p>
 <p style="color: yellow;">
 Explique as guias de estilo utilizadas no seu projeto.
@@ -73,7 +74,15 @@ Explique as guias de estilo utilizadas no seu projeto.
 ## Design
 
 <p style="color: yellow;">
-Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo do sistema. Defina os menus padrões, entre outras coisas.
+Guia de Estilo: Cores na Área de Saúde
+
+Escolhemos nossa paleta de cores para se adequar à área de saúde:
+
+Azul: Representa confiança, essencial na área de saúde. Usamos um azul vibrante (#0A83CF) para excelência e um azul mais claro (#0BBFD9) para tranquilidade.
+
+Verde: Reflete calma e bem-estar. O verde-azulado (#00C3A5) destaca harmonia, o verde claro (#0BD980) simboliza esperaça e saúde, e o verde vibrante (#0ACF42) da um contraste.
+
+Essas cores são escolhidas para transmitir confiança, bem-estar e compromisso com a saúde na área.
 </p>
 
 ## Logo
