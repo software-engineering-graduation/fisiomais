@@ -8,25 +8,26 @@ A seguir o modelo de dados (DER) da aplicação:
 
 ### 4.2. Diagrama de classes
 
-![Diagrama de classes](images/classes.gif "Diagrama de classes")
+![Diagrama de classes](images/classes.png "Diagrama de classes")
 
-_Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes._
+<!-- TODO - adicionar -->
+__Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.__
 
 ### 4.3. Diagrama de componentes
 
 ![Diagrama de componentes](images/diagram-components.png "Diagrama de componentes")
 
-Interface Angular: Serve como a camada de apresentação do sistema. Utilizando Angular, fornece uma interface intuitiva para o usuário, e estabelece conexão com o servidor via APIs REST.
+**Interface Angular:** Serve como a camada de apresentação do sistema. Utilizando Angular, fornece uma interface intuitiva para o usuário, e estabelece conexão com o servidor via APIs REST.
 
-Servidor Spring Boot: É o núcleo do sistema, desenvolvido com Spring Boot. Responsável pela lógica de negócios e comunicação com a base de dados. Dentro deste, temos:
+**Servidor Spring Boot:** É o núcleo do sistema, desenvolvido com Spring Boot. Responsável pela lógica de negócios e comunicação com a base de dados. Dentro deste, temos:
 
-Módulo de Autenticação: Usando Spring Security, assegura a autenticação e autorização dos usuários.
+**Módulo de Autenticação:** Usando Spring Security, assegura a autenticação e autorização dos usuários.
 
-Módulo de Gestão de Consultas: Administra todos os aspectos relacionados às consultas fisioterapêuticas.
+**Módulo de Gestão de Consultas:** Administra todos os aspectos relacionados às consultas fisioterapêuticas.
 
-Módulo de Notificação: Gerencia as notificações enviadas aos usuários.
+**Módulo de Notificação:** Gerencia as notificações enviadas aos usuários.
 
-Repositório de Dados MySQL/JPA: Utiliza o MySQL como sistema de gestão de base de dados e o JPA como interface ORM. Garante a armazenagem e recuperação eficiente dos dados do sistema.
+**Repositório de Dados MySQL/JPA:** Utiliza o MySQL como sistema de gestão de base de dados e o JPA como interface ORM. Garante a armazenagem e recuperação eficiente dos dados do sistema.
 
 ### 4.4. Tecnologias
 
@@ -41,7 +42,7 @@ A seguir, apresentamos uma descrição detalhada das tecnologias e ferramentas q
 | Versionamento           | [Git](https://git-scm.com/) + [Github](https://github.com/)                                  |
 | Criação dos estilos     | [Figma](https://www.figma.com/)                                                              |
 | Persistência            | [Hibernate](https://hibernate.org/)                                                          |
-| Front end               | Angular + [Tailwind CSS](https://tailwindcss.com/)                       |
+| Front end               | [Angular](https://angular.io/) + [Tailwind CSS](https://tailwindcss.com/)                    |
 | Back end                | [SpringBoot](https://spring.io/projects/spring-boot) + [Spring Security ]()                  |
 | Modelagem DB            | [MySQL Workbench](https://www.mysql.com/products/workbench)                                  |
 | Modelagem BPMN          | [Heflo](https://www.heflo.com/pt-br/)                                                        |
@@ -61,18 +62,19 @@ Diagrama de interação das tecnologias e do usuário com o sistema
 
 ### 4.5. Guias de estilo
 
-<p style="color: yellow;">
-Layout padrão do site (HTML e CSS) que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
-</p>
-<p style="color: yellow;">
-Explique as guias de estilo utilizadas no seu projeto.
-</p>
+O Layout é caracterizando por um cabeçalho horizontal, contendo a logo e o slogan do software. Logo abaixo temos a barra de navegação e abaixo desta o conteúdo. Por fim, os detalhes e informações do software se encontram no rodapé do site
 
 ## Design
 
-<p style="color: yellow;">
-Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo do sistema. Defina os menus padrões, entre outras coisas.
-</p>
+Guia de Estilo: Cores na Área de Saúde
+
+Escolhemos nossa paleta de cores para se adequar à área de saúde:
+
+**Azul:** Representa confiança, essencial na área de saúde. Usamos um azul vibrante (#0A83CF) para excelência e um azul mais claro (#0BBFD9) para tranquilidade.
+
+**Verde:** Reflete calma e bem-estar. O verde-azulado (#00C3A5) destaca harmonia, o verde claro (#0BD980) simboliza esperaça e saúde, e o verde vibrante (#0ACF42) da um contraste.
+
+Essas cores são escolhidas para transmitir confiança, bem-estar e compromisso com a saúde na área.
 
 ## Logo
 
@@ -104,14 +106,11 @@ A seguir estão dispostas a fonte escolhida para os textos da plataforma, seus p
 
 ## Iconografia
 
-<p style="color: yellow;">
-  Defina os ícones que serão utilizados e suas respectivas funções.
-</p>
+<!-- TODO - adicionar -->
+__Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.__
 
-<p style="color: yellow;">
-  Apresente os estilos CSS criados para cada um dos elementos apresentados. Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.
-</p>
-
+__Defina os ícones que serão utilizados e suas respectivas funções.__
+__Apresente os estilos CSS criados para cada um dos elementos apresentados. Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.__
 
 > **Links Úteis**:
 >
