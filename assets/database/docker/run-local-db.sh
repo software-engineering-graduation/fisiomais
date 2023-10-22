@@ -11,9 +11,9 @@ build_image() {
 
 # Function to run the Docker container with a volume
 run_container() {
-    docker run --rm -d --name $CONTAINER_NAME -p 3306:3306 \
-        $IMAGE_NAME \
-        -v mysql_data:/var/lib/mysql
+    docker run -d --name $CONTAINER_NAME -p 3306:3306 \
+        -v mysql_data:/var/lib/mysql \
+        $IMAGE_NAME
     # recover_initial_dump
 }
 

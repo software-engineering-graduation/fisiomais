@@ -81,8 +81,8 @@ INSERT INTO `fisiomais_db`.`exercicio` (`nome`, `descricao`, `fisioterapeuta__id
 ('Exercício H', 'Exercício de fortalecimento para deltoides.', 2),
 ('Exercício I', 'Exercício de relaxamento para a região lombar.', 3);
 
--- Populando a tabela exercicio_has_videos:
-INSERT INTO `fisiomais_db`.`exercicio_has_videos` (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`) VALUES 
+-- Populando a tabela exercicio_has_midias:
+INSERT INTO `fisiomais_db`.`exercicio_has_midias` (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`) VALUES 
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3),
