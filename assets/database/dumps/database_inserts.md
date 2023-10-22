@@ -28,7 +28,7 @@ INSERT INTO `mydb`.`paciente` (`nome`, `email`, `password`, `data_nascimento`, `
 ```
 #### Populando a tabela agenda:
 ```sql
-INSERT INTO `fisiomais_db`.`agenda` (`disponivel`, `dia`, `horario_inicio`, `horario_fim`, `fisioterapeuta__id`) VALUES 
+INSERT INTO `mydb`.`agenda` (`disponivel`, `dia`, `horario_inicio`, `horario_fim`, `fisioterapeuta__id`) VALUES 
 (1, 1, '08:00:00', '09:00:00', 1),  
 (0, 2, '10:00:00', '11:00:00', 1),  
 (1, 3, '09:30:00', '10:30:00', 2),  
