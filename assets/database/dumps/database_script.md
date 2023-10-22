@@ -48,6 +48,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`fisioterapeuta` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
+-- Table `mydb`.`agenda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`agenda` (
+  `_id` INT NOT NULL AUTO_INCREMENT,
+  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `disponivel` TINYINT NOT NULL,
+  `dia` TINYINT NOT NULL DEFAULT 0,
+  `horario_inicio` TIME NULL,
+  `horario_fim` TIME NULL,
+  `fisioterapeuta__id` INT NOT NULL,
+  PRIMARY KEY (`_id`, `fisioterapeuta__id`),
+  INDEX `fk_agenda_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
+  CONSTRAINT `fk_agenda_fisioterapeuta1`
+    FOREIGN KEY (`fisioterapeuta__id`)
+    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
 -- Table `mydb`.`consulta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`consulta` (
@@ -179,24 +199,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tratamento_has_exercicios` (
   CONSTRAINT `fk_tratamento_has_exercicios_exercicio1`
     FOREIGN KEY (`exercicio__id`)
     REFERENCES `mydb`.`exercicio` (`_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `mydb`.`notificacao`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`notificacao` (
-  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `_id` INT NOT NULL AUTO_INCREMENT,
-  `consulta__id` INT NOT NULL,
-  `consulta_paciente__id` INT NOT NULL,
-  `consulta_fisioterapeuta__id` INT NOT NULL,
-  `vizualizada` TINYINT NULL,
-  PRIMARY KEY (`_id`, `consulta__id`, `consulta_paciente__id`, `consulta_fisioterapeuta__id`),
-  CONSTRAINT `fk_notificacao_consulta1`
-    FOREIGN KEY (`consulta__id` , `consulta_paciente__id` , `consulta_fisioterapeuta__id`)
-    REFERENCES `mydb`.`consulta` (`_id` , `paciente__id` , `fisioterapeuta__id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
