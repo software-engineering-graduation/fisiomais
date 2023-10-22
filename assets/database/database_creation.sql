@@ -102,7 +102,7 @@ ENGINE = InnoDB;
 -- Table `fisiomais_db`.`tratamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento` (
-  `create_time` TIMESTAMP NULL,
+  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `fisioterapeuta__id` INT NOT NULL,
   `paciente__id` INT NOT NULL,
@@ -146,9 +146,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fisiomais_db`.`exercicio_has_videos`
+-- Table `fisiomais_db`.`exercicio_has_midias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_videos` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_midias` (
   `midia__id` INT NOT NULL,
   `midia_fisioterapeuta__id` INT NOT NULL,
   `exercicio__id` INT NOT NULL,
@@ -176,12 +176,12 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento_has_exercicios` (
   `exercicio__id` INT NOT NULL,
   PRIMARY KEY (`tratamento__id`, `exercicio__id`),
   INDEX `fk_tratamento_has_exercicios_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
-  CONSTRAINT `fk_tratamento_has_exercicios_tratamento1`
+  CONSTRAINT `fk_tratamento_has_exercicios_tratamento10`
     FOREIGN KEY (`tratamento__id`)
     REFERENCES `fisiomais_db`.`tratamento` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tratamento_has_exercicios_exercicio1`
+  CONSTRAINT `fk_tratamento_has_exercicios_exercicio10`
     FOREIGN KEY (`exercicio__id`)
     REFERENCES `fisiomais_db`.`exercicio` (`_id`)
     ON DELETE NO ACTION
@@ -211,9 +211,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fisiomais_db`.`tratamento_has_exercicios_copy1`
+-- Table `fisiomais_db`.`tratamento_has_exercicios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento_has_exercicios_copy1` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento_has_exercicios` (
   `tratamento__id` INT NOT NULL,
   `exercicio__id` INT NOT NULL,
   PRIMARY KEY (`tratamento__id`, `exercicio__id`),

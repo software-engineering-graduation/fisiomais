@@ -58,7 +58,7 @@ SELECT
     m.descricao,
     f.nome AS autor
 FROM midia AS m
-    INNER JOIN exercicio_has_videos AS ev ON m._id = ev.midia__id
+    INNER JOIN exercicio_has_midias AS ev ON m._id = ev.midia__id
     INNER JOIN exercicio AS e ON ev.exercicio__id = e._id
     INNER JOIN fisioterapeuta AS f ON e.fisioterapeuta__id = f._id
 WHERE ev.exercicio__id = 6;

@@ -11,15 +11,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema fisiomais_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `fisiomais_db` DEFAULT CHARACTER SET utf8 ;
+USE `fisiomais_db` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`paciente`
+-- Table `fisiomais_db`.`paciente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`paciente` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`paciente` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`paciente` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`fisioterapeuta`
+-- Table `fisiomais_db`.`fisioterapeuta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`fisioterapeuta` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`fisioterapeuta` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`fisioterapeuta` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`agenda`
+-- Table `fisiomais_db`.`agenda`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`agenda` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`agenda` (
   `_id` INT NOT NULL AUTO_INCREMENT,
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `disponivel` TINYINT NOT NULL,
@@ -62,15 +62,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`agenda` (
   INDEX `fk_agenda_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_agenda_fisioterapeuta1`
     FOREIGN KEY (`fisioterapeuta__id`)
-    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    REFERENCES `fisiomais_db`.`fisioterapeuta` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`consulta`
+-- Table `fisiomais_db`.`consulta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`consulta` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`consulta` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `paciente__id` INT NOT NULL,
@@ -85,20 +85,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`consulta` (
   INDEX `fk_consulta_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_consulta_paciente`
     FOREIGN KEY (`paciente__id`)
-    REFERENCES `mydb`.`paciente` (`_id`)
+    REFERENCES `fisiomais_db`.`paciente` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_consulta_fisioterapeuta1`
     FOREIGN KEY (`fisioterapeuta__id`)
-    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    REFERENCES `fisiomais_db`.`fisioterapeuta` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`midia`
+-- Table `fisiomais_db`.`midia`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`midia` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`midia` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `fisioterapeuta__id` INT NOT NULL,
@@ -111,15 +111,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`midia` (
   INDEX `fk_midia_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_midia_fisioterapeuta1`
     FOREIGN KEY (`fisioterapeuta__id`)
-    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    REFERENCES `fisiomais_db`.`fisioterapeuta` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`tratamento`
+-- Table `fisiomais_db`.`tratamento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`tratamento` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento` (
   `create_time` TIMESTAMP NULL,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `fisioterapeuta__id` INT NOT NULL,
@@ -133,20 +133,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tratamento` (
   INDEX `fk_tratamento_paciente1_idx` (`paciente__id` ASC) VISIBLE,
   CONSTRAINT `fk_tratamento_fisioterapeuta1`
     FOREIGN KEY (`fisioterapeuta__id`)
-    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    REFERENCES `fisiomais_db`.`fisioterapeuta` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tratamento_paciente1`
     FOREIGN KEY (`paciente__id`)
-    REFERENCES `mydb`.`paciente` (`_id`)
+    REFERENCES `fisiomais_db`.`paciente` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`exercicio`
+-- Table `fisiomais_db`.`exercicio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`exercicio` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(150) NOT NULL,
@@ -156,49 +156,49 @@ CREATE TABLE IF NOT EXISTS `mydb`.`exercicio` (
   INDEX `fk_exercicio_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_exercicio_fisioterapeuta1`
     FOREIGN KEY (`fisioterapeuta__id`)
-    REFERENCES `mydb`.`fisioterapeuta` (`_id`)
+    REFERENCES `fisiomais_db`.`fisioterapeuta` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`exercicio_has_videos`
+-- Table `fisiomais_db`.`exercicio_has_midias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`exercicio_has_videos` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_midias` (
   `midia__id` INT NOT NULL,
   `midia_fisioterapeuta__id` INT NOT NULL,
   `exercicio__id` INT NOT NULL,
   PRIMARY KEY (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`),
   INDEX `fk_exercicio_videos_midia1_idx` (`midia__id` ASC, `midia_fisioterapeuta__id` ASC) VISIBLE,
-  INDEX `fk_exercicio_has_videos_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
+  INDEX `fk_exercicio_has_midias_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
   CONSTRAINT `fk_exercicio_videos_midia1`
     FOREIGN KEY (`midia__id` , `midia_fisioterapeuta__id`)
-    REFERENCES `mydb`.`midia` (`_id` , `fisioterapeuta__id`)
+    REFERENCES `fisiomais_db`.`midia` (`_id` , `fisioterapeuta__id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exercicio_has_videos_exercicio1`
+  CONSTRAINT `fk_exercicio_has_midias_exercicio1`
     FOREIGN KEY (`exercicio__id`)
-    REFERENCES `mydb`.`exercicio` (`_id`)
+    REFERENCES `fisiomais_db`.`exercicio` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`tratamento_has_exercicios`
+-- Table `fisiomais_db`.`tratamento_has_exercicios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`tratamento_has_exercicios` (
+CREATE TABLE IF NOT EXISTS `fisiomais_db`.`tratamento_has_exercicios` (
   `tratamento__id` INT NOT NULL,
   `exercicio__id` INT NOT NULL,
   PRIMARY KEY (`tratamento__id`, `exercicio__id`),
   INDEX `fk_tratamento_has_exercicios_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
   CONSTRAINT `fk_tratamento_has_exercicios_tratamento1`
     FOREIGN KEY (`tratamento__id`)
-    REFERENCES `mydb`.`tratamento` (`_id`)
+    REFERENCES `fisiomais_db`.`tratamento` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tratamento_has_exercicios_exercicio1`
     FOREIGN KEY (`exercicio__id`)
-    REFERENCES `mydb`.`exercicio` (`_id`)
+    REFERENCES `fisiomais_db`.`exercicio` (`_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
