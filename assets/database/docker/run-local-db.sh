@@ -26,7 +26,6 @@ stop_container() {
 restart_container() {
     stop_container
     run_container
-    # recover_initial_dump
 }
 
 # Function to remove the Docker container
