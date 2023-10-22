@@ -45,8 +45,13 @@ clean_database() {
     # Create a timestamp for the backup filename
     timestamp=$(date +"%Y%m%d%H%M%S")
 
-    # Backup the MySQL data
-    tar -zcvf "mysql_data_backups/mysql_data_backup_$timestamp.tar.gz" -C mysql_data
+    # Check if there are any files or directories in the mysql_data directory
+    if [ "$(ls -A mysql_data)" ]; then
+        # Backup the MySQL data
+        tar -zcvf "mysql_data_backups/mysql_data_backup_$timestamp.tar.gz" -C mysql_data .
+    else
+        echo "No data to backup in mysql_data directory."
+    fi
 
     # Remove the container
     docker rm -f $CONTAINER_NAME
@@ -58,18 +63,26 @@ clean_database() {
     rm -rf mysql_data/*
 
     run_container
+
+    # recover_initial_dump
+}
+
+
+recover_initial_dump(){
+    docker exec -i $CONTAINER_NAME mysql -uroot -p1234 < database_data_initialization_script.sql
 }
 
 
 # Display usage instructions
 usage() {
-    echo "Usage: $0 [build|run|stop|restart|remove|clean]"
+    echo "Usage: $0 [build|run|stop|restart|remove|clean|initial_dump]"
     echo "Build: Build the Docker image"
     echo "Run: Run the Docker container"
     echo "Stop: Stop the Docker container"
     echo "Restart: Restart the Docker container"
     echo "Remove: Remove the Docker container"
     echo "Clean: Clean the database (remove container and volume)"
+    echo "Initial_dump: Recover the initial dump"
     exit 1
 }
 
@@ -81,6 +94,7 @@ case "$1" in
     restart) restart_container ;;
     remove) remove_container ;;
     clean) clean_database ;;
+    initial_dump) recover_initial_dump ;;
     *) usage ;;
 esac
 

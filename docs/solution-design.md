@@ -10,9 +10,8 @@ A seguir o modelo de dados (DER) da aplicação:
 
 ![Diagrama de classes](images/classes.png "Diagrama de classes")
 
-<p style="color: yellow;">
-Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.
-</p>
+<!-- TODO - adicionar -->
+__Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.__
 
 ### 4.3. Diagrama de componentes
 
@@ -63,18 +62,19 @@ Diagrama de interação das tecnologias e do usuário com o sistema
 
 ### 4.5. Guias de estilo
 
-<p style="color: yellow;">
-Layout padrão do site (HTML e CSS) que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
-</p>
-<p style="color: yellow;">
-Explique as guias de estilo utilizadas no seu projeto.
-</p>
+O Layout é caracterizando por um cabeçalho horizontal, contendo a logo e o slogan do software. Logo abaixo temos a barra de navegação e abaixo desta o conteúdo. Por fim, os detalhes e informações do software se encontram no rodapé do site
 
 ## Design
 
-<p style="color: yellow;">
-Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo do sistema. Defina os menus padrões, entre outras coisas.
-</p>
+Guia de Estilo: Cores na Área de Saúde
+
+Escolhemos nossa paleta de cores para se adequar à área de saúde:
+
+**Azul:** Representa confiança, essencial na área de saúde. Usamos um azul vibrante (#0A83CF) para excelência e um azul mais claro (#0BBFD9) para tranquilidade.
+
+**Verde:** Reflete calma e bem-estar. O verde-azulado (#00C3A5) destaca harmonia, o verde claro (#0BD980) simboliza esperaça e saúde, e o verde vibrante (#0ACF42) da um contraste.
+
+Essas cores são escolhidas para transmitir confiança, bem-estar e compromisso com a saúde na área.
 
 ## Logo
 
@@ -106,14 +106,11 @@ A seguir estão dispostas a fonte escolhida para os textos da plataforma, seus p
 
 ## Iconografia
 
-<p style="color: yellow;">
-  Defina os ícones que serão utilizados e suas respectivas funções.
-</p>
+<!-- TODO - adicionar -->
+__Acrescente uma breve descrição sobre o diagrama apresentado. Descreva cada uma de suas classes.__
 
-<p style="color: yellow;">
-  Apresente os estilos CSS criados para cada um dos elementos apresentados. Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.
-</p>
-
+__Defina os ícones que serão utilizados e suas respectivas funções.__
+__Apresente os estilos CSS criados para cada um dos elementos apresentados. Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.__
 
 > **Links Úteis**:
 >
