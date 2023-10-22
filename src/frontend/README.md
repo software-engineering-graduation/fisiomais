@@ -1,59 +1,27 @@
-# Arquitetura de Pastas FisioMais
+# Frontend
 
-Este documento descreve a estrutura de pastas do projeto Angular e explica o propósito de cada diretório.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
 
----
+## Development server
 
-## 📂 `frontend/`
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-### 📂 `e2e/`
+## Code scaffolding
 
-Contém os testes de ponta a ponta usando Protractor. Estes testes são usados para simular ações do usuário e garantir que todo o fluxo da aplicação esteja funcionando corretamente.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### 📂 `src/`
+## Build
 
-Diretório principal que contém todo o código-fonte da aplicação.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-#### 📂 `app/`
+## Running unit tests
 
-O diretório central do código-fonte.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-##### 📂 `core/`
+## Running end-to-end tests
 
-- **guards/**: Contém os guards que podem ser usados para proteger rotas ou delay na carga de módulos.
-- **interceptors/**: Interceptors do HTTP para capturar ou modificar requisições e respostas.
-- **services/**: Serviços singleton que são usados em toda a aplicação.
-- **models/**: Modelos e interfaces globais.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-##### 📂 `shared/`
+## Further help
 
-- **components/**: Componentes reutilizáveis em várias partes do aplicativo.
-- **directives/**: Diretivas customizadas.
-- **pipes/**: Pipes para transformação de dados.
-- **modules/**: Módulos que encapsulam componentes, diretivas e pipes relacionados.
-
-##### 📂 `features/`
-
-Diretório para módulos de features. Cada subdiretório representa uma feature distinta da aplicação.
-
-- **feature-1/**, **feature-2/**, etc.: Cada feature pode conter:
-  - **components/**: Componentes específicos dessa feature.
-  - **services/**: Serviços específicos dessa feature.
-  - **feature-name.module.ts**: Módulo da feature.
-
-#### 📂 `assets/`
-
-Contém imagens, ícones e outros arquivos estáticos.
-
-#### 📂 `environments/`
-
-- Contém arquivos de configuração de ambiente, como produção e desenvolvimento.
-
----
-
-## Arquivos de Configuração
-
-- **angular.json**: Configurações do Angular CLI para o projeto.
-- **package.json**: Define pacotes npm que são instalados como dependências do projeto.
-
----
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
