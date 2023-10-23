@@ -14,7 +14,6 @@ run_container() {
     docker run -d --name $CONTAINER_NAME -p 3306:3306 \
         -v mysql_data:/var/lib/mysql \
         $IMAGE_NAME
-    # recover_initial_dump
 }
 
 # Function to stop the Docker container
@@ -26,7 +25,6 @@ stop_container() {
 restart_container() {
     stop_container
     run_container
-    # recover_initial_dump
 }
 
 # Function to remove the Docker container
