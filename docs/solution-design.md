@@ -90,8 +90,22 @@ A seguir está apresentada a logo desenvolvida para o nosso sistema, a fonte esc
 Abaixo estão apresentadas as cores primárias do site.
 
 <div style="text-align: center;">
-  <img src="images/cores.svg" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Caribean_Green.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Turqoise_Surf.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Rich_Eletric_Blue.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Dark_Pastel_Green.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Malachite.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
 </div>
+
+Abaixo estão apresentadas as cores de sombreamento do site.
+
+<div style="text-align: center;">
+  <img src="images/Pine_Green.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Rich_Black.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Mint_Leaf.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+  <img src="images/Shindig.png" alt="Tipografia" style="width: 100%; max-width: 80%; display: block; margin: 0 auto;" />
+</div>
+
 
 ## Tipografia
 
