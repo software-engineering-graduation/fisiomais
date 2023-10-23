@@ -1,19 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { PreloaderService, SettingsService } from '@core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  constructor(private preloader: PreloaderService, private settings: SettingsService) {}
-
-  ngOnInit() {
-    this.settings.setDirection();
-    this.settings.setTheme();
-  }
-
-  ngAfterViewInit() {
-    this.preloader.hide();
-  }
+export class AppComponent {
+  title = 'frontend';
 }

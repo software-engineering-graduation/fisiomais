@@ -25,7 +25,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -67,11 +67,7 @@
               "browserTarget": "frontend:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "browserTarget": "frontend:build",
-            "proxyConfig": "proxy.config.js"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -92,19 +88,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
               "src/styles.css"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
           }
         }
       }
