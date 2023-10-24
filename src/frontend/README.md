@@ -1,27 +1,42 @@
-# Frontend
+# Frontend - Guia de Desenvolvimento
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+Este repositório contém o projeto frontend da plataforma ***Fisio+*** desenvolvido com React, Vite, e outras bibliotecas. Siga as instruções abaixo para configurar seu ambiente de desenvolvimento.
 
-## Development server
+## Desenvolvimento Local
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Pré-requisitos
 
-## Code scaffolding
+Certifique-se de ter o seguinte software instalado em seu sistema:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Node.js](https://nodejs.org/) (preferencialmente a versão 18.2.0)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- Extensão "Remote - Containers" para o Visual Studio Code (opcional, apenas se você desejar usar o Dev Container)
 
-## Build
+Para desenvolver localmente, siga os passos abaixo:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Instale as dependências do projeto:
 
-## Running unit tests
+   ```bash
+   npm install
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Inicie o servidor de desenvolvimento:
 
-## Running end-to-end tests
+   ```bash
+   npm run dev
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   Isso iniciará o servidor de desenvolvimento Vite. Abra seu navegador e acesse [http://localhost:5173](http://localhost:5173) para visualizar o aplicativo em desenvolvimento.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Desenvolvimento com Dev Container (Visual Studio Code)
+
+Se preferir, você pode usar um Dev Container do Visual Studio Code para configurar um ambiente de desenvolvimento isolado. Siga os passos abaixo:
+
+1. Abra o Visual Studio Code na pasta do projeto.
+
+2. Se você possui a extensão "Remote - Containers" instalada, uma notificação será exibida, sugerindo a abertura do projeto no Dev Container. Clique em "Reopen in Container".
+
+3. O Visual Studio Code criará e abrirá um ambiente de desenvolvimento isolado usando Docker. Todas as ferramentas e dependências necessárias já estarão configuradas.
+
+4. Dentro do Dev Container, você pode executar os mesmos comandos listados na seção "Desenvolvimento Local" para construir, executar e depurar seu aplicativo.
