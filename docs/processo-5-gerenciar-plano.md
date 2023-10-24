@@ -2,7 +2,7 @@
 
 Este processo refere-se ao desenvolvimento e gerenciamento de um plano de tratamento individualizado para o paciente. O plano de tratamento é essencial para orientar e monitorar o progresso do paciente ao longo do tempo. O fisioterapeuta irá elaborar um plano após a consulta e poderá fazer ajustes conforme necessário, com base no feedback e evolução do paciente. O plano inclui exercícios, vídeos instrutivos e outros recursos educativos para ajudar o paciente. Futuramente, o sistema poderá oferecer monitoramento em tempo real do progresso do paciente, utilizando métricas e feedbacks automatizados.
 
-![Processo 5](../assets/processes/processo-5-gerenciar-plano.png)
+![Processo 5](../assets/processes/processo-5-gerenciar-plano.jpg)
 
 #### Detalhamento das atividades
 ---
