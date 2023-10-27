@@ -28,7 +28,6 @@ Nesta etapa, o sistema apresenta os dados do paciente, que já foram preenchidos
 | **Comandos**  | **Destino**                       | **Tipo** |
 | ------------- | --------------------------------- | -------- |
 | Próximo Passo | Preencher informações da consulta | default  |
-| Cancelar      | Página principal                  | cancel   |
 
 ---
 
@@ -47,7 +46,6 @@ Nesta etapa, o paciente escolhe a data e o horário da consulta e o profissional
 | **Comandos** | **Destino**           | **Tipo** |
 | ------------ | --------------------- | -------- |
 | Próximo      | Confirmar agendamento | default  |
-| Cancelar     | Página principal      | cancel   |
 
 ---
 
@@ -65,7 +63,6 @@ Nesta etapa, o Fisioterapeuta decide se irá confirmar ou não o agendamento na 
 | **Comandos** | **Destino**                             | **Tipo** |
 | ------------ | --------------------------------------- | -------- |
 | Salvar       | Finalizar solicitação (Fim do processo) | default  |
-| Cancelar     | Retorno ao menu principal               | cancel   |
 
 <br>
 
