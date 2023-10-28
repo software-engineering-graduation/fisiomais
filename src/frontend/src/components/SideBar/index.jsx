@@ -6,7 +6,7 @@ import { Menu, Layout } from 'antd';
 
 import FisiomaisLogo from '../../assets/images/logo_stroke_white.svg';
 import SideMenuItens from '../../data/menu_itens';
-import {setPage} from '../../store/currentPage'
+import { setPage } from '../../store/currentPage'
 
 const Sider = Layout.Sider;
 
@@ -32,6 +32,14 @@ const SideBar = ({ collapsed }) => {
 
     return (
         <Sider
+            style={{
+                overflow: 'auto',
+                height: '100vh',
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                bottom: 0,
+            }}
             trigger={null}
             collapsible collapsed={collapsed}
             theme="light"

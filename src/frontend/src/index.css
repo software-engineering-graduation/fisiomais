@@ -8,5 +8,5 @@ html, body {
 #root {
   padding: 0;
   margin: 0;
-  height: 100vh;
+  min-height: 100%;
 }
