@@ -1,22 +1,16 @@
 import { Layout } from 'antd';
 const { Content } = Layout;
 
+import { MainContentContainer } from './style.jsx'
+
 import PagesRouter from 'components/MainPage/PagesRouter';
 
 const MainContent = ({ colorBgContainer }) => {
     return (
 
-        <Content
-            style={{
-                margin: '24px 16px',
-                padding: 24,
-                background: colorBgContainer,
-                overflow: 'initial',
-            }}
-        >
-
+        <MainContentContainer data-color-bg-container={colorBgContainer}>
             <PagesRouter />
-        </Content>
+        </MainContentContainer>
     );
 }
 

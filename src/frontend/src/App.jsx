@@ -6,6 +6,8 @@ import SideBar from 'components/MainPage/SideBar';
 import MainContent from 'components/MainPage/MainContent';
 import PageHeader from 'components/MainPage/PageHeader';
 
+import { RightSideContainer } from 'style.jsx';
+
 const App = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -16,14 +18,10 @@ const App = () => {
         <div >
             <Layout hasSider >
                 <SideBar collapsed={collapsed} />
-                <Layout className="site-layout" style={{
-                    minHeight: '100vh',
-                    marginLeft: collapsed ? 80 : 200,
-                    transition: 'ease-in-out .2s'
-                }}>
+                <RightSideContainer className="site-layout" collapsed={collapsed}>
                     <PageHeader collapsed={collapsed} setCollapsed={setCollapsed} colorBgContainer={colorBgContainer} />
                     <MainContent colorBgContainer={colorBgContainer} />
-                </Layout>
+                </RightSideContainer>
             </Layout>
         </div>
     );
