@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { setCurrentMedia } from '../../store/mediaDetail'
-import { Divider } from 'antd';
+import { Divider, List, Skeleton, Space } from 'antd';
 
 import midiasJson from './data/mock-data.json' // TODO - Remover mock data
 import TableHeader from './components/TableHeader';
 import MidiasTable from './components/MidiasTable';
+import axios from 'axios';
 
 const columns = [
     {
@@ -33,57 +34,75 @@ const Midias = () => {
     const [shortMidias, setShortMidias] = useState([]);
     const [deletionStack, setDeletionStack] = useState([]);
     const [deleteMidias, setDeleteMidias] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch()
-
-    const data = midiasJson.midias.map(midia => {
-        const { id, titulo, descricao, tipo, created_at } = midia;
-        const formatedDate = new Date(created_at).toLocaleString('pt-BR');
-
-        const dispatchMidiaData = (id) => (event) => {
-            event.preventDefault();
-
-            const midia = midiasJson.midias.find(midia => midia.id === id) ?? undefined;
-
-            dispatch(setCurrentMedia(midia))
-
-            navigate(`/midia/${id}`);
-        }
-
-        const routeToMidia = (titulo, id) => {
-            return <a
-                onClick={dispatchMidiaData(id)}>
-                {titulo}
-            </a>
-        }
-
-        const titleComponent = routeToMidia(titulo, id);
-
-        return {
-            key: id,
-            id,
-            titulo: titleComponent,
-            descricao: descricao.substring(0, 50) + '...',
-            tipo,
-            created_at: formatedDate,
-        }
-    });
+    const dispatch = useDispatch();
 
     // most recent first
-    const orderedData = data.sort((a, b) => {
-        if (a.created_at > b.created_at) {
-            return -1;
+    const orderedData = (data) => {
+        return data.sort((a, b) => {
+            if (a.created_at > b.created_at) {
+                return -1;
+            }
+            if (a.created_at < b.created_at) {
+                return 1;
+            }
+            return 0;
         }
-        if (a.created_at < b.created_at) {
-            return 1;
-        }
-        return 0;
+        );
     }
-    );
+
+    const fetchMidias = async () => {
+        setLoading(true);
+        // FIXME - simulate delay to show loading
+
+        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`).
+            then(response => {
+                const data = response.data.map(midia => {
+                    const { id, titulo, descricao, tipo, created_at } = midia;
+                    const formatedDate = new Date(created_at).toLocaleString('pt-BR');
+
+                    const dispatchMidiaData = (id) => (event) => {
+                        event.preventDefault();
+
+                        const midia = midiasJson.midias.find(midia => midia.id === id) ?? undefined;
+
+                        dispatch(setCurrentMedia(midia))
+
+                        navigate(`/midia/${id}`);
+                    }
+
+                    const routeToMidia = (titulo, id) => {
+                        return <a
+                            onClick={dispatchMidiaData(id)}>
+                            {titulo}
+                        </a>
+                    }
+
+                    const titleComponent = routeToMidia(titulo, id);
+
+                    return {
+                        key: id,
+                        id,
+                        titulo: titleComponent,
+                        descricao: descricao.substring(0, 50) + '...',
+                        tipo,
+                        created_at: formatedDate,
+                    }
+                });
+                setShortMidias(orderedData(data));
+            }
+            ).catch(error => {
+                console.log(error);
+            }).
+            finally(() => {
+                setLoading(false);
+            });
+    }
 
     useEffect(() => {
-        setShortMidias(orderedData);
+        fetchMidias();
     }, []);
 
     useEffect(() => {
@@ -136,7 +155,7 @@ const Midias = () => {
     }
 
     return (
-        <>
+        <div>
             <TableHeader
                 deleteMidias={deleteMidias}
                 activateDeleteMidias={activateDeleteMidias}
@@ -144,6 +163,7 @@ const Midias = () => {
                 handleMediaDeletion={handleMediaDeletion}
             />
             <Divider />
+
             <MidiasTable
                 handleMediaDeletion={handleMediaDeletion}
                 handleRowSelection={handleRowSelection}
@@ -151,8 +171,9 @@ const Midias = () => {
                 shortMidias={shortMidias}
                 columns={columns}
                 deleteMidias={deleteMidias}
+                loading={loading}
             />
-        </>
+        </div>
     );
 };
 export default Midias;
