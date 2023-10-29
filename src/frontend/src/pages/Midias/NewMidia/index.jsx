@@ -69,7 +69,7 @@ const NewMidia = () => {
                 wrapperCol={{ span: 15 }}
             >
                 <Form.Item label="Tipo" name="tipo">
-                    <Select defaultValue={"Imagem"}>
+                    <Select defaultValue="Imagem">
                         <Option value="Vídeo">Vídeo</Option>
                         <Option value="GIF">GIF</Option>
                         <Option value="Imagem">Imagem</Option>
