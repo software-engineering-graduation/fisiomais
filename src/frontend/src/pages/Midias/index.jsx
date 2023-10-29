@@ -265,7 +265,6 @@ const Midias = () => {
                     pagination={getPageSizeBasedOnScreenSize()}
                 />
             </div>
-
         </>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
-import { InboxOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space, Flex } from 'antd';
+import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space } from 'antd';
 
 const { Dragger } = Upload;
 const { Option } = Select;
