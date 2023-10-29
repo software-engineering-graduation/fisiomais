@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "moment": "^2.29.4",
-    "prop-types": "^15.8.1",
-    "react-big-calendar": "^1.8.4"
-  }
-}
