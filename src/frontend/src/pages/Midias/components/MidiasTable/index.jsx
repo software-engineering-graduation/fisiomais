@@ -38,7 +38,7 @@ const getShortMidias = (midias, loading) => {
     });
 }
 
-const MidiasTable = ({ deleteMidias, handleRowSelection, getPageSizeBasedOnScreenSize, shortMidias, columns, loading }) => {
+const MidiasTable = ({ deleteMidias, handleRowSelection, getPageSizeBasedOnScreenSize, shortMidias, columns, loadingMidias: loading }) => {
     return (
         <Spin spinning={loading} >
             <Table style={{
@@ -47,10 +47,10 @@ const MidiasTable = ({ deleteMidias, handleRowSelection, getPageSizeBasedOnScree
             }}
                 rowSelection={deleteMidias ? {
                     type: 'checkbox',
-                    onSelect: (record, selected, selectedRows, nativeEvent) => {
+                    onSelect: (record, selected) => {
                         handleRowSelection(record.id, selected);
                     },
-                    onSelectAll: (selected, selectedRows, changeRows) => {
+                    onSelectAll: (selected, selectedRows) => {
                         for (const row of selectedRows) {
                             handleRowSelection(row.id, selected);
                         }

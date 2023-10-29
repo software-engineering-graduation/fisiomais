@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { setCurrentMedia } from '../../store/mediaDetail'
-import { Divider, List, Skeleton, Space } from 'antd';
+import { Divider, notification } from 'antd';
 
-import midiasJson from './data/mock-data.json' // TODO - Remover mock data
 import TableHeader from './components/TableHeader';
 import MidiasTable from './components/MidiasTable';
 import axios from 'axios';
@@ -34,7 +33,19 @@ const Midias = () => {
     const [shortMidias, setShortMidias] = useState([]);
     const [deletionStack, setDeletionStack] = useState([]);
     const [deleteMidias, setDeleteMidias] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loadingMidias, setLoadingMidias] = useState(true);
+    const [loadingDeletion, setLoadingDeletion] = useState(false);
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotification = (type, title, description) => {
+        api[type]({
+            message: title,
+            description: description,
+            duration: 2,
+            placement: 'bottomRight',
+        });
+    };
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -53,9 +64,26 @@ const Midias = () => {
         );
     }
 
+    const fetchDeletedMidias = async (id) => {
+        let finalError = {};
+        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midias/${id}`).
+            then(response => {
+                if (response.status !== 200) {
+                    finalError = response;
+                }
+            }
+            ).catch(error => {
+                finalError = error;
+            }).
+            finally((error) => {
+            });
+
+        return finalError;
+    }
+
     const fetchMidias = async () => {
-        setLoading(true);
-        // FIXME - simulate delay to show loading
+        setLoadingMidias(true);
+        // FIXME - simulate delay to show loadingMidias
 
         await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`).
             then(response => {
@@ -97,16 +125,13 @@ const Midias = () => {
                 console.log(error);
             }).
             finally(() => {
-                setLoading(false);
+                setLoadingMidias(false);
             });
     }
 
     useEffect(() => {
         fetchMidias();
     }, []);
-
-    useEffect(() => {
-    }, [deletionStack]);
 
     const activateDeleteMidias = () => {
         setDeleteMidias(true);
@@ -125,12 +150,28 @@ const Midias = () => {
     }
 
     const handleMediaDeletion = () => {
-        // FIXME remove from shortMidias
-        const filteredMidias = shortMidias.filter(midia => !deletionStack.includes(midia.id));
-        setShortMidias(filteredMidias);
+        // FIXME - fix when backend is ready, to delete from array if ids
+        let erroShown = false
+        deletionStack.forEach(async element => {
+            if (!erroShown) {
 
+                const resp = await fetchDeletedMidias(element);
+
+                if (resp.message) {
+                    openNotification('error', `Deletar Mídias: ${shortMidias[element].titulo.props.children}`, errorMessage.message);
+                    erroShown = true;
+                }
+            }
+        });
+
+        if (!erroShown) {
+            openNotification('success', 'Deletar Mídias', 'Mídias deletadas com sucesso!');
+        }
+
+        fetchMidias();
         setDeleteMidias(false);
         setDeletionStack([]);
+
     }
 
     const handleRowSelection = (id, event) => {
@@ -153,9 +194,9 @@ const Midias = () => {
         setDeleteMidias(false);
         setDeletionStack([]);
     }
-
     return (
         <div>
+            {contextHolder}
             <TableHeader
                 deleteMidias={deleteMidias}
                 activateDeleteMidias={activateDeleteMidias}
@@ -171,7 +212,7 @@ const Midias = () => {
                 shortMidias={shortMidias}
                 columns={columns}
                 deleteMidias={deleteMidias}
-                loading={loading}
+                loadingMidias={loadingMidias}
             />
         </div>
     );
