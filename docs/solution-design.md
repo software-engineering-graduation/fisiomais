@@ -66,7 +66,8 @@ O Layout é caracterizando por um cabeçalho horizontal, contendo a logo e o slo
 
 Exemplo do layout do site:
 <div style="text-align: center;">
-  <img src="images/layout_exemp.png" alt="Exemplo do layout" style="width: 100%; max-width: 70%; display: block; margin: 0 auto;" />
+  <img src="images/tela_gerenciamento_midias.png" alt="Exemplo do layout" style="width: 100%; max-width: 70%; display: block; margin: 0 auto;" />
+  <p style="text-align: center; font-style: italic;">Exemplo de Interface de Gerenciamento de Mídias</p>
 </div>
 
 ## Design
