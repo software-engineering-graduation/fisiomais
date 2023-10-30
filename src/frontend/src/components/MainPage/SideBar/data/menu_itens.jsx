@@ -15,30 +15,30 @@ const SideMenuItens = [
         label: 'Mídias',
         route: 'midias',
     },
-    {
-        key: 2,
-        icon: <CiMedicalClipboard />,
-        label: 'Exercicios',
-        route: 'exercicios',
-    },
+    // {
+    //     key: 2,
+    //     icon: <CiMedicalClipboard />,
+    //     label: 'Exercicios',
+    //     route: 'exercicios',
+    // },
     {
         key: 3,
         icon: <GrSchedule />,
         label: 'Agenda',
         route: 'agenda',
     },
-    {
-        key: 4,
-        icon: <MdPeopleOutline />,
-        label: 'Pacientes',
-        route: 'pacientes',
-    },
-    {
-        key: 5,
-        icon: <LiaHistorySolid />,
-        label: "Histórico",
-        route: "historico",
-    },
+    // {
+    //     key: 4,
+    //     icon: <MdPeopleOutline />,
+    //     label: 'Pacientes',
+    //     route: 'pacientes',
+    // },
+    // {
+    //     key: 5,
+    //     icon: <LiaHistorySolid />,
+    //     label: "Histórico",
+    //     route: "historico",
+    // },
     {
         key: 6,
         icon: <MdPeopleOutline />,
