@@ -64,6 +64,11 @@ Diagrama de interação das tecnologias e do usuário com o sistema
 
 O Layout é caracterizando por um cabeçalho horizontal, contendo a logo e o slogan do software. Logo abaixo temos a barra de navegação e abaixo desta o conteúdo. Por fim, os detalhes e informações do software se encontram no rodapé do site
 
+Exemplo do layout do site:
+<div style="text-align: center;">
+  <img src="images/layout_exemp.png" alt="Exemplo do layout" style="width: 100%; max-width: 70%; display: block; margin: 0 auto;" />
+</div>
+
 ## Design
 
 Guia de Estilo: Cores na Área de Saúde
