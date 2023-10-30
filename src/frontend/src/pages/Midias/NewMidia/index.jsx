@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space } from 'antd';
+import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space, notification } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -24,11 +26,54 @@ const SubmitMidiaButtonContainer = styled.div`
 `
 
 const NewMidia = () => {
+    const [loadCreateMidia, setLoadCreateMidia] = useState(false);
     const [form] = Form.useForm();
+    const [api, contextHolder] = notification.useNotification();
+
+    const navigate = useNavigate();
+
+    const openNotification = (type, title, description) => {
+        api[type]({
+            message: title,
+            description: description,
+            duration: 2,
+            placement: 'bottomRight',
+        });
+    }
 
     const onFinish = (values) => {
-        console.log('Submitted values:', values);
+        setLoadCreateMidia(true)
+        handleMidiaCreation(values);
     };
+
+    const handleMidiaCreation = (newMidia) => {
+        setLoadCreateMidia(true);
+        // FIXME: add id, fisioterapeuta_id and created_at to newMidia
+        const mockNewMidia = {
+            // id: 1,
+            fisioterapeuta_id: 1,
+            titulo: newMidia.titulo,
+            descricao: newMidia.descricao,
+            tipo: newMidia.tipo,
+            created_at: new Date().toISOString(),
+        }
+        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`, mockNewMidia).
+            then(response => {
+                if (response.status !== 201) {
+                    openNotification('error', 'Erro ao criar mídia!', response.message);
+                }
+            }
+            ).catch(error => {
+                openNotification('error', 'Erro ao criar mídia!', error.message);
+            }).
+            finally(() => {
+                openNotification('success', 'Sucesso ao criar mídia!', 'Mídia criada com sucesso!');
+                setTimeout(() => {
+                    navigate('/midias');
+                    setLoadCreateMidia(false);
+                }, 2000);
+            });
+    }
 
     const fileDraggerProps = {
         accept: '.mp4, .gif, .jpg, .png',
@@ -60,6 +105,7 @@ const NewMidia = () => {
 
     return (
         <>
+            {contextHolder}
             <h1>Cadastrar Mídia</h1>
             <Form
                 form={form}
@@ -67,9 +113,10 @@ const NewMidia = () => {
                 onFinish={onFinish}
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 15 }}
+                disabled={loadCreateMidia}
             >
-                <Form.Item label="Tipo" name="tipo">
-                    <Select defaultValue="Imagem">
+                <Form.Item label="Tipo" name="tipo" required rules={[{ required: true, message: "Por favor, selecione o tipo" }]}>
+                    <Select >
                         <Option value="Vídeo">Vídeo</Option>
                         <Option value="GIF">GIF</Option>
                         <Option value="Imagem">Imagem</Option>
@@ -77,7 +124,7 @@ const NewMidia = () => {
                 </Form.Item>
 
 
-                <Form.Item label="Título" name="titulo" rules={[{ required: true, message: 'Por favor, digite um título' }]}>
+                <Form.Item label="Título" name="titulo" rules={[{ required: true, message: 'Por favor, digite um título' }]} >
                     <Input size='large' />
                 </Form.Item>
 
@@ -126,7 +173,7 @@ const NewMidia = () => {
                     justifyContent: 'center',
                 }}>
                     <SubmitMidiaButtonContainer>
-                        <Button htmlType="submit" size='large'>
+                        <Button htmlType="submit" size='large' loading={loadCreateMidia}>
                             Finalizar
                         </Button>
                     </SubmitMidiaButtonContainer>

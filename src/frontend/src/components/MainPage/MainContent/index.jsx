@@ -7,7 +7,6 @@ import PagesRouter from 'components/MainPage/PagesRouter';
 
 const MainContent = ({ colorBgContainer }) => {
     return (
-
         <MainContentContainer data-color-bg-container={colorBgContainer}>
             <PagesRouter />
         </MainContentContainer>
