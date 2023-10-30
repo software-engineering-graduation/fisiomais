@@ -53,7 +53,7 @@ const Cadastro = () => {
           label="Nome"
           name="nome"
           rules={[
-            { required: true, message: 'Por favor, insira o nome!', pattern: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]+$/, message: 'Por favor, insira apenas letras!' }
+            { required: true, message: 'Por favor, insira o nome!', pattern: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]+$/ }
           ]}
         >
           <Input />

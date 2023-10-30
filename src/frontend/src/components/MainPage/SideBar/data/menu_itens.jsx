@@ -38,6 +38,18 @@ const SideMenuItens = [
         icon: <LiaHistorySolid />,
         label: "Histórico",
         route: "historico",
+    },
+    {
+        key: 6,
+        icon: <MdPeopleOutline />,
+        label: 'Cadastro Fisioterapeuta',
+        route: 'fisioterapeuta',
+    },
+    {
+        key: 7, 
+        icon: <MdPeopleOutline />,
+        label: 'Acompanhamento',
+        route: 'acompanhamento',
     }
 ]
 

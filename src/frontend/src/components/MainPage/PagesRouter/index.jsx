@@ -10,6 +10,9 @@ import MidiaDetail from 'pages/Midias/MidiaDetail';
 import NewMidia from 'pages/Midias/NewMidia';
 import Cadastro from 'pages/Cadastro';
 import Plano from 'pages/Plano'
+import CadastroFisioterapeuta from 'pages/Fisioterapeuta';
+import AcompanhamentoVirtual from 'pages/Acompanhar';
+
 const PagesRouter = () => {
     return (
         <Routes>
@@ -23,6 +26,8 @@ const PagesRouter = () => {
             <Route path="/pacientes" element={<Pacientes />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/plano" element={<Plano />} />
+            <Route path="/fisioterapeuta" element={<CadastroFisioterapeuta />} />
+            <Route path="/acompanhamento" element={<AcompanhamentoVirtual />} />
         </Routes>
     );
 }

@@ -11,6 +11,9 @@ import Pacientes from "./pages/Pacientes";
 import NewMidia from "./pages/Midias/NewMidia";
 import Cadastro from "./pages/Cadastro";
 import Plano from "./pages/Plano"
+import CadastroFisioterapeuta from "./pages/Fisioterapeuta";
+import AcompanhamentoVirtual from "pages/Acompanhar";
+
 const Router = () => {
     return (
         <Routes>
@@ -24,6 +27,8 @@ const Router = () => {
             <Route component={Pacientes} path="/pacientes" />
             <Route component={Cadastro} path="/cadastro" />
             <Route component={Plano} path="/plano" />
+            <Route component={CadastroFisioterapeuta} path="/fisioterapeuta" />
+            <Route component={AcompanhamentoVirtual} path="/acompanhamento" />
         </Routes>
     )
 }
