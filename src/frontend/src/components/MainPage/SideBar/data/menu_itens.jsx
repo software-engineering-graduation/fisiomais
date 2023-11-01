@@ -7,8 +7,15 @@ import { CiMedicalClipboard } from 'react-icons/ci'
 import { GrSchedule } from 'react-icons/gr'
 import { MdPeopleOutline } from 'react-icons/md'
 import { LiaHistorySolid } from 'react-icons/lia'
+import { AiOutlineHome } from 'react-icons/ai'
 
 const SideMenuItens = [
+    // {
+    //     key: 0,
+    //     icon: <AiOutlineHome />,
+    //     label: 'Inicio',
+    //     route: '',
+    // },
     {
         key: 1,
         icon: <FileImageOutlined />,

@@ -68,6 +68,7 @@ const NewMidia = () => {
             }).
             finally(() => {
                 openNotification('success', 'Sucesso ao criar mídia!', 'Mídia criada com sucesso!');
+                // TODO - Remover o setTimeout quando a API estiver pronta
                 setTimeout(() => {
                     navigate('/midias');
                     setLoadCreateMidia(false);

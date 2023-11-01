@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MainContentContainer = styled.div`
     margin: 24px 16px;
-    // height: 100%;
+    min-height: 800px;
     border-radius: 8px;
     padding: 24px;
     background: ${props => props['data-color-bg-container']};
