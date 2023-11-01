@@ -7,7 +7,7 @@ export const mediaDetail = createSlice({
     },
     reducers: {
         setCurrentMedia: (state, action) => {
-            console.log(`setCurrentMedia: ${action.payload}`);
+            // console.log(`setCurrentMedia: ${action.payload}`);
             localStorage.setItem('currentMedia', JSON.stringify(action.payload));
             state.value = action.payload; // Use action.payload to set the new value
         }

@@ -102,6 +102,26 @@ const NewMidia = () => {
         },
     };
 
+    const isvalidUrl = (url) => {
+        try {
+            new URL(url);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const notifyErrorField = (errorInfo) => {
+        const { errorFields } = errorInfo;
+        const message = errorFields[0].errors[0];
+        const name = errorFields[0].name[0];
+
+        openNotification('error', `Erro ao criar mídia!`, message);
+
+        const input = document.getElementById("media-form_" + name)
+        input.focus();
+    }
+
 
     return (
         <>
@@ -111,6 +131,7 @@ const NewMidia = () => {
                 form={form}
                 name="media-form"
                 onFinish={onFinish}
+                onFinishFailed={notifyErrorField}
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 15 }}
                 disabled={loadCreateMidia}
@@ -147,7 +168,15 @@ const NewMidia = () => {
                     </Tooltip>
                 </Space>
 
-                <Form.Item label="Link Arquivo" name="link_arquivo" rules={[{ required: true, message: 'Por favor digite um link válido' }]}>
+                <Form.Item label="Link Arquivo"
+                    name="link_arquivo"
+                    rules={[{
+                        required: true,
+                        message: 'Por favor digite um link válido',
+                        type: 'url',
+                    }]}
+                    validateTrigger={['onBlur', 'onChange']}
+                >
                     <Input size='large' />
                 </Form.Item>
 

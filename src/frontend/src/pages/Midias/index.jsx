@@ -93,11 +93,6 @@ const Midias = () => {
 
                     const dispatchMidiaData = (id) => (event) => {
                         event.preventDefault();
-
-                        const midia = midiasJson.midias.find(midia => midia.id === id) ?? undefined;
-
-                        dispatch(setCurrentMedia(midia))
-
                         navigate(`/midia/${id}`);
                     }
 
@@ -119,10 +114,11 @@ const Midias = () => {
                         created_at: formatedDate,
                     }
                 });
+
                 setShortMidias(orderedData(data));
             }
             ).catch(error => {
-                console.log(error);
+                openNotification('error', 'Listar Mídias', 'Erro ao listar mídias!');
             }).
             finally(() => {
                 setLoadingMidias(false);
@@ -131,7 +127,7 @@ const Midias = () => {
 
     useEffect(() => {
         fetchMidias();
-    }, []);
+    }, [deleteMidias]);
 
     const activateDeleteMidias = () => {
         setDeleteMidias(true);
@@ -154,11 +150,11 @@ const Midias = () => {
         let erroShown = false
         deletionStack.forEach(async element => {
             if (!erroShown) {
-
                 const resp = await fetchDeletedMidias(element);
 
                 if (resp.message) {
-                    openNotification('error', `Deletar Mídias: ${shortMidias[element].titulo.props.children}`, errorMessage.message);
+                    find = shortMidias.find(item => item.id === element);
+                    openNotification('error', `Deletar Mídias: ${find.titulo.props.children}`, resp.message);
                     erroShown = true;
                 }
             }
@@ -168,10 +164,8 @@ const Midias = () => {
             openNotification('success', 'Deletar Mídias', 'Mídias deletadas com sucesso!');
         }
 
-        fetchMidias();
         setDeleteMidias(false);
         setDeletionStack([]);
-
     }
 
     const handleRowSelection = (id, event) => {
