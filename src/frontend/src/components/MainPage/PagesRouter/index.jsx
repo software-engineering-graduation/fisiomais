@@ -8,6 +8,7 @@ import Historico from 'pages/Historico';
 import Pacientes from 'pages/Pacientes';
 import MidiaDetail from 'pages/Midias/MidiaDetail';
 import NewMidia from 'pages/Midias/NewMidia';
+import Consulta from 'pages/Consulta';
 
 const PagesRouter = () => {
     return (
@@ -20,6 +21,7 @@ const PagesRouter = () => {
             <Route path="/exercicios" element={<Exercicios />} />
             <Route path="/historico" element={<Historico />} />
             <Route path="/pacientes" element={<Pacientes />} />
+            <Route path="/nova-consulta" element={<Consulta />} />
         </Routes>
     );
 }
