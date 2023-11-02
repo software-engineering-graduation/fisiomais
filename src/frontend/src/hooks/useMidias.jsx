@@ -4,7 +4,7 @@ import axios from 'axios'
 const API_ROUTE_BASE = process.env.API_BASE_ROUTE
 
 const fetchMidias = async () => {
-    const response = await axios.get(`${API_ROUTE_BASE}/midias`)
+    const response = await axios.get(`${API_ROUTE_BASE}/midia`)
         .then(response => response.data)
         // .catch(error => console.log(error))
 
@@ -12,7 +12,7 @@ const fetchMidias = async () => {
 }
 
 const requestDeleteMidias = async (ids) => {
-    const response = await axios.delete(`${API_ROUTE_BASE}/midias`, { data: { ids } })
+    const response = await axios.delete(`${API_ROUTE_BASE}/midia`, { data: { ids } })
         .then(response => response.data)
         // .catch(error => console.log(error))
     return response

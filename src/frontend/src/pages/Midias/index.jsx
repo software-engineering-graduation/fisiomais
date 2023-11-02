@@ -66,7 +66,7 @@ const Midias = () => {
 
     const fetchDeletedMidias = async (id) => {
         let finalError = {};
-        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midias/${id}`).
+        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midia/${id}`).
             then(response => {
                 if (response.status !== 200) {
                     finalError = response;
@@ -85,7 +85,7 @@ const Midias = () => {
         setLoadingMidias(true);
         // FIXME - simulate delay to show loadingMidias
 
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`).
+        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`).
             then(response => {
                 const data = response.data.map(midia => {
                     const { id, titulo, descricao, tipo, created_at } = midia;

@@ -57,7 +57,7 @@ const NewMidia = () => {
             tipo: newMidia.tipo,
             created_at: new Date().toISOString(),
         }
-        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`, mockNewMidia).
+        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`, mockNewMidia).
             then(response => {
                 if (response.status !== 201) {
                     openNotification('error', 'Erro ao criar mídia!', response.message);

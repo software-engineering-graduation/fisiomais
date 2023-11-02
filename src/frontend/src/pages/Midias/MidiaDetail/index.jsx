@@ -54,7 +54,7 @@ const MidiaDetail = () => {
     id = parseInt(id)
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midias/${id}`)
+        axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia/${id}`)
             .then(response => {
                 if (response.data) {
                     setMidiaDetail(response.data)
