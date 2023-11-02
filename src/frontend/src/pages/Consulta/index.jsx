@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Layout, Card, Typography, Divider, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Layout, Card, Typography, Divider, Button, Result } from 'antd';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -8,33 +9,67 @@ const { Title, Text } = Typography;
 const Consulta = () => {
     // TODO - remove this, backend will provide this date in the correct format
     const parseDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return `${day}/${month}/${year}`;
+        try {
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`;
+        } catch (error) {
+            return '';
+        }
     }
 
     // TODO - remove this, backend will provide this cpf in the correct format
     const formatCPF = (cpf) => {
-        const cpfParts = cpf.match(/.{1,3}/g);
-        const cpfWithDots = cpfParts.join('.');
-        return cpfWithDots.replace(/\.(\d{3})\.(\d{3})-/, '-$1-$2');
+        try {
+            const cpfParts = cpf.match(/.{1,3}/g);
+            const cpfWithDots = cpfParts.join('.');
+            return cpfWithDots.replace(/\.(\d{3})\.(\d{3})-/, '-$1-$2');
+        } catch (error) {
+            return '';
+        }
     }
 
-    const pacienteData = {
-        nome: 'John Doe',
-        email: 'john.doe@example.com',
-        data_nascimento: parseDate('1990-05-15'), // TODO - remove this, backend will provide this date in the correct format
-        cpf: formatCPF('12345678901'), // TODO - remove this, backend will provide this cpf in the correct format
-        telefone: '555-123-4567',
-        genero: 'Homem',
-        endereco: '123 Main St, City',
-    };
+    const parseUserObject = (user) => {
+        try {
+            const { nome, email, data_nascimento, cpf, telefone, genero, endereco } = user.user;
+            return {
+                nome,
+                email,
+                data_nascimento: parseDate(data_nascimento), // TODO - remove this, backend will provide this date in the correct format
+                cpf: formatCPF(cpf), // TODO - remove this, backend will provide this cpf in the correct format
+                telefone,
+                genero,
+                endereco,
+            }
+        } catch (error) {
+            console.error('Error parsing user object: ', error.message);
+            return undefined;
+        }
+    }
 
-    // Use state to store the paciente data
-    const [pacienteInfo] = useState(pacienteData);
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    const pacienteInfo = parseUserObject(currentUser);
+    const role = currentUser.user.role;
 
     const handleNextStep = () => {
         // TODO - navigate to the next step
         alert('TODO - navigate to the next step');
+    }
+
+    if (role === 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
+
+    if (pacienteInfo === undefined) {
+        return (
+            <Result title="Usuário não está logado"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
     }
 
     return (
