@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Layout, Card, Typography, Divider, Button, Result } from 'antd';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -9,23 +10,15 @@ const { Title, Text } = Typography;
 const Consulta = () => {
     // TODO - remove this, backend will provide this date in the correct format
     const parseDate = (date) => {
-        try {
-            const [year, month, day] = date.split('-');
-            return `${day}/${month}/${year}`;
-        } catch (error) {
-            return '';
-        }
+        const [year, month, day] = date.split('-');
+        return `${day}/${month}/${year}`;
     }
 
     // TODO - remove this, backend will provide this cpf in the correct format
     const formatCPF = (cpf) => {
-        try {
-            const cpfParts = cpf.match(/.{1,3}/g);
-            const cpfWithDots = cpfParts.join('.');
-            return cpfWithDots.replace(/\.(\d{3})\.(\d{3})-/, '-$1-$2');
-        } catch (error) {
-            return '';
-        }
+        const cpfParts = cpf.match(/.{1,3}/g);
+        const cpfWithDots = cpfParts.join('.');
+        return cpfWithDots.replace(/\.(\d{3})\.(\d{3})-/, '-$1-$2');
     }
 
     const parseUserObject = (user) => {
@@ -42,18 +35,18 @@ const Consulta = () => {
             }
         } catch (error) {
             console.error('Error parsing user object: ', error.message);
-            return undefined;
+            return {};
         }
     }
 
+    const navigate = useNavigate()
     const currentUser = useSelector(state => state.currentUser.value);
 
     const pacienteInfo = parseUserObject(currentUser);
     const role = currentUser.user.role;
 
     const handleNextStep = () => {
-        // TODO - navigate to the next step
-        alert('TODO - navigate to the next step');
+        navigate('/nova-consulta/dados');
     }
 
     if (role === 'fisioterapeuta') {
@@ -64,7 +57,7 @@ const Consulta = () => {
         )
     }
 
-    if (pacienteInfo === undefined) {
+    if (Object.keys(pacienteInfo).length === 0) {
         return (
             <Result title="Usuário não está logado"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
@@ -118,7 +111,7 @@ const InfoRow = styled.span`
     gap: 5px;
 `;
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -127,7 +120,7 @@ const ButtonContainer = styled.div`
     width: 100%;
 `;
 
-const NextStepButton = styled(Button)`
+export const NextStepButton = styled(Button)`
     font-size: 1.2rem;
     border-radius: 5px;
     background-color: #0BD980 !important;
