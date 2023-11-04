@@ -4,6 +4,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -31,6 +32,16 @@ const NewMidia = () => {
     const [api, contextHolder] = notification.useNotification();
 
     const navigate = useNavigate();
+
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
 
     const openNotification = (type, title, description) => {
         api[type]({

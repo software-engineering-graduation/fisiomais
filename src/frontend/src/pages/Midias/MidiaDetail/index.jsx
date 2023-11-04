@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Result, Divider, Popover, Image, Space, Skeleton } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +50,16 @@ const MidiaDetail = () => {
     const [mediaDetail, setMidiaDetail] = useState(undefined)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
 
     let { id } = useParams()
     id = parseInt(id)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentMedia } from '../../store/mediaDetail'
-import { Divider, notification } from 'antd';
+import { Divider, Result, notification } from 'antd';
 
 import TableHeader from './components/TableHeader';
 import MidiasTable from './components/MidiasTable';
@@ -36,6 +36,14 @@ const Midias = () => {
     const [loadingMidias, setLoadingMidias] = useState(true);
     const [loadingDeletion, setLoadingDeletion] = useState(false);
     const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
 
     const [api, contextHolder] = notification.useNotification();
 
