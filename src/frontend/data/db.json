@@ -673,6 +673,38 @@
       "observacoes": "",
       "confirmacao": "confirmado",
       "id": 26
+    },
+    {
+      "fisioterapeuta__id": 9,
+      "paciente__id": 2,
+      "data_e_hora": "2023-11-07 18:47:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 27
+    },
+    {
+      "fisioterapeuta__id": 0,
+      "paciente__id": 2,
+      "data_e_hora": "2023-11-08 04:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 28
+    },
+    {
+      "fisioterapeuta__id": 9,
+      "paciente__id": 2,
+      "data_e_hora": "2023-11-05 03:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 29
+    },
+    {
+      "fisioterapeuta__id": 0,
+      "paciente__id": 2,
+      "data_e_hora": "2023-11-07 03:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 30
     }
   ]
 }

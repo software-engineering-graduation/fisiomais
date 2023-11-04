@@ -71,14 +71,6 @@ const PageHeader = ({ collapsed, setCollapsed, colorBgContainer }) => {
                         }}
                     />
                     <UserHeaderOptionsContainer>
-                        {userIsFisio &&
-                            <div style={{ cursor: 'pointer' }} onClick={handleNotifications()}>
-                                <Badge dot={false /* TODO - create logic */}>
-                                    <Avatar style={{ backgroundColor: 'white', color: 'black' }} shape="circle" size="default" icon={<IoMdNotificationsOutline />} />
-                                </Badge>
-                            </div>
-                        }
-                        {/* logout button */}
                         <LogoutButton onClick={() => navigate(handleLogout())} loading={loadingLogout}>
                             Sair da conta <CiLogout />
                         </LogoutButton>

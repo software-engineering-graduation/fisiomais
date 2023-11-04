@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { Confirmada, Pendente, NaoConfirmada, FisioInputLabel, BottomInputsContainer, DatePickerContainer, LinkContainer } from './styled';
 // redirect icon
 import { FiExternalLink } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 const { Title, Text, Link } = Typography;
@@ -35,6 +36,8 @@ const DadosConsulta = () => {
 
     const currentUser = useSelector(state => state.currentUser.value);
     const role = currentUser.user.role;
+
+    const navigate = useNavigate();
 
     const openNotification = (type, title, description) => {
         api[type]({
@@ -104,6 +107,7 @@ const DadosConsulta = () => {
             };
             await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta`, requestBody)
                 .then((res) => {
+                    console.log('consulta criada')
                     setConsultaData(res.data);
                     if (res.data.confirmacao === 'confirmado') {
                         openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
@@ -113,14 +117,16 @@ const DadosConsulta = () => {
                     }
                 })
                 .catch((err) => {
+                    console.log('erro ao criar consulta', err)
                     setRequestStatus('error');
                     openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
                 })
                 .finally(() => {
-                    setTimeout(() => {
-                        setRequestStatus('success');
-                        setFinished('confirmacao');
-                    }, 2000);
+                    console.log('finalizou')
+                    // setTimeout(() => {
+                    setRequestStatus('success');
+                    setFinished('confirmacao');
+                    // }, 2000);
                 });
         }
     };
@@ -357,6 +363,10 @@ const DadosConsulta = () => {
                             </InfoRow>
                         }
                     </BaseInfoContainer>
+                    <Divider />
+                    <ButtonContainer>
+                        <Link onClick={() => navigate('/')} style={{ fontSize: '1.2rem' }}>Voltar para a página inicial</Link>
+                    </ButtonContainer>
                 </Card>
             </Content>
         );
