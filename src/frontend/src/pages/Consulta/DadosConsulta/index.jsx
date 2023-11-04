@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import moment from 'moment';
 import { ButtonContainer, NextStepButton } from '..';
+import { useSelector } from 'react-redux';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -24,13 +25,12 @@ const DadosConsulta = () => {
 
     const [api, contextHolder] = notification.useNotification();
 
-    const isLoadingFisio = fisioFetchStatus === 'loading';
     const isErroredFisio = fisioFetchStatus === 'error';
-    const isSuccessFisio = fisioFetchStatus === 'success';
 
-    const isLoadingAgenda = agendaFetchStatus === 'loading';
-    const isErroredAgenda = agendaFetchStatus === 'error';
     const isSuccessAgenda = agendaFetchStatus === 'success';
+
+    const currentUser = useSelector(state => state.currentUser.value);
+    const role = currentUser.user.role;
 
     const openNotification = (type, title, description) => {
         api[type]({
@@ -96,15 +96,8 @@ const DadosConsulta = () => {
         if (selectedFisioterapeuta !== null) {
             fetchAgendaFromFisioterapeuta();
             fetchConsultasFromFisioterapeuta();
-            // console.log('Fisioterapeuta selecionado:', selectedFisioterapeuta);
-            // console.log('Consultas:', consultas);
-            // console.log('Agenda:', agenda);
         }
     }, [selectedFisioterapeuta])
-
-    useEffect(() => {
-        // console.log('Data selecionada:', dateSelected);
-    }, [dateSelected])
 
     const handleDatePicker = (date) => {
         setDateSelected(date.$d);
@@ -131,6 +124,8 @@ const DadosConsulta = () => {
     }
 
     const handleHourPicker = (time) => {
+        if(!time) return 
+
         // check if the selected time is not in disabledDateTime
         const { disabledHours, disabledMinutes } = disabledTime();
         const disabledHoursArray = disabledHours();
@@ -240,6 +235,22 @@ const DadosConsulta = () => {
             disabledHours: () => hoursDisabledFinal,
             disabledMinutes: () => minutesDisabledFinal,
         };
+    }
+
+    if (role === 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
+
+    if (Object.keys(currentUser.user).length === 0) {
+        return (
+            <Result title="Usuário não está logado"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
     }
 
     if (isErroredFisio) {

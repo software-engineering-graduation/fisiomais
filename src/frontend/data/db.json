@@ -156,7 +156,7 @@
       "password": "ptSecurePwd",
       "telefone": "555-333-4444",
       "endereco": "456 Birch St, Town",
-      "controle_automatico": false
+      "controle_automatico": true
     },
     {
       "id": 2,
