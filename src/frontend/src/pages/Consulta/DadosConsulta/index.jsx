@@ -107,7 +107,7 @@ const DadosConsulta = () => {
             };
             await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta`, requestBody)
                 .then((res) => {
-                    console.log('consulta criada')
+                    // console.log('consulta criada')
                     setConsultaData(res.data);
                     if (res.data.confirmacao === 'confirmado') {
                         openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
@@ -117,12 +117,12 @@ const DadosConsulta = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log('erro ao criar consulta', err)
+                    // console.log('erro ao criar consulta', err)
                     setRequestStatus('error');
                     openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
                 })
                 .finally(() => {
-                    console.log('finalizou')
+                    // console.log('finalizou')
                     // setTimeout(() => {
                     setRequestStatus('success');
                     setFinished('confirmacao');

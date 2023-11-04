@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Menu, Layout } from 'antd';
 
 
@@ -12,6 +12,12 @@ const { Sider } = Layout;
 
 const SideBar = ({ collapsed }) => {
     const [defaultSelectedKey, setDefaultSelectedKey] = useState('0');
+
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if(Object.keys(currentUser.user).length === 0) {
+        return null;
+    }
 
     const navigate = useNavigate();
     const dispatch = useDispatch()

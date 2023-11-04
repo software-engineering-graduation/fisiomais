@@ -10,6 +10,7 @@ import MidiaDetail from 'pages/Midias/MidiaDetail';
 import NewMidia from 'pages/Midias/NewMidia';
 import Consulta from 'pages/Consulta';
 import DadosConsulta from 'pages/Consulta/DadosConsulta';
+import Login from 'pages/Login';
 
 const PagesRouter = () => {
     return (
@@ -24,6 +25,7 @@ const PagesRouter = () => {
             <Route path="/pacientes" element={<Pacientes />} />
             <Route path="/nova-consulta" element={<Consulta />} />
             <Route path='/nova-consulta/dados' element={<DadosConsulta />} />
+            <Route path='/login' element={<Login />} />
         </Routes>
     );
 }

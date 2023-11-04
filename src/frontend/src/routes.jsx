@@ -11,6 +11,7 @@ import Pacientes from "./pages/Pacientes";
 import NewMidia from "./pages/Midias/NewMidia";
 import Consulta from "pages/Consulta";
 import DadosConsulta from 'pages/Consulta/DadosConsulta';
+import Login from "pages/Login";
 
 const Router = () => {
     return (
@@ -25,6 +26,7 @@ const Router = () => {
             <Route component={Pacientes} path="/pacientes" />
             <Route component={Consulta} path="/nova-consulta" />
             <Route component={DadosConsulta} path="/nova-consulta/dados" />
+            <Route component={Login} path='/login' />
         </Routes>
     )
 }
