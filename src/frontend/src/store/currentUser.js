@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// todo - remove this mock
+// todo - remove these mocks
 const mockUser = {
+    id: 1,
     nome: "Jane Smith",
     email: "jane.smith@example.com",
     password: "securePwd456",
@@ -12,13 +13,14 @@ const mockUser = {
     endereco: "456 Elm St, Town",
     role: 'paciente'
 }
+const mockId = mockUser.id;
 
 export const currentUser = createSlice({
     name: 'currentUser',
     initialState: {
         value: {
             user: mockUser,
-            userId: undefined
+            userId: mockId
         }
     },
     reducers: {

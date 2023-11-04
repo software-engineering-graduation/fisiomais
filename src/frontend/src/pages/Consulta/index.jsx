@@ -93,7 +93,7 @@ const Consulta = () => {
 
 export default Consulta;
 
-const BaseInfoContainer = styled.div`
+export const BaseInfoContainer = styled.div`
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@ const BaseInfoContainer = styled.div`
     gap: 20px;
 `;
 
-const InfoRow = styled.span`
+export const InfoRow = styled.span`
     font-size: 1.2rem;
     display: flex;
     flex-direction: row;

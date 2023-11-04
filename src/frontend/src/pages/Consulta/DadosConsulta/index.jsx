@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Card, Typography, Divider, Button, Result, Select, Space, DatePicker, notification, TimePicker } from 'antd';
+import { Card, Layout, Typography, Divider, Result, Select, Space, DatePicker, notification, TimePicker } from 'antd';
 import locale from 'antd/es/date-picker/locale/pt_BR';
-import 'dayjs/locale/pt-br';
 import dayjs from 'dayjs';
-import styled from 'styled-components';
 import axios from 'axios';
 import moment from 'moment';
-import { ButtonContainer, NextStepButton } from '..';
+import { BaseInfoContainer, ButtonContainer, InfoRow, NextStepButton } from '..';
 import { useSelector } from 'react-redux';
+import { Confirmada, Pendente, NaoConfirmada, FisioInputLabel, BottomInputsContainer, DatePickerContainer, LinkContainer } from './styled';
+// redirect icon
+import { FiExternalLink } from 'react-icons/fi'
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Text, Link } = Typography;
 
 const DadosConsulta = () => {
     const [fisioterapeutas, setFisioterapeutas] = useState([]);
@@ -19,15 +20,18 @@ const DadosConsulta = () => {
     const [consultas, setConsultas] = useState([]);
     const [dateSelected, setDateSelected] = useState(null);
     const [timeSelected, setTimeSelected] = useState(null);
+    const [consultaData, setConsultaData] = useState(null);
 
     const [fisioFetchStatus, setFisioFetchStatus] = useState('idle');
     const [agendaFetchStatus, setAgendaFetchStatus] = useState('idle');
+    const [requestStatus, setRequestStatus] = useState('idle');
+    const [finished, setFinished] = useState(null); // ['confirmacao', 'pendente', null]
 
     const [api, contextHolder] = notification.useNotification();
 
     const isErroredFisio = fisioFetchStatus === 'error';
-
     const isSuccessAgenda = agendaFetchStatus === 'success';
+    const isLoadingRequest = requestStatus === 'loading';
 
     const currentUser = useSelector(state => state.currentUser.value);
     const role = currentUser.user.role;
@@ -53,8 +57,8 @@ const DadosConsulta = () => {
             })
             .finally(() => {
                 setFisioFetchStatus('success');
-            })
-    }
+            });
+    };
 
     const fetchAgendaFromFisioterapeuta = async () => {
         setAgendaFetchStatus('loading');
@@ -69,14 +73,14 @@ const DadosConsulta = () => {
             })
             .finally(() => {
                 // setAgendaFetchStatus('success');
-            })
-    }
+            });
+    };
 
     const fetchConsultasFromFisioterapeuta = async () => {
         setAgendaFetchStatus('loading');
         await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta?fisioterapeuta__id=${selectedFisioterapeuta.id}`)
             .then((res) => {
-                setConsultas(res.data)
+                setConsultas(res.data);
                 // console.log(`Consultas do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
             })
             .catch((err) => {
@@ -85,8 +89,41 @@ const DadosConsulta = () => {
             })
             .finally(() => {
                 setAgendaFetchStatus('success');
-            })
-    }
+            });
+    };
+
+    const sendAppointmentRequest = async () => {
+        setRequestStatus('loading');
+        if (selectedFisioterapeuta.controle_automatico) {
+            const requestBody = {
+                fisioterapeuta__id: selectedFisioterapeuta.id,
+                paciente__id: currentUser.userId,
+                data_e_hora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DD HH:mm:ss'),
+                observacoes: '',
+                confirmacao: 'confirmado',
+            };
+            await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta`, requestBody)
+                .then((res) => {
+                    setConsultaData(res.data);
+                    if (res.data.confirmacao === 'confirmado') {
+                        openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
+                    }
+                    else {
+                        openNotification('success', 'Solicitação de agendamento enviada', 'Aguarde a confirmação do profissional');
+                    }
+                })
+                .catch((err) => {
+                    setRequestStatus('error');
+                    openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        setRequestStatus('success');
+                        setFinished('confirmacao');
+                    }, 2000);
+                });
+        }
+    };
 
     useEffect(() => {
         fetchAllFisioterapeutas();
@@ -97,16 +134,16 @@ const DadosConsulta = () => {
             fetchAgendaFromFisioterapeuta();
             fetchConsultasFromFisioterapeuta();
         }
-    }, [selectedFisioterapeuta])
+    }, [selectedFisioterapeuta]);
 
     const handleDatePicker = (date) => {
         setDateSelected(date.$d);
-    }
+    };
 
     const updateFisioSelected = (value) => {
         const fisio = fisioterapeutas.find((fisio) => fisio.id === value);
         setSelectedFisioterapeuta(fisio);
-    }
+    };
 
     const convertConsultasDateTime = () => {
         const consultasObj = consultas.map((consulta) => {
@@ -117,14 +154,14 @@ const DadosConsulta = () => {
                 dateObj,
                 fisioterapeuta: consulta.fisioterapeuta,
                 paciente: consulta.paciente,
-            }
+            };
         });
 
         return consultasObj;
-    }
+    };
 
     const handleHourPicker = (time) => {
-        if(!time) return 
+        if (!time) return;
 
         // check if the selected time is not in disabledDateTime
         const { disabledHours, disabledMinutes } = disabledTime();
@@ -149,7 +186,7 @@ const DadosConsulta = () => {
 
             // verifica se a data é a mesma
             const consultasObjFiltered = consultasObj.filter((obj) => {
-                return obj.dateObj.isSame(dateSelectedObj, 'day')
+                return obj.dateObj.isSame(dateSelectedObj, 'day');
             });
 
             // verifica se o horário é o mesmo use, $H and $m
@@ -165,7 +202,7 @@ const DadosConsulta = () => {
         }
 
         setTimeSelected(time);
-    }
+    };
 
     const disabledDate = (current) => {
         // Can not select days before today and today
@@ -214,12 +251,12 @@ const DadosConsulta = () => {
 
         // verifica se a data é a mesma
         const consultasObjFiltered = convertConsultasDateTime().filter((obj) => {
-            return obj.dateObj.isSame(dateSelectedObj, 'day')
+            return obj.dateObj.isSame(dateSelectedObj, 'day');
         });
 
         let consultasHoursArr = consultasObjFiltered.map((obj) => {
             return obj.dateObj.$H;
-        })
+        });
 
         const remapedHousArr = consultasHoursArr.map((hour) => {
             const isBookedAt00 = consultasObjFiltered.find((obj) => obj.dateObj.$H === hour && obj.dateObj.$m === 0);
@@ -237,12 +274,24 @@ const DadosConsulta = () => {
         };
     }
 
+    const formatDate = (date) => {
+        const dateObj = dayjs(date);
+        const dateFormatted = dateObj.format('DD/MM/YYYY');
+        return `${dateFormatted}`;
+    }
+
+    const formatTime = (time) => {
+        const timeObj = dayjs(time);
+        const timeFormatted = timeObj.format('HH:mm');
+        return `${timeFormatted}`;
+    }
+
     if (role === 'fisioterapeuta') {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
             </Result>
-        )
+        );
     }
 
     if (Object.keys(currentUser.user).length === 0) {
@@ -250,7 +299,7 @@ const DadosConsulta = () => {
             <Result title="Usuário não está logado"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
             </Result>
-        )
+        );
     }
 
     if (isErroredFisio) {
@@ -260,10 +309,57 @@ const DadosConsulta = () => {
                 <Result
                     status="error"
                     title="Erro ao buscar profissionais"
-                    subTitle="Tente novamente mais tarde"
-                />
+                    subTitle="Tente novamente mais tarde" />
             </Content>
-        )
+        );
+    }
+
+    if (finished) {
+        const title = finished === 'confirmacao' ? 'Solicitação de agendamento confirmada' : 'Solicitação de agendamento enviada';
+        const description = finished === 'confirmacao' ? 'Lembre-se de comparecer no horário' : 'Aguarde a confirmação do profissional';
+        const status = finished === 'confirmacao' ? 'success' : 'info';
+
+        let consultaStatus;
+        if (consultaData.confirmacao === 'confirmado') {
+            consultaStatus = <Confirmada> Confirmada </Confirmada>;
+        } else if (consultaData.confirmacao === 'pendente') {
+            consultaStatus = <Pendente> Aguardando Confirmação </Pendente>;
+        } else {
+            consultaStatus = <NaoConfirmada> Não Confirmada </NaoConfirmada>;
+        }
+        const showConsultaStatus = consultaStatus;
+
+        return (
+            <Content>
+                {contextHolder}
+                <Result
+                    status={status}
+                    title={title}
+                    subTitle={description} />
+                <Divider />
+                <Card title="Dados da consulta" type={'inner'}>
+                    <BaseInfoContainer>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Status da consulta:</Text> {showConsultaStatus} <br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Data da consulta:</Text> {formatDate(consultaData.data_e_hora)}<br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Horário:</Text> {formatTime(consultaData.data_e_hora)}<br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Nome do profissional:</Text> {selectedFisioterapeuta.nome}<br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Telefone para contato:</Text> {selectedFisioterapeuta.telefone} <br /></InfoRow>
+                        {consultaData.link &&
+                            <InfoRow style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                            }}><Text strong style={{ fontSize: '1.2rem' }}>Link da consulta:</Text>
+                                <LinkContainer onClick={() => { window.open(consultaData.link, '_blank') }}
+                                >
+                                    Acessar <FiExternalLink />
+                                </LinkContainer>
+                            </InfoRow>
+                        }
+                    </BaseInfoContainer>
+                </Card>
+            </Content>
+        );
     }
 
     return (
@@ -280,20 +376,17 @@ const DadosConsulta = () => {
                     style={{
                         width: 200,
                     }}
-                    onChange={(value) => { updateFisioSelected(value) }}
+                    onChange={(value) => { updateFisioSelected(value); }}
                     placeholder="Pesquise por nome"
                     optionFilterProp="children"
-                    filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                    filterSort={(optionA, optionB) =>
-                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-                    }
+                    filterOption={(input, option) => (option?.label.toLowerCase() ?? '').includes(input.toLowerCase())}
+                    filterSort={(optionA, optionB) => (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())}
                     options={fisioterapeutas.map((fisio) => {
                         return {
                             value: fisio.id,
                             label: fisio.nome,
-                        }
-                    })}
-                />
+                        };
+                    })} />
             </Space>
 
             {selectedFisioterapeuta &&
@@ -306,8 +399,7 @@ const DadosConsulta = () => {
                             locale={locale}
                             size={'large'}
                             format={'DD/MM/YYYY'}
-                            disabledDate={disabledDate}
-                        />
+                            disabledDate={disabledDate} />
                     </DatePickerContainer>
 
                     {dateSelected &&
@@ -318,46 +410,25 @@ const DadosConsulta = () => {
                                 hideDisabledOptions={true}
                                 minuteStep={30}
                                 disabled={!isSuccessAgenda}
-                                onChange={(time) => { handleHourPicker(time) }}
+                                onChange={(time) => { handleHourPicker(time); }}
                                 locale={locale}
                                 size={'large'}
                                 format={'HH:mm'}
                                 placeholder={'Horário'}
-                                disabledTime={disabledTime}
-                            />
-                        </DatePickerContainer>
-                    }
+                                disabledTime={disabledTime} />
+                        </DatePickerContainer>}
 
                     {timeSelected &&
                         <ButtonContainer>
                             <NextStepButton size="large"
-                                onClick={() => console.log('clicou em confirmar')}>
+                                loading={isLoadingRequest}
+                                onClick={() => sendAppointmentRequest()}>
                                 Enviar solicitação de agendamento
                             </NextStepButton>
-                        </ButtonContainer>
-                    }
-                </BottomInputsContainer>
-            }
-        </Content >
-    )
+                        </ButtonContainer>}
+                </BottomInputsContainer>}
+        </Content>
+    );
 };
 
 export default DadosConsulta;
-
-const FisioInputLabel = styled.span`
-    font-weight: 500;
-    font-size: 1.2rem;
-    margin-right: 8px;
-    text-align: center;
-`;
-
-const DatePickerContainer = styled(Space)`
-    transition: all 0.5s ease-in;
-    margin-bottom: 15px;
-`
-
-const BottomInputsContainer = styled(Space)`
-    margin-top: 25px;
-    width: 100%;
-    justify-content: flex-end;
-`;

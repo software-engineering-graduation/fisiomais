@@ -39,6 +39,7 @@
   ],
   "paciente": [
     {
+      "id": 0,
       "nome": "John Doe",
       "email": "john.doe@example.com",
       "password": "password123",
@@ -49,6 +50,7 @@
       "endereco": "123 Main St, City"
     },
     {
+      "id": 1,
       "nome": "Jane Smith",
       "email": "jane.smith@example.com",
       "password": "securePwd456",
@@ -59,6 +61,7 @@
       "endereco": "456 Elm St, Town"
     },
     {
+      "id": 2,
       "nome": "Maria Rodriguez",
       "email": "maria@example.com",
       "password": "securePwd789",
@@ -69,6 +72,7 @@
       "endereco": "789 Pine Rd, City"
     },
     {
+      "id": 3,
       "nome": "Carlos Silva",
       "email": "carlos@example.com",
       "password": "passWord42",
@@ -79,6 +83,7 @@
       "endereco": "123 Cedar St, Town"
     },
     {
+      "id": 4,
       "nome": "Luisa Mendes",
       "email": "luisa@example.com",
       "password": "luisaPass123",
@@ -89,6 +94,7 @@
       "endereco": "456 Maple Rd, Village"
     },
     {
+      "id": 5,
       "nome": "Ricardo Oliveira",
       "email": "ricardo@example.com",
       "password": "oliveiraPwd",
@@ -99,6 +105,7 @@
       "endereco": "321 Oak St, Suburb"
     },
     {
+      "id": 6,
       "nome": "Patricia Ferreira",
       "email": "patricia@example.com",
       "password": "ferreiraPass",
@@ -109,6 +116,7 @@
       "endereco": "567 Elm Rd, Town"
     },
     {
+      "id": 7,
       "nome": "Lucas Santos",
       "email": "lucas@example.com",
       "password": "santos123",
@@ -119,6 +127,7 @@
       "endereco": "234 Oak Ave, Suburb"
     },
     {
+      "id": 8,
       "nome": "Mariana Pereira",
       "email": "mariana@example.com",
       "password": "pereiraPass",
@@ -129,6 +138,7 @@
       "endereco": "456 Pine Rd, Village"
     },
     {
+      "id": 9,
       "nome": "Gustavo Gonçalves",
       "email": "gustavo@example.com",
       "password": "goncalvesPwd",
@@ -305,77 +315,220 @@
   ],
   "consulta": [
     {
+      "id": 0,
       "paciente__id": 1,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-15 09:00:00",
       "observacoes": "Consulta de rotina",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 1,
       "paciente__id": 2,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-15 1:30:00",
       "observacoes": "Acompanhamento pós-cirúrgico",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 2,
       "paciente__id": 3,
       "fisioterapeuta__id": 3,
       "data_e_hora": "2023-11-14 11:00:00",
       "observacoes": "Avaliação inicial",
-      "confirmacao": 1,
-      "owner_id": 3
+      "confirmacao": "confirmado"
     },
     {
+      "id": 3,
       "paciente__id": 4,
       "fisioterapeuta__id": 4,
       "data_e_hora": "2023-11-16 14:45:00",
       "observacoes": "Tratamento de lesão muscular",
-      "confirmacao": 1,
-      "owner_id": 4
+      "confirmacao": "confirmado"
     },
     {
+      "id": 4,
       "paciente__id": 5,
       "fisioterapeuta__id": 5,
       "data_e_hora": "2023-11-18 10:30:00",
       "observacoes": "Reabilitação pós-acidente",
-      "confirmacao": 1,
-      "owner_id": 5
+      "confirmacao": "confirmado"
     },
     {
+      "id": 5,
       "paciente__id": 6,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-20 09:30:00",
       "observacoes": "Consulta de rotina",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 6,
       "paciente__id": 7,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-22 16:15:00",
       "observacoes": "Acompanhamento pós-cirúrgico",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 7,
       "paciente__id": 8,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-24 12:45:00",
       "observacoes": "Avaliação inicial",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 8,
       "paciente__id": 9,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-26 14:00:00",
       "observacoes": "Tratamento de lesão muscular",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
     },
     {
+      "id": 9,
       "paciente__id": 10,
       "fisioterapeuta__id": 1,
       "data_e_hora": "2023-11-28 10:00:00",
       "observacoes": "Reabilitação pós-acidente",
-      "confirmacao": 1
+      "confirmacao": "confirmado"
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-15 10:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 10
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-15 10:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 11
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 10:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 12
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 13:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 13
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-06 01:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 14
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 11:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 15
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 11:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 16
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 15:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 17
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-08 11:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 18
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-15 12:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 19
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-08 10:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 20
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-17 12:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 21
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-10 12:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "link": "https://www.youtube.com/watch?v=2",
+      "id": 22
+    },
+    {
+      "fisioterapeuta__id": 1,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-17 12:00:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "link": "https://www.youtube.com/watch?v=2",
+      "id": 23
+    },
+    {
+      "fisioterapeuta__id": 9,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-08 12:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 24
+    },
+    {
+      "fisioterapeuta__id": 0,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-07 12:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 25
+    },
+    {
+      "fisioterapeuta__id": 9,
+      "paciente__id": 1,
+      "data_e_hora": "2023-11-08 15:30:00",
+      "observacoes": "",
+      "confirmacao": "confirmado",
+      "id": 26
     }
   ]
 }

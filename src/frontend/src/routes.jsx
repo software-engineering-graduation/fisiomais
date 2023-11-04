@@ -3,14 +3,14 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home/index";
 import Midias from "./pages/Midias/index";
-import MidiaDetail from "./pages/Midias/MidiaDetail/index";
+import MidiaDetail from "./pages/Midias/MidiaDetail";
 import Agenda from "./pages/Agenda";
 import Exercicios from "./pages/Exercicios";
 import Historico from "./pages/Historico";
 import Pacientes from "./pages/Pacientes";
 import NewMidia from "./pages/Midias/NewMidia";
 import Consulta from "pages/Consulta";
-import DadosConsulta from "pages/Consulta/DadosConsulta";
+import DadosConsulta from 'pages/Consulta/DadosConsulta';
 
 const Router = () => {
     return (
