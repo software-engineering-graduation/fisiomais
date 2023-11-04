@@ -1,0 +1,381 @@
+{
+  "midia": [
+    {
+      "id": 4,
+      "fisioterapeuta_id": 3,
+      "tipo": "Vídeo",
+      "link_arquivo": "https://www.youtube.com/watch?v=2",
+      "titulo": "Sessão de Fisioterapia",
+      "descricao": "Um vídeo de uma sessão de fisioterapia em andamento.",
+      "created_at": "2021-05-04T00:00:00.000000Z"
+    },
+    {
+      "id": 7,
+      "fisioterapeuta_id": 3,
+      "tipo": "Vídeo",
+      "link_arquivo": "https://www.youtube.com/watch?v=3",
+      "titulo": "Rotina de Alongamento",
+      "descricao": "Um vídeo mostrando uma rotina de alongamento.",
+      "created_at": "2021-05-07T00:00:00.000000Z"
+    },
+    {
+      "id": 8,
+      "fisioterapeuta_id": 5,
+      "tipo": "Imagem",
+      "link_arquivo": "https://picsum.photos/203",
+      "titulo": "Imagem de Lesão no Tornozelo",
+      "descricao": "Uma imagem de lesão no tornozelo para diagnóstico.",
+      "created_at": "2021-05-08T00:00:00.000000Z"
+    },
+    {
+      "id": 10,
+      "fisioterapeuta_id": 1,
+      "tipo": "Vídeo",
+      "link_arquivo": "https://www.youtube.com/watch?v=4",
+      "titulo": "Vídeo de Prevenção de Lesões",
+      "descricao": "Um vídeo sobre a prevenção de lesões comuns.",
+      "created_at": "2021-05-10T00:00:00.000000Z"
+    }
+  ],
+  "paciente": [
+    {
+      "nome": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "data_nascimento": "1990-05-15",
+      "cpf": "12345678901",
+      "telefone": "555-123-4567",
+      "genero": "Homem",
+      "endereco": "123 Main St, City"
+    },
+    {
+      "nome": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "securePwd456",
+      "data_nascimento": "1985-08-22",
+      "cpf": "98765432109",
+      "telefone": "555-987-6543",
+      "genero": "Mulher",
+      "endereco": "456 Elm St, Town"
+    },
+    {
+      "nome": "Maria Rodriguez",
+      "email": "maria@example.com",
+      "password": "securePwd789",
+      "data_nascimento": "1982-12-10",
+      "cpf": "65432109876",
+      "telefone": "555-555-5555",
+      "genero": "Mulher",
+      "endereco": "789 Pine Rd, City"
+    },
+    {
+      "nome": "Carlos Silva",
+      "email": "carlos@example.com",
+      "password": "passWord42",
+      "data_nascimento": "1975-07-25",
+      "cpf": "98761234567",
+      "telefone": "555-777-8888",
+      "genero": "Homem",
+      "endereco": "123 Cedar St, Town"
+    },
+    {
+      "nome": "Luisa Mendes",
+      "email": "luisa@example.com",
+      "password": "luisaPass123",
+      "data_nascimento": "1995-03-18",
+      "cpf": "11223344556",
+      "telefone": "555-999-0000",
+      "genero": "Mulher",
+      "endereco": "456 Maple Rd, Village"
+    },
+    {
+      "nome": "Ricardo Oliveira",
+      "email": "ricardo@example.com",
+      "password": "oliveiraPwd",
+      "data_nascimento": "1988-06-30",
+      "cpf": "98765432123",
+      "telefone": "555-333-2222",
+      "genero": "Homem",
+      "endereco": "321 Oak St, Suburb"
+    },
+    {
+      "nome": "Patricia Ferreira",
+      "email": "patricia@example.com",
+      "password": "ferreiraPass",
+      "data_nascimento": "1980-04-15",
+      "cpf": "12345678901",
+      "telefone": "555-666-7777",
+      "genero": "Mulher",
+      "endereco": "567 Elm Rd, Town"
+    },
+    {
+      "nome": "Lucas Santos",
+      "email": "lucas@example.com",
+      "password": "santos123",
+      "data_nascimento": "1993-09-28",
+      "cpf": "87654321098",
+      "telefone": "555-444-3333",
+      "genero": "Homem",
+      "endereco": "234 Oak Ave, Suburb"
+    },
+    {
+      "nome": "Mariana Pereira",
+      "email": "mariana@example.com",
+      "password": "pereiraPass",
+      "data_nascimento": "1984-02-19",
+      "cpf": "45678901234",
+      "telefone": "555-222-1111",
+      "genero": "Mulher",
+      "endereco": "456 Pine Rd, Village"
+    },
+    {
+      "nome": "Gustavo Gonçalves",
+      "email": "gustavo@example.com",
+      "password": "goncalvesPwd",
+      "data_nascimento": "1992-11-05",
+      "cpf": "76543210987",
+      "telefone": "555-888-9999",
+      "genero": "Homem",
+      "endereco": "567 Birch St, City"
+    }
+  ],
+  "fisioterapeuta": [
+    {
+      "id": 0,
+      "nome": "Dr. David Physio",
+      "email": "david.physio@example.com",
+      "password": "physioPass123",
+      "telefone": "555-111-2222",
+      "endereco": "789 Oak Ave, City",
+      "controle_automatico": true
+    },
+    {
+      "id": 1,
+      "nome": "Dr. Sarah PT",
+      "email": "sarah.pt@example.com",
+      "password": "ptSecurePwd",
+      "telefone": "555-333-4444",
+      "endereco": "456 Birch St, Town",
+      "controle_automatico": false
+    },
+    {
+      "id": 2,
+      "nome": "Dr. Laura Fernandez",
+      "email": "laura@example.com",
+      "password": "fernandezPwd",
+      "telefone": "555-222-3333",
+      "endereco": "123 Maple Rd, Village",
+      "controle_automatico": true
+    },
+    {
+      "id": 3,
+      "nome": "Dr. Pedro Alves",
+      "email": "pedro@example.com",
+      "password": "alvesPass",
+      "telefone": "555-777-8888",
+      "endereco": "234 Pine Rd, Suburb",
+      "controle_automatico": false
+    },
+    {
+      "id": 4,
+      "nome": "Dr. Vanessa Martins",
+      "email": "vanessa@example.com",
+      "password": "vanessa123",
+      "telefone": "555-555-6666",
+      "endereco": "567 Cedar St, City",
+      "controle_automatico": false
+    },
+    {
+      "id": 5,
+      "nome": "Dr. João Carvalho",
+      "email": "joao@example.com",
+      "password": "carvalhoPwd",
+      "telefone": "555-333-2222",
+      "endereco": "456 Oak Ave, Town",
+      "controle_automatico": false
+    },
+    {
+      "id": 6,
+      "nome": "Dr. Isabel Soares",
+      "email": "isabel@example.com",
+      "password": "soaresPass",
+      "telefone": "555-999-0000",
+      "endereco": "789 Elm St, Village",
+      "controle_automatico": true
+    },
+    {
+      "id": 7,
+      "nome": "Dr. Marcos Santos",
+      "email": "marcos@example.com",
+      "password": "santos123",
+      "telefone": "555-222-1111",
+      "endereco": "234 Birch Rd, Suburb",
+      "controle_automatico": false
+    },
+    {
+      "id": 8,
+      "nome": "Dr. Carolina Ribeiro",
+      "email": "carolina@example.com",
+      "password": "ribeiroPwd",
+      "telefone": "555-666-7777",
+      "endereco": "123 Pine Ave, City",
+      "controle_automatico": false
+    },
+    {
+      "id": 9,
+      "nome": "Dr. Eduardo Pereira",
+      "email": "eduardo@example.com",
+      "password": "eduardoPass",
+      "telefone": "555-888-9999",
+      "endereco": "456 Cedar Rd, Town",
+      "controle_automatico": true
+    }
+  ],
+  "agenda": [
+    {
+      "disponivel": 1,
+      "dia": 1,
+      "horario_inicio": "08:00:00",
+      "horario_fim": "10:00:00",
+      "fisioterapeuta__id": 5
+    },
+    {
+      "disponivel": 0,
+      "dia": 1,
+      "horario_inicio": "11:00:00",
+      "horario_fim": "13:00:00",
+      "fisioterapeuta__id": 7
+    },
+    {
+      "disponivel": 0,
+      "dia": 2,
+      "horario_inicio": "14:00:00",
+      "horario_fim": "16:00:00",
+      "fisioterapeuta__id": 1
+    },
+    {
+      "disponivel": 1,
+      "dia": 2,
+      "horario_inicio": "17:00:00",
+      "horario_fim": "19:00:00",
+      "fisioterapeuta__id": 9
+    },
+    {
+      "disponivel": 1,
+      "dia": 3,
+      "horario_inicio": "09:00:00",
+      "horario_fim": "18:00:00",
+      "fisioterapeuta__id": 1
+    },
+    {
+      "disponivel": 1,
+      "dia": 3,
+      "horario_inicio": "14:00:00",
+      "horario_fim": "16:00:00",
+      "fisioterapeuta__id": 8
+    },
+    {
+      "disponivel": 1,
+      "dia": 4,
+      "horario_inicio": "10:00:00",
+      "horario_fim": "12:00:00",
+      "fisioterapeuta__id": 1
+    },
+    {
+      "disponivel": 0,
+      "dia": 4,
+      "horario_inicio": "15:00:00",
+      "horario_fim": "17:00:00",
+      "fisioterapeuta__id": 1
+    },
+    {
+      "disponivel": 1,
+      "dia": 5,
+      "horario_inicio": "11:00:00",
+      "horario_fim": "13:00:00",
+      "fisioterapeuta__id": 1
+    },
+    {
+      "disponivel": 1,
+      "dia": 5,
+      "horario_inicio": "16:00:00",
+      "horario_fim": "18:00:00",
+      "fisioterapeuta__id": 1
+    }
+  ],
+  "consulta": [
+    {
+      "paciente__id": 1,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-15 09:00:00",
+      "observacoes": "Consulta de rotina",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 2,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-15 1:30:00",
+      "observacoes": "Acompanhamento pós-cirúrgico",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 3,
+      "fisioterapeuta__id": 3,
+      "data_e_hora": "2023-11-14 11:00:00",
+      "observacoes": "Avaliação inicial",
+      "confirmacao": 1,
+      "owner_id": 3
+    },
+    {
+      "paciente__id": 4,
+      "fisioterapeuta__id": 4,
+      "data_e_hora": "2023-11-16 14:45:00",
+      "observacoes": "Tratamento de lesão muscular",
+      "confirmacao": 1,
+      "owner_id": 4
+    },
+    {
+      "paciente__id": 5,
+      "fisioterapeuta__id": 5,
+      "data_e_hora": "2023-11-18 10:30:00",
+      "observacoes": "Reabilitação pós-acidente",
+      "confirmacao": 1,
+      "owner_id": 5
+    },
+    {
+      "paciente__id": 6,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-20 09:30:00",
+      "observacoes": "Consulta de rotina",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 7,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-22 16:15:00",
+      "observacoes": "Acompanhamento pós-cirúrgico",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 8,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-24 12:45:00",
+      "observacoes": "Avaliação inicial",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 9,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-26 14:00:00",
+      "observacoes": "Tratamento de lesão muscular",
+      "confirmacao": 1
+    },
+    {
+      "paciente__id": 10,
+      "fisioterapeuta__id": 1,
+      "data_e_hora": "2023-11-28 10:00:00",
+      "observacoes": "Reabilitação pós-acidente",
+      "confirmacao": 1
+    }
+  ]
+}
