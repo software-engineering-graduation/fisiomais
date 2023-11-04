@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentMedia } from '../../store/mediaDetail'
 import { Divider, notification } from 'antd';
 
@@ -35,6 +35,7 @@ const Midias = () => {
     const [deleteMidias, setDeleteMidias] = useState(false);
     const [loadingMidias, setLoadingMidias] = useState(true);
     const [loadingDeletion, setLoadingDeletion] = useState(false);
+    const currentUser = useSelector(state => state.currentUser.value);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -48,7 +49,6 @@ const Midias = () => {
     };
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     // most recent first
     const orderedData = (data) => {
@@ -85,7 +85,7 @@ const Midias = () => {
         setLoadingMidias(true);
         // FIXME - simulate delay to show loadingMidias
 
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`).
+        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia?fisioterapeuta_id=${currentUser.userId}`).
             then(response => {
                 const data = response.data.map(midia => {
                     const { id, titulo, descricao, tipo, created_at } = midia;

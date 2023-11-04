@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // todo - remove these mocks
-const mockUser = {
-    id: 1,
+const mockPaciente = {
+    id: 2,
     nome: "Jane Smith",
     email: "jane.smith@example.com",
     password: "securePwd456",
@@ -13,6 +13,19 @@ const mockUser = {
     endereco: "456 Elm St, Town",
     role: 'paciente'
 }
+const mockFisio = {
+    id: 1,
+    nome: "Dr. Sarah PT",
+    email: "sarah.pt@example.com",
+    password: "ptSecurePwd",
+    telefone: "555-333-4444",
+    endereco: "456 Birch St, Town",
+    controle_automatico: true,
+    role: 'fisioterapeuta'
+}
+
+const mockUser = mockFisio
+
 const mockId = mockUser.id;
 
 export const currentUser = createSlice({

@@ -111,7 +111,7 @@ const MidiaDetail = () => {
         return (
             <Result
                 status="500"
-                title="500"
+                title="Erro ao buscar detalhes da mídia"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes da mídia que você está procurando."
             />
         )
