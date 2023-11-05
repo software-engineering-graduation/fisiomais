@@ -3,6 +3,7 @@
 # Define the Docker image and container name
 IMAGE_NAME="fisiomais-mysql"
 CONTAINER_NAME="fisiomais-mysql-container"
+NETWORK_NAME='fisiomais-network'
 
 # Function to build the Docker image
 build_image() {
@@ -12,6 +13,7 @@ build_image() {
 # Function to run the Docker container with a volume
 run_container() {
     docker run -d --name $CONTAINER_NAME -p 3306:3306 \
+        --network $NETWORK_NAME \
         -v mysql_data:/var/lib/mysql \
         $IMAGE_NAME
 }
@@ -84,6 +86,15 @@ prune_all_fisiomais_images(){
     docker rmi -f $(docker images | grep fisiomais | awk '{print $3}')
 }
 
+kill_all_fisiomais_networks(){
+    docker network stop $(docker network ls | grep fisiomais | awk '{print $1}')
+    docker network rm $(docker network ls | grep fisiomais | awk '{print $1}')
+}
+
+create_fisiomais_network(){
+    docker network create $NETWORK_NAME
+}
+
 start_all(){
     echo "Removendo containers e imagens antigos"
     kill_all_fisiomais_containers > /dev/null 2>&1
@@ -93,6 +104,11 @@ start_all(){
     sleep 1
     echo "Buildando imagem"
     build_image > /dev/null 2>&1
+    sleep 2
+    echo "Criando rede"
+    kill_all_fisiomais_networks > /dev/null 2>&1
+    sleep 1
+    create_fisiomais_network > /dev/null 2>&1
     sleep 2
     echo "Rodando container"
     run_container > /dev/null 2>&1

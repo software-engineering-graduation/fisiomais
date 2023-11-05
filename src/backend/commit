@@ -1,0 +1,6 @@
+:sparkles: feat: projeto backend:
+- ajustando criação do projeto
+- adicionando swagger para documentação
+- crud paciente
+- dev container
+- update local db script #82

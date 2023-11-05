@@ -15,15 +15,22 @@ import jakarta.persistence.TemporalType;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fisiomais.model.enums.Genero;
+
 @Data
 @Entity
 @Table(name = "paciente")
 public class Paciente {
     @Id
+    @Column(name = "_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer _id;
+    private Integer id;
 
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
     private Date create_time;
 
     @Column(nullable = false, length = 100)
@@ -35,9 +42,9 @@ public class Paciente {
     @Column(nullable = false, length = 32)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "data_nascimento")
     @Temporal(TemporalType.DATE)
-    private Date data_nascimento;
+    private Date dataNascimento;
 
     @Column(nullable = false, length = 11)
     private String cpf;
@@ -46,13 +53,9 @@ public class Paciente {
     private String telefone;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "ENUM('Homem', 'Mulher', 'Outro')")
     private Genero genero;
 
     @Column(length = 200)
     private String endereco;
-
-    public enum Genero {
-        Homem, Mulher, Outro
-    }
 }

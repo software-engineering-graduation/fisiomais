@@ -1,7 +1,7 @@
 package com.fisiomais.model;
 
 import lombok.Data;
-import java.sql.Date;
+import java.util.Date;
 import jakarta.persistence.*;
 
 @Data
