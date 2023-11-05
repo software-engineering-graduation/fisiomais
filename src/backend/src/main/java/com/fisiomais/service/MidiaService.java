@@ -8,6 +8,8 @@ import com.fisiomais.model.Midia;
 import com.fisiomais.model.enums.TipoArquivo;
 import com.fisiomais.repository.MidiaRepository;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,10 +89,26 @@ public class MidiaService {
             throw new NullPointerException("Type from Midia: null");
         }
         midiaDTO.setType(midia.getType());
+
+        // Decode Titulo and Descricao from UTF-8
+        String titulo = null;
+        String descricao = null;
+
+        try {
+            titulo = new String(midia.getTitulo().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            descricao = new String(midia.getDescricao().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new RuntimeException("Error decoding string. Please provide a valid string format.");
+        }
+
+        midiaDTO.setTitulo(titulo);
+        midiaDTO.setDescricao(descricao);
         midiaDTO.setArquivo(midia.getArquivo());
         midiaDTO.setLinkArquivo(midia.getLinkArquivo());
-        midiaDTO.setTitulo(midia.getTitulo());
-        midiaDTO.setDescricao(midia.getDescricao());
+
+        System.out.println("Titulo: " + titulo);
+        System.out.println("Descricao: " + descricao);
+
         return midiaDTO;
     }
 
@@ -102,8 +120,21 @@ public class MidiaService {
         midia.setType(midiaDTO.getType());
         midia.setArquivo(midiaDTO.getArquivo());
         midia.setLinkArquivo(midiaDTO.getLinkArquivo());
-        midia.setTitulo(midiaDTO.getTitulo());
-        midia.setDescricao(midiaDTO.getDescricao());
+
+        // Encode Titulo and Descricao to ISO-8859-1
+        String titulo = null;
+        String descricao = null;
+
+        try {
+            titulo = new String(midiaDTO.getTitulo().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+            descricao = new String(midiaDTO.getDescricao().getBytes(StandardCharsets.UTF_8),
+                    StandardCharsets.ISO_8859_1);
+        } catch (Exception e) {
+            throw new RuntimeException("Error encoding string. Please provide a valid string format.");
+        }
+
+        midia.setTitulo(titulo);
+        midia.setDescricao(descricao);
         return midia;
     }
 

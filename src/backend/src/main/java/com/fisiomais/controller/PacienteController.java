@@ -22,7 +22,7 @@ public class PacienteController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json; charset=UTF-8")
     public ResponseEntity<List<PacienteDTO>> getAllPacientes() {
         List<PacienteDTO> pacientes = pacienteService.getAllPacientes();
         return new ResponseEntity<>(pacientes, HttpStatus.OK);
