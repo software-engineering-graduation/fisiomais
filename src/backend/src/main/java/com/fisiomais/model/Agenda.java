@@ -11,7 +11,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "agenda")
 public class Agenda {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")

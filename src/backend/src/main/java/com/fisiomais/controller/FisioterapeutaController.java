@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/fisioterapeutas")
@@ -28,8 +29,8 @@ public class FisioterapeutaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fisioterapeuta> getFisioterapeutaById(@PathVariable Long id) {
-        Fisioterapeuta fisioterapeuta = fisioterapeutaService.findById(id);
+    public ResponseEntity<Optional<Fisioterapeuta>> getFisioterapeutaById(@PathVariable Long id) {
+        Optional<Fisioterapeuta> fisioterapeuta = fisioterapeutaService.findById(id);
         return ResponseEntity.ok(fisioterapeuta);
     }
 
@@ -47,7 +48,7 @@ public class FisioterapeutaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFisioterapeuta(@PathVariable Long id) {
-        fisioterapeutaService.delete(id);
+        fisioterapeutaService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

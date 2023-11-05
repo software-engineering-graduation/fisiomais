@@ -1,5 +1,6 @@
 package com.fisiomais.service;
 
+import com.fisiomais.dto.FisioterapeutaDTO;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,12 @@ public class FisioterapeutaService {
     }
 
     @Transactional
-    public Fisioterapeuta update(Long id, Fisioterapeuta fisioterapeuta) {
+    public Fisioterapeuta update(Long id, FisioterapeutaDTO fisioterapeutaDTO) {
         Optional<Fisioterapeuta> existingFisioterapeuta = fisioterapeutaRepository.findById(id);
         if(existingFisioterapeuta.isPresent()) {
-            validateFisioterapeuta(fisioterapeuta);
-            fisioterapeuta.set_id(null);
-            return fisioterapeutaRepository.save(fisioterapeuta);
+            validateFisioterapeuta(fisioterapeutaDTO);
+            fisioterapeutaDTO.set_id(null);
+            return fisioterapeutaRepository.save(fisioterapeutaDTO);
         } else {
             throw new RuntimeException("Fisioterapeuta not found");
         }
@@ -93,5 +94,8 @@ public class FisioterapeutaService {
     public List<Fisioterapeuta> findByEspecialidade(String especialidade) {
         return fisioterapeutaRepository.findByEspecialidade(especialidade);
     }
-    
+
+    public Fisioterapeuta create(FisioterapeutaDTO fisioterapeutaDTO) {
+        return null;
+    }
 }

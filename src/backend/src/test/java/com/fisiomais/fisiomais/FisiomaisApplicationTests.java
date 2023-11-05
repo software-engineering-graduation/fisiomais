@@ -9,5 +9,4 @@ class FisiomaisApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

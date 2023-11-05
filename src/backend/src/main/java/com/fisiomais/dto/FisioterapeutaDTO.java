@@ -14,5 +14,4 @@ public class FisioterapeutaDTO implements Serializable {
     private String nome;
     private String registroProfissional;
     private String especialidade;
-
 }

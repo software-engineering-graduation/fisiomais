@@ -10,13 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.fisiomais.model.Fisioterapeuta;
 
 @Repository
-public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, Long> {
-
+public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, Integer> {
     List<Fisioterapeuta> findAll();
-
     Page<Fisioterapeuta> findAll(Pageable pageable);
-
     List<Fisioterapeuta> findByEspecialidade(String especialidade);
-
     List<Fisioterapeuta> findByNomeContainingIgnoreCase(String nome);
 }
