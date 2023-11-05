@@ -457,9 +457,9 @@ INSERT INTO
     )
 VALUES (
         1,
-        'Vídeo',
+        'Video',
         'Exercício 1',
-        'Vídeo demonstrativo do exercício 1.',
+        'Video demonstrativo do exercício 1.',
         'http://linkvideo1.com'
     ), (
         2,
@@ -487,9 +487,9 @@ VALUES (
         'http://linkgif2.com'
     ), (
         3,
-        'Vídeo',
+        'Video',
         'Alongamento de membros inferiores',
-        'Vídeo com série de alongamentos para pernas.',
+        'Video com série de alongamentos para pernas.',
         'http://linkvideo2.com'
     ), (
         1,
@@ -499,9 +499,9 @@ VALUES (
         'http://linkgif3.com'
     ), (
         2,
-        'Vídeo',
+        'Video',
         'Técnicas de relaxamento',
-        'Vídeo com técnicas de relaxamento muscular.',
+        'Video com técnicas de relaxamento muscular.',
         'http://linkvideo3.com'
     ), (
         3,

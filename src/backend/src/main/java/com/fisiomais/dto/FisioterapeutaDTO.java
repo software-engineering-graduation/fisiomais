@@ -10,8 +10,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FisioterapeutaDTO implements Serializable {
-    private Long id;
+    private Integer id;
     private String nome;
-    private String registroProfissional;
-    private String especialidade;
+    private String email;
+    private String password;
+    private String telefone;
+    private String endereco;
+    private Boolean controleAutomatico;
 }

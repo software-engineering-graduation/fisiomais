@@ -18,7 +18,8 @@ import lombok.Data;
 public class Fisioterapeuta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer _id;
+    @Column(name = "_id")
+    private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date create_time;
@@ -37,5 +38,7 @@ public class Fisioterapeuta {
 
     @Column(length = 200)
     private String endereco;
-}
 
+    @Column(name = "controle_automatico", nullable = false)
+    private Boolean automatic;
+}
