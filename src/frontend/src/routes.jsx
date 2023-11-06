@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home/index";
 import Midias from "./pages/Midias/index";
-import MidiaDetail from "./pages/Midias/MidiaDetail/index";
+import MidiaDetail from "./pages/Midias/MidiaDetail";
 import Agenda from "./pages/Agenda";
 import Exercicios from "./pages/Exercicios";
 import Historico from "./pages/Historico";
@@ -13,6 +13,9 @@ import Cadastro from "./pages/Cadastro";
 import Plano from "./pages/Plano";
 import CadastroFisioterapeuta from "./pages/Fisioterapeuta";
 import AcompanhamentoVirtual from "pages/Acompanhar";
+import Consulta from "pages/Consulta";
+import DadosConsulta from 'pages/Consulta/DadosConsulta';
+import Login from "pages/Login";
 
 const Router = () => {
     return (
@@ -29,6 +32,9 @@ const Router = () => {
             <Route component={Plano} path="/plano" />
             <Route component={CadastroFisioterapeuta} path="/fisioterapeuta" />
             <Route component={AcompanhamentoVirtual} path="/acompanhamento" />
+            <Route component={Consulta} path="/nova-consulta" />
+            <Route component={DadosConsulta} path="/nova-consulta/dados" />
+            <Route component={Login} path='/login' />
         </Routes>
     )
 }

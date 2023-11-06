@@ -12,6 +12,9 @@ import Cadastro from 'pages/Cadastro';
 import Plano from 'pages/Plano'
 import CadastroFisioterapeuta from 'pages/Fisioterapeuta';
 import AcompanhamentoVirtual from 'pages/Acompanhar';
+import Consulta from 'pages/Consulta';
+import DadosConsulta from 'pages/Consulta/DadosConsulta';
+import Login from 'pages/Login';
 
 const PagesRouter = () => {
     return (
@@ -28,6 +31,9 @@ const PagesRouter = () => {
             <Route path="/plano" element={<Plano />} />
             <Route path="/fisioterapeuta" element={<CadastroFisioterapeuta />} />
             <Route path="/acompanhamento" element={<AcompanhamentoVirtual />} />
+            <Route path="/nova-consulta" element={<Consulta />} />
+            <Route path='/nova-consulta/dados' element={<DadosConsulta />} />
+            <Route path='/login' element={<Login />} />
         </Routes>
     );
 }

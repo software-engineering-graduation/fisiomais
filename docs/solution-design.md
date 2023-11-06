@@ -4,7 +4,7 @@
 
 A seguir o modelo de dados (DER) da aplicação:
 
-![Diagrama de Entidade Relacionamento de Exemplo](images/er_diagram.png "Diagrama de Entidade Relacionamento de Exemplo")
+![Diagrama de Entidade Relacionamento de Exemplo](../assets/database/der/der.png "Diagrama de Entidade Relacionamento de Exemplo")
 
 ### 4.2. Diagrama de classes
 
