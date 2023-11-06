@@ -5,7 +5,6 @@ import lombok.Data;
 import java.util.Date;
 
 import com.fisiomais.model.enums.StatusConsulta;
-import com.fisiomais.model.enums.TipoArquivo;
 
 import jakarta.persistence.*;
 
