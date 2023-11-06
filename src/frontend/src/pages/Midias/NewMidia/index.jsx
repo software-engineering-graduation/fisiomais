@@ -4,6 +4,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, message, Upload, Divider, Tooltip, Space, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -32,6 +33,16 @@ const NewMidia = () => {
 
     const navigate = useNavigate();
 
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
+
     const openNotification = (type, title, description) => {
         api[type]({
             message: title,
@@ -57,7 +68,7 @@ const NewMidia = () => {
             tipo: newMidia.tipo,
             created_at: new Date().toISOString(),
         }
-        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`, mockNewMidia).
+        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`, mockNewMidia).
             then(response => {
                 if (response.status !== 201) {
                     openNotification('error', 'Erro ao criar mídia!', response.message);
@@ -68,6 +79,7 @@ const NewMidia = () => {
             }).
             finally(() => {
                 openNotification('success', 'Sucesso ao criar mídia!', 'Mídia criada com sucesso!');
+                // TODO - Remover o setTimeout quando a API estiver pronta
                 setTimeout(() => {
                     navigate('/midias');
                     setLoadCreateMidia(false);
@@ -102,6 +114,26 @@ const NewMidia = () => {
         },
     };
 
+    const isvalidUrl = (url) => {
+        try {
+            new URL(url);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const notifyErrorField = (errorInfo) => {
+        const { errorFields } = errorInfo;
+        const message = errorFields[0].errors[0];
+        const name = errorFields[0].name[0];
+
+        openNotification('error', `Erro ao criar mídia!`, message);
+
+        const input = document.getElementById("media-form_" + name)
+        input.focus();
+    }
+
 
     return (
         <>
@@ -111,6 +143,7 @@ const NewMidia = () => {
                 form={form}
                 name="media-form"
                 onFinish={onFinish}
+                onFinishFailed={notifyErrorField}
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 15 }}
                 disabled={loadCreateMidia}
@@ -147,7 +180,15 @@ const NewMidia = () => {
                     </Tooltip>
                 </Space>
 
-                <Form.Item label="Link Arquivo" name="link_arquivo" rules={[{ required: true, message: 'Por favor digite um link válido' }]}>
+                <Form.Item label="Link Arquivo"
+                    name="link_arquivo"
+                    rules={[{
+                        required: true,
+                        message: 'Por favor digite um link válido',
+                        type: 'url',
+                    }]}
+                    validateTrigger={['onBlur', 'onChange']}
+                >
                     <Input size='large' />
                 </Form.Item>
 

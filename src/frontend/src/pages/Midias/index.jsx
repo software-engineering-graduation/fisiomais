@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentMedia } from '../../store/mediaDetail'
-import { Divider, notification } from 'antd';
+import { Divider, Result, notification } from 'antd';
 
 import TableHeader from './components/TableHeader';
 import MidiasTable from './components/MidiasTable';
@@ -35,6 +35,15 @@ const Midias = () => {
     const [deleteMidias, setDeleteMidias] = useState(false);
     const [loadingMidias, setLoadingMidias] = useState(true);
     const [loadingDeletion, setLoadingDeletion] = useState(false);
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -48,7 +57,6 @@ const Midias = () => {
     };
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     // most recent first
     const orderedData = (data) => {
@@ -66,7 +74,7 @@ const Midias = () => {
 
     const fetchDeletedMidias = async (id) => {
         let finalError = {};
-        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midias/${id}`).
+        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midia/${id}`).
             then(response => {
                 if (response.status !== 200) {
                     finalError = response;
@@ -85,7 +93,7 @@ const Midias = () => {
         setLoadingMidias(true);
         // FIXME - simulate delay to show loadingMidias
 
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midias`).
+        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia?fisioterapeuta_id=${currentUser.userId}`).
             then(response => {
                 const data = response.data.map(midia => {
                     const { id, titulo, descricao, tipo, created_at } = midia;
@@ -93,11 +101,6 @@ const Midias = () => {
 
                     const dispatchMidiaData = (id) => (event) => {
                         event.preventDefault();
-
-                        const midia = midiasJson.midias.find(midia => midia.id === id) ?? undefined;
-
-                        dispatch(setCurrentMedia(midia))
-
                         navigate(`/midia/${id}`);
                     }
 
@@ -119,10 +122,11 @@ const Midias = () => {
                         created_at: formatedDate,
                     }
                 });
+
                 setShortMidias(orderedData(data));
             }
             ).catch(error => {
-                console.log(error);
+                openNotification('error', 'Listar Mídias', 'Erro ao listar mídias!');
             }).
             finally(() => {
                 setLoadingMidias(false);
@@ -131,7 +135,7 @@ const Midias = () => {
 
     useEffect(() => {
         fetchMidias();
-    }, []);
+    }, [deleteMidias]);
 
     const activateDeleteMidias = () => {
         setDeleteMidias(true);
@@ -154,11 +158,11 @@ const Midias = () => {
         let erroShown = false
         deletionStack.forEach(async element => {
             if (!erroShown) {
-
                 const resp = await fetchDeletedMidias(element);
 
                 if (resp.message) {
-                    openNotification('error', `Deletar Mídias: ${shortMidias[element].titulo.props.children}`, errorMessage.message);
+                    find = shortMidias.find(item => item.id === element);
+                    openNotification('error', `Deletar Mídias: ${find.titulo.props.children}`, resp.message);
                     erroShown = true;
                 }
             }
@@ -168,10 +172,8 @@ const Midias = () => {
             openNotification('success', 'Deletar Mídias', 'Mídias deletadas com sucesso!');
         }
 
-        fetchMidias();
         setDeleteMidias(false);
         setDeletionStack([]);
-
     }
 
     const handleRowSelection = (id, event) => {

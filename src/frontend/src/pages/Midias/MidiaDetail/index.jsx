@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player'
 import { useParams } from 'react-router-dom';
-import { Result, Divider, Popover } from 'antd';
+import { Result, Divider, Popover, Image, Space, Skeleton } from 'antd';
 import styled from 'styled-components';
-import midiasJson from '../data/mock-data.json'
-import { Image } from 'antd';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -48,17 +48,35 @@ const MediaLink = styled.a`
 
 const MidiaDetail = () => {
     const [mediaDetail, setMidiaDetail] = useState(undefined)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+
+    const currentUser = useSelector(state => state.currentUser.value);
+
+    if (currentUser.user.role !== 'fisioterapeuta') {
+        return (
+            <Result title="Usuário não tem permissão para acessar essa página"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+            </Result>
+        )
+    }
+
     let { id } = useParams()
     id = parseInt(id)
 
-    const midias = midiasJson.midias
-
     useEffect(() => {
-        const midia = midias.find(m => m.id === id)
-
-        if (midia !== undefined) {
-            setMidiaDetail(midia)
-        }
+        axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia/${id}`)
+            .then(response => {
+                if (response.data) {
+                    setMidiaDetail(response.data)
+                }
+            })
+            .catch(error => {
+                setError(true)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }, [])
 
     const titlePopOver = () => {
@@ -66,13 +84,44 @@ const MidiaDetail = () => {
             <>
                 <p>
                     <strong style={{ color: '#0a83cf' }}>Criado em: </strong>
-                    { new Date(mediaDetail.created_at).toLocaleString('pt-BR')}
+                    {new Date(mediaDetail.created_at).toLocaleString('pt-BR')}
                 </p >
                 <p>
                     <strong style={{ color: '#0a83cf' }}>Tipo: </strong>
                     {mediaDetail.tipo}
                 </p>
             </>
+        )
+    }
+
+    if (loading) {
+        return (
+            <Space style={{
+                width: '100%',
+                maxWidth: 800,
+                margin: '0 auto',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '20px 0px'
+            }}>
+                <Skeleton.Image active size='large' />
+                <Skeleton.Input active size='default' />
+                <Divider />
+                <Skeleton.Input active size='large' />
+                <Skeleton.Input active size='small' />
+            </Space>
+        )
+    }
+
+    if (error) {
+        return (
+            <Result
+                status="500"
+                title="Erro ao buscar detalhes da mídia"
+                subTitle="Desculpe, ocorreu um erro ao buscar os detalhes da mídia que você está procurando."
+            />
         )
     }
 

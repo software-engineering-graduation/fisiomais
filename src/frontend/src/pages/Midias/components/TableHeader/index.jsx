@@ -33,7 +33,7 @@ const ConfirmDeleteMidiasButtonContainer = styled.div`
     .ant-btn-default {
         background-color: #F95E5A !important;
         color: white !important;
-        border-color: #white !important;
+        border-color: white !important;
     }
 
     .ant-btn-default:hover {

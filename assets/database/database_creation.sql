@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`fisioterapeuta` (
   `password` VARCHAR(32) NOT NULL,
   `telefone` VARCHAR(11) NOT NULL,
   `endereco` VARCHAR(200) NULL,
+  `controle_automatico` TINYINT NOT NULL,
   PRIMARY KEY (`_id`))
 ENGINE = InnoDB;
 
@@ -56,9 +57,8 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`consulta` (
   `paciente__id` INT NOT NULL,
   `fisioterapeuta__id` INT NOT NULL,
   `data_e_hora` DATETIME(1) NOT NULL,
-  `observaoes` TEXT(500) NULL,
-  `confirmacao` TINYINT NOT NULL,
-  `owner_id` INT NOT NULL,
+  `observacoes` TEXT(500) NULL,
+  `confirmacao` ENUM('confirmado', 'cancelado', 'realizado', 'pendente') NOT NULL,
   `link` LONGTEXT NULL,
   PRIMARY KEY (`_id`, `paciente__id`, `fisioterapeuta__id`),
   INDEX `fk_consulta_paciente_idx` (`paciente__id` ASC) VISIBLE,
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`midia` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `_id` INT NOT NULL AUTO_INCREMENT,
   `fisioterapeuta__id` INT NOT NULL,
-  `type` ENUM('Vídeo', 'Imagem', 'GIF') NOT NULL,
+  `type` ENUM('Video', 'Imagem', 'GIF') NOT NULL,
   `arquivo` LONGBLOB NULL,
   `link_arquivo` LONGTEXT NULL,
   `titulo` VARCHAR(100) NOT NULL,
