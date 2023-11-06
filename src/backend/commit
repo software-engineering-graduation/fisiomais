@@ -1,0 +1,4 @@
+:sparkles: feat: processo 7 no backend:
+- adicionando swagger para documentação
+- crud funcionando
+- adicionando handler de exceptions #83
