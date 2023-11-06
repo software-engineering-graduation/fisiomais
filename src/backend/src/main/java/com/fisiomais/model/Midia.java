@@ -5,6 +5,8 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fisiomais.model.enums.TipoArquivo;
 
 @Data
@@ -15,6 +17,11 @@ public class Midia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
     private Integer id;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    private Date createTime;
 
     @ManyToOne
     @JoinColumn(name = "fisioterapeuta__id", nullable = false)
@@ -35,8 +42,4 @@ public class Midia {
 
     @Column(nullable = false, length = 1000)
     private String descricao;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time")
-    private Date createTime;
 }

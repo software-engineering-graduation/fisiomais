@@ -1,4 +1,4 @@
-:sparkles: feat: projeto backend:
+:sparkles: feat: processo 7 no backend:
 - adicionando swagger para documentação
-- get all para midias
-- update local db script #83
+- crud funcionando
+- adicionando handler de exceptions #83

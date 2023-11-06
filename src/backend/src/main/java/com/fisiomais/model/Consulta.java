@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.enums.TipoArquivo;
+
 import jakarta.persistence.*;
 
 @Data
@@ -32,8 +35,9 @@ public class Consulta {
     @Column(length = 500)
     private String observacoes;
 
-    @Column(nullable = false)
-    private Boolean confirmacao;
+    @Column(nullable = false, columnDefinition = "ENUM('confirmado', 'cancelado', 'realizado', 'pendente')")
+    @Enumerated(EnumType.STRING)
+    private StatusConsulta confirmacao;
 
     @Column(nullable = false)
     private Integer owner_id;
