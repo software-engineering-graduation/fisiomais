@@ -11,7 +11,7 @@ import java.sql.Time;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agendas")
+@RequestMapping("/api/agenda")
 public class AgendaController {
 
     private final AgendaService agendaService;

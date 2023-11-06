@@ -28,7 +28,7 @@ public class ConsultaService {
         return consultaRepository.findByDataEHoraBetween(startOfDay, endOfDay);
     }
 
-    public Consulta updateConsultaStatus(Long consultaId, StatusConsulta status) {
+    public Consulta updateConsultaStatus(Integer consultaId, StatusConsulta status) {
         Optional<Consulta> consultaOptional = consultaRepository.findById(consultaId);
         if (consultaOptional.isPresent()) {
             Consulta consulta = consultaOptional.get();
@@ -43,11 +43,11 @@ public class ConsultaService {
         return consultaRepository.save(consulta);
     }
 
-    public void deleteConsulta(Long consultaId) {
+    public void deleteConsulta(Integer consultaId) {
         consultaRepository.deleteById(consultaId);
     }
 
-    public Consulta getConsultaById(Long consultaId) {
+    public Consulta getConsultaById(Integer consultaId) {
         return consultaRepository.findById(consultaId)
                 .orElseThrow(() -> new RuntimeException("Consulta não encontrada para o ID: " + consultaId));
     }
@@ -60,36 +60,40 @@ public class ConsultaService {
         return consultaRepository.findByPaciente_Id(pacienteId);
     }
 
-    public Consulta marcarConsultaComoConcluida(Long consultaId) {
+    public Consulta marcarConsultaComoConcluida(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
         consulta.setConfirmacao(StatusConsulta.Realizado);
         return consultaRepository.save(consulta);
     }
 
-    public Consulta cancelarConsulta(Long consultaId) {
+    public Consulta cancelarConsulta(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
         consulta.setConfirmacao(StatusConsulta.Cancelado);
         return consultaRepository.save(consulta);
     }
 
-    public Consulta reagendarConsulta(Long consultaId, Date novaDataHora) {
+    public Consulta reagendarConsulta(Integer consultaId, Date novaDataHora) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setData_e_hora(novaDataHora);
+        consulta.setDataEHora(novaDataHora);
         return consultaRepository.save(consulta);
     }
 
-    public void notificarPaciente(Long consultaId, String mensagem) {
+    public void notificarPaciente(Integer consultaId, String mensagem) {
     }
 
-    public Consulta confirmarPresenca(Long consultaId) {
+    public Consulta confirmarPresenca(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
         consulta.setConfirmacao(StatusConsulta.Confirmado);
         return consultaRepository.save(consulta);
     }
 
-    public Consulta registrarFeedback(Long consultaId, String feedback) {
+    public Consulta registrarFeedback(Integer consultaId, String feedback) {
         Consulta consulta = getConsultaById(consultaId);
         consulta.setObservacoes(feedback);
         return consultaRepository.save(consulta);
+    }
+
+    public List<Consulta> getAllConsultas() {
+        return consultaRepository.findAll();
     }
 }

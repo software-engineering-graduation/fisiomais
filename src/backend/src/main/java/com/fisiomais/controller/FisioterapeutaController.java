@@ -11,7 +11,7 @@
  import java.util.Optional;
 
  @RestController
- @RequestMapping("/fisioterapeutas")
+ @RequestMapping("api/fisioterapeuta")
  public class FisioterapeutaController {
 
      private final FisioterapeutaService fisioterapeutaService;

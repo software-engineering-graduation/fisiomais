@@ -27,9 +27,9 @@ public class Consulta {
     @JoinColumn(name = "fisioterapeuta__id", referencedColumnName = "_id")
     private Fisioterapeuta fisioterapeuta;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="data_e_hora")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date data_e_hora;
+    private Date dataEHora;
 
     @Column(length = 500)
     private String observacoes;

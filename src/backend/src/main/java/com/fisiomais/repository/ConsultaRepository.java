@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
+public interface ConsultaRepository extends JpaRepository<Consulta, Integer> {
 
     List<Consulta> findByDataEHoraBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 

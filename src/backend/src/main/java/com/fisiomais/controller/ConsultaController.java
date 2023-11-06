@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/consultas")
+@RequestMapping("/api/consulta")
 public class ConsultaController {
 
     private final ConsultaService consultaService;
@@ -23,6 +23,12 @@ public class ConsultaController {
         this.consultaService = consultaService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Consulta>> getAllConsultas() {
+        List<Consulta> consultas = consultaService.getAllConsultas();
+        return ResponseEntity.ok(consultas);
+    }
+
     @GetMapping("/date/{date}")
     public ResponseEntity<List<Consulta>> getConsultasForDate(@PathVariable LocalDate date) {
         List<Consulta> consultas = consultaService.getConsultasForDate(date);
@@ -30,7 +36,7 @@ public class ConsultaController {
     }
 
     @GetMapping("/{consultaId}")
-    public ResponseEntity<Consulta> getConsultaById(@PathVariable Long consultaId) {
+    public ResponseEntity<Consulta> getConsultaById(@PathVariable Integer consultaId) {
         Consulta consulta = consultaService.getConsultaById(consultaId);
         return ResponseEntity.ok(consulta);
     }
@@ -54,49 +60,49 @@ public class ConsultaController {
     }
 
     @PatchMapping("/{consultaId}/status")
-    public ResponseEntity<Consulta> updateConsultaStatus(@PathVariable Long consultaId, @RequestBody StatusConsulta status) {
+    public ResponseEntity<Consulta> updateConsultaStatus(@PathVariable Integer consultaId, @RequestBody StatusConsulta status) {
         Consulta consulta = consultaService.updateConsultaStatus(consultaId, status);
         return ResponseEntity.ok(consulta);
     }
 
     @PatchMapping("/{consultaId}/concluir")
-    public ResponseEntity<Consulta> marcarConsultaComoConcluida(@PathVariable Long consultaId) {
+    public ResponseEntity<Consulta> marcarConsultaComoConcluida(@PathVariable Integer consultaId) {
         Consulta consulta = consultaService.marcarConsultaComoConcluida(consultaId);
         return ResponseEntity.ok(consulta);
     }
 
     @PatchMapping("/{consultaId}/cancelar")
-    public ResponseEntity<Consulta> cancelarConsulta(@PathVariable Long consultaId) {
+    public ResponseEntity<Consulta> cancelarConsulta(@PathVariable Integer consultaId) {
         Consulta consulta = consultaService.cancelarConsulta(consultaId);
         return ResponseEntity.ok(consulta);
     }
 
     @PatchMapping("/{consultaId}/reagendar")
-    public ResponseEntity<Consulta> reagendarConsulta(@PathVariable Long consultaId, @RequestBody Date novaDataHora) {
+    public ResponseEntity<Consulta> reagendarConsulta(@PathVariable Integer consultaId, @RequestBody Date novaDataHora) {
         Consulta consulta = consultaService.reagendarConsulta(consultaId, novaDataHora);
         return ResponseEntity.ok(consulta);
     }
 
     @PatchMapping("/{consultaId}/confirmar-presenca")
-    public ResponseEntity<Consulta> confirmarPresenca(@PathVariable Long consultaId) {
+    public ResponseEntity<Consulta> confirmarPresenca(@PathVariable Integer consultaId) {
         Consulta consulta = consultaService.confirmarPresenca(consultaId);
         return ResponseEntity.ok(consulta);
     }
 
     @PatchMapping("/{consultaId}/feedback")
-    public ResponseEntity<Consulta> registrarFeedback(@PathVariable Long consultaId, @RequestBody String feedback) {
+    public ResponseEntity<Consulta> registrarFeedback(@PathVariable Integer consultaId, @RequestBody String feedback) {
         Consulta consulta = consultaService.registrarFeedback(consultaId, feedback);
         return ResponseEntity.ok(consulta);
     }
 
     @PostMapping("/{consultaId}/notificar")
-    public ResponseEntity<?> notificarPaciente(@PathVariable Long consultaId, @RequestBody String mensagem) {
+    public ResponseEntity<?> notificarPaciente(@PathVariable Integer consultaId, @RequestBody String mensagem) {
         consultaService.notificarPaciente(consultaId, mensagem);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{consultaId}")
-    public ResponseEntity<?> deleteConsulta(@PathVariable Long consultaId) {
+    public ResponseEntity<?> deleteConsulta(@PathVariable Integer consultaId) {
         consultaService.deleteConsulta(consultaId);
         return ResponseEntity.ok().build();
     }
