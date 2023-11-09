@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "sass": "^1.69.5"
-  },
-  "dependencies": {
-    "uuid": "^9.0.1"
-  }
-}
