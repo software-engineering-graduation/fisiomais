@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
  * </p>
  */
 
-@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
+@OpenAPIDefinition(servers = {@Server(url = "/", description = "Rest API Fisiomais")})
 @SpringBootApplication
 @EnableJpaRepositories
 public class Application {

@@ -40,8 +40,10 @@ public class MidiaController {
     @Operation(summary = "Obter mídias por ID do Fisioterapeuta", description = "Obter mídias associadas a um Fisioterapeuta específico pelo seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Fisioterapeuta não encontrado")
-    public ResponseEntity<List<Midia>> getMidiaByFisioterapeuta(@PathVariable Integer fisioterapeutaId) {
-        Optional<Fisioterapeuta> optionalFisioterapeuta = fisioterapeutaRepository.findById(fisioterapeutaId);
+    public ResponseEntity<List<Midia>> getMidiaByFisioterapeuta(@PathVariable Integer id) {
+        Optional<Fisioterapeuta> optionalFisioterapeuta = fisioterapeutaRepository.findById(id);
+
+        System.out.println("Found this fisioterapeuta: " + optionalFisioterapeuta);
 
         if (optionalFisioterapeuta.isPresent()) {
             Fisioterapeuta fisioterapeuta = optionalFisioterapeuta.get();
