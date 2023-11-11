@@ -2,7 +2,6 @@ package com.fisiomais.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,7 +38,7 @@ public class Consulta {
     @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
     private Date dataEHora;
 
-    @Column(length = 500)
+    @Column(length = 500, nullable = true)
     private String observacoes;
 
     @Column(nullable = false, columnDefinition = "ENUM('confirmado', 'cancelado', 'realizado', 'pendente')")
@@ -51,4 +50,7 @@ public class Consulta {
 
     @Lob
     private String link;
+
+    @Column(name = "google_event_id")
+    private String googleEventId;
 }

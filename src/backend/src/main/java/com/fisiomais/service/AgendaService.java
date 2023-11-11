@@ -89,13 +89,7 @@ public class AgendaService {
 
     // Mappers
     private AgendaResponse toAgendaResponse(Agenda agenda) {
-        FisioterapeutaResponse fisio = new FisioterapeutaResponse(
-                agenda.getFisioterapeuta().getId(),
-                agenda.getFisioterapeuta().getNome(),
-                agenda.getFisioterapeuta().getEmail(),
-                agenda.getFisioterapeuta().getTelefone(),
-                agenda.getFisioterapeuta().getEndereco(),
-                agenda.getFisioterapeuta().getAutomatic());
+        FisioterapeutaResponse fisio = FisioterapeutaResponse.toFisioterapeutaResponse(agenda.getFisioterapeuta());
         AgendaResponse nova = new AgendaResponse(
                 agenda.getId(),
                 agenda.getDisponivel(),

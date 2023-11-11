@@ -1,5 +1,6 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.ConsultaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Consulta;
@@ -27,7 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/consulta/")
+@RequestMapping("/api/consulta")
 @Tag(name = "Consultas", description = "Endpoints para gerenciamento de consultas")
 public class ConsultaController {
 
@@ -136,11 +137,11 @@ public class ConsultaController {
     @Operation(summary = "Criar nova consulta", description = "Criar uma nova consulta e retornar a consulta criada.")
     @ApiResponse(responseCode = "201", description = "Consulta criada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Consulta.class)))
     @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessException.class)))
-    public ResponseEntity<Consulta> addConsulta(
+    public ResponseEntity<ConsultaResponse> addConsulta(
             @Parameter(name = "Consulta", description = "Consulta a ser criada") @RequestBody NovaConsultaRequest consulta) {
         try {
             Consulta novaConsultaMapped = consultaUtil.convertToConsulta(consulta);
-            Consulta newConsulta = consultaService.addConsulta(novaConsultaMapped);
+            ConsultaResponse newConsulta = consultaService.addConsulta(novaConsultaMapped);
             return new ResponseEntity<>(newConsulta, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

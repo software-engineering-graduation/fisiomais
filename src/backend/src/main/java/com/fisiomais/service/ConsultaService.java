@@ -1,12 +1,17 @@
 package com.fisiomais.service;
 
+import com.fisiomais.bodys.ConsultaResponse;
+import com.fisiomais.bodys.FisioterapeutaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
+import com.fisiomais.bodys.PacienteResponse;
+import com.fisiomais.entities.ConferenceEventData;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
 import com.fisiomais.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -18,10 +23,11 @@ import java.util.Optional;
 public class ConsultaService {
 
     private final ConsultaRepository consultaRepository;
+    private final GoogleCalendarService googleCalendarService;
 
-    @Autowired
-    public ConsultaService(ConsultaRepository consultaRepository) {
+    public ConsultaService(ConsultaRepository consultaRepository, GoogleCalendarService googleCalendarService) {
         this.consultaRepository = consultaRepository;
+        this.googleCalendarService = googleCalendarService;
     }
 
     public List<Consulta> getConsultasForDate(LocalDate start, LocalDate end) {
@@ -41,13 +47,15 @@ public class ConsultaService {
         }
     }
 
-    public Consulta addConsulta(Consulta consulta) {
+    public ConsultaResponse addConsulta(Consulta consulta) {
         if (consulta.getFisioterapeuta().getAutomatic()) {
-            // generate consulta link
-
+            ConferenceEventData consultaCriada = googleCalendarService.criarEventoConsulta(consulta);
+            consulta.setGoogleEventId(consultaCriada.eventId());
+            consulta.setLink(consultaCriada.meetLink());
         }
 
-        return consultaRepository.save(consulta);
+        Consulta consultaSalva = consultaRepository.save(consulta);
+        return toConsultaResponse(consultaSalva);
     }
 
     public void deleteConsulta(Integer consultaId) {
@@ -102,5 +110,20 @@ public class ConsultaService {
 
     public List<Consulta> getAllConsultas() {
         return consultaRepository.findAll();
+    }
+
+    private ConsultaResponse toConsultaResponse(Consulta consulta) {
+        String obsevacoesConsulta = consulta.getObservacoes() != null
+                ? new String(consulta.getObservacoes().getBytes(StandardCharsets.ISO_8859_1),
+                        StandardCharsets.UTF_8)
+                : null;
+
+        return new ConsultaResponse(
+                PacienteResponse.toPacienteResponse(consulta.getPaciente()),
+                FisioterapeutaResponse.toFisioterapeutaResponse(consulta.getFisioterapeuta()),
+                consulta.getDataEHora(),
+                obsevacoesConsulta,
+                consulta.getConfirmacao(),
+                consulta.getLink());
     }
 }
