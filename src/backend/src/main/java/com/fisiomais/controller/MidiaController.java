@@ -29,7 +29,7 @@ public class MidiaController {
         this.fisioterapeutaRepository = fisioterapeutaRepository;
     }
 
-    @GetMapping(produces = "application/json; charset=UTF-8")
+    @GetMapping
     @Operation(summary = "Obter todas as mídias", description = "Obter uma lista de todas as mídias.")
     public ResponseEntity<List<MidiaDTO>> getAllMidias() {
         List<MidiaDTO> midias = midiaService.getAllMidias();
