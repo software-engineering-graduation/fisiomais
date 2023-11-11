@@ -42,6 +42,11 @@ public class ConsultaService {
     }
 
     public Consulta addConsulta(Consulta consulta) {
+        if (consulta.getFisioterapeuta().getAutomatic()) {
+            // generate consulta link
+
+        }
+
         return consultaRepository.save(consulta);
     }
 
