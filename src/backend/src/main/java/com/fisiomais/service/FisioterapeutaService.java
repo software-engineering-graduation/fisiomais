@@ -115,6 +115,7 @@ public class FisioterapeutaService {
             } catch (Exception e) {
                 throw new RuntimeException("Error decoding string. Please provide a valid string format.");
             }
+            
 
             fisioterapeutasNamesIds
                     .add(new FisioterapeutaNamesAndIdsResponse(nome, fisioterapeuta.getId()));

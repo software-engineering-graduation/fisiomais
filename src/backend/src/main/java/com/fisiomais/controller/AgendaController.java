@@ -1,5 +1,6 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.service.AgendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class AgendaController {
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}")
-    public ResponseEntity<List<Agenda>> getAgendasByFisioterapeuta(@PathVariable Integer fisioterapeutaId) {
-        List<Agenda> agendas = agendaService.getAgendasByFisioterapeuta(fisioterapeutaId);
-        return ResponseEntity.ok(agendas);
+    public ResponseEntity<List<AgendaResponse>> getAgendasByFisioterapeuta(@PathVariable Integer fisioterapeutaId) {
+        List<AgendaResponse> agendas = agendaService.getAgendasByFisioterapeuta(fisioterapeutaId);
+        return new ResponseEntity<>(agendas, HttpStatus.OK);
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/dia/{dia}")

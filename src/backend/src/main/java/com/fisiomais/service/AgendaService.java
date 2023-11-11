@@ -1,5 +1,7 @@
 package com.fisiomais.service;
 
+import com.fisiomais.bodys.AgendaResponse;
+import com.fisiomais.bodys.FisioterapeutaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AgendaService {
@@ -20,8 +22,13 @@ public class AgendaService {
         this.agendaRepository = agendaRepository;
     }
 
-    public List<Agenda> getAgendasByFisioterapeuta(Integer fisioterapeutaId) {
-        return agendaRepository.findByFisioterapeuta_Id(fisioterapeutaId);
+    public List<AgendaResponse> getAgendasByFisioterapeuta(Integer fisioterapeutaId) {
+        List<Agenda> allAgendas = agendaRepository.findByFisioterapeuta_Id(fisioterapeutaId);
+        List<AgendaResponse> agendasResponse = new ArrayList<>();
+        for (Agenda agenda : allAgendas) {
+            agendasResponse.add(toAgendaResponse(agenda));
+        }
+        return agendasResponse;
     }
 
     public List<Agenda> getAgendasByDiaAndFisioterapeuta(Byte dia, Integer fisioterapeutaId) {
@@ -32,11 +39,14 @@ public class AgendaService {
         return agendaRepository.findByDisponivelAndFisioterapeuta_Id(disponivel, fisioterapeutaId);
     }
 
-    public List<Agenda> getAgendasByFisioterapeutaDiaEHorario(Integer fisioterapeutaId, Byte dia, Time horarioInicio, Time horarioFim) {
-        return agendaRepository.findByFisioterapeuta_IdAndDiaAndHorarioInicioLessThanEqualAndHorarioFimGreaterThanEqual(fisioterapeutaId, dia, horarioInicio, horarioFim);
+    public List<Agenda> getAgendasByFisioterapeutaDiaEHorario(Integer fisioterapeutaId, Byte dia, Time horarioInicio,
+            Time horarioFim) {
+        return agendaRepository.findByFisioterapeuta_IdAndDiaAndHorarioInicioLessThanEqualAndHorarioFimGreaterThanEqual(
+                fisioterapeutaId, dia, horarioInicio, horarioFim);
     }
 
-    public List<Agenda> getAgendasDisponiveisByFisioterapeutaAndDia(Integer fisioterapeutaId, Byte dia, Boolean disponivel) {
+    public List<Agenda> getAgendasDisponiveisByFisioterapeutaAndDia(Integer fisioterapeutaId, Byte dia,
+            Boolean disponivel) {
         return agendaRepository.findByFisioterapeuta_IdAndDiaAndDisponivel(fisioterapeutaId, dia, disponivel);
     }
 
@@ -75,5 +85,25 @@ public class AgendaService {
         if (agenda.getHorarioInicio().after(agenda.getHorarioFim())) {
             throw new RuntimeException("O horário de início não pode ser posterior ao horário de término.");
         }
+    }
+
+    // Mappers
+    private AgendaResponse toAgendaResponse(Agenda agenda) {
+        FisioterapeutaResponse fisio = new FisioterapeutaResponse(
+                agenda.getFisioterapeuta().getId(),
+                agenda.getFisioterapeuta().getNome(),
+                agenda.getFisioterapeuta().getEmail(),
+                agenda.getFisioterapeuta().getTelefone(),
+                agenda.getFisioterapeuta().getEndereco(),
+                agenda.getFisioterapeuta().getAutomatic());
+        AgendaResponse nova = new AgendaResponse(
+                agenda.getId(),
+                agenda.getDisponivel(),
+                agenda.getDia(),
+                agenda.getHorarioInicio(),
+                agenda.getHorarioFim(),
+                fisio);
+
+        return nova;
     }
 }
