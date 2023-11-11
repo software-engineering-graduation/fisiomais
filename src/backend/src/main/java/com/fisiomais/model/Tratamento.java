@@ -4,6 +4,10 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Data
 @Entity
 @Table(name = "tratamento")
@@ -13,7 +17,10 @@ public class Tratamento {
     @Column(name = "_id")
     private Integer id;
 
-    @Column(name = "create_time")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
     private Date createTime;
 
     @ManyToOne
@@ -31,6 +38,7 @@ public class Tratamento {
     private String observacoes;
 
     @Column(name = "end_date")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private Date endDate;
 
     @Lob

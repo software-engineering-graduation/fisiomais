@@ -1,5 +1,6 @@
 package com.fisiomais.service;
 
+import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
 import com.fisiomais.repository.ConsultaRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +24,9 @@ public class ConsultaService {
         this.consultaRepository = consultaRepository;
     }
 
-    public List<Consulta> getConsultasForDate(LocalDate date) {
-        LocalDateTime startOfDay = date.atStartOfDay();
-        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+    public List<Consulta> getConsultasForDate(LocalDate start, LocalDate end) {
+        Date startOfDay = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endOfDay = Date.from(end.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return consultaRepository.findByDataEHoraBetween(startOfDay, endOfDay);
     }
 
@@ -56,19 +58,19 @@ public class ConsultaService {
         return consultaRepository.findByConfirmacao(status);
     }
 
-    public List<Consulta> getConsultasByPacienteId(Long pacienteId) {
+    public List<Consulta> getConsultasByPacienteId(Integer pacienteId) {
         return consultaRepository.findByPaciente_Id(pacienteId);
     }
 
     public Consulta marcarConsultaComoConcluida(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Realizado);
+        consulta.setConfirmacao(StatusConsulta.realizado);
         return consultaRepository.save(consulta);
     }
 
     public Consulta cancelarConsulta(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Cancelado);
+        consulta.setConfirmacao(StatusConsulta.cancelado);
         return consultaRepository.save(consulta);
     }
 
@@ -83,7 +85,7 @@ public class ConsultaService {
 
     public Consulta confirmarPresenca(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Confirmado);
+        consulta.setConfirmacao(StatusConsulta.confirmado);
         return consultaRepository.save(consulta);
     }
 

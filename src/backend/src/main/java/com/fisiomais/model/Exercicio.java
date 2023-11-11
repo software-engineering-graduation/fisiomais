@@ -2,6 +2,11 @@ package com.fisiomais.model;
 
 import lombok.Data;
 import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 
 @Data
@@ -14,7 +19,10 @@ public class Exercicio {
     @Column(name = "_id")
     private Integer id;
 
-    @Column(name = "create_time")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
     private Date createTime;
 
     @ManyToOne

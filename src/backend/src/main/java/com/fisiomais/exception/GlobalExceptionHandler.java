@@ -33,6 +33,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ServerException.class)
+    public ResponseEntity<Object> handleServerException(ServerException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", new Date());
+        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.put("error", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        response.put("message", "Erro interno do servidor. Tente novamente mais tarde.");
+        response.put("exception", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         Map<String, Object> response = new HashMap<>();

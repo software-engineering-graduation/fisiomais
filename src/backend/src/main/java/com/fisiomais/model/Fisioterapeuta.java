@@ -2,6 +2,10 @@ package com.fisiomais.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +25,10 @@ public class Fisioterapeuta {
     @Column(name = "_id")
     private Integer id;
 
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
     private Date create_time;
 
     @Column(nullable = false, length = 100)
