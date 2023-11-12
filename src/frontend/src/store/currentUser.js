@@ -24,8 +24,8 @@ const mockFisio = {
     role: 'fisioterapeuta'
 }
 
-const mockUser = mockPaciente
-// const mockUser = mockFisio
+// const mockUser = mockPaciente
+const mockUser = mockFisio
 
 const mockId = mockUser.id;
 

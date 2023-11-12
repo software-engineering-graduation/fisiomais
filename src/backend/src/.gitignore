@@ -199,3 +199,6 @@ README.html
 *.iml
 .idea
 .exercism
+
+# Google services
+main/resources/credentials.json

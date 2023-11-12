@@ -2,6 +2,7 @@ package com.fisiomais.controller;
 
 import com.fisiomais.dto.AgendaRequest;
 import com.fisiomais.dto.FisioterapeutaDTO;
+import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.service.AgendaService;
@@ -31,9 +32,9 @@ public class AgendaController {
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}")
-    public ResponseEntity<List<Agenda>> getAgendasByFisioterapeuta(@PathVariable Integer fisioterapeutaId) {
-        List<Agenda> agendas = agendaService.getAgendasByFisioterapeuta(fisioterapeutaId);
-        return ResponseEntity.ok(agendas);
+    public ResponseEntity<List<AgendaResponse>> getAgendasByFisioterapeuta(@PathVariable Integer fisioterapeutaId) {
+        List<AgendaResponse> agendas = agendaService.getAgendasByFisioterapeuta(fisioterapeutaId);
+        return new ResponseEntity<>(agendas, HttpStatus.OK);
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/dia/{dia}")
