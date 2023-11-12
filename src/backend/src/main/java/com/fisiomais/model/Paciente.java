@@ -32,7 +32,7 @@ public class Paciente {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
-    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
     private Date create_time;
 
     @Column(nullable = false, length = 100)
@@ -46,7 +46,7 @@ public class Paciente {
 
     @Column(nullable = false, name = "data_nascimento")
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "MM-dd-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
     @Column(nullable = false, length = 11)

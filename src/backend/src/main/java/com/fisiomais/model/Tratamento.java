@@ -20,7 +20,7 @@ public class Tratamento {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
-    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
     private Date createTime;
 
     @ManyToOne
@@ -38,7 +38,7 @@ public class Tratamento {
     private String observacoes;
 
     @Column(name = "end_date")
-    @JsonFormat(pattern = "MM-dd-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
     @Lob

@@ -29,7 +29,7 @@ public class Fisioterapeuta {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
-    @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
     private Date create_time;
 
     @Column(nullable = false, length = 100)
