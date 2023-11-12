@@ -123,6 +123,20 @@ public class ConsultaController {
         return null;
     }
 
+    @GetMapping("/fisioterapeuta/{fisioterapeutaId}")
+    @Operation(summary = "Obter consultas por fisioterapeuta", description = "Obter uma lista de consultas com base em um fisioterapeuta.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    @ApiResponse(responseCode = "400", description = "Fisioterapeuta inválido")
+    public ResponseEntity<List<Consulta>> getConsultasByFisioterapeutaId(
+            @Parameter(name = "fisioterapeutaId", description = "Id do fisioterapeuta a ser pesquisado") @PathVariable(required = false) Integer fisioterapeutaId) {
+        // Verificar se o fisioterapeuta existe
+        fisioterapeutaRepository
+                .findById(fisioterapeutaId)
+                .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
+
+        return new ResponseEntity<>(consultaService.getConsultasByFisioterapeuta(fisioterapeutaId), HttpStatus.OK);
+    }
+
     @GetMapping("/paciente/{pacienteId}")
     @Operation(summary = "Obter consultas por ID do Paciente", description = "Obter uma lista de consultas associadas a um Paciente específico pelo seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
