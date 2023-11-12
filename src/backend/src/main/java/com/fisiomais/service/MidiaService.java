@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.fisiomais.dto.MidiaDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.exception.NotFoundException;
+import com.fisiomais.model.Exercicio;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.Midia;
 import com.fisiomais.model.enums.TipoArquivo;
@@ -14,6 +15,7 @@ import com.fisiomais.repository.MidiaRepository;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,10 +23,13 @@ public class MidiaService {
 
     private final MidiaRepository midiaRepository;
     private final FisioterapeutaRepository fisioterapeutaRepository;
+    private final ExercicioService exercicioService;
 
-    public MidiaService(MidiaRepository midiaRepository, FisioterapeutaRepository fisioterapeutaRepository) {
+    public MidiaService(MidiaRepository midiaRepository, FisioterapeutaRepository fisioterapeutaRepository,
+            ExercicioService exercicioService) {
         this.midiaRepository = midiaRepository;
         this.fisioterapeutaRepository = fisioterapeutaRepository;
+        this.exercicioService = exercicioService;
     }
 
     public List<Midia> getMidiaByFisioterapeuta(Fisioterapeuta fisioterapeuta) {
@@ -69,10 +74,25 @@ public class MidiaService {
     }
 
     public boolean deleteMidia(Integer id) {
-        if (midiaRepository.existsById(id)) {
+        Optional<Midia> existingMidia = midiaRepository.findById(id);
+
+        if (existingMidia.isPresent()) {
+            Midia midia = existingMidia.get();
+
+            // Fetch related exercises through the ExerciseService or ExerciseRepository
+            List<Exercicio> exercisesRelatedToMidia = exercicioService.findExerciciosByMidia(midia);
+
+            if (!exercisesRelatedToMidia.isEmpty()) {
+                System.out.println("Mídia is present on: " + exercisesRelatedToMidia.size() + " exercises");
+                for (Exercicio exercicio : exercisesRelatedToMidia) {
+                    exercicioService.deleteMidia(exercicio, midia);
+                }
+            }
+
             midiaRepository.deleteById(id);
-            return true; // Return true if the Paciente is deleted
+            return true; // Return true if the 'Midia' is successfully deleted
         }
+
         return false; // Return false if the Paciente is not found
     }
 
