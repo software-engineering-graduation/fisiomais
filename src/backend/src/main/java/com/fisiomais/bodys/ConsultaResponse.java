@@ -8,7 +8,7 @@ import com.fisiomais.model.enums.StatusConsulta;
 public record ConsultaResponse(
         PacienteResponse paciente,
         FisioterapeutaResponse fisioterapeuta,
-        @JsonFormat(pattern = "MM-dd-yyyy HH:mm:ss", timezone = "UTC") Date dataHora,
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC") Date dataHora,
         String observacoes,
         StatusConsulta status,
         String link) {

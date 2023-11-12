@@ -13,7 +13,7 @@ public record PacienteResponse(
         String email,
         String telefone,
         String endereco,
-        @JsonFormat(pattern = "MM-dd-yyyy") Date dataNascimento,
+        @JsonFormat(pattern = "dd/MM/yyyy") Date dataNascimento,
         Genero genero) {
 
     public static PacienteResponse toPacienteResponse(Paciente paciente) {
