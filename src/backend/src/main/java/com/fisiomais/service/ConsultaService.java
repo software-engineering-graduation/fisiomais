@@ -56,7 +56,7 @@ public class ConsultaService {
         return consultaRepository.findByConfirmacao(status);
     }
 
-    public List<Consulta> getConsultasByPacienteId(Long pacienteId) {
+    public List<Consulta> getConsultasByPacienteId(Integer pacienteId) {
         return consultaRepository.findByPaciente_Id(pacienteId);
     }
 

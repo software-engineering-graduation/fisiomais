@@ -15,6 +15,6 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Integer> {
 
     List<Consulta> findByConfirmacao(StatusConsulta status);
 
-    List<Consulta> findByPaciente_Id(Long pacienteId);
+    List<Consulta> findByPaciente_Id(Integer paciente_id);
 
 }

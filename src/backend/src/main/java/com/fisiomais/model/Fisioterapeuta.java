@@ -33,7 +33,7 @@ public class Fisioterapeuta {
     @Column(nullable = false, length = 32)
     private String password;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 15)
     private String telefone;
 
     @Column(length = 200)
