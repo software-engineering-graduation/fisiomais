@@ -5,15 +5,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.fisiomais.dto.MidiaDTO;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.Midia;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.service.MidiaService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -73,17 +76,22 @@ public class MidiaController {
     @ApiResponse(responseCode = "400", description = "Dados de mídia inválidos fornecidos")
     public ResponseEntity<MidiaDTO> createMidia(@RequestBody MidiaDTO midiaDTO) {
         MidiaDTO createdMidia = midiaService.createMidia(midiaDTO);
-        if (createdMidia.getArquivo() != null && createdMidia.getLinkArquivo() != null) {
+        if (createdMidia.getArquivo() != null && createdMidia.getLinkArquivo() != null ||
+                createdMidia.getArquivo() == null && createdMidia.getLinkArquivo() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(createdMidia, HttpStatus.CREATED);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{ids}")
     @Operation(summary = "Excluir mídia", description = "Excluir um ou mais itens de mídia com base nos seus IDs.")
     @ApiResponse(responseCode = "200", description = "Mídia excluída com sucesso")
     @ApiResponse(responseCode = "404", description = "Mídia não encontrada")
-    public ResponseEntity<Void> deleteMidia(@RequestBody List<Integer> ids) {
+    public ResponseEntity<Void> deleteMidia(@PathVariable List<Integer> ids) {
+        System.out.println("Deleting midia with IDs: " + ids);
+        if (ids == null || ids.isEmpty()) {
+            throw new BusinessException("No media IDs provided. Accepted format: /midia/12,78,5,4,1,2");
+        }
         boolean deleted = midiaService.deleteMidia(ids);
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.OK);
