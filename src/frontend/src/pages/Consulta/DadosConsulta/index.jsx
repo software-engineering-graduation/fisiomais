@@ -48,9 +48,31 @@ const DadosConsulta = () => {
         });
     };
 
+    const fetchFisioData = async (id) => {
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/fisioterapeuta/${id}` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/fisioterapeuta/${id}`;
+        let fisio = null;
+        await axios.get(apiRoute)
+            .then((res) => {
+                console.log('fisio', res.data)
+                fisio = res.data;
+            })
+            .catch((err) => {
+                openNotification('error', 'Erro ao buscar profissional', err.message);
+            })
+            .finally(() => {
+            });
+        return fisio;
+    }
+
     const fetchAllFisioterapeutas = async () => {
         setFisioFetchStatus('loading');
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/fisioterapeuta`)
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/fisioterapeuta` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/fisioterapeuta/nomes`;
+
+        await axios.get(apiRoute)
             .then((res) => {
                 setFisioterapeutas(res.data);
             })
@@ -65,10 +87,14 @@ const DadosConsulta = () => {
 
     const fetchAgendaFromFisioterapeuta = async () => {
         setAgendaFetchStatus('loading');
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/agenda?fisioterapeuta__id=${selectedFisioterapeuta.id}`)
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}agenda?fisioterapeuta__id=${selectedFisioterapeuta.id}` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/agenda/fisioterapeuta/${selectedFisioterapeuta.id}`;
+
+        await axios.get(apiRoute)
             .then((res) => {
+                console.log(`Agenda do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
                 setAgenda(res.data);
-                // console.log(`Agenda do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
             })
             .catch((err) => {
                 setAgendaFetchStatus('error');
@@ -81,10 +107,13 @@ const DadosConsulta = () => {
 
     const fetchConsultasFromFisioterapeuta = async () => {
         setAgendaFetchStatus('loading');
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta?fisioterapeuta__id=${selectedFisioterapeuta.id}`)
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}consulta?fisioterapeuta__id=${selectedFisioterapeuta.id}` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/fisioterapeuta/${selectedFisioterapeuta.id}`;
+        await axios.get(apiRoute)
             .then((res) => {
+                console.log(`Consultas do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data)
                 setConsultas(res.data);
-                // console.log(`Consultas do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
             })
             .catch((err) => {
                 setAgendaFetchStatus('error');
@@ -97,38 +126,47 @@ const DadosConsulta = () => {
 
     const sendAppointmentRequest = async () => {
         setRequestStatus('loading');
-        if (selectedFisioterapeuta.controle_automatico) {
-            const requestBody = {
+        console.log(selectedFisioterapeuta)
+        if (!selectedFisioterapeuta.controle_automatico && process.env.API_TYPE === "json") { return setRequestStatus('error') }
+        const requestBody = process.env.API_TYPE === 'json' ?
+            {
                 fisioterapeuta__id: selectedFisioterapeuta.id,
                 paciente__id: currentUser.userId,
-                data_e_hora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DD HH:mm:ss'),
+                dataEHora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DD HH:mm:ss'),
                 observacoes: '',
-                confirmacao: 'confirmado',
+                status: 'confirmado',
+            } :
+            {
+                pacienteId: currentUser.userId,
+                fisioterapeutaId: selectedFisioterapeuta.id,
+                dataHora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DDTHH:mm:ss'),
             };
-            await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/consulta`, requestBody)
-                .then((res) => {
-                    // console.log('consulta criada')
-                    setConsultaData(res.data);
-                    if (res.data.confirmacao === 'confirmado') {
-                        openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
-                    }
-                    else {
-                        openNotification('success', 'Solicitação de agendamento enviada', 'Aguarde a confirmação do profissional');
-                    }
-                })
-                .catch((err) => {
-                    // console.log('erro ao criar consulta', err)
-                    setRequestStatus('error');
-                    openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
-                })
-                .finally(() => {
-                    // console.log('finalizou')
-                    // setTimeout(() => {
-                    setRequestStatus('success');
-                    setFinished('confirmacao');
-                    // }, 2000);
-                });
-        }
+
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/consulta` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta`;
+
+        await axios.post(apiRoute, requestBody)
+            .then((res) => {
+                console.log(`Consulta criada:`, res.data);
+                setConsultaData(res.data);
+                if (res.data.status === 'confirmado') {
+                    openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
+                }
+                else {
+                    openNotification('success', 'Solicitação de agendamento enviada', 'Aguarde a confirmação do profissional');
+                }
+                setFinished(res.data.status);
+            })
+            .catch((err) => {
+                console.log('erro ao criar consulta', err)
+                setRequestStatus('error');
+                openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
+            })
+            .finally(() => {
+                setRequestStatus('success');
+            });
+        // }
     };
 
     useEffect(() => {
@@ -146,15 +184,16 @@ const DadosConsulta = () => {
         setDateSelected(date.$d);
     };
 
-    const updateFisioSelected = (value) => {
-        const fisio = fisioterapeutas.find((fisio) => fisio.id === value);
+    const updateFisioSelected = async (value) => {
+        const fisio = await fetchFisioData(value);
         setSelectedFisioterapeuta(fisio);
     };
 
     const convertConsultasDateTime = () => {
+        // console.log('consultas', consultas)
         const consultasObj = consultas.map((consulta) => {
-            const date = consulta.data_e_hora.split(' ')[0];
-            const time = consulta.data_e_hora.split(' ')[1];
+            const date = consulta.dataEHora.split(' ')[0];
+            const time = consulta.dataEHora.split(' ')[1];
             const dateObj = dayjs(date).hour(time.split(':')[0]).minute(time.split(':')[1]).second(time.split(':')[2]);
             return {
                 dateObj,
@@ -241,8 +280,8 @@ const DadosConsulta = () => {
         const agenda_day = agenda.find((obj) => obj.dia === dayNumber);
 
         if (agenda_day) {
-            const startHour = parseInt(agenda_day.horario_inicio.split(':')[0]);
-            const endHour = parseInt(agenda_day.horario_fim.split(':')[0]);
+            const startHour = parseInt(agenda_day.horarioInicio.split(':')[0]);
+            const endHour = parseInt(agenda_day.horarioFim.split(':')[0]);
 
             let hours1 = range(0, startHour);
             let hours2 = range(endHour, 24);
@@ -292,6 +331,12 @@ const DadosConsulta = () => {
         return `${timeFormatted}`;
     }
 
+    const formatTelefone = (telefone) => {
+        const tel = telefone.replace(/\D/g, '');
+        const telFormatted = tel.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        return `${telFormatted}`;
+    }
+
     if (role === 'fisioterapeuta') {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"
@@ -321,14 +366,14 @@ const DadosConsulta = () => {
     }
 
     if (finished) {
-        const title = finished === 'confirmacao' ? 'Solicitação de agendamento confirmada' : 'Solicitação de agendamento enviada';
-        const description = finished === 'confirmacao' ? 'Lembre-se de comparecer no horário' : 'Aguarde a confirmação do profissional';
-        const status = finished === 'confirmacao' ? 'success' : 'info';
+        const title = finished === 'confirmado' ? 'Solicitação de agendamento confirmada' : 'Solicitação de agendamento enviada';
+        const description = finished === 'confirmado' ? 'Lembre-se de comparecer no horário' : 'Aguarde a confirmação do profissional';
+        const status = finished === 'confirmado' ? 'success' : 'info';
 
         let consultaStatus;
-        if (consultaData.confirmacao === 'confirmado') {
+        if (consultaData.status === 'confirmado') {
             consultaStatus = <Confirmada> Confirmada </Confirmada>;
-        } else if (consultaData.confirmacao === 'pendente') {
+        } else if (consultaData.status === 'pendente') {
             consultaStatus = <Pendente> Aguardando Confirmação </Pendente>;
         } else {
             consultaStatus = <NaoConfirmada> Não Confirmada </NaoConfirmada>;
@@ -346,10 +391,10 @@ const DadosConsulta = () => {
                 <Card title="Dados da consulta" type={'inner'}>
                     <BaseInfoContainer>
                         <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Status da consulta:</Text> {showConsultaStatus} <br /></InfoRow>
-                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Data da consulta:</Text> {formatDate(consultaData.data_e_hora)}<br /></InfoRow>
-                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Horário:</Text> {formatTime(consultaData.data_e_hora)}<br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Data da consulta:</Text> {formatDate(consultaData.dataEHora)}<br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Horário:</Text> {formatTime(consultaData.dataEHora)}<br /></InfoRow>
                         <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Nome do profissional:</Text> {selectedFisioterapeuta.nome}<br /></InfoRow>
-                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Telefone para contato:</Text> {selectedFisioterapeuta.telefone} <br /></InfoRow>
+                        <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Telefone do profissional para contato:</Text> {formatTelefone(selectedFisioterapeuta.telefone)} <br /></InfoRow>
                         {consultaData.link &&
                             <InfoRow style={{
                                 display: 'flex',
@@ -394,7 +439,7 @@ const DadosConsulta = () => {
                     options={fisioterapeutas.map((fisio) => {
                         return {
                             value: fisio.id,
-                            label: fisio.nome,
+                            label: fisio.name,
                         };
                     })} />
             </Space>

@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:json": "API_TYPE=json vite",
+    "dev:spring": "API_TYPE=spring vite",
     "api": "json-server --watch data/db.json --port 8080",
     "setup-env": "cross-env-shell cp .env.example .env",
     "build": "vite build",
@@ -41,6 +42,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "sass": "^1.69.5",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-env-compatible": "^1.1.1"
   }
 }
