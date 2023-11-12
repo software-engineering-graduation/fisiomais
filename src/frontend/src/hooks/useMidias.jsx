@@ -20,10 +20,10 @@ const requestDeleteMidias = async (ids) => {
 
 const reorderByCreationDate = (data) => {
     const orderedData = data.sort((a, b) => {
-        if (a.created_at > b.created_at) {
+        if (a.createTime > b.createTime) {
             return -1;
         }
-        if (a.created_at < b.created_at) {
+        if (a.createTime < b.createTime) {
             return 1;
         }
         return 0;
@@ -34,15 +34,15 @@ const reorderByCreationDate = (data) => {
 
 const formatShortMidias = (midias) => {
     const data = midias.map(midia => {
-        const { id, titulo, descricao, tipo, created_at } = midia;
-        const formatedDate = new Date(created_at).toLocaleString('pt-BR');
+        const { id, titulo, descricao, type, createTime } = midia;
+        const formatedDate = new Date(createTime).toLocaleString('pt-BR');
         return {
             key: id,
             id,
             titulo,
             descricao: descricao.substring(0, 50) + '...',
-            tipo,
-            created_at: formatedDate,
+            type,
+            createTime: formatedDate,
         }
     })
     return data

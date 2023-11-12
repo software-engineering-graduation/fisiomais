@@ -19,11 +19,11 @@ const columns = [
     },
     {
         title: 'Tipo',
-        dataIndex: 'tipo',
+        dataIndex: 'type',
     },
     {
         title: 'Data de criação',
-        dataIndex: 'created_at',
+        dataIndex: 'createTime',
     }
 ];
 
@@ -61,10 +61,10 @@ const Midias = () => {
     // most recent first
     const orderedData = (data) => {
         return data.sort((a, b) => {
-            if (a.created_at > b.created_at) {
+            if (a.createTime > b.createTime) {
                 return -1;
             }
-            if (a.created_at < b.created_at) {
+            if (a.createTime < b.createTime) {
                 return 1;
             }
             return 0;
@@ -72,9 +72,28 @@ const Midias = () => {
         );
     }
 
-    const fetchDeletedMidias = async (id) => {
+    const fetchDeletedMidias = async (ids) => {
         let finalError = {};
-        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE}/midia/${id}`).
+        const stringListOfIds = ids.map(item => item).join(',');
+        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/${stringListOfIds}`).
+            then(response => {
+                if (response.status !== 200) {
+                    finalError = response;
+                }
+            }
+            ).catch(error => {
+                console.log(error)
+                finalError = error;
+            }).
+            finally((error) => {
+            });
+
+        return finalError;
+    }
+
+    const fetchDeletedMidia = async (id) => {
+        let finalError = {};
+        await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia/${id}`).
             then(response => {
                 if (response.status !== 200) {
                     finalError = response;
@@ -91,13 +110,16 @@ const Midias = () => {
 
     const fetchMidias = async () => {
         setLoadingMidias(true);
-        // FIXME - simulate delay to show loadingMidias
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia?fisioterapeuta_id=${currentUser.userId}` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.userId}`;
 
-        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE}/midia?fisioterapeuta_id=${currentUser.userId}`).
+        await axios.get(apiRoute).
             then(response => {
                 const data = response.data.map(midia => {
-                    const { id, titulo, descricao, tipo, created_at } = midia;
-                    const formatedDate = new Date(created_at).toLocaleString('pt-BR');
+                    console.log(midia);
+                    const { id, titulo, descricao, type, createTime } = midia;
+                    const formatedDate = new Date(createTime).toLocaleString('pt-BR');
 
                     const dispatchMidiaData = (id) => (event) => {
                         event.preventDefault();
@@ -118,8 +140,8 @@ const Midias = () => {
                         id,
                         titulo: titleComponent,
                         descricao: descricao.substring(0, 50) + '...',
-                        tipo,
-                        created_at: formatedDate,
+                        type,
+                        createTime: formatedDate,
                     }
                 });
 
@@ -134,7 +156,8 @@ const Midias = () => {
     }
 
     useEffect(() => {
-        fetchMidias();
+        if (!deleteMidias)
+            fetchMidias();
     }, [deleteMidias]);
 
     const activateDeleteMidias = () => {
@@ -153,20 +176,30 @@ const Midias = () => {
         }
     }
 
-    const handleMediaDeletion = () => {
-        // FIXME - fix when backend is ready, to delete from array if ids
+    const handleMediaDeletion = async () => {
+        const deleteOneByOne = process.env.API_TYPE === 'json' ? true : false;
         let erroShown = false
-        deletionStack.forEach(async element => {
-            if (!erroShown) {
-                const resp = await fetchDeletedMidias(element);
 
-                if (resp.message) {
-                    find = shortMidias.find(item => item.id === element);
-                    openNotification('error', `Deletar Mídias: ${find.titulo.props.children}`, resp.message);
-                    erroShown = true;
+        if (deleteOneByOne) {
+            console.log(`Deleting one by one: ${deletionStack}`)
+            deletionStack.forEach(async element => {
+                if (!erroShown) {
+                    const resp = await fetchDeletedMidia(element);
+
+                    if (resp.response.data.message) {
+                        find = shortMidias.find(item => item.id === element);
+                        openNotification('error', `Deletar Mídias: ${find.titulo.props.children}`, resp.response.data.message);
+                        erroShown = true;
+                    }
                 }
+            });
+        } else {
+            console.log(`Deleting all at once: ${deletionStack}`)
+            const resp = await fetchDeletedMidias(deletionStack);
+            if (resp.message) {
+                openNotification('error', `Deletar Mídias`, resp.response.data.message);
             }
-        });
+        }
 
         if (!erroShown) {
             openNotification('success', 'Deletar Mídias', 'Mídias deletadas com sucesso!');

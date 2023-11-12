@@ -7,8 +7,8 @@ const loadingRowsMock = () => {
             key: `loading-${i}`,
             titulo: '.'.repeat(10),
             descricao: '.'.repeat(120),
-            tipo: '.'.repeat(10),
-            created_at: '.'.repeat(20)
+            type: '.'.repeat(10),
+            createTime: '.'.repeat(20)
         });
     }
     return rows;
@@ -26,14 +26,14 @@ const getShortMidias = (midias, loading) => {
         return loadingRowsMock;
     }
     return midias.map(midia => {
-        const { id, titulo, descricao, tipo, created_at } = midia;
+        const { id, titulo, descricao, type, createTime } = midia;
         return {
             key: id,
             id,
             titulo,
             descricao,
-            tipo,
-            created_at
+            type,
+            createTime
         }
     });
 }
