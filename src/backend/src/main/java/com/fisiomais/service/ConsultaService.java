@@ -126,4 +126,8 @@ public class ConsultaService {
                 consulta.getConfirmacao(),
                 consulta.getLink());
     }
+
+	public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
+        return consultaRepository.findByFisioterapeutaId(fisioterapeutaId);
+	}
 }
