@@ -1,1 +1,0 @@
-export {IconEdit} from "./iconEdit.jsx";
