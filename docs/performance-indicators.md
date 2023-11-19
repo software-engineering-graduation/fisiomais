@@ -42,5 +42,12 @@ Aqui serão apresentados os principais parâmetros de avaliação que permitem m
 | Taxa de Uso de Mídias por Tipo              | Identificar preferências de utilização de diferentes tipos de mídia | Mede a porcentagem de uso de cada tipo de mídia (vídeo, imagem, GIF) em relação ao total                                              | Tabelas: `midia` e `exercicio_has_midias` | Processos Internos |
 
 
+### Indicadores de Desempenho para o Processo Criar Tratamento - Processo 8
+
+| **Indicador**                               | **Objetivos**                                                       | **Descrição**                                                                                                                         | **Fonte de Dados**                        | **Perspectiva**    |
+| ------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------------------ |
+| Taxa de Criação de Tratamentos por Fisioterapeuta | Avaliar a quantidade de tratamentos criados pelos fisioterapeutas cadastrados.          | Calcula a porcentagem de tratamentos criados em relação ao total de cada fisioterapeuta | Tabelas: `fisioterapeuta` e `paciente` | Processos Internos |
+
+
 
 ---
