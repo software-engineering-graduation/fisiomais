@@ -2,6 +2,7 @@ package com.fisiomais.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,12 @@ public class TratamentoService {
     }
 
     public List<Tratamento> findByPacienteId(Integer id){
-        List<Tratamento> tratamentos = tratamentoRepository.findByPaciente__id(id);
+        List<Tratamento> tratamentos = tratamentoRepository.findByPacienteId(id);
         return tratamentos;
     }
 
     public List<Tratamento> findByFisioterapeutaId(Integer id){
-        List<Tratamento> tratamentos = tratamentoRepository.findByFisioterapeuta__id(id);
+        List<Tratamento> tratamentos = tratamentoRepository.findByFisioterapeutaId(id);
         return tratamentos;
     }
     public Tratamento findTratamentoByTitulo(String titulo){
@@ -40,7 +41,11 @@ public class TratamentoService {
 
     @Transactional
     public Tratamento update(Tratamento obj) {
-        Tratamento newObj = this.tratamentoRepository.findBy_Id(obj.getId());
-        return this.tratamentoRepository.save(newObj);
+        Optional<Tratamento> newObj = this.tratamentoRepository.findById(obj.getId());
+        newObj.get().setTitulo(obj.getTitulo());
+        newObj.get().setObservacoes(obj.getObservacoes());
+        newObj.get().setEndDate(obj.getEndDate());
+        newObj.get().setFeedback(obj.getFeedback());
+        return this.tratamentoRepository.save(newObj.get());
     }
 }
