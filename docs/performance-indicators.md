@@ -1,6 +1,6 @@
 ## 5. Indicadores de desempenho
 
-_Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classes e no DER. Colocar no mínimo 5 indicadores._
+<!-- _Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classes e no DER. Colocar no mínimo 5 indicadores._
 
 Perspectivas de medidas de avaliação de desempenho de processos:
 
@@ -13,10 +13,34 @@ Veja o link [Heflo - Types of Process Performance Metrics](https://www.heflo.com
 
 _Usar o seguinte modelo:_
 
-| **Indicador** | **Objetivos** | **Descrição** | **Fonte dados** | **Perspectiva** |
-| ---           | ---           | ---           | ---             | ---             |
-| Percentual de reclamações | Avaliar quantitativamente as reclamações | Percentual de reclamações em relação ao total atendimento | Tabela reclamações | Aprendizado e Crescimento |
-| Taxa de Requisições abertas | Melhorar a prestação de serviços medindo a porcentagem de requisições | Mede % de requisições atendidas na semana | Tabela solicitações | Processos internos |
-| Taxa de entrega de material | Manter controle sobre os materiais que estão sendo entregues | Mede % de material entregue dentro do mês | Tabela Pedidos | Clientes |
+| **Indicador**               | **Objetivos**                                                         | **Descrição**                                             | **Fonte dados**     | **Perspectiva**           |
+| --------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------- | ------------------- | ------------------------- |
+| Percentual de reclamações   | Avaliar quantitativamente as reclamações                              | Percentual de reclamações em relação ao total atendimento | Tabela reclamações  | Aprendizado e Crescimento |
+| Taxa de Requisições abertas | Melhorar a prestação de serviços medindo a porcentagem de requisições | Mede % de requisições atendidas na semana                 | Tabela solicitações | Processos internos        |
+| Taxa de entrega de material | Manter controle sobre os materiais que estão sendo entregues          | Mede % de material entregue dentro do mês                 | Tabela Pedidos      | Clientes                  |
+|                             |                                                                       |                                                           |                     |                           |
 
-Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classes e no DER.
+Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classes e no DER. -->
+
+Aqui serão apresentados os principais parâmetros de avaliação que permitem mensurar a eficiência, eficácia e qualidade dos processos da plataforma **Fisiomais**. Esses indicadores, também conhecidos como KPIs (Key Performance Indicators), são essenciais para avaliar o progresso dos processos e garantir a consecução dos objetivos estabelecidos. 
+
+### Indicadores de Desempenho para o Processo de Solicitar Agendamento de Consulta - Processo 1
+
+
+| **Indicador**                               | **Objetivos**                                                           | **Descrição**                                                                                               | **Fonte de Dados** | **Perspectiva**           |
+| ------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------- |
+| Taxa de Confirmação de Agendamentos por mês | Mensurar a eficácia na confirmação das consultas agendadas mensalmente. | Calcula a porcentagem de consultas confirmadas em relação ao total de consultas agendadas em escala mensal. | Tabela `consulta`  | Processos internos        |
+| Taxa de Agendamentos Cancelados             | Minimizar cancelamentos                                                 | Mede a porcentagem de agendamentos cancelados em relação ao total de agendamentos                           | Tabela `consulta`  | Aprendizado e Crescimento |
+
+---
+
+### Indicadores de Desempenho para o Processo Gerenciar Mídias - Processo 7
+
+| **Indicador**                               | **Objetivos**                                                       | **Descrição**                                                                                                                         | **Fonte de Dados**                        | **Perspectiva**    |
+| ------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------------------ |
+| Taxa de Utilização de Mídias nos Exercícios | Avaliar a utilização das mídias nos exercícios prescritos.          | Calcula a porcentagem de exercícios que envolvem o uso de mídias (vídeos, imagens, GIFs) em relação ao total de exercícios prescritos | Tabelas: `midia` e `exercicio_has_midias` | Processos Internos |
+| Taxa de Uso de Mídias por Tipo              | Identificar preferências de utilização de diferentes tipos de mídia | Mede a porcentagem de uso de cada tipo de mídia (vídeo, imagem, GIF) em relação ao total                                              | Tabelas: `midia` e `exercicio_has_midias` | Processos Internos |
+
+
+
+---
