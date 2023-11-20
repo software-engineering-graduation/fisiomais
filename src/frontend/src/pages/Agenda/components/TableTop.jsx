@@ -10,6 +10,7 @@ export const TableTop = () => {
         <div className="flex-1 text-left px-4">Data e Hora Consulta</div>
         <div className="flex-1 text-left px-4">Status</div>
         <div className="flex-1 text-left px-4">Observações</div>
+        <div className="flex-1 text-left px-4">Link Consulta</div>
       </div>
     </div>
   );
