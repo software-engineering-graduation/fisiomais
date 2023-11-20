@@ -2,6 +2,7 @@ package com.fisiomais.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class TratamentoService {
 
     @Transactional
     public Tratamento update(Tratamento obj) {
-        Tratamento newObj = this.tratamentoRepository.findBy_Id(obj.getId());
-        return this.tratamentoRepository.save(newObj);
+        Optional<Tratamento> newObj = this.tratamentoRepository.findById(obj.getId());
+        return this.tratamentoRepository.save(newObj.get());
     }
 }
