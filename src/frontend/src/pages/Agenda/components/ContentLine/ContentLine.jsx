@@ -4,7 +4,7 @@ import { IconMore } from "../../icons/IconMore";
 import { IconDelete } from "../../icons/IconDelete";
 import { IconEdit } from "../../icons/IconEdit";
 
-export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observacoes }) => {
+export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observacoes, linkConsulta }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observ
         <Status status={status} />
       </div>
       <div className="flex-1 px-4 text-left">{observacoes}</div>
+      <div className="flex-1 px-4 text-left">{linkConsulta}</div>
       <div className="relative" onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)}>
         <div className="flex items-center">
           {showIcons && (
