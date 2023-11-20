@@ -32,30 +32,29 @@ Aqui serão apresentados os principais parâmetros de avaliação que permitem m
 | Taxa de Confirmação de Agendamentos por mês | Mensurar a eficácia na confirmação das consultas agendadas mensalmente. | Calcula a porcentagem de consultas confirmadas em relação ao total de consultas agendadas em escala mensal. | Tabela `consulta`  | Processos internos        |
 | Taxa de Agendamentos Cancelados             | Minimizar cancelamentos                                                 | Mede a porcentagem de agendamentos cancelados em relação ao total de agendamentos                           | Tabela `consulta`  | Aprendizado e Crescimento |
 
-### Indicadores de Desempenho para o Processo 2 – Controlar Consultas do Fisioterapeuta
+### Indicadores de Desempenho para o Processo Controlar Consultas do Fisioterapeuta – Processo 2
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Consultas Canceladas | Minimizar o número de consultas canceladas | Mede a porcentagem de consultas canceladas em relação ao total de consultas agendadas | Tabelas: `consultas` | Processos Internos |
 
-### Indicadores de Desempenho para o Processo 3 – Cadastrar paciente
+### Indicadores de Desempenho para o Processo Cadastrar paciente – Processo 3
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Incremento Mensal de Registros de Pacientes | Analisar a expansão da base de pacientes e a efetividade das táticas de captação | Avalia a variação percentual, a cada mês, no total de pacientes recém-inscritos no sistema | Tabela `paciente` | Processos Internos |
 
-### Indicadores de Desempenho para o Processo 4 – Cadastrar Fisioterapeuta
+### Indicadores de Desempenho para o Processo Cadastrar Fisioterapeuta –  Processo 4
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Crescimento de Cadastros de Fisioterapeutas | Avaliar o crescimento da rede de fisioterapeutas e a eficácia das estratégias de atração | Mede a variação percentual mensal no número de novos fisioterapeutas cadastrados no sistema | Tabela `fisioterapeuta` | Processos Internos |
 
-### Indicadores de Desempenho para o Processo 6 – Acompanhar Paciente
+### Indicadores de Desempenho para o Processo Acompanhar Paciente – Processo 6
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Satisfação do Paciente com o Acompanhamento Virtual | Melhorar a qualidade e eficácia do acompanhamento virtual | Mede o percentual de pacientes que avaliaram positivamente o acompanhamento virtual, incluindo a comunicação, os recursos fornecidos e o atendimento geral | Tabela: `acompanhamento_virtual` | Perspectiva do Cliente |
-
 
 
 
