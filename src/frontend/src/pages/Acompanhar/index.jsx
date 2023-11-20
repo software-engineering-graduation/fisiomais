@@ -1,8 +1,8 @@
-import React from 'react';
-import '../../index.css'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const AcompanhamentoVirtual = () => {
-  const [form, setForm] = React.useState({
+  const [form, setForm] = useState({
     dataSessao: '',
     plataforma: '',
     recursos: '',
@@ -14,9 +14,22 @@ const AcompanhamentoVirtual = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Formulário de acompanhamento enviado:', form);
+    try {
+      const url = 'http://localhost:8080/api/acompanhamento';
+      const response = await axios.post(url, form);
+      console.log('Formulário de acompanhamento enviado:', response.data);
+      setForm({
+        dataSessao: '',
+        plataforma: '',
+        recursos: '',
+        feedback: '',
+        avaliacao: '',
+      });
+    } catch (error) {
+      console.error('Erro ao enviar o formulário:', error);
+    }
   };
 
   const handleCancel = () => {

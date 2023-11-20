@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
-import '../../index.css'
+import '../../index.css';
+import axios from 'axios';
 
 const CadastroFisioterapeuta = () => {
   const [form, setForm] = useState({
     nome: '',
     celular: '',
     endereco: '',
+    email: '',
+    password: '',
+    telefone: '',
+    controleAutomatico: false,
   });
 
   const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const onFinish = (e) => {
+  const onFinish = async (e) => {
     e.preventDefault();
-    console.log('Formulário enviado com sucesso:', form);
-    // Implemente a lógica de envio de formulário aqui.
+    try {
+      const response = await axios.post('http://localhost:8080/api/fisioterapeuta', {
+        nome: form.nome,
+        email: form.email,
+        password: form.password,
+        telefone: form.celular,
+        endereco: form.endereco,
+        controleAutomatico: form.controleAutomatico,
+      });
+      console.log('Fisioterapeuta cadastrado:', response.data);
+      setForm({
+        nome: '',
+        celular: '',
+        endereco: '',
+        email: '',
+        password: '',
+        telefone: '',
+        controleAutomatico: false,
+      });
+    } catch (error) {
+      console.error('Erro ao enviar o formulário:', error);
+    }
   };
 
   const onCancel = () => {
@@ -23,6 +49,10 @@ const CadastroFisioterapeuta = () => {
       nome: '',
       celular: '',
       endereco: '',
+      email: '',
+      password: '',
+      telefone: '',
+      controleAutomatico: false,
     });
   };
 
@@ -46,11 +76,11 @@ const CadastroFisioterapeuta = () => {
         </div>
 
         <div>
-          <label htmlFor="celular" className="block text-sm font-medium text-gray-700">Celular de Contato</label>
+          <label htmlFor="Telefone" className="block text-sm font-medium text-gray-700">Telefone de Contato</label>
           <input
             type="text"
-            name="celular"
-            value={form.celular}
+            name="telefone"
+            value={form.telefone}
             onChange={handleInputChange}
             required
             title="Por favor, insira o número de celular!"
@@ -71,6 +101,38 @@ const CadastroFisioterapeuta = () => {
           />
         </div>
 
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleInputChange}
+            required
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md text-gray-700 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Senha</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleInputChange}
+            required
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md text-gray-700 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label htmlFor="controleAutomatico" className="block text-sm font-medium text-gray-700">Controle Automático</label>
+          <input
+            type="checkbox"
+            name="controleAutomatico"
+            checked={form.controleAutomatico}
+            onChange={handleInputChange}
+            className="mt-1"
+          />
+        </div>
         <div className="flex justify-end gap-x-4">
           <button
             type="button"

@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
 import './index.css';
