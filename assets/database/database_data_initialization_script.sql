@@ -364,7 +364,8 @@ INSERT INTO
         `data_e_hora`,
         `observacoes`,
         `confirmacao`,
-        `link`
+        `link`,
+        `google_event_id`
     )
 VALUES (
         1,
@@ -372,20 +373,23 @@ VALUES (
         '2023-11-10 10:00:00',
         'Consulta de rotina.',
         'confirmado',
-        'https://exemplo.com/consulta1'
+        'https://exemplo.com/consulta1',
+        NULL
     ), (
         2,
         2,
         '2023-11-11 11:00:00',
         'Avaliação inicial do paciente.',
         'confirmado',
-        'https://exemplo.com/consulta2'
+        'https://exemplo.com/consulta2',
+        NULL
     ), (
         3,
         3,
         '2023-11-12 12:00:00',
         'Revisão do tratamento.',
         'cancelado',
+        NULL,
         NULL
     ), (
         4,
@@ -393,20 +397,23 @@ VALUES (
         '2023-11-13 13:00:00',
         'Tratamento de lesão no joelho.',
         'realizado',
-        'https://exemplo.com/consulta4'
+        'https://exemplo.com/consulta4',
+        NULL
     ), (
         5,
         5,
         '2023-11-14 14:00:00',
         'Avaliação pós-operatória.',
         'confirmado',
-        'https://exemplo.com/consulta5'
+        'https://exemplo.com/consulta5',
+        NULL
     ), (
         6,
         1,
         '2023-11-15 15:00:00',
         'Consulta de acompanhamento.',
         'pendente',
+        NULL,
         NULL
     ), (
         7,
@@ -414,13 +421,15 @@ VALUES (
         '2023-11-16 16:00:00',
         'Avaliação da mobilidade.',
         'confirmado',
-        'https://exemplo.com/consulta7'
+        'https://exemplo.com/consulta7',
+        NULL
     ), (
         8,
         3,
         '2023-11-17 17:00:00',
         'Tratamento de dor nas costas.',
         'cancelado',
+        NULL,
         NULL
     ), (
         9,
@@ -428,20 +437,23 @@ VALUES (
         '2023-11-18 18:00:00',
         'Consulta para idoso.',
         'realizado',
-        'https://exemplo.com/consulta9'
+        'https://exemplo.com/consulta9',
+        NULL
     ), (
         10,
         5,
         '2023-11-19 19:00:00',
         'Avaliação de reabilitação.',
         'confirmado',
-        'https://exemplo.com/consulta10'
+        'https://exemplo.com/consulta10',
+        NULL
     ), (
         1,
         1,
         '2023-11-20 20:00:00',
         'Consulta de rotina.',
         'pendente',
+        NULL,
         NULL
     );
 

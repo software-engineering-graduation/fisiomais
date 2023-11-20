@@ -59,16 +59,34 @@ const NewMidia = () => {
 
     const handleMidiaCreation = (newMidia) => {
         setLoadCreateMidia(true);
-        // FIXME: add id, fisioterapeuta_id and created_at to newMidia
+        // FIXME: add id, fisioterapeuta_id and createTime to newMidia
         const mockNewMidia = {
             // id: 1,
             fisioterapeuta_id: 1,
             titulo: newMidia.titulo,
             descricao: newMidia.descricao,
-            tipo: newMidia.tipo,
-            created_at: new Date().toISOString(),
+            type: newMidia.type,
+            createTime: new Date().toISOString(),
         }
-        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`, mockNewMidia).
+
+        const newMidiaOfficial = {
+            fisioterapeutaId: currentUser.userId,
+            type: newMidia.type,
+            linkArquivo: newMidia.linkArquivo,
+            titulo: newMidia.titulo,
+            descricao: newMidia.descricao,
+        }
+
+        const body = process.env.API_TYPE === 'json' ? mockNewMidia : newMidiaOfficial;
+
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`;
+
+        console.log(body)
+
+
+        axios.post(apiRoute, body).
             then(response => {
                 if (response.status !== 201) {
                     openNotification('error', 'Erro ao criar mídia!', response.message);
@@ -79,11 +97,8 @@ const NewMidia = () => {
             }).
             finally(() => {
                 openNotification('success', 'Sucesso ao criar mídia!', 'Mídia criada com sucesso!');
-                // TODO - Remover o setTimeout quando a API estiver pronta
-                setTimeout(() => {
-                    navigate('/midias');
-                    setLoadCreateMidia(false);
-                }, 2000);
+                setLoadCreateMidia(false);
+                navigate('/midias');
             });
     }
 
@@ -148,9 +163,9 @@ const NewMidia = () => {
                 wrapperCol={{ span: 15 }}
                 disabled={loadCreateMidia}
             >
-                <Form.Item label="Tipo" name="tipo" required rules={[{ required: true, message: "Por favor, selecione o tipo" }]}>
+                <Form.Item label="Tipo" name="type" required rules={[{ required: true, message: "Por favor, selecione o type" }]}>
                     <Select >
-                        <Option value="Vídeo">Vídeo</Option>
+                        <Option value="Video">Video</Option>
                         <Option value="GIF">GIF</Option>
                         <Option value="Imagem">Imagem</Option>
                     </Select>
@@ -181,7 +196,7 @@ const NewMidia = () => {
                 </Space>
 
                 <Form.Item label="Link Arquivo"
-                    name="link_arquivo"
+                    name="linkArquivo"
                     rules={[{
                         required: true,
                         message: 'Por favor digite um link válido',
@@ -192,7 +207,7 @@ const NewMidia = () => {
                     <Input size='large' />
                 </Form.Item>
 
-                <DraggerContainer >
+                {/* <DraggerContainer >
                     <Dragger {...fileDraggerProps}
                         style={{
                             width: '500px',
@@ -205,7 +220,7 @@ const NewMidia = () => {
                             Suporte para upload único. Tipos de arquivos: .mp4, .gif, .jpg, .png
                         </p>
                     </Dragger>
-                </DraggerContainer>
+                </DraggerContainer> */}
 
                 <Form.Item style={{
                     textAlign: 'center',

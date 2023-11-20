@@ -16,4 +16,8 @@ public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, 
     Page<Fisioterapeuta> findAll(Pageable pageable);
 
     List<Fisioterapeuta> findByNomeContainingIgnoreCase(String nome);
+
+    boolean existsByEmail(String email);
+    boolean existsByEmailAndIdNot(String email, Integer id);
+
 }

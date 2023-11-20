@@ -28,15 +28,14 @@ Nesta etapa, o sistema consulta o banco de dados e lista para o usuário todas a
 
 **Atividade: Selecionar midia e preencher dados relacionados**
 
-Nesta etapa, o usuário pode selecionar o tipo de mídia que deseja adicionar, um arquivo ou um link para o conteúdo de mídia, um título e uma descrição para o conteúdo.
+Nesta etapa, o usuário pode selecionar o tipo de mídia que deseja adicionar, um link para o conteúdo de mídia, um título e uma descrição para o conteúdo.
 
-| **Campo**          | **Tipo**       | **Restrições**                           | **Valor default** |
-| ------------------ | -------------- | ---------------------------------------- | ----------------- |
-| Tipo de Mídia      | Seleção única  | Opções: Vídeo, Imagem, GIF               | Imagem            |
-| Arquivo de Mídia   | Arquivo        | Formatos suportados: mp4, jpg, png, jpeg | -                 |
-| Link da Mídia      | URL            | Deve ser um link válido                  | -                 |
-| Título do Mídia    | Caixa de texto | Máximo de 100 caracteres                 | -                 |
-| Descrição do Mídia | Área de texto  | Máximo de 1000 caracteres                | -                 |
+| **Campo**          | **Tipo**       | **Restrições**             | **Valor default** |
+| ------------------ | -------------- | -------------------------- | ----------------- |
+| Tipo de Mídia      | Seleção única  | Opções: Vídeo, Imagem, GIF | -                 |
+| Link da Mídia      | URL            | Deve ser um link válido    | -                 |
+| Título do Mídia    | Caixa de texto | Máximo de 100 caracteres   | -                 |
+| Descrição do Mídia | Área de texto  | Máximo de 1000 caracteres  | -                 |
 
 | **Comandos** | **Destino**               | **Tipo** |
 | ------------ | ------------------------- | -------- |
@@ -61,3 +60,4 @@ Nesta etapa, o usuário pode selecionar uma ou várias mídias da lista.
 | **Comandos** | **Destino**     | **Tipo** |
 | ------------ | --------------- | -------- |
 | Excluir      | Lista de mídias | default  |
+| Cancelar     | Lista de mídias | default  |

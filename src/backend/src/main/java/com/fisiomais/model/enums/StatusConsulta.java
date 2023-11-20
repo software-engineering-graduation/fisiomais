@@ -1,8 +1,8 @@
 package com.fisiomais.model.enums;
 
 public enum StatusConsulta {
-    Confirmado,
-    Cancelado,
-    Realizado,
-    Pendente
+    confirmado,
+    cancelado,
+    realizado,
+    pendente
 }

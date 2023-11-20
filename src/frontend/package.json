@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "API_TYPE=json vite",
+    "dev:json": "API_TYPE=json vite",
+    "dev:spring": "API_TYPE=spring vite",
     "api": "json-server --watch data/db.json --port 8080",
     "setup-env": "cross-env-shell cp .env.example .env",
     "build": "vite build",
@@ -13,14 +15,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.7",
     "antd": "^5.10.2",
+    "autoprefixer": "^10.4.16",
     "axios": "^1.6.0",
+    "date-fns": "^2.30.0",
     "json-server": "^0.17.4",
     "moment": "^2.29.4",
+    "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-datepicker": "^4.21.0",
+    "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-icons": "^4.11.0",
     "react-player": "^2.13.0",
     "react-query": "^3.39.3",
@@ -28,6 +38,7 @@
     "react-router-dom": "^6.17.0",
     "redux": "^4.2.1",
     "styled-components": "^6.1.0",
+    "tailwindcss": "^3.3.5",
     "uuid": "^9.0.1",
     "vite-jsconfig-paths": "^2.0.1"
   },
@@ -41,6 +52,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "sass": "^1.69.5",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-env-compatible": "^1.1.1"
   }
 }

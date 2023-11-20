@@ -1,6 +1,6 @@
-// App.js
 import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
+import './index.css';
 
 import SideBar from 'components/MainPage/SideBar';
 import MainContent from 'components/MainPage/MainContent';
