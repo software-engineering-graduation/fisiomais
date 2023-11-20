@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { HeaderTable } from "./components/HeaderTable";
+import { TableTop } from "./components/TableTop";
+import { ContentLine } from "./components/ContentLine/ContentLine";
+import { Filters } from "./components/FiltersLine/Filters";
 import axios from 'axios';
-import { HeaderTable, TableTop, ContentLine, Filters } from './components';
+
 
 const Agenda = () => {
     const [consultas, setConsultas] = useState([]);
