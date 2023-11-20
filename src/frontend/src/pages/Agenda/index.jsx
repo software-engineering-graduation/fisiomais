@@ -17,7 +17,7 @@ const Agenda = () => {
 
     const fetchConsultas = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/consultas');
+            const response = await axios.get('http://localhost:8081/api/consulta/all');
             setConsultas(response.data);
         } catch (error) {
             console.error("Erro ao buscar consultas", error);
@@ -53,9 +53,9 @@ const Agenda = () => {
                 <table className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                     <TableTop />
                     <tbody>
-                        {consultasFiltradas.map((consulta) => (
+                        {consultasFiltradas.map((consulta, i) => (
                             <ContentLine
-                                key={consulta.id}
+                                key={i}
                                 paciente={consulta.paciente}
                                 fisioterapeuta={consulta.fisioterapeuta}
                                 dataHora={consulta.dataHora}
