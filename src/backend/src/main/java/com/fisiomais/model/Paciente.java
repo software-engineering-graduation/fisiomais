@@ -72,4 +72,9 @@ public class Paciente extends User{
     public boolean isEnabled() {
         return true;
     }
+    @Column(length = 200)
+    private String endereco;
+    
+    // @OneToMany(mappedBy = "paciente")
+    // private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
 }
