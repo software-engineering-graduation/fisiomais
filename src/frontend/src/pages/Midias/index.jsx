@@ -40,6 +40,8 @@ const Midias = () => {
     const {token} = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+    // console.log(currentUser.user)
+
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"

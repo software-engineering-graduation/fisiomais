@@ -45,7 +45,7 @@ const CadastroFisioterapeuta = () => {
         controleAutomatico: false,
       });
     } catch (error) {
-      console.error('Erro ao enviar o formulário:', error);
+      // console.error('Erro ao enviar o formulário:', error);
     }
   };
 

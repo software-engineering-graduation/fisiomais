@@ -24,9 +24,9 @@ const checkSession = async () => {
         const decoded = jwtDecode(storedToken);
 
         const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
-
+        const userEmail = decoded.email;
         try {
-            const response = await axios.get(apiRoute, {
+            const response = await axios.post(apiRoute, { email: userEmail},{
                 headers: {
                     Authorization: `Bearer ${storedToken}`,
                     'Access-Control-Allow-Origin': '*',
@@ -35,7 +35,7 @@ const checkSession = async () => {
             userData = response.data;
             // console.info("Token validado: ", userData)
         } catch (error) {
-            // console.error('Token expirado ou inválido');
+            // console.error('Token expirado ou inválido', error);
         }
     }
     return userData;

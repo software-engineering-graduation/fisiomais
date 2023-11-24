@@ -108,10 +108,12 @@ const fetchLoginUser = async (credentials) => {
     // console.log('Decoded token:', decoded);
 
     apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
+    const userEmail = decoded.email;
+
     let userData = null;
 
     try {
-        const response = await axios.get(apiRoute, {
+        const response = await axios.post(apiRoute, { email: userEmail},{
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Access-Control-Allow-Origin': '*',
