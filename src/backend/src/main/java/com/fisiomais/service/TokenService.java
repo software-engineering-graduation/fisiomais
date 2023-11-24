@@ -23,7 +23,7 @@ public class TokenService {
                 .withIssuer("User")
                 .withSubject(usuario.getUsername())
                 .withClaim("id", usuario.getId())
-                .withExpiresAt(Date.from(Instant.now().plusSeconds(5 * 60)))
+                // .withExpiresAt(Date.from(Instant.now().plusSeconds(5 * 60)))
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
