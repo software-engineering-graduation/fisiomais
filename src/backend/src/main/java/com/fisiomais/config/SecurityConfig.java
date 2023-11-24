@@ -35,11 +35,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors()
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/api/auth")
                 .permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/api/auth")
+                .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/signup")
                 .permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/api/auth/credentials/**").authenticated() // Allow OPTIONS for /credentials
+                .requestMatchers(HttpMethod.GET, "/api/auth/credentials/**").authenticated() // Require authentication for GET /credentials
                 .anyRequest().authenticated()
                 .and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
