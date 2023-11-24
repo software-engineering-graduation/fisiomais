@@ -29,7 +29,7 @@ const CadastroFisioterapeuta = () => {
         endereco: form.endereco,
         controleAutomatico: form.controleAutomatico,
       });
-      console.log('Fisioterapeuta cadastrado:', response.data);
+      // console.log('Fisioterapeuta cadastrado:', response.data);
       setForm({
         nome: '',
         celular: '',

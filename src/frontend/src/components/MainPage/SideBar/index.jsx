@@ -15,7 +15,9 @@ const SideBar = ({ collapsed }) => {
 
     const currentUser = useSelector(state => state.currentUser.value);
 
-    if(Object.keys(currentUser.user).length === 0) {
+    console.log(currentUser)
+
+    if(currentUser.user === null) {
         return null;
     }
 

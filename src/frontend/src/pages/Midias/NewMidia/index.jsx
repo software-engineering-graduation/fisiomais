@@ -70,7 +70,7 @@ const NewMidia = () => {
         }
 
         const newMidiaOfficial = {
-            fisioterapeutaId: currentUser.userId,
+            fisioterapeutaId: currentUser.user.id,
             type: newMidia.type,
             linkArquivo: newMidia.linkArquivo,
             titulo: newMidia.titulo,
@@ -83,7 +83,7 @@ const NewMidia = () => {
             `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia` :
             `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`;
 
-        console.log(body)
+        // console.log(body)
 
 
         axios.post(apiRoute, body).
@@ -116,7 +116,7 @@ const NewMidia = () => {
         onChange(info) {
             const { status } = info.file;
             if (status !== 'Carregando...') {
-                console.log(info.file, info.fileList);
+                // console.log(info.file, info.fileList);
             }
             if (status === 'Finalizado') {
                 message.success(`${info.file.name} Arquivo carregado com sucesso.`);
@@ -125,7 +125,7 @@ const NewMidia = () => {
             }
         },
         onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
+            // console.log('Dropped files', e.dataTransfer.files);
         },
     };
 

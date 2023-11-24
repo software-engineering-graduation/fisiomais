@@ -71,7 +71,7 @@ const MidiaDetail = () => {
 
         axios.get(apiRoute)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 if (response.data) {
                     setMidiaDetail(response.data)
                 }

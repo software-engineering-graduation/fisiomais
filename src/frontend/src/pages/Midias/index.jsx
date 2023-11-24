@@ -82,7 +82,7 @@ const Midias = () => {
                 }
             }
             ).catch(error => {
-                console.log(error)
+                // console.log(error)
                 finalError = error;
             }).
             finally((error) => {
@@ -111,13 +111,13 @@ const Midias = () => {
     const fetchMidias = async () => {
         setLoadingMidias(true);
         const apiRoute = process.env.API_TYPE === 'json' ?
-            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia?fisioterapeuta_id=${currentUser.userId}` :
-            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.userId}`;
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia?fisioterapeuta_id=${currentUser.user.id}` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.user.id}`;
 
         await axios.get(apiRoute).
             then(response => {
                 const data = response.data.map(midia => {
-                    console.log(midia);
+                    // console.log(midia);
                     const { id, titulo, descricao, type, createTime } = midia;
                     const formatedDate = new Date(createTime).toLocaleString('pt-BR');
 
@@ -181,7 +181,7 @@ const Midias = () => {
         let erroShown = false
 
         if (deleteOneByOne) {
-            console.log(`Deleting one by one: ${deletionStack}`)
+            // console.log(`Deleting one by one: ${deletionStack}`)
             deletionStack.forEach(async element => {
                 if (!erroShown) {
                     const resp = await fetchDeletedMidia(element);
@@ -194,7 +194,7 @@ const Midias = () => {
                 }
             });
         } else {
-            console.log(`Deleting all at once: ${deletionStack}`)
+            // console.log(`Deleting all at once: ${deletionStack}`)
             const resp = await fetchDeletedMidias(deletionStack);
             if (resp.message) {
                 openNotification('error', `Deletar Mídias`, resp.response.data.message);

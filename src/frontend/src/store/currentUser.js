@@ -24,28 +24,30 @@ const mockFisio = {
     role: 'fisioterapeuta'
 }
 
-const mockUser = mockPaciente
 // const mockUser = mockFisio
+// const mockUser = mockPaciente
+// const mockId = mockUser.id;
 
-const mockId = mockUser.id;
+const mockUser = null
+const mockId = null
 
 export const currentUser = createSlice({
     name: 'currentUser',
     initialState: {
         value: {
             user: mockUser,
-            userId: mockId
+            token: null,
         }
     },
     reducers: {
-        login: (state, action) => {
-            state.value.user = action.payload;
-            state.value.userId = action.payload.id;
+        login: async (state, action) => {
+            console.log('login action:', action.payload)
+            state.value.user = action.payload.user;
+            state.value.token = action.payload.token;
             localStorage.setItem('user', JSON.stringify(state.value.user.id));
         },
         logout: (state) => {
-            state.value.user = {};
-            state.value.userId = undefined;
+            state.value.user = null;
             localStorage.removeItem('user');
         },
     }

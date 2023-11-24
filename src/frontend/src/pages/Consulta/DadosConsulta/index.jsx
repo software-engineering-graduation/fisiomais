@@ -55,7 +55,7 @@ const DadosConsulta = () => {
         let fisio = null;
         await axios.get(apiRoute)
             .then((res) => {
-                console.log('fisio', res.data)
+                // console.log('fisio', res.data)
                 fisio = res.data;
             })
             .catch((err) => {
@@ -93,7 +93,7 @@ const DadosConsulta = () => {
 
         await axios.get(apiRoute)
             .then((res) => {
-                console.log(`Agenda do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
+                // console.log(`Agenda do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data);
                 setAgenda(res.data);
             })
             .catch((err) => {
@@ -112,7 +112,7 @@ const DadosConsulta = () => {
             `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/fisioterapeuta/${selectedFisioterapeuta.id}`;
         await axios.get(apiRoute)
             .then((res) => {
-                console.log(`Consultas do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data)
+                // console.log(`Consultas do fisioterapeuta ${selectedFisioterapeuta.nome}:`, res.data)
                 setConsultas(res.data);
             })
             .catch((err) => {
@@ -126,18 +126,18 @@ const DadosConsulta = () => {
 
     const sendAppointmentRequest = async () => {
         setRequestStatus('loading');
-        console.log(selectedFisioterapeuta)
+        // console.log(selectedFisioterapeuta)
         if (!selectedFisioterapeuta.controle_automatico && process.env.API_TYPE === "json") { return setRequestStatus('error') }
         const requestBody = process.env.API_TYPE === 'json' ?
             {
                 fisioterapeuta__id: selectedFisioterapeuta.id,
-                paciente__id: currentUser.userId,
+                paciente__id: currentUser.user.id,
                 dataEHora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DD HH:mm:ss'),
                 observacoes: '',
                 status: 'confirmado',
             } :
             {
-                pacienteId: currentUser.userId,
+                pacienteId: currentUser.user.id,
                 fisioterapeutaId: selectedFisioterapeuta.id,
                 dataHora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('YYYY-MM-DDTHH:mm:ss'),
             };
@@ -148,7 +148,7 @@ const DadosConsulta = () => {
 
         await axios.post(apiRoute, requestBody)
             .then((res) => {
-                console.log(`Consulta criada:`, res.data);
+                // console.log(`Consulta criada:`, res.data);
                 setConsultaData(res.data);
                 if (res.data.status === 'confirmado') {
                     openNotification('success', 'Solicitação de agendamento confirmada', 'Lembre-se de comparecer no horário');
@@ -159,7 +159,7 @@ const DadosConsulta = () => {
                 setFinished(res.data.status);
             })
             .catch((err) => {
-                console.log('erro ao criar consulta', err)
+                // console.log('erro ao criar consulta', err)
                 setRequestStatus('error');
                 openNotification('error', 'Erro ao enviar solicitação de agendamento', err.message);
             })
@@ -190,7 +190,7 @@ const DadosConsulta = () => {
     };
 
     const convertConsultasDateTime = () => {
-        // console.log('consultas', consultas)
+        // // console.log('consultas', consultas)
         const consultasObj = consultas.map((consulta) => {
             const date = consulta.dataEHora.split(' ')[0];
             const time = consulta.dataEHora.split(' ')[1];
@@ -345,7 +345,7 @@ const DadosConsulta = () => {
         );
     }
 
-    if (Object.keys(currentUser.user).length === 0) {
+    if (currentUser.user === null) {
         return (
             <Result title="Usuário não está logado"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">

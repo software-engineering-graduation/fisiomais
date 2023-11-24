@@ -5,27 +5,90 @@ import styled from 'styled-components';
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'store/currentUser';
+import axios from 'axios';
 import { useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
+import React, { useState } from 'react';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const currentUser = useSelector(state => state.currentUser.value);
-    
+    const [loginState, setLoginState] = useState("idle");
+
+    const isLoading = loginState === "loading";
+    const isSuccess = loginState === "success";
+    const isError = loginState === "error";
+
     useEffect(() => {
-        if(Object.keys(currentUser.user).length > 0) {
+        if (currentUser.user !== null) {
             return navigate('/')
         }
     }, [])
 
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
-        // dispatch(login(values))
-        // TODO - create login logic
+    const tryLogin = async (userCredentials) => {
+        setLoginState("loading");
+    
+        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth`;
+        let token = null;
+    
+        try {
+            const response = await axios.post(apiRoute, userCredentials);
+            token = response.data;
+        } catch (error) {
+            console.error('Error trying to login:', error.message);
+            setLoginState("error");
+        }
+    
+        return token;
     };
 
-    if(Object.keys(currentUser.user).length > 0) {
+    const fetchUserData = async (token) => {
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+    
+        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
+        let userData = null;
+    
+        try {
+            const response = await axios.get(apiRoute, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
+            userData = response.data;
+        } catch (error) {
+            console.error('Error trying to fetch user data:', error.message);
+        }
+    
+        return userData;
+    };
+
+    const onFinish = async values => {
+        // console.log('Received values of form: ', values);
+        const token = await tryLogin({
+            email: values.username,
+            senha: values.password,
+        });
+        if (token !== null) {
+            console.info('Usuário logado com sucesso. Token: ', token);
+            const userData = await fetchUserData(token);
+            console.log(userData);
+            if (userData !== null && userData !== undefined && token !== null && token !== undefined) {
+                dispatch(login({
+                    user: userData,
+                    token: token,
+                }));
+                setLoginState("success");
+            } else {
+                setLoginState("error");
+            }
+        }
+    };
+
+    if (currentUser.user !== null) {
         return null
     }
 
@@ -79,7 +142,7 @@ const LoginForm = () => {
                 </Form.Item>
 
                 <CustomFormItem>
-                    <CustomLoginButton type="primary" htmlType="submit" className="login-form-button">
+                    <CustomLoginButton type="primary" htmlType="submit" className="login-form-button" loading={isLoading}>
                         Entrar
                     </CustomLoginButton>
                     <p style={{
