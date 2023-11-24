@@ -36,6 +36,8 @@ const DadosConsulta = () => {
 
     const currentUser = useSelector(state => state.currentUser.value);
     const role = currentUser.user.role;
+    const { token } = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     const navigate = useNavigate();
 
@@ -190,7 +192,6 @@ const DadosConsulta = () => {
     };
 
     const convertConsultasDateTime = () => {
-        // // console.log('consultas', consultas)
         const consultasObj = consultas.map((consulta) => {
             const date = consulta.dataEHora.split(' ')[0];
             const time = consulta.dataEHora.split(' ')[1];
@@ -345,7 +346,7 @@ const DadosConsulta = () => {
         );
     }
 
-    if (currentUser.user === null) {
+    if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
         return (
             <Result title="Usuário não está logado"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">

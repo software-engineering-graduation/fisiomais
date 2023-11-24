@@ -20,7 +20,7 @@ const Agenda = () => {
             const response = await axios.get('http://localhost:8081/api/consulta/all');
             setConsultas(response.data);
         } catch (error) {
-            console.error("Erro ao buscar consultas", error);
+            // console.error("Erro ao buscar consultas", error);
         }
     };
 

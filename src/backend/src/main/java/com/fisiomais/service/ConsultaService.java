@@ -117,10 +117,9 @@ public class ConsultaService {
                 ? new String(consulta.getObservacoes().getBytes(StandardCharsets.ISO_8859_1),
                         StandardCharsets.UTF_8)
                 : null;
-
         return new ConsultaResponse(
-                PacienteResponse.toPacienteResponse(consulta.getPaciente()),
-                FisioterapeutaResponse.toFisioterapeutaResponse(consulta.getFisioterapeuta()),
+                consulta.getPaciente().getId(),
+                consulta.getFisioterapeuta().getId(),
                 consulta.getDataEHora(),
                 obsevacoesConsulta,
                 consulta.getConfirmacao(),

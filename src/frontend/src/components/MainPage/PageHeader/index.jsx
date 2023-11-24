@@ -20,7 +20,7 @@ const PageHeader = ({ collapsed, setCollapsed, colorBgContainer }) => {
 
     const currentUser = useSelector(state => state.currentUser.value);
 
-    if(currentUser.user === null) {
+    if(currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
         return null;
     }
 

@@ -4,101 +4,38 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from 'store/currentUser';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { jwtDecode } from "jwt-decode";
-import React, { useState } from 'react';
+import { loginUser } from 'store/currentUser';
+import { useEffect, useState } from 'react';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const currentUser = useSelector(state => state.currentUser.value);
-    const [loginState, setLoginState] = useState("idle");
+    const currentUser = useSelector((state) => state.currentUser.value);
+    const { user, status } = currentUser;
 
-    const isLoading = loginState === "loading";
-    const isSuccess = loginState === "success";
-    const isError = loginState === "error";
+    const isLoading = status === 'loading';
+    const isLoginSuccess = status === 'succeeded';
+    const isLoginError = status === 'failed';
 
     useEffect(() => {
-        if (currentUser.user !== null) {
-            return navigate('/')
+        if (user !== null && user !== undefined) {
+            navigate('/');
         }
-    }, [])
+    }, [user, navigate]);
 
-    const tryLogin = async (userCredentials) => {
-        setLoginState("loading");
-    
-        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth`;
-        let token = null;
-    
-        try {
-            const response = await axios.post(apiRoute, userCredentials);
-            token = response.data;
-        } catch (error) {
-            console.error('Error trying to login:', error.message);
-            setLoginState("error");
-        }
-    
-        return token;
+    const onFinish = (values) => {
+        dispatch(loginUser({ email: values.username, senha: values.password }));
     };
 
-    const fetchUserData = async (token) => {
-        const decoded = jwtDecode(token);
-        console.log(decoded);
-    
-        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
-        let userData = null;
-    
-        try {
-            const response = await axios.get(apiRoute, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Access-Control-Allow-Origin': '*',
-                },
-            });
-            userData = response.data;
-        } catch (error) {
-            console.error('Error trying to fetch user data:', error.message);
-        }
-    
-        return userData;
-    };
-
-    const onFinish = async values => {
-        // console.log('Received values of form: ', values);
-        const token = await tryLogin({
-            email: values.username,
-            senha: values.password,
-        });
-        if (token !== null) {
-            console.info('Usuário logado com sucesso. Token: ', token);
-            const userData = await fetchUserData(token);
-            console.log(userData);
-            if (userData !== null && userData !== undefined && token !== null && token !== undefined) {
-                dispatch(login({
-                    user: userData,
-                    token: token,
-                }));
-                setLoginState("success");
-            } else {
-                setLoginState("error");
-            }
-        }
-    };
-
-    if (currentUser.user !== null) {
-        return null
+    if (user !== null) {
+        return null;
     }
 
     return (
         <div>
-            <Space style={{
-                marginBottom: '50px',
-            }}>
-                <LogoImage
-                    preview={false}
+            <Space style={{ marginBottom: '50px' }}>
+                <LogoImage preview={false}
                     width={250}
                     height={250}
                     src={FisiomaisLogo}
@@ -134,26 +71,20 @@ const LoginForm = () => {
                         },
                     ]}
                 >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Senha"
-                    />
+                    <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Senha" />
                 </Form.Item>
 
                 <CustomFormItem>
                     <CustomLoginButton type="primary" htmlType="submit" className="login-form-button" loading={isLoading}>
                         Entrar
                     </CustomLoginButton>
-                    <p style={{
-                        textAlign: 'center',
-                    }}> Ou </p>
+                    <p style={{ textAlign: 'center' }}> Ou </p>
                     <CustomLink href="">Cadastre Agora</CustomLink>
                 </CustomFormItem>
             </Form>
         </div>
-    )
-}
+    );
+};
 
 export default LoginForm;
 
@@ -167,21 +98,21 @@ const CustomFormItem = styled(Form.Item)`
 
 const CustomLoginButton = styled(Button)`
     width: 100%;
-    background-color: #00C3A5;
-    border-color: #00C3A5;
+    background-color: #00c3a5;
+    border-color: #00c3a5;
     &:hover {
         background-color: #4ce2cc !important;
         border-color: white !important;
-        color: #00C3A5 !important;
+        color: #00c3a5 !important;
     }
 `;
 
 const CustomLink = styled(Link)`
-    color: #00C3A5;
+    color: #00c3a5;
     font-weight: bold;
     text-decoration: none;
     &:hover {
-        color: #00C3A5;
+        color: #00c3a5;
         text-decoration: underline;
     }
 `;

@@ -23,15 +23,15 @@ public class TokenService {
                 .withIssuer("User")
                 .withSubject(usuario.getUsername())
                 .withClaim("id", usuario.getId())
-                .withExpiresAt(Date.from(Instant.now().plusSeconds(20)))
+                .withExpiresAt(Date.from(Instant.now().plusSeconds(5 * 60)))
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
     public String getSubject(String token) {
-            return JWT.require(Algorithm.HMAC256(secretKey))
-                    .withIssuer("User")
-                    .build()
-                    .verify(token)
-                    .getSubject();
+        return JWT.require(Algorithm.HMAC256(secretKey))
+                .withIssuer("User")
+                .build()
+                .verify(token)
+                .getSubject();
     }
 }

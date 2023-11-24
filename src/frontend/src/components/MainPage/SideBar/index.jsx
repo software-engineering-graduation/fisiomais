@@ -11,18 +11,19 @@ import { setPage } from 'store/currentPage'
 const { Sider } = Layout;
 
 const SideBar = ({ collapsed }) => {
-    const [defaultSelectedKey, setDefaultSelectedKey] = useState('0');
-
-    const currentUser = useSelector(state => state.currentUser.value);
-
-    console.log(currentUser)
-
-    if(currentUser.user === null) {
-        return null;
-    }
-
-    const navigate = useNavigate();
+    const [defaultSelectedKey, setDefaultSelectedKey] = useState('0')
+    const currentUser = useSelector(state => state.currentUser.value)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // console.log("currentUser from SideBar: ", currentUser)
+    
+    useEffect(() => {
+        if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
+            return
+        }
+        updateMenuSelection();
+    }, [currentUser]);
 
     const updateMenuSelection = () => {
         const currentPage = window.location.pathname
@@ -34,10 +35,6 @@ const SideBar = ({ collapsed }) => {
         }
         setDefaultSelectedKey(currentPageKey.toString());
     }
-
-    useEffect(() => {
-        updateMenuSelection();   
-    }, []);
 
     const handleButtonClick = (path, key) => {
         dispatch(setPage(key))
@@ -60,6 +57,15 @@ const SideBar = ({ collapsed }) => {
         if (window.location.pathname !== '/') {
             handleButtonClick('/', 0)
         }
+    }
+
+    if (
+        currentUser === null ||
+        currentUser === undefined ||
+        currentUser.user === null ||
+        currentUser.user === undefined
+    ) {
+        return null
     }
 
     return (

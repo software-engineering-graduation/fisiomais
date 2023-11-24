@@ -34,6 +34,8 @@ const NewMidia = () => {
     const navigate = useNavigate();
 
     const currentUser = useSelector(state => state.currentUser.value);
+    const { token } = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (

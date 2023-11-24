@@ -52,7 +52,9 @@ const MidiaDetail = () => {
     const [error, setError] = useState(false)
 
     const currentUser = useSelector(state => state.currentUser.value);
-
+    const { token } = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"

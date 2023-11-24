@@ -30,12 +30,15 @@ const columns = [
 const SELECTED = true
 
 const Midias = () => {
+    
     const [shortMidias, setShortMidias] = useState([]);
     const [deletionStack, setDeletionStack] = useState([]);
     const [deleteMidias, setDeleteMidias] = useState(false);
     const [loadingMidias, setLoadingMidias] = useState(true);
     const [loadingDeletion, setLoadingDeletion] = useState(false);
     const currentUser = useSelector(state => state.currentUser.value);
+    const {token} = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (

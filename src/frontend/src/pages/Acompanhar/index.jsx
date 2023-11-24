@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const AcompanhamentoVirtual = () => {
+  const currentUser = useSelector((state) => state.currentUser.value);
+  const { token } = currentUser;
+
   const [form, setForm] = useState({
     dataSessao: '',
     plataforma: '',
@@ -18,7 +22,11 @@ const AcompanhamentoVirtual = () => {
     e.preventDefault();
     try {
       const url = 'http://localhost:8081/api/acompanhamento';
-      const response = await axios.post(url, form);
+      const response = await axios.post(url, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       // console.log('Formulário de acompanhamento enviado:', response.data);
       setForm({
         dataSessao: '',

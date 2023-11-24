@@ -12,7 +12,7 @@ const MainContent = ({ colorBgContainer }) => {
     const currentUser = useSelector(state => state.currentUser.value);
     const routeParam = window.location.pathname.split('/')[1];
 
-    if (currentUser.user === null) {
+    if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
         if (routeParam === 'login') {
             return (
                 <div>

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import '../../index.css';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const CadastroFisioterapeuta = () => {
+  const currentUser = useSelector(state => state.currentUser.value);
+    const {token} = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
   const [form, setForm] = useState({
     nome: '',
     celular: '',
