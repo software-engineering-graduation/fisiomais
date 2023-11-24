@@ -15,6 +15,7 @@ import AcompanhamentoVirtual from 'pages/Acompanhar';
 import Consulta from 'pages/Consulta';
 import DadosConsulta from 'pages/Consulta/DadosConsulta';
 import Login from 'pages/Login';
+import Indicadores from 'pages/Indicadores';
 
 const PagesRouter = () => {
     return (
@@ -34,6 +35,7 @@ const PagesRouter = () => {
             <Route path="/nova-consulta" element={<Consulta />} />
             <Route path='/nova-consulta/dados' element={<DadosConsulta />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/indicadores' element={<Indicadores />} />
         </Routes>
     );
 }

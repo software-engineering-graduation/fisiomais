@@ -5,7 +5,7 @@ import { Menu, Layout } from 'antd';
 
 
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
-import SideMenuItens from './data/menu_itens';
+import SideMenuItens, {SideMenuItensAdmin} from './data/menu_itens';
 import { setPage } from 'store/currentPage'
 
 const { Sider } = Layout;
@@ -17,6 +17,7 @@ const SideBar = ({ collapsed }) => {
     const dispatch = useDispatch()
 
     // console.log("currentUser from SideBar: ", currentUser)
+    const menu = true ? SideMenuItens.concat(SideMenuItensAdmin) : SideMenuItens;
     
     useEffect(() => {
         if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
@@ -29,7 +30,7 @@ const SideBar = ({ collapsed }) => {
         const currentPage = window.location.pathname
         let currentPageKey = 0;
         try {
-            currentPageKey = SideMenuItens.find(item => currentPage.includes(item.route)).key;
+            currentPageKey = menu.find(item => currentPage.includes(item.route)).key;
         } catch (error) {
             currentPageKey = 0;
         }
@@ -42,7 +43,7 @@ const SideBar = ({ collapsed }) => {
         updateMenuSelection()
     };
 
-    const menuItems = SideMenuItens.map((item) => {
+    const menuItems = menu.map((item) => {
         return (
             {
                 key: item.key,
