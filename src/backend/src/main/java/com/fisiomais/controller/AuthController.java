@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.fisiomais.bodys.RequestUserCredentials;
 import com.fisiomais.bodys.UserCredentialsResponse;
 import com.fisiomais.dto.Login;
 import com.fisiomais.exception.NotFoundException;
@@ -76,9 +77,10 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/credentials/{id}")
-    public ResponseEntity<UserCredentialsResponse> getCredentials(@PathVariable Integer id) {
+    @PostMapping("/credentials/{id}")
+    public ResponseEntity<UserCredentialsResponse> getCredentials(@PathVariable Integer id, @RequestBody RequestUserCredentials userCred) {
         logger.info("Getting credentials for user with id: {}", id);
+        logger.info("User Credentials (Email): {}", userCred.email());
 
         // check if the id requested is the same as the authenticated user
         User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -90,12 +92,16 @@ public class AuthController {
         }
 
         Paciente paciente = pacienteRepository.findById(id).orElse(null);
-        if (paciente != null) {
+        logger.info("Paciente email searched: {}", paciente.getEmail());
+        if (paciente != null && paciente.getEmail().equals(userCred.email())) {
             return new ResponseEntity<>(UserCredentialsResponse.parsePaciente(paciente), HttpStatus.OK);
         }
 
+        logger.info("Patient not found for id: {}", id);
+
         Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(id).orElse(null);
-        if (fisioterapeuta != null) {
+        logger.info("Fisioterapeuta email searched: {}", fisioterapeuta.getEmail());
+        if (fisioterapeuta != null && fisioterapeuta.getEmail().equals(userCred.email())) {
             return new ResponseEntity<>(UserCredentialsResponse.parseFisioterapeuta(fisioterapeuta), HttpStatus.OK);
         }
 
