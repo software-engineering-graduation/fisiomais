@@ -21,7 +21,7 @@ const CadastroFisioterapeuta = () => {
   const onFinish = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/fisioterapeuta', {
+      const response = await axios.post('http://localhost:8081/api/fisioterapeuta', {
         nome: form.nome,
         email: form.email,
         password: form.password,

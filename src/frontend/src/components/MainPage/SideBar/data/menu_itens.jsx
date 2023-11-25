@@ -8,6 +8,9 @@ import { GrSchedule } from 'react-icons/gr'
 import { MdPeopleOutline } from 'react-icons/md'
 import { LiaHistorySolid } from 'react-icons/lia'
 import { AiOutlineHome } from 'react-icons/ai'
+import { FaUserInjured } from 'react-icons/fa'
+import { MdHealing } from 'react-icons/md'
+import { GiLoveInjection } from 'react-icons/gi'
 
 const SideMenuItens = [
     // {
@@ -57,6 +60,18 @@ const SideMenuItens = [
         icon: <MdPeopleOutline />,
         label: 'Acompanhamento',
         route: 'acompanhamento',
+    },
+    {
+        key: 8, 
+        icon: <FaUserInjured />,
+        label: 'Cadastrar Paciente',
+        route: 'pacientes',
+    },
+    {
+        key: 9, 
+        icon: <MdHealing />,
+        label: 'Criar Tratamento',
+        route: 'tratamento',
     }
 ]
 
