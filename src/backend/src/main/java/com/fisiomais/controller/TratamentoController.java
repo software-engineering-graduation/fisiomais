@@ -34,7 +34,7 @@ public class TratamentoController {
         return new ResponseEntity<>(newTratamento, HttpStatus.CREATED);
     }
 
-    @GetMapping("/pac  ")
+    @GetMapping("/paciente/{id}")
     public ResponseEntity <List<Tratamento>> findByPacienteId(@PathVariable Integer id){
         List<Tratamento> obj = this.tratamentoService.findByPacienteId(id);
         return ResponseEntity.ok().body(obj);
