@@ -50,12 +50,17 @@ Aqui serão apresentados os principais parâmetros de avaliação que permitem m
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Crescimento de Cadastros de Fisioterapeutas | Avaliar o crescimento da rede de fisioterapeutas e a eficácia das estratégias de atração | Mede a variação percentual mensal no número de novos fisioterapeutas cadastrados no sistema | Tabela `fisioterapeuta` | Processos Internos |
+| **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
+|---------------|---------------|---------------|---------------------|-----------------|
+| Indice de Perfis Completos | Garantir perfis completos dos fisioterapeutas | Percentual de fisioterapeutas com informações de contato e especialidade preenchidas após o cadastro | Tabela `fisioterapeuta` | Processos Internos |
 
 ### Indicadores de Desempenho para o Processo Acompanhar Paciente – Processo 6
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Satisfação do Paciente com o Acompanhamento Virtual | Melhorar a qualidade e eficácia do acompanhamento virtual | Mede o percentual de pacientes que avaliaram positivamente o acompanhamento virtual, incluindo a comunicação, os recursos fornecidos e o atendimento geral | Tabela: `acompanhamento_virtual` | Perspectiva do Cliente |
+| Índice de Atividade de Acompanhamento | Manter a regularidade das sessões de acompanhamento | Mede a frequência média de sessões de acompanhamento realizadas, indicando a regularidade e o engajamento dos pacientes no processo. | Tabela: `acompanhamento_virtual`, coluna `data_sessao` | Processos Internos |
+
 
 
 
