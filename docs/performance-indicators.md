@@ -50,8 +50,6 @@ Aqui serão apresentados os principais parâmetros de avaliação que permitem m
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
 | Taxa de Crescimento de Cadastros de Fisioterapeutas | Avaliar o crescimento da rede de fisioterapeutas e a eficácia das estratégias de atração | Mede a variação percentual mensal no número de novos fisioterapeutas cadastrados no sistema | Tabela `fisioterapeuta` | Processos Internos |
-| **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
-|---------------|---------------|---------------|---------------------|-----------------|
 | Indice de Perfis Completos | Garantir perfis completos dos fisioterapeutas | Percentual de fisioterapeutas com informações de contato e especialidade preenchidas após o cadastro | Tabela `fisioterapeuta` | Processos Internos |
 
 ### Indicadores de Desempenho para o Processo Acompanhar Paciente – Processo 6
