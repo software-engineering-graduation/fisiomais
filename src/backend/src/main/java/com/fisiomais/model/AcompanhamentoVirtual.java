@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,6 +18,7 @@ public class AcompanhamentoVirtual {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_sessao")
     private Date dataSessao;
 

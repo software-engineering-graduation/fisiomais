@@ -22,7 +22,7 @@ public class FisioterapeutaController {
         this.fisioterapeutaService = fisioterapeutaService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Fisioterapeuta>> getAllFisioterapeutas() {
         List<Fisioterapeuta> fisioterapeutas = fisioterapeutaService.findAll();
         return ResponseEntity.ok(fisioterapeutas);
