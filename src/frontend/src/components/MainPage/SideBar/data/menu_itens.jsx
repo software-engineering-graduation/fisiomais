@@ -65,7 +65,7 @@ const SideMenuItens = [
         key: 8, 
         icon: <FaUserInjured />,
         label: 'Cadastrar Paciente',
-        route: 'pacientes',
+        route: 'cadastro',
     },
     {
         key: 9, 
