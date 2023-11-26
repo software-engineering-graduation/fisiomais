@@ -10,18 +10,17 @@ import org.springframework.stereotype.Repository;
 
 import com.fisiomais.model.Tratamento;
 
-
 @Repository
 public interface TratamentoRepository extends JpaRepository<Tratamento, Integer> {
 
-    @Query(value = "SELECT t FROM Tratamento t WHERE t.paciente.id = :id")
-    List<Tratamento> findByPaciente__id(@Param("id")Integer id);
+    @Query("SELECT t FROM Tratamento t WHERE t.paciente.id = :id")
+    List<Tratamento> findByPacienteId(@Param("id") Integer id);
 
-    @Query(value = "SELECT t FROM Tratamento t WHERE t.fisioterapeuta.id = :id")
-    List<Tratamento> findByFisioterapeuta__id(@Param("id")Integer id);
+    @Query("SELECT t FROM Tratamento t WHERE t.fisioterapeuta.id = :id")
+    List<Tratamento> findByFisioterapeutaId(@Param("id") Integer id);
 
-    @Query(value = "SELECT t FROM Tratamento t WHERE t.titulo = :titulo")
-    Tratamento findTratamentoByTitulo(@Param("titulo")String titulo);
+    @Query("SELECT t FROM Tratamento t WHERE t.titulo = :titulo")
+    Tratamento findTratamentoByTitulo(@Param("titulo") String titulo);
 
     Optional<Tratamento> findById(Integer id);
-} 
+}

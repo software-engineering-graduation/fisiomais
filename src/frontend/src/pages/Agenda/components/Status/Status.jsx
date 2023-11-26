@@ -1,7 +1,6 @@
 import React from "react";
 import IconConfirmed from "../../icons/IconConfirmed/IconConfirmed"; 
 import { IconCancelled } from "../../icons/IconCancelled/IconCancelled"; 
-import IconCompleted from "../../icons/IconConfirmed/IconConfirmed"; 
 import { IconPending } from "../../icons/IconPending/IconPending";
 
 export const Status = ({ status }) => {

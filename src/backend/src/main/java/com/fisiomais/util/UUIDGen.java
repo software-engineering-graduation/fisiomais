@@ -1,4 +1,4 @@
-package com.fisiomais;
+package com.fisiomais.util;
 
 import java.util.Random;
 import java.util.UUID;

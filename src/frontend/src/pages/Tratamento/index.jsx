@@ -15,7 +15,7 @@ const Tratamento = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log('Plano de tratamento criado:', values);
+    // console.log('Plano de tratamento criado:', values);
     message.success('Plano de tratamento salvo com sucesso!');
   };
 
