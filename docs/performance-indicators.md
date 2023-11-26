@@ -36,7 +36,8 @@ Aqui serão apresentados os principais parâmetros de avaliação que permitem m
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte dos Dados** | **Perspectiva** |
 |---------------|---------------|---------------|---------------------|-----------------|
-| Taxa de Consultas Canceladas | Minimizar o número de consultas canceladas | Mede a porcentagem de consultas canceladas em relação ao total de consultas agendadas | Tabelas: `consultas` | Processos Internos |
+| Taxa de Consultas Concluídas | Maximizar a efetividade do tratamento | Mede a porcentagem de consultas realizadas com sucesso em relação ao total de consultas agendadas | Tabelas: `consultas` | Perspectiva do Cliente |
+| Taxa de Reagendamentos | Reduzir a necessidade de reagendamento | Mede a frequência com que as consultas são reagendadas, indicando flexibilidade e disponibilidade do serviço | Tabelas: `consultas` | Perspectiva do Cliente | 
 
 ### Indicadores de Desempenho para o Processo Cadastrar paciente – Processo 3
 
