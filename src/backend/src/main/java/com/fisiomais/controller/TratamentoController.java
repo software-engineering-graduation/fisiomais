@@ -10,12 +10,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.fisiomais.bodys.NovoTratamentoRequest;
+import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.model.Tratamento;
 
 import com.fisiomais.service.TratamentoService;
+import com.fisiomais.util.TratamentoUtil;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -25,12 +32,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Tag(name = "Tratamento", description = "Tratamento API")
 public class TratamentoController {
 
+    private final TratamentoService tratamentoService;
+    private final TratamentoUtil tratamentoUtil;
+    
     @Autowired
-    private TratamentoService tratamentoService;     
+    public TratamentoController(TratamentoService tratamentoService, TratamentoUtil tratamentoUtil){
+        this.tratamentoService = tratamentoService;
+        this.tratamentoUtil = tratamentoUtil;
+    }
 
     @PostMapping
-    public ResponseEntity<Tratamento> createTratamento(@RequestBody Tratamento tratamento) {
-        Tratamento newTratamento = tratamentoService.createTratamento(tratamento);
+    @Operation(summary = "Criar novo tratamento para paciente", description = "Criar um novo tratamento.")
+    @ApiResponse(responseCode = "201", description = "Tratamento criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tratamento.class)))
+    public ResponseEntity<TratamentoResponse> createTratamento(@RequestBody NovoTratamentoRequest tratamento) {
+        Tratamento novoTratamentoMapped =  tratamentoUtil.convertToTratamento(tratamento);
+        TratamentoResponse newTratamento = tratamentoService.createTratamento(novoTratamentoMapped);
         return new ResponseEntity<>(newTratamento, HttpStatus.CREATED);
     }
 
