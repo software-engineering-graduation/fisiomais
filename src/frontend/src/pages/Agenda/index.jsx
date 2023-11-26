@@ -5,7 +5,6 @@ import { ContentLine } from "./components/ContentLine/ContentLine";
 import { Filters } from "./components/FiltersLine/Filters";
 import axios from 'axios';
 
-
 const Agenda = () => {
     const [consultas, setConsultas] = useState([]);
     const [filtroData, setFiltroData] = useState('');
@@ -34,8 +33,8 @@ const Agenda = () => {
 
     const consultasFiltradas = consultas.filter((consulta) => {
         return (
-            (!filtroData || consulta.data === filtroData) &&
-            (!filtroStatus || consulta.status === filtroStatus)
+            (!filtroData || consulta.dataEHora === filtroData) &&
+            (!filtroStatus || consulta.confirmacao === filtroStatus)
         );
     });
 
@@ -53,15 +52,15 @@ const Agenda = () => {
                 <table className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                     <TableTop />
                     <tbody>
-                        {consultasFiltradas.map((consulta, i) => (
+                        {consultasFiltradas.map((consulta) => (
                             <ContentLine
-                                key={i}
+                                key={consulta._id}
                                 paciente={consulta.paciente}
                                 fisioterapeuta={consulta.fisioterapeuta}
-                                dataHora={consulta.dataHora}
-                                status={consulta.status}
+                                dataHora={consulta.dataEHora}
+                                status={consulta.confirmacao}
                                 observacoes={consulta.observacoes}
-                                linkConsulta={consulta.linkConsulta}
+                                linkConsulta={consulta.link}
                             />
                         ))}
                     </tbody>
