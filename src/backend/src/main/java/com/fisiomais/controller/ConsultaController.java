@@ -4,8 +4,8 @@ import com.fisiomais.bodys.ConsultaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Consulta;
-import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.indicators.ConfirmationMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.service.ConsultaService;
 import com.fisiomais.util.ConsultaUtil;
@@ -17,7 +17,10 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +32,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/consulta")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Consultas", description = "Endpoints para gerenciamento de consultas")
 public class ConsultaController {
 
+    private static final Logger logger = LogManager.getLogger(ConsultaController.class);
     private final ConsultaService consultaService;
     private final ConsultaUtil consultaUtil;
     private final FisioterapeutaRepository fisioterapeutaRepository;
@@ -148,6 +153,37 @@ public class ConsultaController {
             @Parameter(name = "pacienteId", description = "Id do paciente a ser pesquisado") @PathVariable Integer pacienteId) {
         List<Consulta> consultas = consultaService.getConsultasByPacienteId(pacienteId);
         return new ResponseEntity<>(consultas, HttpStatus.OK);
+    }
+
+    @GetMapping("/taxa-confirmacao/{mes}/{ano}")
+    @Operation(summary = "Obter taxa de confirmação de agendamentos para um mês/ano específico", description = "Obter a taxa de confirmação de agendamentos para um mês/ano específico.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    @ApiResponse(responseCode = "400", description = "Mês ou ano inválido")
+    public ResponseEntity<ConfirmationMetrics> getTaxaConfirmacao(
+            @Parameter(name = "mes", description = "Mês a ser pesquisado", example = "10") @PathVariable Integer mes,
+            @Parameter(name = "ano", description = "Ano a ser pesquisado", example = "2021") @PathVariable Integer ano) {
+
+        if (mes < 1 || mes > 12) {
+            throw new BusinessException("Mês inválido. Valores aceitos: 1-12");
+        }
+
+        if (ano < 2021) {
+            throw new BusinessException("Ano inválido. Valores aceitos: 2021+");
+        }
+
+        try {
+            ConfirmationMetrics taxaConfirmacao = consultaService.getTaxaConfirmacao(mes, ano);
+            logger.info("Taxa de confirmação para o mês {} e ano {}:", mes, ano);
+            logger.info("Mês: {}", taxaConfirmacao.getMes());
+            logger.info("Ano: {}", taxaConfirmacao.getAno());
+            logger.info("Total de consultas: {}", taxaConfirmacao.getTotalConsultas());
+            logger.info("Total de consultas confirmadas: {}", taxaConfirmacao.getConsultasConfirmadas());
+            logger.info("Taxa de confirmação: {}%", taxaConfirmacao.getTaxaConfirmacao());
+
+            return new ResponseEntity<>(taxaConfirmacao, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
     }
 
     @PostMapping
