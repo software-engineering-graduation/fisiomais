@@ -54,7 +54,7 @@ const SideMenuItens = [
 
 export const SideMenuItensAdmin = [
     {
-        key: 8,
+        key: 10,
         icon: <AiOutlineBarChart />,
         label: 'Indicadores',
         route: 'indicadores',

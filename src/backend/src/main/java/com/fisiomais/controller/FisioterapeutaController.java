@@ -3,6 +3,9 @@ package com.fisiomais.controller;
 import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
 import com.fisiomais.dto.FisioterapeutaDTO;
 import com.fisiomais.service.FisioterapeutaService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import com.fisiomais.model.Fisioterapeuta;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/fisioterapeuta")
+@SecurityRequirement(name = "Bearer Authentication")
 public class FisioterapeutaController {
 
     private final FisioterapeutaService fisioterapeutaService;

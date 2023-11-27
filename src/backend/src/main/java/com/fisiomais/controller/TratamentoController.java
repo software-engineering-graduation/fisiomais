@@ -23,11 +23,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/tratamento")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Tratamento", description = "Tratamento API")
 public class TratamentoController {
 
