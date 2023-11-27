@@ -462,134 +462,115 @@ VALUES (
         'Demonstração de Exercício 1',
         'Um vídeo demonstrando um exercício específico.',
         'https://www.youtube.com/watch?v=tkjcnh1NPEw'
-    ),
-    (
+    ), (
         2,
         'Imagem',
         'Imagem Anatômica',
         'Uma imagem anatômica para referência.',
         'https://picsum.photos/201'
-    ),
-    (
+    ), (
         1,
         'GIF',
         'GIF de Exercício Terapêutico',
         'Um GIF demonstrando um exercício terapêutico.',
         'https://media.tenor.com/6gHLhmwO87sAAAAi/gg.gif'
-    ),
-    (
+    ), (
         1,
         'Video',
         'Sessão de Fisioterapia',
         'Um vídeo de uma sessão de fisioterapia em andamento.',
         'https://www.youtube.com/watch?v=2'
-    ),
-    (
+    ), (
         2,
         'Imagem',
         'Gráfico de Músculos',
         'Um gráfico de músculos para fins educacionais.',
         'https://picsum.photos/202'
-    ),
-    (
+    ), (
         4,
         'GIF',
         'GIF de Exercício de Reabilitação',
         'Um GIF demonstrando um exercício de reabilitação.',
         'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVoMnhqNTNtcWExdzhuejNkejlmM2NoYWk4bnNiMGtxYzU2cWI1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fZDXPWad3Rhx0H0gDp/giphy.gif'
-    ),
-    (
+    ), (
         1,
         'Video',
         'Rotina de Alongamento',
         'Um vídeo mostrando uma rotina de alongamento.',
         'https://www.youtube.com/watch?v=3'
-    ),
-    (
+    ), (
         5,
         'Imagem',
         'Imagem de Lesão no Tornozelo',
         'Uma imagem de lesão no tornozelo para diagnóstico.',
         'https://picsum.photos/203'
-    ),
-    (
+    ), (
         4,
         'GIF',
         'GIF de Técnica de Exercício Terapêutico',
         'Um GIF ilustrando uma técnica de exercício terapêutico.',
         'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVoMnhqNTNtcWExdzhuejNkejlmM2NoYWk4bnNiMGtxYzU2cWI1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fZDXPWad3Rhx0H0gDp/giphy.gif'
-    ),
-    (
+    ), (
         1,
         'Video',
         'Video de Prevenção de Lesões',
         'Um vídeo sobre a prevenção de lesões comuns.',
         'https://www.youtube.com/watch?v=4'
-    ),
-    (
+    ), (
         1,
         'Imagem',
         'Raio-X da Coluna',
         'Uma imagem de raio-X da coluna para avaliação.',
         'https://picsum.photos/204'
-    ),
-    (
+    ), (
         5,
         'GIF',
         'GIF de Exercício de Equilíbrio',
         'Um GIF demonstrando um exercício de equilíbrio.',
         'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVoMnhqNTNtcWExdzhuejNkejlmM2NoYWk4bnNiMGtxYzU2cWI1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fZDXPWad3Rhx0H0gDp/giphy.gif'
-    ),
-    (
+    ), (
         2,
         'Video',
         'Correção de Postura',
         'Um vídeo sobre a correção de postura para melhor saúde.',
         'https://www.youtube.com/watch?v=5'
-    ),
-    (
+    ), (
         4,
         'Imagem',
         'Anatomia do Joelho',
         'Uma imagem mostrando a anatomia da articulação do joelho.',
         'https://picsum.photos/205'
-    ),
-    (
+    ), (
         1,
         'GIF',
         'GIF de Exercício de Amplitude de Movimento',
         'Um GIF demonstrando um exercício de amplitude de movimento.',
         'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVoMnhqNTNtcWExdzhuejNkejlmM2NoYWk4bnNiMGtxYzU2cWI1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fZDXPWad3Rhx0H0gDp/giphy.gif'
-    ),
-    (
+    ), (
         1,
         'Video',
         'Fortalecimento do Núcleo',
         'Um vídeo demonstrando exercícios de fortalecimento do núcleo.',
         'https://www.youtube.com/watch?v=6'
-    ),
-    (
+    ), (
         2,
         'Imagem',
         'Gráfico de Flexibilidade',
         'Um gráfico de flexibilidade para avaliação.',
         'https://picsum.photos/206'
-    ),
-    (
+    ), (
         4,
         'GIF',
         'GIF de Exercício de Relaxamento',
         'Um GIF mostrando exercícios de relaxamento.',
         'https://www.google.com/url?sa=i&url=https%3A%2F%2Fgiphy.com%2Fstickers%2Fwork-progress-workinprogress-Lr4HRF6DEEJo90SQXF&psig=AOvVaw1vMC_mja0Ez4dXhQTbAyC1&ust=1698546938031000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIj_jcnal4IDFQAAAAAdAAAAABAP'
-    ),
-    (
+    ), (
         1,
         'Video',
         'Reabilitação do Ombro',
         'Um vídeo de reabilitação do ombro após lesão.',
         'https://www.youtube.com/watch?v=hZPbQZUqjKA'
-    ),
-    (
+    ), (
         5,
         'Imagem',
         'Anatomia do Quadril',
@@ -721,6 +702,13 @@ VALUES (
 
 -- Populando a tabela exercicio_has_midias:
 
+INSERT INTO
+    `fisiomais_db`.`exercicio_has_midias` (
+        `exercicio__id`,
+        `midia__id`,
+        `midia_fisioterapeuta__id`
+    )
+VALUES (1, 1, 1), (2, 2, 2);
 
 -- Populando a tabela tratamento_has_exercicios:
 
