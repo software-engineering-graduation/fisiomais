@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import { BoldOutlined, ItalicOutlined, UnderlineOutlined, OrderedListOutlined } from '@ant-design/icons';
 
-const Plano = () => {
+const Tratamento = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -25,11 +25,11 @@ const Plano = () => {
 
   return (
     <div>
-      <h1>Plano de Tratamento</h1>
+      <h1>Criar Tratamento</h1>
 
       <Form
         form={form}
-        name="plano"
+        name="tratamento"
         onFinish={onFinish}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
@@ -90,7 +90,7 @@ const Plano = () => {
 
         <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
           <Button type="primary" htmlType="submit" style={{ backgroundColor: '#0BD980', borderColor: '#0BD980' }}>
-            Salvar Cronograma
+            Salvar Tratamento
           </Button>
           <Button style={{ margin: '0 8px' }} onClick={onCancel}>
             Cancelar
@@ -101,4 +101,4 @@ const Plano = () => {
   );
 };
 
-export default Plano;
+export default Tratamento;

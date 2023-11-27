@@ -111,7 +111,15 @@ public class FisioterapeutaService {
     // }
 
     public Fisioterapeuta create(FisioterapeutaDTO fisioterapeutaDTO) {
-        return null;
+        Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
+        fisioterapeuta.setNome(fisioterapeutaDTO.getNome());
+        fisioterapeuta.setEmail(fisioterapeutaDTO.getEmail());
+        fisioterapeuta.setPassword(fisioterapeutaDTO.getPassword());
+        fisioterapeuta.setTelefone(fisioterapeutaDTO.getTelefone());
+        fisioterapeuta.setEndereco(fisioterapeutaDTO.getEndereco());
+        fisioterapeuta.setAutomatic(fisioterapeutaDTO.getControleAutomatico());
+
+        return fisioterapeutaRepository.save(fisioterapeuta);
     }
 
     public List<FisioterapeutaNamesAndIdsResponse> findAllNames() {

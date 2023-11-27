@@ -1,6 +1,5 @@
 package com.fisiomais.service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.fisiomais.bodys.FisioterapeutaResponse;
+import com.fisiomais.bodys.PacienteResponse;
+import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.model.Tratamento;
 import com.fisiomais.repository.TratamentoRepository;
 
@@ -19,9 +20,9 @@ public class TratamentoService {
     private TratamentoRepository tratamentoRepository;
 
     @Transactional
-    public Tratamento createTratamento(Tratamento obj){
+    public TratamentoResponse createTratamento(Tratamento obj){
         obj = this.tratamentoRepository.save(obj);
-        return obj;
+        return this.toTratamentoResponse(obj);
         
     }
 
@@ -47,5 +48,16 @@ public class TratamentoService {
         newObj.get().setEndDate(obj.getEndDate());
         newObj.get().setFeedback(obj.getFeedback());
         return this.tratamentoRepository.save(newObj.get());
+    }
+
+    private TratamentoResponse toTratamentoResponse(Tratamento tratamento) {
+        return new TratamentoResponse(
+                PacienteResponse.toPacienteResponse(tratamento.getPaciente()),
+                FisioterapeutaResponse.toFisioterapeutaResponse(tratamento.getFisioterapeuta()),
+                tratamento.getTitulo(),
+                tratamento.getObservacoes(),
+                tratamento.getFeedback(),
+                tratamento.getEndDate()
+                );
     }
 }

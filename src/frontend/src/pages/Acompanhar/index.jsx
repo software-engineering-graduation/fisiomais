@@ -20,6 +20,7 @@ const AcompanhamentoVirtual = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form)
     try {
       const url = 'http://localhost:8081/api/acompanhamento';
       const response = await axios.post(url, form, {
@@ -60,7 +61,7 @@ const AcompanhamentoVirtual = () => {
         <div className="flex flex-col">
           <label htmlFor="dataSessao" className="text-sm font-medium text-gray-700">Data da Sessão</label>
           <input
-            type="text"
+            type="date"
             name="dataSessao"
             value={form.dataSessao}
             onChange={handleInputChange}

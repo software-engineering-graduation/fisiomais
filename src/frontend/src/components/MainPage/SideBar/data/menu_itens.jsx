@@ -9,6 +9,9 @@ import { MdPeopleOutline } from 'react-icons/md'
 import { AiOutlineBarChart } from 'react-icons/ai'
 import { LiaHistorySolid } from 'react-icons/lia'
 import { AiOutlineHome } from 'react-icons/ai'
+import { FaUserInjured } from 'react-icons/fa'
+import { MdHealing } from 'react-icons/md'
+import { GiLoveInjection } from 'react-icons/gi'
 
 const SideMenuItens = [
     {
@@ -34,6 +37,18 @@ const SideMenuItens = [
         icon: <MdPeopleOutline />,
         label: 'Acompanhamento',
         route: 'acompanhamento',
+    },
+    {
+        key: 8, 
+        icon: <FaUserInjured />,
+        label: 'Cadastrar Paciente',
+        route: 'cadastro',
+    },
+    {
+        key: 9, 
+        icon: <MdHealing />,
+        label: 'Criar Tratamento',
+        route: 'tratamento',
     }
 ]
 
