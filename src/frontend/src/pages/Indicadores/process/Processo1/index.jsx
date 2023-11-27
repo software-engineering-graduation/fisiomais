@@ -14,10 +14,10 @@ const UnreachableContext = createContext(null);
 const Processo1 = () => {
     const [modal, contextHolder] = Modal.useModal();
 
-    const [metricsData, setMetricsData] = useState(null);
+    const [metricsDataConfirmation, setMetricsDataConfirmation] = useState(null);
+    const [metricsDataCancellation, setMetricsDataCancellation] = useState(null);
     const [statusConfirmation, setStatusConfirmation] = useState('idle'); // ['loading', 'error', 'success', 'idle]
     const [statusCancellation, setStatusCancellation] = useState('idle'); // ['loading', 'error', 'success', 'idle]
-    const [modalData, setModalData] = useState(undefined);
 
     const isLoadingConfirmation = statusConfirmation === 'loading';
     const isErrorConfirmation = statusConfirmation === 'error';
@@ -30,6 +30,35 @@ const Processo1 = () => {
     const { token } = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+    const configModalConfirmationRate = () => {
+        // console.info('metricsDataConfirmation', metricsDataConfirmation)
+        return {
+            title: `Taxa de confirmações de consultas mensais - ${mesNome(metricsDataConfirmation?.mes)}/${metricsDataConfirmation?.year}`,
+            centered: true,
+            content: (
+                <Space direction="vertical">
+                    <span><strong>Consultas confirmadas:</strong> {metricsDataConfirmation?.consultasConfirmadas}</span>
+                    <span><strong>Total de consultas:</strong> {metricsDataConfirmation?.totalConsultas}</span>
+                    <span><strong>Taxa de confirmação:</strong> {metricsDataConfirmation?.confirmationRate}%</span>
+                </Space>
+            ),
+        }
+    }
+
+    const configModalCancellationRate = () => {
+        return {
+            title: 'Taxa de agendamentos cancelados',
+            centered: true,
+            content: (
+                <Space direction="vertical">
+                    <span><strong>Agendamentos cancelados:</strong> {metricsDataCancellation?.cancelados}</span>
+                    <span><strong>Total de agendamentos:</strong> {metricsDataCancellation?.total}</span>
+                    <span><strong>Taxa de cancelamento:</strong> {metricsDataCancellation?.cancellationRate}%</span>
+                </Space>
+            ),
+        }
+    }
+
     const fetchDataConfirmation = async (month, year) => {
         setStatusConfirmation('loading');
         // console.info('Fetching data for month', month, 'and year', year)
@@ -40,49 +69,60 @@ const Processo1 = () => {
         await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/taxa-confirmacao/${month}/${year}`)
             .then((res) => {
                 response = res.data;
-                const percentageTwoDecimals = parseFloat(response.taxaConfirmacao).toFixed(2);
-                const config = {
-                    title: `Taxa de confirmações de consultas mensais - ${month}/${year}`,
-                    centered: true,
-                    content: (
-                        <Space direction="vertical">
-                            <span><strong>Consultas confirmadas:</strong> {res.data.consultasConfirmadas}</span>
-                            <span><strong>Total de consultas:</strong> {res.data.totalConsultas}</span>
-                            <span><strong>Taxa de confirmação:</strong> {percentageTwoDecimals}%</span>
-                        </Space>
-                    ),
-                };
-                setModalData(config);
             }
             ).catch((err) => {
-                setModalData(undefined);
                 if (err.response.status === 400) {
                     // console.info('No data found for month', month, 'and year', year)
                     error = true
-                    setMetricsData(undefined)
+                    setMetricsDataConfirmation(undefined)
                     return
                 }
                 else
                     setStatusConfirmation('error');
             })
-
-        if (!error)
-            setMetricsData({
-                confirmationRate: parseFloat(response.taxaConfirmacao).toFixed(2),
-                cancellationRate: metricsData?.cancellationRate || 0,
-            });
-        setStatusConfirmation('success');
+            .finally(() => {
+                if (!error)
+                    setMetricsDataConfirmation({
+                        mes: response.mes,
+                        year: response.ano,
+                        consultasConfirmadas: response.consultasConfirmadas,
+                        totalConsultas: response.totalConsultas,
+                        confirmationRate: parseFloat(response.taxaConfirmacao).toFixed(2),
+                    });
+                setStatusConfirmation('success');
+            })
     };
 
     const fetchDataCancellation = async () => {
         setStatusCancellation('loading');
 
-        setMetricsData({
-            confirmationRate: metricsData?.confirmationRate || 0,
-            cancellationRate: 10,
-        });
+        let response
+        let error = false
 
-        setStatusCancellation('success');
+        await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/taxa-cancelamento`)
+            .then((res) => {
+                response = res.data;
+            }
+            ).catch((err) => {
+                if (err.response.status === 400) {
+                    // console.info('No data found for month', month, 'and year', year)
+                    error = true
+                    setMetricsDataCancellation(undefined)
+                    return
+                }
+                else
+                    setStatusCancellation('error');
+            })
+            .finally(() => {
+                if (!error)
+                    setMetricsDataCancellation({
+                        cancelados: response.consultasCanceladas,
+                        total: response.totalConsultas,
+                        cancellationRate: parseFloat(response.taxaCancelamento).toFixed(2),
+                    });
+
+                setStatusCancellation('success');
+            })
     }
 
     useEffect(() => {
@@ -96,7 +136,7 @@ const Processo1 = () => {
         datasets: [
             {
                 label: "%",
-                data: [metricsData?.confirmationRate || 0, 100 - (metricsData?.confirmationRate || 0)],
+                data: [metricsDataConfirmation?.confirmationRate || 0, 100 - (metricsDataConfirmation?.confirmationRate || 0)],
                 backgroundColor: ['#00c3a5', '#0BBFD9'],
                 hoverBackgroundColor: ['#37dec4', '#23d1eb'],
             },
@@ -107,7 +147,7 @@ const Processo1 = () => {
         labels: ['Canceladas', 'Não Canceladas'],
         datasets: [
             {
-                data: [metricsData?.cancellationRate || 0, 100 - (metricsData?.cancellationRate || 0)],
+                data: [metricsDataCancellation?.cancellationRate || 0, 100 - (metricsDataCancellation?.cancellationRate || 0)],
                 backgroundColor: ['#0BBFD9', '#00c3a5'],
                 hoverBackgroundColor: ['#23d1eb', '#37dec4'],
             },
@@ -187,10 +227,10 @@ const Processo1 = () => {
                             chartData={confirmationRateData}
                             cardHeaderInput={<MothSelector />}
                             loading={isLoadingConfirmation}
-                            error={isErrorConfirmation || !metricsData}
+                            error={isErrorConfirmation || !metricsDataConfirmation}
                             moreDataOpener={<CenteredButton
                                 onClick={async () => {
-                                    modal.info(modalData);
+                                    modal.info(configModalConfirmationRate());
                                 }}
                             >
                                 Exibir mais detalhes
@@ -204,7 +244,14 @@ const Processo1 = () => {
                             description="Mede a porcentagem de agendamentos cancelados em relação ao total de agendamentos."
                             chartData={cancellationRateData}
                             loading={isLoadingCancellation}
-                            error={isErrorCancellation || !metricsData}
+                            error={isErrorCancellation || !metricsDataCancellation}
+                            moreDataOpener={<CenteredButton
+                                onClick={async () => {
+                                    modal.info(configModalCancellationRate());
+                                }}
+                            >
+                                Exibir mais detalhes
+                            </CenteredButton>}
                         />
                     </Col>
                 </Row>}
