@@ -647,13 +647,8 @@ VALUES (
 
 -- Populando a tabela exercicio_has_midias:
 
-INSERT INTO
-    `fisiomais_db`.`exercicio_has_midias` (
-        `midia__id`,
-        `midia_fisioterapeuta__id`,
-        `exercicio__id`
-    )
-VALUES (1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 1, 4), (5, 2, 5), (6, 3, 6), (7, 1, 7), (8, 2, 8), (9, 3, 9);
+INSERT INTO `fisiomais_db`.`exercicio_has_midias` (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`)
+VALUES (1, 1, 1), (2, 1, 2), (3, 2, 3);
 
 -- Populando a tabela tratamento_has_exercicios:
 
