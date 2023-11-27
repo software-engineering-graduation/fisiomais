@@ -20,13 +20,12 @@ const checkSession = async () => {
 
     if (storedToken) {
         storedToken = JSON.parse(storedToken);
-
         const decoded = jwtDecode(storedToken);
 
         const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
         const userEmail = decoded.email;
         try {
-            const response = await axios.post(apiRoute, { email: userEmail},{
+            const response = await axios.post(apiRoute, { email: userEmail }, {
                 headers: {
                     Authorization: `Bearer ${storedToken}`,
                     'Access-Control-Allow-Origin': '*',

@@ -35,7 +35,7 @@ const Consulta = () => {
                 endereco,
             }
         } catch (error) {
-            console.error('Error parsing user object: ', error.message);
+            // console.error('Error parsing user object: ', error.message);
             return {};
         }
     }
