@@ -11,6 +11,7 @@ import com.fisiomais.bodys.FisioterapeutaResponse;
 import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.model.Tratamento;
+import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
 import com.fisiomais.repository.TratamentoRepository;
 
 @Service
@@ -60,4 +61,8 @@ public class TratamentoService {
                 tratamento.getEndDate()
                 );
     }
+
+    // public MidiaUtilizationMetrics getTaxaUtilizacao(){
+    //     return this.tratamentoRepository.getTaxaUtilizacao();
+    // }
 }

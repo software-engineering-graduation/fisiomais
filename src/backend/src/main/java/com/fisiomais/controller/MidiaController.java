@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.fisiomais.dto.MidiaDTO;
@@ -16,7 +15,6 @@ import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.service.MidiaService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

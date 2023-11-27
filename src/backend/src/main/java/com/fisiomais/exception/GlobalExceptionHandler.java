@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -53,12 +51,25 @@ public class GlobalExceptionHandler {
         response.put("exception", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
     @ExceptionHandler(TokenExpirationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> handleTokenExpirationException(TokenExpirationException ex, WebRequest request) {
-                String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
-Map<String, Object> response = new HashMap<>();
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", new Date());
+        response.put("path", requestUri);
+        response.put("status", HttpStatus.UNAUTHORIZED.value());
+        response.put("error", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        response.put("message", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(UserNotFoundExecption.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundExecption ex, WebRequest request) {
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
+        Map<String, Object> response = new HashMap<>();
         response.put("timestamp", new Date());
         response.put("path", requestUri);
         response.put("status", HttpStatus.UNAUTHORIZED.value());
@@ -76,6 +87,5 @@ Map<String, Object> response = new HashMap<>();
         response.put("message", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
 }

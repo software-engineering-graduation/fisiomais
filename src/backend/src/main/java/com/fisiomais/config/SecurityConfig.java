@@ -38,12 +38,10 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/auth")
-                .permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/api/auth")
-                .permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/signup")
-                .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/api/auth").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/signup").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/api/auth/credentials/**").authenticated() // Allow OPTIONS for /credentials
                 .requestMatchers(HttpMethod.GET, "/api/auth/credentials/**").authenticated() // Require authentication for GET /credentials
                 .anyRequest().authenticated()
