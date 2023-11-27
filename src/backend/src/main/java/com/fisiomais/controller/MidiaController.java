@@ -2,6 +2,7 @@ package com.fisiomais.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/midia")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Mídias", description = "Endpoint para gerenciar mídias controladas pelos fisioterapeutas")
 public class MidiaController {
 

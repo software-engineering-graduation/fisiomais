@@ -6,6 +6,8 @@ import com.fisiomais.model.Agenda;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.service.AgendaService;
 import com.fisiomais.service.FisioterapeutaService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.sql.Time;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/api/agenda")
 public class AgendaController {
 

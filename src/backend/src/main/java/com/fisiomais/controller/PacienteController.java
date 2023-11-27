@@ -4,6 +4,7 @@ import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
 import com.fisiomais.service.PacienteService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/paciente")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Paciente", description = "Paciente API")
 public class PacienteController {
 
