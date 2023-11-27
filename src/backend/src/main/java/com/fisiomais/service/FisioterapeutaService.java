@@ -2,11 +2,14 @@ package com.fisiomais.service;
 
 import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
 import com.fisiomais.dto.FisioterapeutaDTO;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.repository.FisioterapeutaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fisiomais.repository.PacienteRepository;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +22,12 @@ import java.util.Optional;
 public class FisioterapeutaService {
 
     private final FisioterapeutaRepository fisioterapeutaRepository;
+    private final PacienteRepository pacienteRepository;
 
-    @Autowired
-    public FisioterapeutaService(FisioterapeutaRepository fisioterapeutaRepository) {
+    public FisioterapeutaService(FisioterapeutaRepository fisioterapeutaRepository,
+            PacienteRepository pacienteRepository) {
         this.fisioterapeutaRepository = fisioterapeutaRepository;
+        this.pacienteRepository = pacienteRepository;
     }
 
     @Transactional(readOnly = true)
@@ -43,6 +48,12 @@ public class FisioterapeutaService {
     @Transactional
     public Fisioterapeuta save(Fisioterapeuta fisioterapeuta) {
         validateFisioterapeuta(fisioterapeuta);
+
+        if (pacienteRepository.findByEmail(fisioterapeuta.getEmail()) != null
+                || fisioterapeutaRepository.findByEmail(fisioterapeuta.getEmail()) != null) {
+            throw new BusinessException("Email already exists");
+        }
+
         return fisioterapeutaRepository.save(fisioterapeuta);
     }
 
@@ -61,31 +72,31 @@ public class FisioterapeutaService {
 
     private void validateFisioterapeuta(Fisioterapeuta fisioterapeuta) {
         if (fisioterapeuta == null) {
-            throw new IllegalArgumentException("O fisioterapeuta não pode ser nulo");
+            throw new BusinessException("O fisioterapeuta não pode ser nulo");
         }
 
         if (fisioterapeuta.getNome() == null || fisioterapeuta.getNome().trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome do fisioterapeuta não pode ser nulo ou vazio");
+            throw new BusinessException("O nome do fisioterapeuta não pode ser nulo ou vazio");
         }
 
         if (fisioterapeuta.getEmail() == null || fisioterapeuta.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("O email do fisioterapeuta não pode ser nulo ou vazio");
+            throw new BusinessException("O email do fisioterapeuta não pode ser nulo ou vazio");
         }
 
         if (!fisioterapeuta.getNome().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new IllegalArgumentException("O email do fisioterapeuta não é válido");
+            throw new BusinessException("O email do fisioterapeuta não é válido");
         }
 
         if (fisioterapeuta.getPassword() == null || fisioterapeuta.getPassword().length() != 8) {
-            throw new IllegalArgumentException("A senha do fisioterapeuta não pode ser nula e deve ter 8 caracteres");
+            throw new BusinessException("A senha do fisioterapeuta não pode ser nula e deve ter 8 caracteres");
         }
 
         if (fisioterapeuta.getTelefone() == null || !fisioterapeuta.getTelefone().matches("^[0-9]{11}$")) {
-            throw new IllegalArgumentException("O telefone do fisioterapeuta não pode ser nulo e deve ter 11 dígitos");
+            throw new BusinessException("O telefone do fisioterapeuta não pode ser nulo e deve ter 11 dígitos");
         }
 
         if (fisioterapeuta.getEndereco() != null && fisioterapeuta.getEndereco().length() > 200) {
-            throw new IllegalArgumentException("O endereço do fisioterapeuta não pode ter mais de 200 caracteres");
+            throw new BusinessException("O endereço do fisioterapeuta não pode ter mais de 200 caracteres");
         }
     }
 
@@ -119,11 +130,11 @@ public class FisioterapeutaService {
             String nome = null;
 
             try {
-                nome = new String(fisioterapeuta.getNome().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                nome = new String(fisioterapeuta.getNome().getBytes(StandardCharsets.ISO_8859_1),
+                        StandardCharsets.UTF_8);
             } catch (Exception e) {
                 throw new RuntimeException("Error decoding string. Please provide a valid string format.");
             }
-            
 
             fisioterapeutasNamesIds
                     .add(new FisioterapeutaNamesAndIdsResponse(nome, fisioterapeuta.getId()));

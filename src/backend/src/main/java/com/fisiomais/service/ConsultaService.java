@@ -7,6 +7,8 @@ import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.entities.ConferenceEventData;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.indicators.CancelationMetrics;
+import com.fisiomais.model.indicators.ConfirmationMetrics;
 import com.fisiomais.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,10 +119,9 @@ public class ConsultaService {
                 ? new String(consulta.getObservacoes().getBytes(StandardCharsets.ISO_8859_1),
                         StandardCharsets.UTF_8)
                 : null;
-
         return new ConsultaResponse(
-                PacienteResponse.toPacienteResponse(consulta.getPaciente()),
-                FisioterapeutaResponse.toFisioterapeutaResponse(consulta.getFisioterapeuta()),
+                consulta.getPaciente().getId(),
+                consulta.getFisioterapeuta().getId(),
                 consulta.getDataEHora(),
                 obsevacoesConsulta,
                 consulta.getConfirmacao(),
@@ -130,4 +131,20 @@ public class ConsultaService {
 	public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
         return consultaRepository.findByFisioterapeutaId(fisioterapeutaId);
 	}
+
+    public double getTaxaConclusao() {
+        return consultaRepository.calculateTaxaConclusao();
+    }
+
+    public double getTaxaReagendamento() {
+        return consultaRepository.calculateTaxaReagendamento();
+    }
+
+    public ConfirmationMetrics getTaxaConfirmacao(Integer mes, Integer ano) {
+        return consultaRepository.getConfirmationMetricsForMonthAndYear(mes, ano);
+    }
+
+    public CancelationMetrics getTaxaCancelamento() {
+        return consultaRepository.getCancelationMetrics();
+    }
 }

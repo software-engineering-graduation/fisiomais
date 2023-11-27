@@ -5,37 +5,37 @@ import { Menu, Layout } from 'antd';
 
 
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
-import SideMenuItens from './data/menu_itens';
+import SideMenuItens, {SideMenuItensAdmin} from './data/menu_itens';
 import { setPage } from 'store/currentPage'
 
 const { Sider } = Layout;
 
 const SideBar = ({ collapsed }) => {
-    const [defaultSelectedKey, setDefaultSelectedKey] = useState('0');
-
-    const currentUser = useSelector(state => state.currentUser.value);
-
-    if(Object.keys(currentUser.user).length === 0) {
-        return null;
-    }
-
-    const navigate = useNavigate();
+    const [defaultSelectedKey, setDefaultSelectedKey] = useState('0')
+    const currentUser = useSelector(state => state.currentUser.value)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // console.log("currentUser from SideBar: ", currentUser)
+    const menu = true ? SideMenuItens.concat(SideMenuItensAdmin) : SideMenuItens;
+    
+    useEffect(() => {
+        if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
+            return
+        }
+        updateMenuSelection();
+    }, [currentUser]);
 
     const updateMenuSelection = () => {
         const currentPage = window.location.pathname
         let currentPageKey = 0;
         try {
-            currentPageKey = SideMenuItens.find(item => currentPage.includes(item.route)).key;
+            currentPageKey = menu.find(item => currentPage.includes(item.route)).key;
         } catch (error) {
             currentPageKey = 0;
         }
         setDefaultSelectedKey(currentPageKey.toString());
     }
-
-    useEffect(() => {
-        updateMenuSelection();   
-    }, []);
 
     const handleButtonClick = (path, key) => {
         dispatch(setPage(key))
@@ -43,7 +43,7 @@ const SideBar = ({ collapsed }) => {
         updateMenuSelection()
     };
 
-    const menuItems = SideMenuItens.map((item) => {
+    const menuItems = menu.map((item) => {
         return (
             {
                 key: item.key,
@@ -58,6 +58,15 @@ const SideBar = ({ collapsed }) => {
         if (window.location.pathname !== '/') {
             handleButtonClick('/', 0)
         }
+    }
+
+    if (
+        currentUser === null ||
+        currentUser === undefined ||
+        currentUser.user === null ||
+        currentUser.user === undefined
+    ) {
+        return null
     }
 
     return (

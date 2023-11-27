@@ -1,13 +1,13 @@
 package com.fisiomais.controller;
 
 import com.fisiomais.dto.AgendaRequest;
-import com.fisiomais.dto.FisioterapeutaDTO;
 import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.service.AgendaService;
 import com.fisiomais.service.FisioterapeutaService;
-import jakarta.persistence.EntityNotFoundException;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/api/agenda")
 public class AgendaController {
 
