@@ -1,5 +1,6 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.ConsultaResponseAgenda;
 import com.fisiomais.bodys.ConsultaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.exception.BusinessException;
@@ -51,8 +52,8 @@ public class ConsultaController {
     @GetMapping("/all")
     @Operation(summary = "Obter todas as consultas", description = "Obter uma lista de todas as consultas cadastradas no sistema.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
-    public ResponseEntity<List<Consulta>> getAllConsultas() {
-        List<Consulta> consultas = consultaService.getAllConsultas();
+    public ResponseEntity<List<ConsultaResponseAgenda>> getAllConsultas() {
+        List<ConsultaResponseAgenda> consultas = consultaService.toConsultaResponseAgenda(consultaService.getAllConsultas());
         return ResponseEntity.ok(consultas);
     }
 

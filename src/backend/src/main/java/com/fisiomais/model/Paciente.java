@@ -19,6 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fisiomais.model.enums.Genero;
 
 @Data
@@ -44,6 +45,7 @@ public class Paciente extends User{
     private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("FISIOTERAPEUTA"));
     }
