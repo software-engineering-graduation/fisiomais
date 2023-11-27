@@ -5,7 +5,6 @@ import axios from 'axios';
 const CadastroFisioterapeuta = () => {
   const [form, setForm] = useState({
     nome: '',
-    celular: '',
     endereco: '',
     email: '',
     password: '',
@@ -21,18 +20,17 @@ const CadastroFisioterapeuta = () => {
   const onFinish = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/fisioterapeuta', {
+      const response = await axios.post('http://localhost:8081/api/fisioterapeuta', {
         nome: form.nome,
         email: form.email,
         password: form.password,
-        telefone: form.celular,
+        telefone: form.telefone,
         endereco: form.endereco,
         controleAutomatico: form.controleAutomatico,
       });
       console.log('Fisioterapeuta cadastrado:', response.data);
       setForm({
         nome: '',
-        celular: '',
         endereco: '',
         email: '',
         password: '',
@@ -47,7 +45,6 @@ const CadastroFisioterapeuta = () => {
   const onCancel = () => {
     setForm({
       nome: '',
-      celular: '',
       endereco: '',
       email: '',
       password: '',

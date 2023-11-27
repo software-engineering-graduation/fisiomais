@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+
 @Service
 public class AcompanhamentoService {
 
@@ -46,5 +48,6 @@ public class AcompanhamentoService {
         if (acompanhamento.getPlataforma() == null || acompanhamento.getPlataforma().isEmpty()) {
             throw new IllegalArgumentException("Plataforma é obrigatória.");
         }
+        Logger.getGlobal().info("Acompanhamento validado com sucesso.");
     }
 }

@@ -65,6 +65,6 @@ public class Paciente {
     @Column(length = 200)
     private String endereco;
     
-    @OneToMany(mappedBy = "paciente")
-    private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
+    // @OneToMany(mappedBy = "paciente")
+    // private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
 }
