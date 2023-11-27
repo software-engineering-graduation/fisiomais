@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Divider } from 'antd';
 
-// Process
 import Processo1 from 'pages/Indicadores/process/Processo1';
+import Processo2 from 'pages/Indicadores/process/Processo2';
 
 const Indicadores = () => {
   return (
@@ -12,6 +12,8 @@ const Indicadores = () => {
       <h1>Indicadores</h1>
       <AllMetricsContanier>
         <Processo1/>
+        <Divider/>
+        <Processo2/>
         <Divider/>
         {/* TODO - add other indicators here */}
       </AllMetricsContanier>

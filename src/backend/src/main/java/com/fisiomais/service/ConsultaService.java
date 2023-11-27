@@ -129,4 +129,13 @@ public class ConsultaService {
 	public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
         return consultaRepository.findByFisioterapeutaId(fisioterapeutaId);
 	}
+
+    public double getTaxaConclusao() {
+        return consultaRepository.calculateTaxaConclusao();
+    }
+
+    public double getTaxaReagendamento() {
+        return consultaRepository.calculateTaxaReagendamento();
+    }
+
 }

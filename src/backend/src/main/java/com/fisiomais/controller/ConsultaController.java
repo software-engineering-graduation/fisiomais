@@ -190,4 +190,21 @@ public class ConsultaController {
         consultaService.deleteConsulta(consultaId);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/taxa-conclusao")
+    @Operation(summary = "Obter taxa de consultas concluídas", description = "Retorna a taxa percentual de consultas concluídas.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<Double> getTaxaConclusao() {
+        double taxaConclusao = consultaService.getTaxaConclusao();
+        return ResponseEntity.ok(taxaConclusao);
+    }
+
+    @GetMapping("/taxa-reagendamento")
+    @Operation(summary = "Obter taxa de reagendamentos", description = "Retorna a taxa percentual de reagendamentos.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<Double> getTaxaReagendamento() {
+        double taxaReagendamento = consultaService.getTaxaReagendamento();
+        return ResponseEntity.ok(taxaReagendamento);
+    }
+
 }

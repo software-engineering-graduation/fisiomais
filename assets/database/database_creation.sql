@@ -209,6 +209,22 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`agenda` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table fisiomais_db.acompanhamento_virtual
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS fisiomais_db.acompanhamento_virtual (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  data_sessao DATETIME(6) NULL DEFAULT NULL,
+  plataforma VARCHAR(255) NOT NULL,
+  recursos TEXT NULL DEFAULT NULL,
+  feedback TEXT NULL DEFAULT NULL,
+  avaliacao VARCHAR(50) NOT NULL,
+  data_criacao TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fisiomais_db`.`tratamento_has_exercicios`
