@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CancelationMetrics {
-    @Column(name = "consultas_canceladas")
-    private Long consultasCanceladas;
     @Column(name = "total_consultas")
     private Long totalConsultas;
+    @Column(name = "consultas_canceladas")
+    private Long consultasCanceladas;
     @Column(name = "taxa_cancelamento")
     private Float taxaCancelamento;
 }

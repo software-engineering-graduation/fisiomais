@@ -40,21 +40,6 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Integer> {
         ConfirmationMetrics getConfirmationMetricsForMonthAndYear(@Param("month") Integer month,
                         @Param("year") Integer year);
 
-        /*
-         * 
-         * SELECT
-         * MONTH(data_e_hora) AS mes,
-         * COUNT(*) AS total_consultas,
-         * SUM(CASE WHEN confirmacao = 'cancelado' THEN 1 ELSE 0 END) AS
-         * consultas_canceladas,
-         * (SUM(CASE WHEN confirmacao = 'cancelado' THEN 1 ELSE 0 END) / COUNT(*)) * 100
-         * AS taxa_cancelamento
-         * FROM
-         * consulta
-         * GROUP BY
-         * mes;
-         * 
-         */
         @Query("SELECT new com.fisiomais.model.indicators.CancelationMetrics(" +
                         "COUNT(c), " +
                         "SUM(CASE WHEN c.confirmacao = 'cancelado' THEN 1 ELSE 0 END), " +

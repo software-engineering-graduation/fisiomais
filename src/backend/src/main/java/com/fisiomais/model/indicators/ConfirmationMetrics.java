@@ -13,10 +13,10 @@ public class ConfirmationMetrics {
     private Integer mes;
     @Column(name = "ano")
     private Integer ano;
-    @Column(name = "consultas_confirmadas")
-    private Long consultasConfirmadas;
     @Column(name = "total_consultas")
     private Long totalConsultas;
-    @Column(name = "consultas_canceladas")
+    @Column(name = "consultas_confirmadas")
+    private Long consultasConfirmadas;
+    @Column(name = "taxa_canceladas")
     private Float taxaConfirmacao;
 }
