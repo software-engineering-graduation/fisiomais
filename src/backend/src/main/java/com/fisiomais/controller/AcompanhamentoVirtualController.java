@@ -60,4 +60,16 @@ public class AcompanhamentoVirtualController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/taxaSatisfacao")
+    public ResponseEntity<Double> taxaSatisfacao() {
+        Double taxa = AcompanhamentoService.getTaxaSatisfacao();
+        return new ResponseEntity<>(taxa, HttpStatus.OK);
+    }
+
+    @GetMapping("/indiceAcompanhamento")
+    public ResponseEntity<Double> indiceAcompanhamento() {
+        Double indice = AcompanhamentoService.getIndiceAcompanhamento();
+        return new ResponseEntity<>(indice, HttpStatus.OK);
+    }
 }

@@ -4,38 +4,38 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from 'store/currentUser';
-import { useEffect } from 'react';
+import { loginUser } from 'store/currentUser';
+import { useEffect, useState } from 'react';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const currentUser = useSelector(state => state.currentUser.value);
-    
-    useEffect(() => {
-        if(Object.keys(currentUser.user).length > 0) {
-            return navigate('/')
-        }
-    }, [])
+    const currentUser = useSelector((state) => state.currentUser.value);
+    const { user, status } = currentUser;
 
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
-        // dispatch(login(values))
-        // TODO - create login logic
+    const isLoading = status === 'loading';
+    const isLoginSuccess = status === 'succeeded';
+    const isLoginError = status === 'failed';
+
+    useEffect(() => {
+        if (user !== null && user !== undefined) {
+            navigate('/');
+        }
+    }, [user, navigate]);
+
+    const onFinish = (values) => {
+        dispatch(loginUser({ email: values.username, senha: values.password }));
     };
 
-    if(Object.keys(currentUser.user).length > 0) {
-        return null
+    if (user !== null) {
+        return null;
     }
 
     return (
         <div>
-            <Space style={{
-                marginBottom: '50px',
-            }}>
-                <LogoImage
-                    preview={false}
+            <Space style={{ marginBottom: '50px' }}>
+                <LogoImage preview={false}
                     width={250}
                     height={250}
                     src={FisiomaisLogo}
@@ -71,26 +71,20 @@ const LoginForm = () => {
                         },
                     ]}
                 >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Senha"
-                    />
+                    <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Senha" />
                 </Form.Item>
 
                 <CustomFormItem>
-                    <CustomLoginButton type="primary" htmlType="submit" className="login-form-button">
+                    <CustomLoginButton type="primary" htmlType="submit" className="login-form-button" loading={isLoading}>
                         Entrar
                     </CustomLoginButton>
-                    <p style={{
-                        textAlign: 'center',
-                    }}> Ou </p>
+                    <p style={{ textAlign: 'center' }}> Ou </p>
                     <CustomLink href="">Cadastre Agora</CustomLink>
                 </CustomFormItem>
             </Form>
         </div>
-    )
-}
+    );
+};
 
 export default LoginForm;
 
@@ -104,21 +98,21 @@ const CustomFormItem = styled(Form.Item)`
 
 const CustomLoginButton = styled(Button)`
     width: 100%;
-    background-color: #00C3A5;
-    border-color: #00C3A5;
+    background-color: #00c3a5;
+    border-color: #00c3a5;
     &:hover {
         background-color: #4ce2cc !important;
         border-color: white !important;
-        color: #00C3A5 !important;
+        color: #00c3a5 !important;
     }
 `;
 
 const CustomLink = styled(Link)`
-    color: #00C3A5;
+    color: #00c3a5;
     font-weight: bold;
     text-decoration: none;
     &:hover {
-        color: #00C3A5;
+        color: #00c3a5;
         text-decoration: underline;
     }
 `;

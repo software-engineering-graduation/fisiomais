@@ -46,9 +46,6 @@ public class Consulta {
     @Enumerated(EnumType.STRING)
     private StatusConsulta confirmacao;
 
-    @Column(nullable = false)
-    private Integer owner_id;
-
     @Lob
     private String link;
 

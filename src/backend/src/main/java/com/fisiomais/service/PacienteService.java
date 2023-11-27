@@ -1,9 +1,13 @@
 package com.fisiomais.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Paciente;
+import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.PacienteRepository;
 
 import java.text.ParseException;
@@ -13,12 +17,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService {
+public class PacienteService{
 
     private final PacienteRepository pacienteRepository;
+    private final FisioterapeutaRepository fisioterapeutaRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository,
+            FisioterapeutaRepository fisioterapeutaRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.fisioterapeutaRepository = fisioterapeutaRepository;
     }
 
     public List<PacienteDTO> getAllPacientes() {
@@ -35,12 +42,20 @@ public class PacienteService {
         return null;
     }
 
-    public PacienteDTO createPaciente(PacienteDTO pacienteDTO) {
+    public PacienteResponse createPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = toEntity(pacienteDTO);
+
+        if(pacienteRepository.findByEmail(paciente.getEmail()) != null || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null){
+            throw new BusinessException("Email already exists");
+        }
+
+        if(pacienteRepository.findByCpf(paciente.getCpf()) != null){
+            throw new BusinessException("CPF already exists");
+        }
 
         Paciente savedPaciente = pacienteRepository.save(paciente);
 
-        return toDTO(savedPaciente);
+        return PacienteResponse.toPacienteResponse(savedPaciente);
     }
 
     public PacienteDTO updatePaciente(Integer id, PacienteDTO pacienteDTO) {

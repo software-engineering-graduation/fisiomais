@@ -144,6 +144,19 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `fisiomais_db`.`acompanhamento_virtual`
+-- -----------------------------------------------------
+CREATE TABLE acompanhamento_virtual (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_sessao DATE NOT NULL,
+    plataforma VARCHAR(255) NOT NULL,
+    recursos TEXT,
+    feedback TEXT,
+    avaliacao VARCHAR(50) NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 -- -----------------------------------------------------
 -- Table `fisiomais_db`.`exercicio_has_midias`

@@ -50,4 +50,12 @@ public class AcompanhamentoService {
         }
         Logger.getGlobal().info("Acompanhamento validado com sucesso.");
     }
+
+    public Double getIndiceAcompanhamento() {
+        return repository.indiceAcompanhamento();
+    }
+
+    public Double getTaxaSatisfacao() {
+        return repository.calculateTaxaSatisfacao();
+    }
 }

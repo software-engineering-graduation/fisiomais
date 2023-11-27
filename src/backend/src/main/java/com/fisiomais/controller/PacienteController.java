@@ -1,5 +1,6 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
 import com.fisiomais.service.PacienteService;
 
@@ -39,8 +40,8 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteDTO> createPaciente(@RequestBody PacienteDTO pacienteDTO) {
-        PacienteDTO createdPaciente = pacienteService.createPaciente(pacienteDTO);
+    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody PacienteDTO pacienteDTO) {
+        PacienteResponse createdPaciente = pacienteService.createPaciente(pacienteDTO);
         return new ResponseEntity<>(createdPaciente, HttpStatus.CREATED);
     }
 

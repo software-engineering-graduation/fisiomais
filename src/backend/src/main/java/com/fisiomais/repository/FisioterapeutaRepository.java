@@ -20,4 +20,6 @@ public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, 
     boolean existsByEmail(String email);
     boolean existsByEmailAndIdNot(String email, Integer id);
 
+    Fisioterapeuta findByEmail(String email);
+
 }

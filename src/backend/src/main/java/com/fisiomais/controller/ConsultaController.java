@@ -127,14 +127,17 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por fisioterapeuta", description = "Obter uma lista de consultas com base em um fisioterapeuta.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "400", description = "Fisioterapeuta inválido")
-    public ResponseEntity<List<Consulta>> getConsultasByFisioterapeutaId(
+    public ResponseEntity<List<ConsultaResponse>> getConsultasByFisioterapeutaId(
             @Parameter(name = "fisioterapeutaId", description = "Id do fisioterapeuta a ser pesquisado") @PathVariable(required = false) Integer fisioterapeutaId) {
         // Verificar se o fisioterapeuta existe
         fisioterapeutaRepository
                 .findById(fisioterapeutaId)
                 .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
 
-        return new ResponseEntity<>(consultaService.getConsultasByFisioterapeuta(fisioterapeutaId), HttpStatus.OK);
+        List<ConsultaResponse> consultaResponse = ConsultaResponse
+                .toResponse(consultaService.getConsultasByFisioterapeuta(fisioterapeutaId));
+
+        return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
     }
 
     @GetMapping("/paciente/{pacienteId}")
@@ -187,4 +190,21 @@ public class ConsultaController {
         consultaService.deleteConsulta(consultaId);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/taxa-conclusao")
+    @Operation(summary = "Obter taxa de consultas concluídas", description = "Retorna a taxa percentual de consultas concluídas.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<Double> getTaxaConclusao() {
+        double taxaConclusao = consultaService.getTaxaConclusao();
+        return ResponseEntity.ok(taxaConclusao);
+    }
+
+    @GetMapping("/taxa-reagendamento")
+    @Operation(summary = "Obter taxa de reagendamentos", description = "Retorna a taxa percentual de reagendamentos.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<Double> getTaxaReagendamento() {
+        double taxaReagendamento = consultaService.getTaxaReagendamento();
+        return ResponseEntity.ok(taxaReagendamento);
+    }
+
 }

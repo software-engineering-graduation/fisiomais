@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import '../../index.css';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const CadastroFisioterapeuta = () => {
+  const currentUser = useSelector(state => state.currentUser.value);
+    const {token} = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
   const [form, setForm] = useState({
     nome: '',
     endereco: '',
@@ -28,7 +33,7 @@ const CadastroFisioterapeuta = () => {
         endereco: form.endereco,
         controleAutomatico: form.controleAutomatico,
       });
-      console.log('Fisioterapeuta cadastrado:', response.data);
+      // console.log('Fisioterapeuta cadastrado:', response.data);
       setForm({
         nome: '',
         endereco: '',
@@ -38,7 +43,7 @@ const CadastroFisioterapeuta = () => {
         controleAutomatico: false,
       });
     } catch (error) {
-      console.error('Erro ao enviar o formulário:', error);
+      // console.error('Erro ao enviar o formulário:', error);
     }
   };
 
