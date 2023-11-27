@@ -4,11 +4,15 @@ import { TableTop } from "./components/TableTop";
 import { ContentLine } from "./components/ContentLine/ContentLine";
 import { Filters } from "./components/FiltersLine/Filters";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Agenda = () => {
     const [consultas, setConsultas] = useState([]);
     const [filtroData, setFiltroData] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
+    const currentUser = useSelector(state => state.currentUser.value);
+    const { token } = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     useEffect(() => {
         fetchConsultas();
@@ -18,6 +22,7 @@ const Agenda = () => {
         try {
             const response = await axios.get('http://localhost:8081/api/consulta/all');
             setConsultas(response.data);
+            console.log(response.data);
         } catch (error) {
             // console.error("Erro ao buscar consultas", error);
         }
@@ -52,13 +57,13 @@ const Agenda = () => {
                 <table className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                     <TableTop />
                     <tbody>
-                        {consultasFiltradas.map((consulta) => (
+                        {consultasFiltradas.map((consulta, i) => (
                             <ContentLine
-                                key={consulta._id}
+                                key={i}
                                 paciente={consulta.paciente}
                                 fisioterapeuta={consulta.fisioterapeuta}
                                 dataHora={consulta.dataEHora}
-                                status={consulta.confirmacao}
+                                status={consulta.status}
                                 observacoes={consulta.observacoes}
                                 linkConsulta={consulta.link}
                             />
