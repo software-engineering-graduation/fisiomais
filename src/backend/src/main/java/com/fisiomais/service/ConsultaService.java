@@ -7,6 +7,7 @@ import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.entities.ConferenceEventData;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.indicators.CancelationMetrics;
 import com.fisiomais.model.indicators.ConfirmationMetrics;
 import com.fisiomais.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,5 +134,9 @@ public class ConsultaService {
 
     public ConfirmationMetrics getTaxaConfirmacao(Integer mes, Integer ano) {
         return consultaRepository.getConfirmationMetricsForMonthAndYear(mes, ano);
+    }
+
+    public CancelationMetrics getTaxaCancelamento() {
+        return consultaRepository.getCancelationMetrics();
     }
 }

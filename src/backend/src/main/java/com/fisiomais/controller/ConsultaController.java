@@ -5,6 +5,7 @@ import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.indicators.CancelationMetrics;
 import com.fisiomais.model.indicators.ConfirmationMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.service.ConsultaService;
@@ -21,7 +22,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,6 @@ public class ConsultaController {
     private final ConsultaUtil consultaUtil;
     private final FisioterapeutaRepository fisioterapeutaRepository;
 
-    @Autowired
     public ConsultaController(ConsultaService consultaService, ConsultaUtil consultaUtil,
             FisioterapeutaRepository fisioterapeutaRepository) {
         this.consultaService = consultaService;
@@ -181,6 +180,24 @@ public class ConsultaController {
             logger.info("Taxa de confirmação: {}%", taxaConfirmacao.getTaxaConfirmacao());
 
             return new ResponseEntity<>(taxaConfirmacao, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    // Taxa de agendamentos cancelados total
+    @GetMapping("/taxa-cancelamento")
+    @Operation(summary = "Obter taxa de cancelamento de agendamentos", description = "Obter a taxa de cancelamento de agendamentos.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<CancelationMetrics> getTaxaCancelamento() {
+        try {
+            CancelationMetrics taxaCancelamento = consultaService.getTaxaCancelamento();
+            logger.info("Taxa de cancelamento:");
+            logger.info("Total de consultas: {}", taxaCancelamento.getTotalConsultas());
+            logger.info("Total de consultas canceladas: {}", taxaCancelamento.getConsultasCanceladas());
+            logger.info("Taxa de cancelamento: {}%", taxaCancelamento.getTaxaCancelamento());
+
+            return new ResponseEntity<>(taxaCancelamento, HttpStatus.OK);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
