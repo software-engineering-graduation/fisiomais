@@ -5,6 +5,7 @@ import { Divider } from 'antd';
 
 import Processo1 from 'pages/Indicadores/process/Processo1';
 import Processo2 from 'pages/Indicadores/process/Processo2';
+import Processo4 from './process/Processo4';
 import Processo6 from 'pages/Indicadores/process/Processo6';
 import Processo7 from 'pages/Indicadores/process/Processo7';
 
@@ -16,6 +17,8 @@ const Indicadores = () => {
         <Processo1 />
         <Divider />
         <Processo2 />
+        <Divider />
+        <Processo4 />
         <Divider />
         <Processo6 />
         <Divider/>
