@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
-import MetricCard from 'pages/Indicadores/components/MetricCard';
+import PieMetricCard from 'pages/Indicadores/components/PieMetricCard';
 import ProcessContainer from 'pages/Indicadores/components/ProcessContainer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -63,7 +63,7 @@ const Processo6 = () => {
             chartsContainer={
                 <Row gutter={16} style={{ display: 'flex', alignItems: 'stretch' }}>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Taxa de Satisfação do Paciente"
                             objectives="Medir a satisfação do paciente com o acompanhamento virtual."
                             description="Porcentagem de pacientes satisfeitos."
@@ -71,7 +71,7 @@ const Processo6 = () => {
                         />
                     </Col>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Média de Sessões Mensais"
                             objectives="Avaliar a frequência das sessões de acompanhamento."
                             description="Média mensal de sessões realizadas."

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
-import MetricCard from 'pages/Indicadores/components/MetricCard';
+import PieMetricCard from 'pages/Indicadores/components/PieMetricCard';
 import ProcessContainer from 'pages/Indicadores/components/ProcessContainer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -60,7 +60,7 @@ const Processo4 = () => {
             chartsContainer={
                 <Row gutter={16} style={{ display: 'flex', alignItems: 'stretch' }}>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Taxa de Crescimento de Cadastros"
                             objectives="Avaliar o crescimento da rede de fisioterapeutas."
                             description="Variação percentual mensal no número de novos cadastros."
@@ -68,7 +68,7 @@ const Processo4 = () => {
                         />
                     </Col>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Índice de Perfis Completos"
                             objectives="Garantir a completude dos perfis dos fisioterapeutas."
                             description="Porcentagem de fisioterapeutas com perfis completos."
