@@ -2,11 +2,17 @@ package com.fisiomais.controller;
 
 import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
 import com.fisiomais.dto.FisioterapeutaDTO;
+import com.fisiomais.dto.indicators.NovosFisioterapeutasMetricsDTO;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.service.FisioterapeutaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import com.fisiomais.model.Fisioterapeuta;
+import com.fisiomais.model.indicators.MidiaTypesMetrics;
+import com.fisiomais.model.indicators.NovosFisioterapeutasMetrics;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +48,19 @@ public class FisioterapeutaController {
     public ResponseEntity<List<FisioterapeutaNamesAndIdsResponse>> getAllFisioterapeutasNames() {
         List<FisioterapeutaNamesAndIdsResponse> fisioterapeutas = fisioterapeutaService.findAllNames();
         return new ResponseEntity<>(fisioterapeutas, HttpStatus.OK);
+    }
+
+    @GetMapping("/taxa-criacao/{anoDesejado}")
+    @Operation(summary = "Obter a quantidade de novos fisioterapeutas cadastrados por mês", description = "Obter a quantidade de novos fisioterapeutas cadastrados por mês")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    @ApiResponse(responseCode = "404", description = "Nada encontrado")
+    public ResponseEntity<List<NovosFisioterapeutasMetricsDTO>> getNovosCadastrosMensais(
+            @PathVariable Integer anoDesejado) {
+        List<NovosFisioterapeutasMetrics> novosCadastrosMensais = fisioterapeutaService
+                .findNovosCadastrosMensais(anoDesejado);
+        List<NovosFisioterapeutasMetricsDTO> novosCadastrosMensaisDTO = novosCadastrosMensais.stream()
+                .map(NovosFisioterapeutasMetricsDTO::toDTO).toList();
+        return new ResponseEntity<>(novosCadastrosMensaisDTO, HttpStatus.OK);
     }
 
     @PostMapping
