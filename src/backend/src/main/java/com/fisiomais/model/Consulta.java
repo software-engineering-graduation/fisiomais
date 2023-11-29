@@ -7,7 +7,6 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fisiomais.model.enums.StatusConsulta;
 
 import jakarta.persistence.*;

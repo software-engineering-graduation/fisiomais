@@ -116,20 +116,19 @@ public class TratamentoController {
      * }
      */
 
-    //  @GetMapping("/taxa-utilizacao")
-    //  @Operation(summary = "Obter taxa de utilização de mídias nos exercícios", description = "Obter a taxa de utilização de mídias nos exercícios.")
-    //     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
-    //     public ResponseEntity<MidiaUtilizationMetrics> getTaxaUtilizacao() {
-    //         try {
-    //             MidiaUtilizationMetrics taxaUtilizacao = tratamentoService.getTaxaUtilizacao();
-    //             logger.info("Taxa de utilização:");
-    //             logger.info("Total de midias: {}", taxaUtilizacao.getTotalMidias());
-    //             logger.info("Total de exercicios: {}", taxaUtilizacao.getTotalExercicios());
-    //             logger.info("Total de midias com exercicios: {}", taxaUtilizacao.getMidiasComExercicios());
-    //             logger.info("Taxa de utilização: {}%", taxaUtilizacao.getTaxaUtilizacao());
-    //             return new ResponseEntity<>(taxaUtilizacao, HttpStatus.OK);
-    //         } catch (Exception e) {
-    //             throw new BusinessException(e.getMessage());
-    //         }
-    //     }
+    @GetMapping("/taxa-utilizacao")
+    @Operation(summary = "Obter taxa de utilização de mídias nos exercícios", description = "Obter a taxa de utilização de mídias nos exercícios.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
+    public ResponseEntity<MidiaUtilizationMetrics> getTaxaUtilizacao() {
+        try {
+            List<MidiaUtilizationMetrics> taxaUtilizacao = tratamentoService.getTaxaUtilizacao();
+            logger.info("Taxa de utilização:");
+            // logger.info("Total de exercicios: {}", taxaUtilizacao.getTotalExercicios());
+            // logger.info("Total de midias com exercicios: {}", taxaUtilizacao.getMidiasComExercicios());
+            // logger.info("Taxa de utilização: {}%", taxaUtilizacao.getTaxaUtilizacao());
+            return new ResponseEntity<>(taxaUtilizacao.get(0), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }
