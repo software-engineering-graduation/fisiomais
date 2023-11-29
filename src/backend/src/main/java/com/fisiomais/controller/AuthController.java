@@ -63,6 +63,9 @@ public class AuthController {
     public ResponseEntity<String> login(
             @Parameter(description = "Objeto contendo as credenciais do usuário") @RequestBody Login login) {
         try {
+            logger.info("Logging in user with email: {}", login.getEmail());
+            logger.info("Logging in user with password: {}", login.getSenha());
+            
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     login.getEmail(), login.getSenha());
 

@@ -34,9 +34,6 @@ public class Paciente extends User{
     @Column(nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false, length = 11)
-    private String telefone;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "ENUM('Homem', 'Mulher', 'Outro')")
     private Genero genero;

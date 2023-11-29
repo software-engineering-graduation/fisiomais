@@ -52,7 +52,7 @@ public class FisioterapeutaService {
 
         if (pacienteRepository.findByEmail(fisioterapeuta.getEmail()) != null
                 || fisioterapeutaRepository.findByEmail(fisioterapeuta.getEmail()) != null) {
-            throw new BusinessException("Email already exists");
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
         return fisioterapeutaRepository.save(fisioterapeuta);
@@ -112,6 +112,10 @@ public class FisioterapeutaService {
     // }
 
     public Fisioterapeuta create(FisioterapeutaDTO fisioterapeutaDTO) {
+        if(pacienteRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null || fisioterapeutaRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null){
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
+        }
+
         Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
         fisioterapeuta.setNome(fisioterapeutaDTO.getNome());
         fisioterapeuta.setEmail(fisioterapeutaDTO.getEmail());

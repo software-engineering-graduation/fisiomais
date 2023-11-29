@@ -46,11 +46,11 @@ public class PacienteService{
         Paciente paciente = toEntity(pacienteDTO);
 
         if(pacienteRepository.findByEmail(paciente.getEmail()) != null || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null){
-            throw new BusinessException("Email already exists");
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
         if(pacienteRepository.findByCpf(paciente.getCpf()) != null){
-            throw new BusinessException("CPF already exists");
+            throw new BusinessException("CPF já cadastrado. Tente realizar o login.");
         }
 
         Paciente savedPaciente = pacienteRepository.save(paciente);

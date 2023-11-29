@@ -50,19 +50,6 @@ public class FisioterapeutaController {
         return new ResponseEntity<>(fisioterapeutas, HttpStatus.OK);
     }
 
-    @GetMapping("/taxa-criacao/{anoDesejado}")
-    @Operation(summary = "Obter a quantidade de novos fisioterapeutas cadastrados por mês", description = "Obter a quantidade de novos fisioterapeutas cadastrados por mês")
-    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
-    @ApiResponse(responseCode = "404", description = "Nada encontrado")
-    public ResponseEntity<List<NovosFisioterapeutasMetricsDTO>> getNovosCadastrosMensais(
-            @PathVariable Integer anoDesejado) {
-        List<NovosFisioterapeutasMetrics> novosCadastrosMensais = fisioterapeutaService
-                .findNovosCadastrosMensais(anoDesejado);
-        List<NovosFisioterapeutasMetricsDTO> novosCadastrosMensaisDTO = novosCadastrosMensais.stream()
-                .map(NovosFisioterapeutasMetricsDTO::toDTO).toList();
-        return new ResponseEntity<>(novosCadastrosMensaisDTO, HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<Fisioterapeuta> createFisioterapeuta(@RequestBody FisioterapeutaDTO fisioterapeutaDTO) {
         Fisioterapeuta newFisioterapeuta = fisioterapeutaService.create(fisioterapeutaDTO);
