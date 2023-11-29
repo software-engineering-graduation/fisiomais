@@ -62,4 +62,14 @@ public class FisioterapeutaController {
         fisioterapeutaService.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/taxaCrescimento")
+    public ResponseEntity<Double> getTaxaCrescimento() {
+        return ResponseEntity.ok(fisioterapeutaService.getTaxaCrescimento());
+    }
+
+    @GetMapping("/indicePerfisCompletos")
+    public ResponseEntity<Double> getIndicePerfisCompletos() {
+        return ResponseEntity.ok(fisioterapeutaService.getIndicePerfisCompletos());
+    }
 }

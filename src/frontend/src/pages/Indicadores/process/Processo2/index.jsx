@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
-import PieMetricCard from 'pages/Indicadores/components/PieMetricCard';
+import MetricCard from 'pages/Indicadores/components/MetricCard';
 import ProcessContainer from 'pages/Indicadores/components/ProcessContainer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -18,15 +18,15 @@ const Processo2 = () => {
             try {
                 const responseConclusao = await axios.get('http://localhost:8081/api/consulta/taxa-conclusao');
                 const responseReagendamento = await axios.get('http://localhost:8081/api/consulta/taxa-reagendamento');
-
+                
                 setconsultasConcluidas(responseConclusao.data);
                 setconsultasReagendadas(responseReagendamento.data);
-
+            
             } catch (error) {
                 console.error('Erro ao buscar dados', error.message);
             }
         };
-
+    
         fetchIndicators();
     }, []);
 
@@ -55,13 +55,14 @@ const Processo2 = () => {
     };
 
     return (
-        <ProcessContainer
+        <>
+            <ProcessContainer 
             processName="Controlar Consultas"
             processNumber={2}
-            chartsContainer={
+            chartsContainer = {
                 <Row gutter={16} style={{ display: 'flex', alignItems: 'stretch' }}>
                     <Col span={12}>
-                        <PieMetricCard
+                        <MetricCard
                             title="Taxa de Conclusão"
                             description="Taxa de consultas concluídas"
                             chartData={conclusaoData}
@@ -72,7 +73,7 @@ const Processo2 = () => {
                         />
                     </Col>
                     <Col span={12}>
-                        <PieMetricCard
+                        <MetricCard
                             title="Taxa de Reagendamento"
                             description="Taxa de consultas reagendadas"
                             chartData={reagendamentoData}
@@ -84,7 +85,8 @@ const Processo2 = () => {
                     </Col>
                 </Row>
             }
-        />
+            />
+        </>
     )
 
 };
