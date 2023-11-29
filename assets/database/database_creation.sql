@@ -148,24 +148,27 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fisiomais_db`.`exercicio_has_midias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_midias` (
-  `midia__id` INT NOT NULL,
-  `midia_fisioterapeuta__id` INT NOT NULL,
-  `exercicio__id` INT NOT NULL,
-  PRIMARY KEY (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`),
-  INDEX `fk_exercicio_videos_midia1_idx` (`midia__id` ASC, `midia_fisioterapeuta__id` ASC) VISIBLE,
-  INDEX `fk_exercicio_has_videos_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
-  CONSTRAINT `fk_exercicio_videos_midia1`
-    FOREIGN KEY (`midia__id` , `midia_fisioterapeuta__id`)
-    REFERENCES `fisiomais_db`.`midia` (`_id` , `fisioterapeuta__id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exercicio_has_videos_exercicio1`
-    FOREIGN KEY (`exercicio__id`)
-    REFERENCES `fisiomais_db`.`exercicio` (`_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE
+    IF NOT EXISTS fisiomais_db.exercicio_has_midias (
+        midia__id INT NOT NULL,
+        midia_fisioterapeuta__id INT NOT NULL,
+        exercicio__id INT NOT NULL,
+        PRIMARY KEY (
+            midia__id,
+            midia_fisioterapeuta__id,
+            exercicio__id
+        ),
+        INDEX fk_exercicio_videos_midia1_idx (
+            midia__id ASC,
+            midia_fisioterapeuta__id ASC
+        ) VISIBLE,
+        INDEX fk_exercicio_has_videos_exercicio1_idx (exercicio__id ASC) VISIBLE,
+        CONSTRAINT fk_exercicio_videos_midia1 FOREIGN KEY (
+            midia__id,
+            midia_fisioterapeuta__id
+        ) REFERENCES fisiomais_db.midia (_id, fisioterapeuta__id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        CONSTRAINT fk_exercicio_has_videos_exercicio1 FOREIGN KEY (exercicio__id) REFERENCES fisiomais_db.exercicio (_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
