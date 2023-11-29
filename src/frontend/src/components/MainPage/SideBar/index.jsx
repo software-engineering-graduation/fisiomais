@@ -5,7 +5,7 @@ import { Menu, Layout, notification } from 'antd';
 
 
 import FisiomaisLogo from 'assets/images/logo_stroke_white.svg';
-import SideMenuItens, { SideMenuItensAdmin } from './data/menu_itens';
+import SideMenuItensFisio, { SideMenuItensAdmin, SideMenuItensPaciente } from './data/menu_itens';
 import { setPage } from 'store/currentPage'
 import { setLoginStatus } from 'store/currentUser'
 
@@ -20,8 +20,16 @@ const SideBar = ({ collapsed }) => {
     const { status } = currentUser;
     const [api, contextHolder] = notification.useNotification();
 
-    // console.log("currentUser from SideBar: ", currentUser)
-    const menu = true ? SideMenuItens.concat(SideMenuItensAdmin) : SideMenuItens;
+    const menu = currentUser.user?.role === 'admin' ?
+        SideMenuItensAdmin : currentUser.user?.role === 'fisioterapeuta' ?
+        SideMenuItensFisio : 
+        SideMenuItensPaciente
+
+    const currentPath = window.location.pathname
+    if (currentUser.user?.role === 'admin' && currentPath !== '/indicadores') {
+        navigate('/indicadores')
+        return null
+    }
 
     useEffect(() => {
         if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {

@@ -22,7 +22,7 @@ import PacienteSignup from 'pages/SignUp/PacienteSignUp';
 const PagesRouter = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Agenda />} />
             <Route path="/midias" element={<Midias />} />
             <Route path="/midia/:id" element={<MidiaDetail />} />
             <Route path="/midia/criar" element={<NewMidia />} />

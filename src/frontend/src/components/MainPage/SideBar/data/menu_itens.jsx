@@ -13,7 +13,7 @@ import { FaUserInjured } from 'react-icons/fa'
 import { MdHealing } from 'react-icons/md'
 import { GiLoveInjection } from 'react-icons/gi'
 
-const SideMenuItens = [
+const SideMenuItensFisio = [
     {
         key: 1,
         icon: <FileImageOutlined />,
@@ -52,6 +52,15 @@ const SideMenuItens = [
     }
 ]
 
+export const SideMenuItensPaciente = [
+    {
+        key: 3,
+        icon: <GrSchedule />,
+        label: 'Agenda',
+        route: 'agenda',
+    },
+]
+
 export const SideMenuItensAdmin = [
     {
         key: 10,
@@ -61,4 +70,4 @@ export const SideMenuItensAdmin = [
     },
 ]
 
-export default SideMenuItens;
+export default SideMenuItensFisio;
