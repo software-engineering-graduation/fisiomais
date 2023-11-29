@@ -4,6 +4,7 @@ import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
 import com.fisiomais.dto.FisioterapeutaDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Fisioterapeuta;
+import com.fisiomais.model.indicators.NovosFisioterapeutasMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.PacienteRepository;
 

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fisiomais.model.Fisioterapeuta;
+import com.fisiomais.model.indicators.NovosFisioterapeutasMetrics;
 
 @Repository
 public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, Integer> {
@@ -19,6 +20,7 @@ public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, 
     List<Fisioterapeuta> findByNomeContainingIgnoreCase(String nome);
 
     boolean existsByEmail(String email);
+
     boolean existsByEmailAndIdNot(String email, Integer id);
 
     Fisioterapeuta findByEmail(String email);
