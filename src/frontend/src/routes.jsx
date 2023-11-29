@@ -16,6 +16,8 @@ import AcompanhamentoVirtual from "pages/Acompanhar";
 import Consulta from "pages/Consulta";
 import DadosConsulta from 'pages/Consulta/DadosConsulta';
 import Login from "pages/Login";
+import FisioterapeutaSignup from './pages/Signup/FisioterapeutaSignup';
+import PacienteSignup from './pages/Signup/PacienteSignup';
 
 const Router = () => {
     return (
@@ -34,6 +36,8 @@ const Router = () => {
             <Route component={AcompanhamentoVirtual} path="/acompanhamento" />
             <Route component={Consulta} path="/nova-consulta" />
             <Route component={DadosConsulta} path="/nova-consulta/dados" />
+            <Route component={FisioterapeutaSignup} path="/signup/fisioterapeuta" />
+            <Route component={PacienteSignup} path="/signup/paciente" />
             <Route component={Login} path='/login' />
         </Routes>
     )

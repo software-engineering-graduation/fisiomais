@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from 'store/currentUser';
 
 import { RightSideContainer } from 'style.jsx';
+import PacienteSignup from 'pages/SignUp/PacienteSignUp';
+import FisioterapeutaSignup from 'pages/SignUp/FisioterapeutaSignUp';
 
 const checkSession = async () => {
     let storedToken = localStorage.getItem('token');
@@ -50,19 +52,39 @@ const App = () => {
         token: { colorBgContainer },
     } = theme.useToken();
 
+    const noUser = () =>
+        currentUser === null ||
+        currentUser === undefined ||
+        currentUser.user === null ||
+        currentUser.user === undefined
+
+    const isSignUpPage = () => {
+        if (!noUser()) return false;
+        const currentPath = window.location.pathname;
+        return currentPath.includes('signup');
+    }
+
+    const signUpRender = () => {
+        if (noUser()) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('signup')) {
+                if (currentPath.includes('fisioterapeuta')) {
+                    return <FisioterapeutaSignup />
+                } else if (currentPath.includes('paciente')) {
+                    return <PacienteSignup />
+                }
+            }
+        }
+        return <></>
+    }
+
     const performSessionCheck = async () => {
-        if (
-            currentUser === null ||
-            currentUser === undefined ||
-            currentUser.user === null ||
-            currentUser.user === undefined
-        ) {
+        if (noUser()) {
             const userData = await checkSession();
 
             if (userData === null) {
                 const currentPath = window.location.pathname;
-                if (currentPath !== '/login' && currentPath !== '/signup') {
-                    // console.info('Usuário não logado, redirecionando para a página de login')
+                if (currentPath !== '/login' && !currentPath.includes('signup')) {
                     navigate('/login');
                 }
                 return
@@ -75,6 +97,10 @@ const App = () => {
     useEffect(() => {
         performSessionCheck();
     }, [currentUser, navigate]);
+
+    if (isSignUpPage()) {
+        return signUpRender();
+    }
 
     return (
         <div >

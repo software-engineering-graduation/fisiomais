@@ -26,24 +26,24 @@ const SideMenuItens = [
         label: 'Agenda',
         route: 'agenda',
     },
-    {
-        key: 6,
-        icon: <MdPeopleOutline />,
-        label: 'Cadastro Fisioterapeuta',
-        route: 'fisioterapeuta',
-    },
+    // {
+    //     key: 6,
+    //     icon: <MdPeopleOutline />,
+    //     label: 'Cadastro Fisioterapeuta',
+    //     route: 'fisioterapeuta',
+    // },
     {
         key: 7, 
         icon: <MdPeopleOutline />,
         label: 'Acompanhamento',
         route: 'acompanhamento',
     },
-    {
-        key: 8, 
-        icon: <FaUserInjured />,
-        label: 'Cadastrar Paciente',
-        route: 'cadastro',
-    },
+    // {
+    //     key: 8, 
+    //     icon: <FaUserInjured />,
+    //     label: 'Cadastrar Paciente',
+    //     route: 'cadastro',
+    // },
     {
         key: 9, 
         icon: <MdHealing />,

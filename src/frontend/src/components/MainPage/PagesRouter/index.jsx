@@ -16,6 +16,8 @@ import Consulta from 'pages/Consulta';
 import DadosConsulta from 'pages/Consulta/DadosConsulta';
 import Login from 'pages/Login';
 import Indicadores from 'pages/Indicadores';
+import FisioterapeutaSignup from 'pages/SignUp/FisioterapeutaSignUp';
+import PacienteSignup from 'pages/SignUp/PacienteSignUp';
 
 const PagesRouter = () => {
     return (
@@ -34,6 +36,8 @@ const PagesRouter = () => {
             <Route path="/acompanhamento" element={<AcompanhamentoVirtual />} />
             <Route path="/nova-consulta" element={<Consulta />} />
             <Route path='/nova-consulta/dados' element={<DadosConsulta />} />
+            <Route path="/signup/fisioterapeuta" element={<FisioterapeutaSignup />} />
+            <Route path="/signup/paciente" element={<PacienteSignup />} />
             <Route path='/login' element={<Login />} />
             <Route path='/indicadores' element={<Indicadores />} />
         </Routes>
