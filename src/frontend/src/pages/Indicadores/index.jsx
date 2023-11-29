@@ -5,6 +5,8 @@ import { Divider } from 'antd';
 
 import Processo1 from 'pages/Indicadores/process/Processo1';
 import Processo2 from 'pages/Indicadores/process/Processo2';
+import Processo6 from 'pages/Indicadores/process/Processo6';
+import Processo4 from 'pages/Indicadores/process/Processo4';
 
 const Indicadores = () => {
   return (
@@ -14,6 +16,10 @@ const Indicadores = () => {
         <Processo1/>
         <Divider/>
         <Processo2/>
+        <Divider/>
+        <Processo6/>
+        <Divider/>
+        <Processo4 />
         <Divider/>
         {/* TODO - add other indicators here */}
       </AllMetricsContanier>

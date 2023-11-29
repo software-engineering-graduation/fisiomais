@@ -141,4 +141,12 @@ public class FisioterapeutaService {
         }
         return fisioterapeutasNamesIds;
     }
+
+    public Double getTaxaCrescimento() {
+        return fisioterapeutaRepository.calculateTaxaCrescimento();
+    }
+
+    public Double getIndicePerfisCompletos() {
+        return fisioterapeutaRepository.calculateIndicePerfisCompletos();
+    }
 }
