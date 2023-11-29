@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import MetricCard from 'pages/Indicadores/components/MetricCard';
+import PieMetricCard from 'pages/Indicadores/components/PieMetricCard';
 import ProcessContainer from 'pages/Indicadores/components/ProcessContainer';
 
 const ReachableContext = createContext(null);
@@ -220,7 +220,7 @@ const Processo1 = () => {
                 processNumber={1}
                 chartsContainer={<Row gutter={16} style={{ display: 'flex', alignItems: 'stretch' }}>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title={`Taxa de confirmações de consultas mensais - ${mesNome(new Date().getMonth() + 1)}/${new Date().getFullYear()}`}
                             objectives="Mensura a eficácia na confirmação das consultas agendadas mensalmente."
                             description="Calcula a porcentagem de consultas confirmadas em relação ao total de consultas agendadas em escala mensal."
@@ -238,7 +238,7 @@ const Processo1 = () => {
                         />
                     </Col>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Taxa de agendamentos cancelados"
                             objectives="Minimizar cancelamentos."
                             description="Mede a porcentagem de agendamentos cancelados em relação ao total de agendamentos."

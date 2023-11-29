@@ -1,4 +1,4 @@
-// MetricCard.js
+// PieMetricCard.js
 import React from 'react';
 import { Card, Divider } from 'antd';
 import { Pie } from 'react-chartjs-2';

@@ -1,4 +1,4 @@
-// MetricCard.js
+// PieMetricCard.js
 import React from 'react';
 import { Card, Divider } from 'antd';
 import { Pie } from 'react-chartjs-2';
@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const { Title } = Typography;
 
-const MetricCard = ({ title, objectives, description, chartData, cardHeaderInput = null, loading, error, moreDataOpener }) => {
+const PieMetricCard = ({ title, objectives, description, chartData, cardHeaderInput = null, loading, error, moreDataOpener }) => {
   const titlePopOver = (
     <>
       <WrapedMaxWidthParagraph>
@@ -129,4 +129,4 @@ const CenteredButtonContainer = styled.div`
   align-items: center;
 `;
 
-export default MetricCard;
+export default PieMetricCard;

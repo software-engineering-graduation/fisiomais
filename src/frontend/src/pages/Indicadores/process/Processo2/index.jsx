@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
-import MetricCard from 'pages/Indicadores/components/MetricCard';
+import PieMetricCard from 'pages/Indicadores/components/PieMetricCard';
 import ProcessContainer from 'pages/Indicadores/components/ProcessContainer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -61,7 +61,7 @@ const Processo2 = () => {
             chartsContainer={
                 <Row gutter={16} style={{ display: 'flex', alignItems: 'stretch' }}>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Taxa de Conclusão"
                             description="Taxa de consultas concluídas"
                             chartData={conclusaoData}
@@ -72,7 +72,7 @@ const Processo2 = () => {
                         />
                     </Col>
                     <Col span={12}>
-                        <MetricCard
+                        <PieMetricCard
                             title="Taxa de Reagendamento"
                             description="Taxa de consultas reagendadas"
                             chartData={reagendamentoData}
