@@ -76,46 +76,6 @@ public class TratamentoController {
         return ResponseEntity.ok().body(tratamento);
     }
 
-    /*
-     * -- Query para calcular a Taxa de Utilização de Mídias nos Exercícios
-     * SELECT
-     * COUNT(DISTINCT m._id) AS total_midias,
-     * COUNT(m._id) AS total_exercicios,
-     * COUNT(DISTINCT em.midia__id) AS midias_com_exercicios,
-     * (COUNT(DISTINCT em.midia__id) / COUNT(DISTINCT m._id)) * 100 AS
-     * taxa_utilizacao
-     * FROM
-     * midia m
-     * LEFT JOIN
-     * exercicio_has_midias em ON m._id = em.midia__id;
-     */
-
-    /*
-     * // Taxa de agendamentos cancelados total
-     * 
-     * @GetMapping("/taxa-cancelamento")
-     * 
-     * @Operation(summary = "Obter taxa de cancelamento de agendamentos",
-     * description = "Obter a taxa de cancelamento de agendamentos.")
-     * 
-     * @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
-     * public ResponseEntity<CancelationMetrics> getTaxaCancelamento() {
-     * try {
-     * CancelationMetrics taxaCancelamento = consultaService.getTaxaCancelamento();
-     * logger.info("Taxa de cancelamento:");
-     * logger.info("Total de consultas: {}", taxaCancelamento.getTotalConsultas());
-     * logger.info("Total de consultas canceladas: {}",
-     * taxaCancelamento.getConsultasCanceladas());
-     * logger.info("Taxa de cancelamento: {}%",
-     * taxaCancelamento.getTaxaCancelamento());
-     * 
-     * return new ResponseEntity<>(taxaCancelamento, HttpStatus.OK);
-     * } catch (Exception e) {
-     * throw new BusinessException(e.getMessage());
-     * }
-     * }
-     */
-
     @GetMapping("/taxa-utilizacao")
     @Operation(summary = "Obter taxa de utilização de mídias nos exercícios", description = "Obter a taxa de utilização de mídias nos exercícios.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
