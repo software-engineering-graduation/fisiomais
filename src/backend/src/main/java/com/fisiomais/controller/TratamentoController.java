@@ -2,6 +2,8 @@ package com.fisiomais.controller;
 
 import java.util.List;
 
+import javax.naming.NoPermissionException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.fisiomais.bodys.NovoTratamentoRequest;
 import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Tratamento;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
+import com.fisiomais.service.TokenService;
 import com.fisiomais.service.TratamentoService;
 import com.fisiomais.util.TratamentoUtil;
 
@@ -36,10 +40,14 @@ public class TratamentoController {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TratamentoController.class);
     private final TratamentoService tratamentoService;
     private final TratamentoUtil tratamentoUtil;
+    private final TokenService tokenService;
 
-    public TratamentoController(TratamentoService tratamentoService, TratamentoUtil tratamentoUtil) {
+    public TratamentoController(TratamentoService tratamentoService,
+            TratamentoUtil tratamentoUtil,
+            TokenService tokenService) {
         this.tratamentoService = tratamentoService;
         this.tratamentoUtil = tratamentoUtil;
+        this.tokenService = tokenService;
     }
 
     @PostMapping
@@ -51,6 +59,12 @@ public class TratamentoController {
         return new ResponseEntity<>(newTratamento, HttpStatus.CREATED);
     }
 
+    @GetMapping
+    public ResponseEntity<List<TratamentoResponse>> findAll() {
+        List<Tratamento> obj = this.tratamentoService.findAll();
+        return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
+    }
+
     @GetMapping("/paciente/{id}")
     public ResponseEntity<List<Tratamento>> findByPacienteId(@PathVariable Integer id) {
         List<Tratamento> obj = this.tratamentoService.findByPacienteId(id);
@@ -58,15 +72,39 @@ public class TratamentoController {
     }
 
     @GetMapping("/fisioterapeuta/{id}")
-    public ResponseEntity<List<Tratamento>> findByFisioterapeutaId(@PathVariable Integer id) {
+    public ResponseEntity<List<TratamentoResponse>> findByFisioterapeutaId(@PathVariable Integer id) {
         List<Tratamento> obj = this.tratamentoService.findByFisioterapeutaId(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
     }
 
-    @GetMapping("/{titulo}")
+    @GetMapping("/fisioterapeuta/{id}/paciente/{idPaciente}")
+    public ResponseEntity<List<TratamentoResponse>> findByFisioterapeutaIdAndPacienteId(@PathVariable Integer id,
+            @PathVariable Integer idPaciente) {
+        List<Tratamento> obj = this.tratamentoService.findByFisioterapeutaIdAndPacienteId(id, idPaciente);
+        return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
+    }
+
+    @GetMapping("/titulo/{titulo}")
     public ResponseEntity<Tratamento> findTratamentoByTitulo(@PathVariable String titulo) {
         Tratamento obj = this.tratamentoService.findTratamentoByTitulo(titulo);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TratamentoResponse> findById(@PathVariable Integer id,
+            @RequestHeader(name = "Authorization") String token) throws NoPermissionException {
+        Tratamento obj = this.tratamentoService.findById(id);
+        if (this.tokenService.sameUserEmail(obj.getFisioterapeuta().getEmail(), token).booleanValue()) {
+            return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
+        }
+        if (this.tokenService.sameUserEmail(obj.getPaciente().getEmail(), token).booleanValue()) {
+            return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
+        }
+        if (this.tokenService.isAdmin(token).booleanValue()) {
+            return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
+        }
+
+        throw new NoPermissionException("Usuário não tem permissão para acessar este tratamento.");
     }
 
     @PutMapping("/{id}")
@@ -83,9 +121,9 @@ public class TratamentoController {
         try {
             List<MidiaUtilizationMetrics> taxaUtilizacao = tratamentoService.getTaxaUtilizacao();
             logger.info("Taxa de utilização:");
-            // logger.info("Total de exercicios: {}", taxaUtilizacao.getTotalExercicios());
-            // logger.info("Total de midias com exercicios: {}", taxaUtilizacao.getMidiasComExercicios());
-            // logger.info("Taxa de utilização: {}%", taxaUtilizacao.getTaxaUtilizacao());
+            logger.info("Total de exercicios: {}", taxaUtilizacao.get(0).getTotalExercicios());
+            logger.info("Total de midias com exercicios: {}", taxaUtilizacao.get(0).getMidiasComExercicios());
+            logger.info("Taxa de utilização: {}%", taxaUtilizacao.get(0).getTaxaUtilizacao());
             return new ResponseEntity<>(taxaUtilizacao.get(0), HttpStatus.OK);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

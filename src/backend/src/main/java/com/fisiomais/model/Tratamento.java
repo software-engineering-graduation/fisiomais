@@ -3,6 +3,7 @@ package com.fisiomais.model;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -44,4 +45,11 @@ public class Tratamento {
     @Lob
     @Column(name = "feedback")
     private String feedback;
+
+    @ManyToMany
+    @JoinTable(name = "tratamento_has_exercicios", joinColumns = {
+            @JoinColumn(name = "tratamento__id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "exercicio__id")
+            })
+    private List<Exercicio> exercicios;
 }

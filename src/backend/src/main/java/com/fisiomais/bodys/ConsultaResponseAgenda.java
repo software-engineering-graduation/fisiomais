@@ -8,6 +8,7 @@ import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
 
 public record ConsultaResponseAgenda(
+                Integer id,
                 PacienteResponse paciente,
                 FisioterapeutaResponse fisioterapeuta,
                 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Date dataEHora,
@@ -17,6 +18,7 @@ public record ConsultaResponseAgenda(
 
         public static List<ConsultaResponseAgenda> toResponse(List<Consulta> consultasByFisioterapeuta) {
                 return consultasByFisioterapeuta.stream().map(consulta -> new ConsultaResponseAgenda(
+                                consulta.get_id(),
                                 PacienteResponse.toPacienteResponse(consulta.getPaciente()),
                                 FisioterapeutaResponse.toFisioterapeutaResponse(consulta.getFisioterapeuta()),
                                 consulta.getDataEHora(),
@@ -27,6 +29,7 @@ public record ConsultaResponseAgenda(
 
         public static ConsultaResponseAgenda toResponse(Consulta consultasByFisioterapeuta) {
                 return new ConsultaResponseAgenda(
+                                consultasByFisioterapeuta.get_id(),
                                 PacienteResponse.toPacienteResponse(consultasByFisioterapeuta.getPaciente()),
                                 FisioterapeutaResponse.toFisioterapeutaResponse(
                                                 consultasByFisioterapeuta.getFisioterapeuta()),

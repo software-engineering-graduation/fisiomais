@@ -23,4 +23,6 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Integer>
     Tratamento findTratamentoByTitulo(@Param("titulo") String titulo);
 
     Optional<Tratamento> findById(Integer id);
+
+    Optional<List<Tratamento>> findByFisioterapeutaIdAndPacienteId(Integer id, Integer idPaciente);
 }

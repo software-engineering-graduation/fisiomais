@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "exercicio")
 public class Exercicio {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
