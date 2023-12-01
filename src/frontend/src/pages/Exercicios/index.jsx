@@ -65,10 +65,10 @@ const Exercicios = () => {
         return data.sort((a, b) => {
             const dateA = new Date(a.createTime);
             const dateB = new Date(b.createTime);
-            if (dateA > dateB) {
+            if (dateA < dateB) {
                 return -1;
             }
-            if (dateA < dateB) {
+            if (dateA > dateB) {
                 return 1;
             }
             return 0;
@@ -114,13 +114,14 @@ const Exercicios = () => {
 
     const fetchMidias = async () => {
         setLoadingMidias(true);
-        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/exercicio/owner/${currentUser.user.id}`;
+        let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/exercicio`
+        if(currentUser.user.role === 'fisioterapeuta') {
+            apiRoute += `/owner/${currentUser.user.id}`;
+        }            
 
         await axios.get(apiRoute).
             then(response => {
-                console.log(response.data);
                 const data = response.data.map(midia => {
-                    // console.log(midia);
                     const { id, nome, descricao, midias, createTime } = midia;
 
                     const dispatchMidiaData = (id) => (event) => {

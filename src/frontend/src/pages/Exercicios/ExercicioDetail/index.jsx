@@ -81,7 +81,7 @@ const ExercicioDetail = () => {
     const { token } = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-    if (currentUser.user.role !== 'fisioterapeuta') {
+    if (currentUser.user.role === 'paciente') {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
