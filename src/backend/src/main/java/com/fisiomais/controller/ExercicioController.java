@@ -33,8 +33,8 @@ public class ExercicioController {
 
     @GetMapping
     @Operation(summary = "Obter todas os exercícios", description = "Obter uma lista de todos os exercícios disponíveis.")
-    public ResponseEntity<List<ExercicioResponse>> getAllExercicios() {
-        List<ExercicioResponse> midias = ExercicioResponse.toExercicioResponse(exercicioService.getAllExercicios());
+    public ResponseEntity<List<ExercicioResponse>> getAllExercicios(@RequestHeader("Authorization") String token) {
+        List<ExercicioResponse> midias = ExercicioResponse.toExercicioResponse(exercicioService.getAllExercicios(token));
         return new ResponseEntity<>(midias, HttpStatus.OK);
     }
 
@@ -42,14 +42,12 @@ public class ExercicioController {
     @Operation(summary = "Obter exercícios por ID do Fisioterapeuta", description = "Obter exercícios associados a um Fisioterapeuta específico pelo seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Fisioterapeuta não encontrado")
-    public ResponseEntity<List<ExercicioResponse>> getExercicioByFisioterapeuta(@PathVariable Integer id) {
+    public ResponseEntity<List<ExercicioResponse>> getExercicioByFisioterapeuta(@PathVariable Integer id, @RequestHeader("Authorization") String token) {
         Optional<Fisioterapeuta> optionalFisioterapeuta = fisioterapeutaRepository.findById(id);
-
-        System.out.println("Found this fisioterapeuta: " + optionalFisioterapeuta);
 
         if (optionalFisioterapeuta.isPresent()) {
             Fisioterapeuta fisioterapeuta = optionalFisioterapeuta.get();
-            List<ExercicioResponse> exercicioList = exercicioService.getExercicioByFisioterapeuta(fisioterapeuta);
+            List<ExercicioResponse> exercicioList = exercicioService.getExercicioByFisioterapeuta(fisioterapeuta, token);
             return new ResponseEntity<>(exercicioList, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,8 +58,8 @@ public class ExercicioController {
     @Operation(summary = "Obter exercício por ID", description = "Obter um item de exercício específico com base no seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Exercício não encontrado")
-    public ResponseEntity<ExercicioResponse> getExercicioById(@PathVariable Integer id) {
-        ExercicioResponse exercicio = exercicioService.getExercicioById(id);
+    public ResponseEntity<ExercicioResponse> getExercicioById(@PathVariable Integer id, @RequestHeader("Authorization") String token) {
+        ExercicioResponse exercicio = exercicioService.getExercicioById(id, token);
         if (exercicio != null) {
             return new ResponseEntity<>(exercicio, HttpStatus.OK);
         } else {

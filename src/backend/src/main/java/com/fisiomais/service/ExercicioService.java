@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.Spring;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,14 @@ public class ExercicioService {
     private final ExercicioRepository exercicioRepository;
     private final MidiaRepository midiaRepository;
     private final TokenService tokenService;
-    private final FisioterapeutaRepository fisioterapeutaRepository;
     private static final Logger logger = LogManager.getLogger(ExercicioService.class);
 
     public ExercicioService(ExercicioRepository exercicioRepository,
             MidiaRepository midiaRepository,
-            TokenService tokenServices,
-            FisioterapeutaRepository fisioterapeutaRepository) {
+            TokenService tokenServices) {
         this.exercicioRepository = exercicioRepository;
         this.midiaRepository = midiaRepository;
         this.tokenService = tokenServices;
-        this.fisioterapeutaRepository = fisioterapeutaRepository;
     }
 
     public List<Exercicio> findExerciciosByMidia(Midia midia) {
@@ -48,18 +47,34 @@ public class ExercicioService {
         exercicioRepository.save(exercicioToDelete);
     }
 
-    public List<Exercicio> getAllExercicios() {
-        return exercicioRepository.findAll();
+    public List<Exercicio> getAllExercicios(String token) {
+        String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
+        if (loggedUserEmail.equals("fisiomaisclinicas@gmail.com")) {
+            logger.info("Buscando todos os exercícios  para o administrador");
+            return exercicioRepository.findAll();
+        }
+
+        throw new BusinessException("Você não tem permissão para acessar esse recurso");
     }
 
-    public List<ExercicioResponse> getExercicioByFisioterapeuta(Fisioterapeuta fisioterapeuta) {
+    public List<ExercicioResponse> getExercicioByFisioterapeuta(Fisioterapeuta fisioterapeuta, String token) {
+        String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
+        if (!loggedUserEmail.equals(fisioterapeuta.getEmail())
+                || !loggedUserEmail.equals("fisiomaisclinicas@gmail.com")) {
+            throw new BusinessException("Você não tem permissão para acessar esse recurso");
+        }
         return ExercicioResponse
                 .toExercicioResponse(exercicioRepository.findExerciciosByFisioterapeuta(fisioterapeuta));
     }
 
-    public ExercicioResponse getExercicioById(Integer id) {
+    public ExercicioResponse getExercicioById(Integer id, String token) {
+        String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
         Optional<Exercicio> exercicio = exercicioRepository.findById(id);
         if (exercicio.isPresent()) {
+            if (!loggedUserEmail.equals("fisiomaisclinicas@gmail.com")
+                    || !loggedUserEmail.equals(exercicio.get().getFisioterapeuta().getEmail())) {
+                throw new BusinessException("Você não tem permissão para acessar esse recurso");
+            }
             return ExercicioResponse.toExercicioResponse(exercicio.get());
         }
 
@@ -89,7 +104,7 @@ public class ExercicioService {
 
         Exercicio savedExercicio = exercicioRepository.save(exercicio);
 
-        if(savedExercicio == null) {
+        if (savedExercicio == null) {
             throw new BusinessException("Erro ao salvar exercício");
         }
 
