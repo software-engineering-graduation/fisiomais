@@ -33,7 +33,7 @@ const SideMenuItensFisio = [
     //     route: 'fisioterapeuta',
     // },
     {
-        key: 7, 
+        key: 7,
         icon: <MdPeopleOutline />,
         label: 'Acompanhamento',
         route: 'acompanhamento',
@@ -45,10 +45,10 @@ const SideMenuItensFisio = [
     //     route: 'cadastro',
     // },
     {
-        key: 9, 
+        key: 9,
         icon: <MdHealing />,
-        label: 'Criar Tratamento',
-        route: 'tratamento/novo',
+        label: 'Tratamentos',
+        route: 'tratamento',
     }
 ]
 
@@ -59,6 +59,12 @@ export const SideMenuItensPaciente = [
         label: 'Agenda',
         route: 'agenda',
     },
+    {
+        key: 9,
+        icon: <MdHealing />,
+        label: 'Tratamentos',
+        route: 'tratamento',
+    }
 ]
 
 export const SideMenuItensAdmin = [
