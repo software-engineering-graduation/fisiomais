@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentMedia } from '../../store/mediaDetail'
 import { Divider, Result, notification } from 'antd';
 
 import TableHeader from './components/TableHeader';
@@ -39,8 +38,6 @@ const Midias = () => {
     const currentUser = useSelector(state => state.currentUser.value);
     const {token} = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-    // console.log(currentUser.user)
 
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (

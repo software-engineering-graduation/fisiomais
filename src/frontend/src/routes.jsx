@@ -10,7 +10,7 @@ import Historico from "./pages/Historico";
 import Pacientes from "./pages/Pacientes";
 import NewMidia from "./pages/Midias/NewMidia";
 import Cadastro from "./pages/Cadastro";
-import Tratamento from "./pages/Tratamento";
+import NovoTratamento from "./pages/Tratamento/NovoTratamento";
 import CadastroFisioterapeuta from "./pages/Fisioterapeuta";
 import AcompanhamentoVirtual from "pages/Acompanhar";
 import Consulta from "pages/Consulta";
@@ -18,6 +18,8 @@ import DadosConsulta from 'pages/Consulta/DadosConsulta';
 import Login from "pages/Login";
 import FisioterapeutaSignup from './pages/Signup/FisioterapeutaSignup';
 import PacienteSignup from './pages/Signup/PacienteSignup';
+import Tratamento from "pages/Tratamento";
+import TratamentoDetail from "pages/Tratamento/TratamentoDetail";
 
 const Router = () => {
     return (
@@ -31,13 +33,15 @@ const Router = () => {
             <Route component={Historico} path="/historico" />
             <Route component={Pacientes} path="/pacientes" />
             <Route component={Cadastro} path="/cadastro" />
-            <Route component={Tratamento} path="/tratamento" />
+            <Route component={NovoTratamento} path="/tratamento/novo" />
             <Route component={CadastroFisioterapeuta} path="/fisioterapeuta" />
             <Route component={AcompanhamentoVirtual} path="/acompanhamento" />
             <Route component={Consulta} path="/nova-consulta" />
             <Route component={DadosConsulta} path="/nova-consulta/dados" />
             <Route component={FisioterapeutaSignup} path="/signup/fisioterapeuta" />
             <Route component={PacienteSignup} path="/signup/paciente" />
+            <Route component={Tratamento} path='/tratamento' />
+            <Route component={TratamentoDetail} path='/tratamento/:id' />
             <Route component={Login} path='/login' />
         </Routes>
     )

@@ -48,7 +48,7 @@ const SideMenuItensFisio = [
         key: 9, 
         icon: <MdHealing />,
         label: 'Criar Tratamento',
-        route: 'tratamento',
+        route: 'tratamento/novo',
     }
 ]
 
