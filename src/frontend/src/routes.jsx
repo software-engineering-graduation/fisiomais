@@ -20,6 +20,7 @@ import FisioterapeutaSignup from './pages/Signup/FisioterapeutaSignup';
 import PacienteSignup from './pages/Signup/PacienteSignup';
 import Tratamento from "pages/Tratamento";
 import TratamentoDetail from "pages/Tratamento/TratamentoDetail";
+import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
 
 const Router = () => {
     return (
@@ -29,7 +30,7 @@ const Router = () => {
             <Route component={MidiaDetail} path="/midia/:id" />
             <Route component={NewMidia} path="/midia/criar" />
             <Route component={Agenda} path="/agenda" />
-            <Route component={Exercicios} path="/exercicios" />
+            <Route component={Exercicios} path="/exercicio" />
             <Route component={Historico} path="/historico" />
             <Route component={Pacientes} path="/pacientes" />
             <Route component={Cadastro} path="/cadastro" />
@@ -42,6 +43,7 @@ const Router = () => {
             <Route component={PacienteSignup} path="/signup/paciente" />
             <Route component={Tratamento} path='/tratamento' />
             <Route component={TratamentoDetail} path='/tratamento/:id' />
+            <Route component={ExercicioDetail} path='/exercicio/:id' />
             <Route component={Login} path='/login' />
         </Routes>
     )

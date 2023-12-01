@@ -224,7 +224,7 @@ const TratamentoDetail = () => {
                                     </ExercicioCardContainer>
                                 )
                             })}
-                        </ExerciciosCardsContainers>
+                        export </ExerciciosCardsContainers>
                         {currentUserIsOwner() &&
                             <RowContainer>
                                 <EditTratamentoButtonContainer>
@@ -255,7 +255,7 @@ margin-top: 16px;
     }
 `
 
-const TratamentoTitle = styled.h2`
+export const TratamentoTitle = styled.h2`
 width: fit-content;
   font-size: 1.5rem;
   margin: 8px 0;
@@ -272,7 +272,7 @@ const MediaLink = styled.a`
   align-items: center;
 `;
 
-const RowContainer = styled.div`
+export const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -280,14 +280,14 @@ const RowContainer = styled.div`
     gap: 16px;
 `;
 
-const RowShowItem = styled.div`
+export const RowShowItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 `;
 
-const RowLabel = styled.p`
+export const RowLabel = styled.p`
     font-size: 1rem;
     margin-right: 8px;
     display: flex;
@@ -296,7 +296,7 @@ const RowLabel = styled.p`
     font-weight: bold;
 `;
 
-const RowValue = styled.p`
+export const RowValue = styled.p`
     font-size: 1rem;
     margin: 8px 0;
     display: flex;
@@ -304,7 +304,7 @@ const RowValue = styled.p`
     align-items: center;
 `;
 
-const RowDivider = styled.div`
+export const RowDivider = styled.div`
     width: 1px;
     height: 100%;
     background-color: #000;
@@ -338,7 +338,7 @@ const MidiasTitle = styled.h2`
   align-items: center;
 `
 
-const ExerciciosCardsContainers = styled.div`
+export const ExerciciosCardsContainers = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -346,7 +346,7 @@ const ExerciciosCardsContainers = styled.div`
   gap: 16px;
 `
 
-const ExercicioCardContainer = styled.div`
+export const ExercicioCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -357,7 +357,7 @@ const ExercicioCardContainer = styled.div`
   box-shadow: 0 1px 0 #d9d9d9;
 `
 
-const ExercicioCardTitle = styled.h2`
+export const ExercicioCardTitle = styled.h2`
   font-size: 1.5rem;
   margin: 8px 0;
   display: flex;
@@ -365,7 +365,7 @@ const ExercicioCardTitle = styled.h2`
   align-items: center;
 `
 
-const ExercicioMidiasContainer = styled.div`
+export const ExercicioMidiasContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -373,7 +373,7 @@ const ExercicioMidiasContainer = styled.div`
     width: 100%;
     margin: 0 auto;
     `
-const ExercicioMidiasTitle = styled.h2`
+export const ExercicioMidiasTitle = styled.h2`
     font-size: 1.5rem;
     margin: 8px 0;
     display: flex;
@@ -381,7 +381,7 @@ const ExercicioMidiasTitle = styled.h2`
     align-items: center;
     opacity: 0.8;
     `
-const ExercicioMidiasCardsContainers = styled.div`
+export const ExercicioMidiasCardsContainers = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -389,7 +389,7 @@ const ExercicioMidiasCardsContainers = styled.div`
     gap: 16px;
     `
 
-const ExercicioMidiaCardContainer = styled.div`
+export const ExercicioMidiaCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -400,7 +400,7 @@ const ExercicioMidiaCardContainer = styled.div`
     box-shadow: 0 1px 0 #d9d9d9;
     `
 
-const ExercicioMidiaCardTitle = styled.h2`
+export const ExercicioMidiaCardTitle = styled.h2`
     font-size: 1.5rem;
     margin: 8px 0;
     display: flex;
@@ -408,20 +408,20 @@ const ExercicioMidiaCardTitle = styled.h2`
     align-items: center;
     `
 
-const ExercicioMidiaCardImage = styled(Image)`
+export const ExercicioMidiaCardImage = styled(Image)`
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     `
 
-const MediaDescription = styled.p`
+export const MediaDescription = styled.p`
     font-size: 1rem;
     margin: 8px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     `
-const GoBackButtonContainer = styled.div`
+export const GoBackButtonContainer = styled.div`
     margin-top: 16px;
     margin-bottom: 16px;
     .ant-btn-default:hover {
@@ -429,7 +429,7 @@ const GoBackButtonContainer = styled.div`
         border-color: #0BD980 !important;
     }
     `
-const TratamentoHeader = styled.div`
+export const TratamentoHeader = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;

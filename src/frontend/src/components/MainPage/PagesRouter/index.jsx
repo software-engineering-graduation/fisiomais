@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Home from 'pages/Home';
 import Midias from 'pages/Midias';
 import Agenda from 'pages/Agenda';
 import Exercicios from 'pages/Exercicios';
@@ -19,8 +18,9 @@ import Indicadores from 'pages/Indicadores';
 import FisioterapeutaSignup from 'pages/SignUp/FisioterapeutaSignUp';
 import PacienteSignup from 'pages/SignUp/PacienteSignUp';
 import Tratamento from 'pages/Tratamento';
-import TratamentoDetail
- from 'pages/Tratamento/TratamentoDetail';
+import TratamentoDetail from 'pages/Tratamento/TratamentoDetail';
+import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
+
 const PagesRouter = () => {
     return (
         <Routes>
@@ -29,7 +29,7 @@ const PagesRouter = () => {
             <Route path="/midia/:id" element={<MidiaDetail />} />
             <Route path="/midia/criar" element={<NewMidia />} />
             <Route path="/agenda" element={<Agenda />} />
-            <Route path="/exercicios" element={<Exercicios />} />
+            <Route path="/exercicio" element={<Exercicios />} />
             <Route path="/historico" element={<Historico />} />
             <Route path="/pacientes" element={<Pacientes />} />
             <Route path="/cadastro" element={<Cadastro />} />
@@ -43,6 +43,7 @@ const PagesRouter = () => {
             <Route path='/indicadores' element={<Indicadores />} />
             <Route path='/tratamento' element={<Tratamento />} />
             <Route path='/tratamento/:id' element={<TratamentoDetail />} />
+            <Route path='/exercicio/:id' element={<ExercicioDetail />} />
             <Route path='/login' element={<Login />} />
         </Routes>
     );

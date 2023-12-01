@@ -23,7 +23,6 @@ const SideBar = ({ collapsed }) => {
     let menu = currentUser.user?.role === 'fisioterapeuta' ?
         SideMenuItensFisio : currentUser.user?.role === 'paciente' ?
         SideMenuItensPaciente : currentUser.user?.role === 'admin' ?
-        // all menu itens
         SideMenuItensAdmin.concat(SideMenuItensFisio, SideMenuItensPaciente).filter((item, index, self) =>
             index === self.findIndex((t) => (
                 t.key === item.key
