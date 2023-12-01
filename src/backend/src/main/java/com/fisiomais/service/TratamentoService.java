@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fisiomais.bodys.FisioterapeutaResponse;
-import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.exception.NotFoundException;
 import com.fisiomais.exception.ServerException;

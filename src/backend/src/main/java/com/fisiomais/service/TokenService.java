@@ -43,6 +43,6 @@ public class TokenService {
 
     public Boolean isAdmin(String token) {
         String subject = this.getSubject(getTokenFromBearer(token)); 
-        return subject.equals("admin");
+        return subject.equals("fisiomaisclinicas@gmail.com");
     }
 }

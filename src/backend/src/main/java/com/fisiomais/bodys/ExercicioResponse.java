@@ -23,18 +23,4 @@ public record ExercicioResponse(
                 exercicio.getDescricao(),
                 MidiaTratamentoResponse.toResponse(exercicio.getMidias()));
     }
-
-    public static List<ExercicioResponse> toExercicioResponseTratamento(List<Exercicio> exercicios) {
-        return exercicios.stream()
-                .map(exercicio -> ExercicioResponse.toExercicioResponseTratamento(exercicio))
-                .toList();
-    }
-
-    public static ExercicioResponse toExercicioResponseTratamento(Exercicio exercicio) {
-        return new ExercicioResponse(
-                exercicio.getId(),
-                exercicio.getNome(),
-                exercicio.getDescricao(),
-                MidiaTratamentoResponse.toResponse(exercicio.getMidias()));
-    }
 }

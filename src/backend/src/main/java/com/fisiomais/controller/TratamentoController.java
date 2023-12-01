@@ -62,13 +62,14 @@ public class TratamentoController {
     @GetMapping
     public ResponseEntity<List<TratamentoResponse>> findAll() {
         List<Tratamento> obj = this.tratamentoService.findAll();
+        logger.info("Tratamentos: {}", obj);
         return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
     }
 
     @GetMapping("/paciente/{id}")
-    public ResponseEntity<List<Tratamento>> findByPacienteId(@PathVariable Integer id) {
+    public ResponseEntity<List<TratamentoResponse>> findByPacienteId(@PathVariable Integer id) {
         List<Tratamento> obj = this.tratamentoService.findByPacienteId(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
     }
 
     @GetMapping("/fisioterapeuta/{id}")
@@ -95,12 +96,15 @@ public class TratamentoController {
             @RequestHeader(name = "Authorization") String token) throws NoPermissionException {
         Tratamento obj = this.tratamentoService.findById(id);
         if (this.tokenService.sameUserEmail(obj.getFisioterapeuta().getEmail(), token).booleanValue()) {
+            logger.info("Getting tratamento to fisioterapeuta: {}", obj.getFisioterapeuta().getEmail());
             return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
         }
         if (this.tokenService.sameUserEmail(obj.getPaciente().getEmail(), token).booleanValue()) {
+            logger.info("Getting tratamento to paciente: {}", obj.getPaciente().getEmail());
             return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
         }
         if (this.tokenService.isAdmin(token).booleanValue()) {
+            logger.info("Getting tratamento to admin: {}", obj.getFisioterapeuta().getEmail());
             return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
         }
 

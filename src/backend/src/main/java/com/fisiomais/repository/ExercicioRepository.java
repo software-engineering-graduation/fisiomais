@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.fisiomais.model.Exercicio;
+import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.Midia;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
 
@@ -23,4 +24,6 @@ public interface ExercicioRepository extends JpaRepository<Exercicio, Integer> {
             + "FROM Exercicio e "
             + "LEFT JOIN ExercicioHasMidias em ON em.midia.id = e.id")
     List<MidiaUtilizationMetrics> getTaxaUtilizacao();
+
+    List<Exercicio> findExerciciosByFisioterapeuta(Fisioterapeuta fisioterapeuta);
 }

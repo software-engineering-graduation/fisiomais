@@ -131,18 +131,8 @@ public class FisioterapeutaService {
         List<Fisioterapeuta> fisioterapeutas = fisioterapeutaRepository.findAll();
         List<FisioterapeutaNamesAndIdsResponse> fisioterapeutasNamesIds = new ArrayList<>();
         for (Fisioterapeuta fisioterapeuta : fisioterapeutas) {
-            // Decode Titulo and Descricao from UTF-8
-            String nome = null;
-
-            try {
-                nome = new String(fisioterapeuta.getNome().getBytes(StandardCharsets.ISO_8859_1),
-                        StandardCharsets.UTF_8);
-            } catch (Exception e) {
-                throw new RuntimeException("Error decoding string. Please provide a valid string format.");
-            }
-
             fisioterapeutasNamesIds
-                    .add(new FisioterapeutaNamesAndIdsResponse(nome, fisioterapeuta.getId()));
+                    .add(new FisioterapeutaNamesAndIdsResponse(fisioterapeuta.getNome(), fisioterapeuta.getId()));
         }
         return fisioterapeutasNamesIds;
     }

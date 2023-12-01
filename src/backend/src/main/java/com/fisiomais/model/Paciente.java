@@ -39,7 +39,7 @@ public class Paciente extends User{
     private Genero genero;
 
     @OneToMany(mappedBy = "paciente")
-    private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
+    private List<Tratamento> tratamentos = new ArrayList<>();
 
     @Override
     @JsonIgnore
