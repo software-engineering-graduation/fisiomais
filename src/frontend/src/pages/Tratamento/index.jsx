@@ -53,10 +53,12 @@ const Tratamento = () => {
 
   const orderedData = (data) => {
     return data.sort((a, b) => {
-      if (a.endDate > b.endDate) {
+      const aEndDate = new Date(a.endDate);
+      const bEndDate = new Date(b.endDate);
+      if (aEndDate < bEndDate) {
         return -1;
       }
-      if (a.endDate < b.endDate) {
+      if (aEndDate > bEndDate) {
         return 1;
       }
       return 0;
@@ -66,13 +68,16 @@ const Tratamento = () => {
 
   const fetchTratamentos = async () => {
     setLoadingTratamentos(true);
-    let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/`
+    let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento`
 
     if (userRole === 'paciente') {
-      apiRoute += `paciente/${currentUser.user.id}`;
+      apiRoute += `/paciente/${currentUser.user.id}`;
     }
-    else if(userRole === 'fisioterapeuta') {
-      apiRoute += `fisioterapeuta/${currentUser.user.id}`;
+    else if (userRole === 'fisioterapeuta') {
+      apiRoute += `/fisioterapeuta/${currentUser.user.id}`;
+    }
+
+    if (userRole === 'admin' || userRole === 'fisioterapeuta') {
       if (selectedPaciente) {
         apiRoute += `/paciente/${selectedPaciente}`;
       }
@@ -143,6 +148,7 @@ const Tratamento = () => {
       <TableHeader
         pacientes={pacientes}
         onChange={(pacienteId) => setSelectedPaciente(pacienteId)}
+        isPaciente={userRole === 'paciente'}
       />
       <Divider />
       <TratamentosTable

@@ -32,7 +32,7 @@ const HeadContainer = styled.div`
     }
 `
 
-const TableHeader = ({ pacientes, onChange }) => {
+const TableHeader = ({ pacientes, onChange, isPaciente = false }) => {
     const [selectedPaciente, setSelectedPaciente] = useState('');
 
     const debounce = (func, delay) => {
@@ -73,28 +73,29 @@ const TableHeader = ({ pacientes, onChange }) => {
         <HeadContainer>
             <h1>Tratamentos</h1>
 
-            <ButtonsContainer>
-                <ButtonContainer>
-                    <LabelSelect>Filtrar por paciente:</LabelSelect>
-                    <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        allowClear={true}
-                        optionFilterProp="children"
-                        onChange={handlePacienteChange}
-                        filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                        value={selectedPaciente}
-                    >
-                        {orderPacientes(pacientes).map((paciente) => (
-                            <Option key={paciente.id} value={paciente.id}>
-                                {paciente.nome}
-                            </Option>
-                        ))}
-                    </Select>
-                </ButtonContainer>
-            </ButtonsContainer>
+            {!isPaciente && (
+                <ButtonsContainer>
+                    <ButtonContainer>
+                        <LabelSelect>Filtrar por paciente:</LabelSelect>
+                        <Select
+                            showSearch
+                            style={{ width: 200 }}
+                            allowClear={true}
+                            optionFilterProp="children"
+                            onChange={handlePacienteChange}
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            value={selectedPaciente}
+                        >
+                            {orderPacientes(pacientes).map((paciente) => (
+                                <Option key={paciente.id} value={paciente.id}>
+                                    {paciente.nome}
+                                </Option>
+                            ))}
+                        </Select>
+                    </ButtonContainer>
+                </ButtonsContainer>)}
         </HeadContainer>
     );
 }
