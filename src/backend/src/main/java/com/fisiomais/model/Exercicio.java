@@ -14,7 +14,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "exercicio")
 public class Exercicio {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
@@ -45,4 +44,7 @@ public class Exercicio {
                     @JoinColumn(name = "midia_fisioterapeuta__id", referencedColumnName = "fisioterapeuta__id")}
     )
     private List<Midia> midias;
+
+    @Column(name = "public", nullable = false)
+    private Boolean isPublic;
 }

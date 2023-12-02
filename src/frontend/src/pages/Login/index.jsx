@@ -1,4 +1,3 @@
-import { Content } from 'antd/es/layout/layout';
 import React from 'react';
 import LoginForm from './LoginForm';
 import styled from 'styled-components';

@@ -14,30 +14,6 @@ const loadingRowsMock = () => {
     return rows;
 }
 
-const getMidias = (midias, loading) => {
-    if (loading) {
-        return loadingRowsMock;
-    }
-    return midias;
-}
-
-const getShortMidias = (midias, loading) => {
-    if (loading) {
-        return loadingRowsMock;
-    }
-    return midias.map(midia => {
-        const { id, titulo, descricao, type, createTime } = midia;
-        return {
-            key: id,
-            id,
-            titulo,
-            descricao,
-            type,
-            createTime
-        }
-    });
-}
-
 const MidiasTable = ({ deleteMidias, handleRowSelection, getPageSizeBasedOnScreenSize, shortMidias, columns, loadingMidias: loading }) => {
     return (
         <Spin spinning={loading} >

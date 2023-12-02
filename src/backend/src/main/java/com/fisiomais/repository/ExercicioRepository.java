@@ -26,4 +26,6 @@ public interface ExercicioRepository extends JpaRepository<Exercicio, Integer> {
     List<MidiaUtilizationMetrics> getTaxaUtilizacao();
 
     List<Exercicio> findExerciciosByFisioterapeuta(Fisioterapeuta fisioterapeuta);
+
+    List<Exercicio> findAllByIsPublicTrue();
 }

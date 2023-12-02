@@ -11,7 +11,8 @@ public record MidiaTratamentoResponse(
         String descricao,
         String linkArquivo,
         TipoArquivo type,
-        Integer fisioterapeutaId) {
+        Integer fisioterapeutaId,
+        Boolean isPublic) {
 
     static public List<MidiaTratamentoResponse> toResponse(List<Midia> midias) {
         return midias.stream()
@@ -26,6 +27,7 @@ public record MidiaTratamentoResponse(
                 midia.getDescricao(),
                 midia.getLinkArquivo(),
                 midia.getType(),
-                midia.getFisioterapeuta().getId());
+                midia.getFisioterapeuta().getId(),
+                midia.getIsPublic());
     }
 }

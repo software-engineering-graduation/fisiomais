@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Home from "./pages/Home/index";
 import Midias from "./pages/Midias/index";
 import MidiaDetail from "./pages/Midias/MidiaDetail";
 import Agenda from "./pages/Agenda";
@@ -21,6 +20,7 @@ import PacienteSignup from './pages/Signup/PacienteSignup';
 import Tratamento from "pages/Tratamento";
 import TratamentoDetail from "pages/Tratamento/TratamentoDetail";
 import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
+import NewExercicio from "pages/Exercicios/NewExercicio";
 
 const Router = () => {
     return (
@@ -44,6 +44,7 @@ const Router = () => {
             <Route component={Tratamento} path='/tratamento' />
             <Route component={TratamentoDetail} path='/tratamento/:id' />
             <Route component={ExercicioDetail} path='/exercicio/:id' />
+            <Route component={NewExercicio} path='/exercicio/criar' />
             <Route component={Login} path='/login' />
         </Routes>
     )
