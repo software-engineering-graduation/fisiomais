@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 
 // icons
 import { MdAdd, MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { FaCheck } from 'react-icons/fa';
+
+const { Option } = Select;
 
 // flex horizontal container for buttons
 const ButtonsContainer = styled.div`
@@ -54,12 +56,24 @@ const HeadContainer = styled.div`
     }
 `
 
-const TableHeader = ({ deleteMidias, activateDeleteMidias, cancelDeletion, handleMediaDeletion }) => {
+const TableHeader = ({ deleteMidias, activateDeleteMidias, cancelDeletion, handleMediaDeletion, publicSelection = null, onChangePublicSelection = null }) => {
     const navigate = useNavigate();
-    
+
     return (
         <HeadContainer>
-            <h1>Exercícios</h1>
+            <TitleAndFilterContainer>
+                <h1>Exercícios</h1>
+                {publicSelection &&
+                    <Select
+                        defaultValue={'privados'}
+                        style={{ width: 120 }}
+                        onChange={onChangePublicSelection}
+                    >
+                        <Option value={'privados'}>Privados</Option>
+                        <Option value={'publicos'}>Públicos</Option>
+                        <Option value={'todos'}>Todos</Option>
+                    </Select>}
+            </TitleAndFilterContainer>
 
             <ButtonsContainer>
                 {!deleteMidias && (
@@ -68,7 +82,7 @@ const TableHeader = ({ deleteMidias, activateDeleteMidias, cancelDeletion, handl
                             <Button
                                 size="large"
                                 icon={<MdAdd />}
-                                onClick={() => navigate('/midia/criar')}
+                                onClick={() => navigate('/exercicio/criar')}
                             >
                                 Criar Exercício
                             </Button>
@@ -114,3 +128,15 @@ const TableHeader = ({ deleteMidias, activateDeleteMidias, cancelDeletion, handl
 }
 
 export default TableHeader;
+
+const TitleAndFilterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+
+    h1 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+`

@@ -33,6 +33,7 @@ const HeadContainer = styled.div`
 `
 
 const TableHeader = ({ pacientes, onChange, isPaciente = false }) => {
+    const navigate = useNavigate();
     const [selectedPaciente, setSelectedPaciente] = useState('');
 
     const debounce = (func, delay) => {
@@ -76,24 +77,38 @@ const TableHeader = ({ pacientes, onChange, isPaciente = false }) => {
             {!isPaciente && (
                 <ButtonsContainer>
                     <ButtonContainer>
-                        <LabelSelect>Filtrar por paciente:</LabelSelect>
-                        <Select
-                            showSearch
-                            style={{ width: 200 }}
-                            allowClear={true}
-                            optionFilterProp="children"
-                            onChange={handlePacienteChange}
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            value={selectedPaciente}
-                        >
-                            {orderPacientes(pacientes).map((paciente) => (
-                                <Option key={paciente.id} value={paciente.id}>
-                                    {paciente.nome}
-                                </Option>
-                            ))}
-                        </Select>
+                        <CreateTratamentoButtonContainer>
+                            <Button
+                                size="large"
+                                icon={<MdAdd />}
+                                onClick={() => navigate('/tratamento/novo')}
+                            >
+                                Criar Tratamento
+                            </Button>
+                        </CreateTratamentoButtonContainer>
+                    </ButtonContainer>
+                    <ButtonContainer>
+
+                        <SearchFilterContainer>
+                            <LabelSelect>Filtrar por paciente:</LabelSelect>
+                            <Select
+                                showSearch
+                                style={{ width: 200 }}
+                                allowClear={true}
+                                optionFilterProp="children"
+                                onChange={handlePacienteChange}
+                                filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                                value={selectedPaciente}
+                            >
+                                {orderPacientes(pacientes).map((paciente) => (
+                                    <Option key={paciente.id} value={paciente.id}>
+                                        {paciente.nome}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </SearchFilterContainer>
                     </ButtonContainer>
                 </ButtonsContainer>)}
         </HeadContainer>
@@ -106,4 +121,17 @@ const LabelSelect = styled.label`
     font-size: 14px;
     font-weight: 600;
     margin-right: 10px;
+`
+
+const SearchFilterContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`
+
+const CreateTratamentoButtonContainer = styled.div`
+    .ant-btn-default:hover {
+        color: #0BD980 !important;
+        border-color: #0BD980 !important;
+    }
 `

@@ -29,14 +29,14 @@ const columns = [
 const SELECTED = true
 
 const Midias = () => {
-    
+
     const [shortMidias, setShortMidias] = useState([]);
     const [deletionStack, setDeletionStack] = useState([]);
     const [deleteMidias, setDeleteMidias] = useState(false);
     const [loadingMidias, setLoadingMidias] = useState(true);
     const [loadingDeletion, setLoadingDeletion] = useState(false);
     const currentUser = useSelector(state => state.currentUser.value);
-    const {token} = currentUser;
+    const { token } = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     if (currentUser.user.role !== 'fisioterapeuta') {
@@ -110,12 +110,22 @@ const Midias = () => {
         return finalError;
     }
 
-    const fetchMidias = async () => {
+    const fetchMidias = async (type = 'privados') => {        
         setLoadingMidias(true);
-        const apiRoute = process.env.API_TYPE === 'json' ?
-            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia?fisioterapeuta_id=${currentUser.user.id}` :
-            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.user.id}`;
+        let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`
 
+        if (type === 'privados') {
+            if (currentUser.user.role === 'fisioterapeuta') {
+                apiRoute += `/owner/${currentUser.user.id}`;
+            }
+        }
+        else if (type === 'publicos') {
+            apiRoute += `/public`;
+        }
+        else if (type === 'todos') {
+            apiRoute += `/available`;
+        }
+        
         await axios.get(apiRoute).
             then(response => {
                 const data = response.data.map(midia => {
@@ -211,6 +221,20 @@ const Midias = () => {
         setDeletionStack([]);
     }
 
+    const handlePublicSelection = (value) => {
+        switch (value) {
+            case 'todos':
+                fetchMidias('todos');
+                break;
+            case 'publicos':
+                fetchMidias('publicos');
+                break;
+            default:
+                fetchMidias();
+                break;
+        }
+    }
+
     const handleRowSelection = (id, event) => {
         if (event === SELECTED) {
             if (!deletionStack.includes(id)) {
@@ -239,6 +263,8 @@ const Midias = () => {
                 activateDeleteMidias={activateDeleteMidias}
                 cancelDeletion={cancelDeletion}
                 handleMediaDeletion={handleMediaDeletion}
+                publicSelection={true}
+                onChangePublicSelection={handlePublicSelection}
             />
             <Divider />
 

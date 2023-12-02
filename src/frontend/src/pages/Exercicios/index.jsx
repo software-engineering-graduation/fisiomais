@@ -112,12 +112,21 @@ const Exercicios = () => {
         return finalError;
     }
 
-    const fetchMidias = async () => {
+    const fetchMidias = async (type = 'privados') => {        
         setLoadingMidias(true);
         let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/exercicio`
-        if(currentUser.user.role === 'fisioterapeuta') {
-            apiRoute += `/owner/${currentUser.user.id}`;
-        }            
+
+        if (type === 'privados') {
+            if (currentUser.user.role === 'fisioterapeuta') {
+                apiRoute += `/owner/${currentUser.user.id}`;
+            }
+        }
+        else if (type === 'publicos') {
+            apiRoute += `/public`;
+        }
+        else if (type === 'todos') {
+            apiRoute += `/available`;
+        }
 
         await axios.get(apiRoute).
             then(response => {
@@ -228,10 +237,25 @@ const Exercicios = () => {
         }
     }
 
+    const handlePublicSelection = (value) => {
+        switch (value) {
+            case 'todos':
+                fetchMidias('todos');
+                break;
+            case 'publicos':
+                fetchMidias('publicos');
+                break;
+            default:
+                fetchMidias();
+                break;
+        }
+    }
+
     const cancelDeletion = () => {
         setDeleteMidias(false);
         setDeletionStack([]);
     }
+
     return (
         <div>
             {contextHolder}
@@ -240,6 +264,8 @@ const Exercicios = () => {
                 activateDeleteMidias={activateDeleteMidias}
                 cancelDeletion={cancelDeletion}
                 handleMediaDeletion={handleMediaDeletion}
+                publicSelection={true}
+                onChangePublicSelection={handlePublicSelection}
             />
             <Divider />
 

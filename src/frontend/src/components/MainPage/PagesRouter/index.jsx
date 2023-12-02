@@ -20,6 +20,7 @@ import PacienteSignup from 'pages/SignUp/PacienteSignUp';
 import Tratamento from 'pages/Tratamento';
 import TratamentoDetail from 'pages/Tratamento/TratamentoDetail';
 import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
+import NewExercicio from 'pages/Exercicios/NewExercicio';
 
 const PagesRouter = () => {
     return (
@@ -44,6 +45,7 @@ const PagesRouter = () => {
             <Route path='/tratamento' element={<Tratamento />} />
             <Route path='/tratamento/:id' element={<TratamentoDetail />} />
             <Route path='/exercicio/:id' element={<ExercicioDetail />} />
+            <Route path='/exercicio/criar' element={<NewExercicio />} />
             <Route path='/login' element={<Login />} />
         </Routes>
     );

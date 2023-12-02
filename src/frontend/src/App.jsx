@@ -52,6 +52,10 @@ const App = () => {
         token: { colorBgContainer },
     } = theme.useToken();
 
+    useEffect(() => {
+        document.title = 'Fisio+';
+    }, []);
+
     const noUser = () =>
         currentUser === null ||
         currentUser === undefined ||
