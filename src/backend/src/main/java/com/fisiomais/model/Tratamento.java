@@ -13,43 +13,44 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "tratamento")
 public class Tratamento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "_id")
-    private Integer id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "_id")
+        private Integer id;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time", updatable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
-    private Date createTime;
+        @CreationTimestamp
+        @Temporal(TemporalType.TIMESTAMP)
+        @Column(name = "create_time", updatable = false)
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
+        private Date createTime;
 
-    @ManyToOne
-    @JoinColumn(name = "fisioterapeuta__id", referencedColumnName = "_id")
-    private Fisioterapeuta fisioterapeuta;
+        @ManyToOne
+        @JoinColumn(name = "fisioterapeuta__id", referencedColumnName = "_id")
+        private Fisioterapeuta fisioterapeuta;
 
-    @ManyToOne
-    @JoinColumn(name = "paciente__id", referencedColumnName = "_id")
-    private Paciente paciente;
+        @ManyToOne
+        @JoinColumn(name = "paciente__id", referencedColumnName = "_id")
+        private Paciente paciente;
 
-    @Column(name = "titulo", nullable = false)
-    private String titulo;
+        @Column(name = "titulo", nullable = false)
+        private String titulo;
 
-    @Column(name = "observacoes")
-    private String observacoes;
+        @Column(name = "observacoes")
+        private String observacoes;
 
-    @Column(name = "end_date")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date endDate;
+        @Column(name = "end_date")
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        private Date endDate;
 
-    @Lob
-    @Column(name = "feedback")
-    private String feedback;
+        @Lob
+        @Column(name = "feedback")
+        private String feedback;
 
-    @ManyToMany
-    @JoinTable(name = "tratamento_has_exercicios", joinColumns = {
-            @JoinColumn(name = "tratamento__id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "exercicio__id")
-            })
-    private List<Exercicio> exercicios;
+        @ManyToMany(cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+        @JoinTable(name = "tratamento_has_exercicios", joinColumns = {
+                        @JoinColumn(name = "tratamento__id") }, inverseJoinColumns = {
+                                        @JoinColumn(name = "exercicio__id")
+                        })
+
+        private List<Exercicio> exercicios;
 }

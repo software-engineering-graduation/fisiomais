@@ -18,8 +18,8 @@ public class MidiaDTO implements Serializable{
     private Integer fisioterapeutaId;
     private Date createTime;
     private TipoArquivo type;
-    private byte[] arquivo;
     private String linkArquivo;
     private String titulo;
     private String descricao;
+    private Boolean isPublic;
 }

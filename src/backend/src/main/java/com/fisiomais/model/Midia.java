@@ -33,9 +33,6 @@ public class Midia {
     @Enumerated(EnumType.STRING)
     private TipoArquivo type;
 
-    @Lob
-    private byte[] arquivo;
-
     @Column(name = "link_arquivo", length = 1000)
     private String linkArquivo;
 
@@ -44,4 +41,7 @@ public class Midia {
 
     @Column(nullable = false, length = 1000)
     private String descricao;
+
+    @Column(name = "public", nullable = false)
+    private Boolean isPublic;
 }

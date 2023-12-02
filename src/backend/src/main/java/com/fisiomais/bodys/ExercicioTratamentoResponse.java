@@ -8,7 +8,8 @@ public record ExercicioTratamentoResponse(
         Integer id,
         String nome,
         String descricao,
-        List<MidiaTratamentoResponse> midias) {
+        List<MidiaTratamentoResponse> midias,
+        Boolean isPublic) {
 
     public static List<ExercicioTratamentoResponse> toExercicioResponse(List<Exercicio> exercicios) {
         return exercicios.stream()
@@ -21,7 +22,8 @@ public record ExercicioTratamentoResponse(
                 exercicio.getId(),
                 exercicio.getNome(),
                 exercicio.getDescricao(),
-                MidiaTratamentoResponse.toResponse(exercicio.getMidias()));
+                MidiaTratamentoResponse.toResponse(exercicio.getMidias()),
+                exercicio.getIsPublic());
     }
 
     public static List<ExercicioTratamentoResponse> toExercicioResponseTratamento(List<Exercicio> exercicios) {
@@ -35,6 +37,7 @@ public record ExercicioTratamentoResponse(
                 exercicio.getId(),
                 exercicio.getNome(),
                 exercicio.getDescricao(),
-                MidiaTratamentoResponse.toResponse(exercicio.getMidias()));
+                MidiaTratamentoResponse.toResponse(exercicio.getMidias()),
+                exercicio.getIsPublic());
     }
 }

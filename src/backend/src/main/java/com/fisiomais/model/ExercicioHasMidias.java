@@ -25,7 +25,7 @@ class ExercicioHasMidiasKey implements Serializable {
 @Table(name = "exercicio_has_midias")
 public class ExercicioHasMidias {
     @EmbeddedId
-    private ExercicioHasMidiasKey id;
+    private TratamentoHasExerciciosKey id;
 
     @ManyToOne
     @MapsId("midiaId")

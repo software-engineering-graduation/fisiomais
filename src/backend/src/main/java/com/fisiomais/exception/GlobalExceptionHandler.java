@@ -31,8 +31,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({
-        NotFoundException.class,
-        NoSuchElementException.class
+            NotFoundException.class,
+            NoSuchElementException.class
     })
     public ResponseEntity<Object> handleNoContentException(NotFoundException ex, WebRequest request) {
         String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
@@ -98,9 +98,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception ex) {
+    public ResponseEntity<Object> handleException(Exception ex, WebRequest request) {
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", new Date());
+        response.put("path", requestUri);
         response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("error", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         response.put("message", ex.getMessage());

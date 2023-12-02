@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.fisiomais.model.Exercicio;
 import com.fisiomais.model.Tratamento;
 
 @Repository
@@ -25,4 +26,6 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Integer>
     Optional<Tratamento> findById(Integer id);
 
     Optional<List<Tratamento>> findByFisioterapeutaIdAndPacienteId(Integer id, Integer idPaciente);
+
+    void deleteTratamentoHasExerciciosByExercicios(Exercicio exercicio);
 }
