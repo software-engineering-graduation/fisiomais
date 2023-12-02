@@ -58,19 +58,13 @@ public class MidiaService {
     }
 
     public MidiaDTO createMidia(MidiaDTO midiaDTO) {
-        // Convert PacienteDTO to Paciente entity, if necessary
-        // For simplicity, we assume the DTO structure is identical to the entity
         Midia midia = toEntity(midiaDTO);
 
-        // check if arquivo or linkArquivo is different from null
         if (midia.getLinkArquivo() == null) {
             throw new BusinessException("Link do arquivo não pode ser nulo");
         }
 
-        // Save the Paciente entity to the database
         Midia savedMidia = midiaRepository.save(midia);
-
-        // Convert the saved Paciente entity back to PacienteDTO
         return toDTO(savedMidia);
     }
 
@@ -169,6 +163,7 @@ public class MidiaService {
         midia.setCreateTime(midiaDTO.getCreateTime());
         midia.setType(midiaDTO.getType());
         midia.setLinkArquivo(midiaDTO.getLinkArquivo());
+        midia.setIsPublic(midiaDTO.getIsPublic());
 
         // Encode Titulo and Descricao to ISO-8859-1
         String titulo = null;
