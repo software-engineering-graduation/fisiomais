@@ -27,6 +27,7 @@ const SubmitMidiaButtonContainer = styled.div`
 `
 
 const NewExercicio = () => {
+    const [statusMidias, setStatusMidias] = useState('idle'); // idle | loading | error | success
     const [loadCreateMidia, setLoadCreateMidia] = useState(false);
     const [midias, setMidias] = useState(undefined);
     const [form] = Form.useForm();
@@ -46,21 +47,41 @@ const NewExercicio = () => {
         )
     }
 
-    useEffect(() => {
-        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.user.id}`;
+    const isMidiasLoading = statusMidias === 'loading';
+    const isMidiasError = statusMidias === 'error';
+    const isMidiasSuccess = statusMidias === 'success';
+
+    const fetchMidias = async (isPublic = false) => {
+        setStatusMidias('loading');
+        let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`;
+        if (isPublic) {
+            apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/public`;
+        }else{
+            apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia/owner/${currentUser.user.id}`;
+        }
 
         axios.get(apiRoute)
             .then(response => {
                 if (response.status !== 200) {
+                    setStatusMidias('error');
                     openNotification('error', 'Erro ao buscar mídias!', response.message);
                     setMidias(undefined);
                     return
                 }
+                setStatusMidias('success');
                 setMidias(response.data);
             }
             ).catch(error => {
+                setStatusMidias('error');
                 openNotification('error', 'Erro ao buscar mídias!', error.message);
+            }).
+            finally(() => {
+                setStatusMidias('idle');
             });
+    }
+
+    useEffect(() => {
+        fetchMidias();
     }, []);
 
 
@@ -84,8 +105,9 @@ const NewExercicio = () => {
         const newMidiaOfficial = {
             nome: newMidia.nome,
             descricao: newMidia.descricao,
-            midias: newMidia.midias,
-            owner: currentUser.user.id
+            midias: newMidia.midias ?? [],
+            owner: currentUser.user.id,
+            isPublico: newMidia.publico === true,
         }
 
         const body = newMidiaOfficial;
@@ -122,9 +144,12 @@ const NewExercicio = () => {
         input.focus();
     }
 
-    const handleMidiaSelection = () => {
-        // show values
-        console.log(form.getFieldValue('midias'));
+    const handleFetchMidias = (isPublic) => {
+        if (isPublic) {
+            fetchMidias(true);
+            return
+        }
+        fetchMidias();
     }
 
 
@@ -145,13 +170,17 @@ const NewExercicio = () => {
                     <Input size='large' maxLength={150} placeholder='Nome do Exercício' />
                 </Form.Item>
 
+                <CheckPublicExercise label="Público" name="publico" valuePropName="checked" initialValue={false}>
+                    <Input type="checkbox" onChange={(val) => handleFetchMidias(val.currentTarget.checked)} />
+                </CheckPublicExercise>
+
                 <Form.Item label="Descrição" name="descricao" rules={[{ required: true, message: 'Por favor, digite uma descrição' }]}>
                     <Input.TextArea rows={10} placeholder="Tamanho máximo de 1000 caracteres" maxLength={1000} />
                 </Form.Item>
 
                 <Divider />
 
-                <Form.Item label="Midias" name="midias" >
+                <Form.Item label="Midias" name="midias" loading={isMidiasLoading} disabled={!isMidiasError || isMidiasLoading}>
                     <Select mode="multiple" placeholder="Selecione midias" disabled={midias === undefined}>
                         {
                             midias !== undefined && midias.map(midia => {
@@ -213,4 +242,17 @@ const OptionSpace = styled(Space)`
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #d9d9d9;
+`;
+
+const CheckPublicExercise = styled(Form.Item)`
+    .ant-form-item-label {
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        width: 250px;
+    }
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
 `;
