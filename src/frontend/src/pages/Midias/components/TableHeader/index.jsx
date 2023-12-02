@@ -69,7 +69,7 @@ const TableHeader = ({ deleteMidias, activateDeleteMidias, cancelDeletion, handl
                         style={{ width: 120 }}
                         onChange={onChangePublicSelection}
                     >
-                        <Option value={'privados'}>Privados</Option>
+                        <Option value={'privados'}>Meus</Option>
                         <Option value={'publicos'}>Públicos</Option>
                         <Option value={'todos'}>Todos</Option>
                     </Select>}
