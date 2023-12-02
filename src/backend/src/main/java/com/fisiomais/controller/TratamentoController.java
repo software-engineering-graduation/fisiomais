@@ -19,6 +19,7 @@ import com.fisiomais.bodys.TratamentoResponse;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Tratamento;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
+import com.fisiomais.model.indicators.TaxaTratamentoFisioterapeutaMetrics;
 import com.fisiomais.service.TokenService;
 import com.fisiomais.service.TratamentoService;
 import com.fisiomais.util.TratamentoUtil;
@@ -131,6 +132,19 @@ public class TratamentoController {
             return new ResponseEntity<>(taxaUtilizacao.get(0), HttpStatus.OK);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @GetMapping("/taxa-criacao-fisioterapeutas")
+    @Operation(summary = "Obter taxa de criação de tratamentos por fisioterapeuta", description = "Obter a taxa de criação de tratamentos realizados por cada fisioterapeuta.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TaxaTratamentoFisioterapeutaMetrics.class)))
+    public ResponseEntity<List<TaxaTratamentoFisioterapeutaMetrics>> getTaxaCriacaoTratamentosPorFisioterapeuta() {
+        try {
+            List<TaxaTratamentoFisioterapeutaMetrics> taxaCriacao = tratamentoService.getTaxaCriacaoTratamentosPorFisioterapeuta();
+            return new ResponseEntity<>(taxaCriacao, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Erro ao obter taxa de criação de tratamentos por fisioterapeuta: {}", e.getMessage());
+            throw new BusinessException("Erro ao obter taxa de criação de tratamentos por fisioterapeuta");
         }
     }
 }

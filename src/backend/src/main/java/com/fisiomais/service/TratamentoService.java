@@ -11,6 +11,7 @@ import com.fisiomais.exception.NotFoundException;
 import com.fisiomais.exception.ServerException;
 import com.fisiomais.model.Tratamento;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
+import com.fisiomais.model.indicators.TaxaTratamentoFisioterapeutaMetrics;
 import com.fisiomais.repository.ExercicioRepository;
 import com.fisiomais.repository.TratamentoRepository;
 
@@ -87,5 +88,9 @@ public class TratamentoService {
         return tratamentos
                 .orElseThrow(() -> new NotFoundException(
                         "Não foi possível encontrar tratamentos."));
+    }
+
+    public List<TaxaTratamentoFisioterapeutaMetrics> getTaxaCriacaoTratamentosPorFisioterapeuta() {
+        return tratamentoRepository.findTaxaCriacaoTratamentosPorFisioterapeuta();
     }
 }
