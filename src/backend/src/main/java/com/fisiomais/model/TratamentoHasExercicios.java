@@ -22,7 +22,7 @@ class TratamentoHasExerciciosKey implements Serializable {
 @Table(name = "tratamento_has_exercicios")
 public class TratamentoHasExercicios {
     @EmbeddedId
-    private ExercicioHasMidiasKey id;
+    private TratamentoHasExerciciosKey id;
 
     @ManyToOne
     @MapsId("tratamendoId")

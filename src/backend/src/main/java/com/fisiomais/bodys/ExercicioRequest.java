@@ -10,7 +10,8 @@ public record ExercicioRequest(
                 String nome,
                 String descricao,
                 List<Integer> midias,
-                Integer owner) {
+                Integer owner,
+                Boolean isPublico) {
 
         public static Exercicio toEntity(ExercicioRequest exercicioDTO, Fisioterapeuta fisioterapeuta,
                         List<Midia> midias2) {
@@ -19,6 +20,7 @@ public record ExercicioRequest(
                 exercicio.setDescricao(exercicioDTO.descricao());
                 exercicio.setFisioterapeuta(fisioterapeuta);
                 exercicio.setMidias(midias2);
+                exercicio.setIsPublic(exercicioDTO.isPublico());
                 return exercicio;
         }
 }

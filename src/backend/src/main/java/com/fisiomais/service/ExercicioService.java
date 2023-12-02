@@ -21,6 +21,7 @@ import com.fisiomais.model.Exercicio;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.Midia;
 import com.fisiomais.repository.ExercicioRepository;
+import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.MidiaRepository;
 import com.fisiomais.repository.TratamentoRepository;
 
@@ -29,17 +30,20 @@ public class ExercicioService {
     private final ExercicioRepository exercicioRepository;
     private final MidiaRepository midiaRepository;
     private final TratamentoRepository tratamentoRepository;
+    private final FisioterapeutaRepository fisioterapeutaRepository;
     private final TokenService tokenService;
     private static final Logger logger = LogManager.getLogger(ExercicioService.class);
 
     public ExercicioService(ExercicioRepository exercicioRepository,
             MidiaRepository midiaRepository,
             TokenService tokenServices,
-            TratamentoRepository tratamentoRepository) {
+            TratamentoRepository tratamentoRepository,
+            FisioterapeutaRepository fisioterapeutaRepository) {
         this.exercicioRepository = exercicioRepository;
         this.midiaRepository = midiaRepository;
         this.tokenService = tokenServices;
         this.tratamentoRepository = tratamentoRepository;
+        this.fisioterapeutaRepository = fisioterapeutaRepository;
     }
 
     public List<Exercicio> findExerciciosByMidia(Midia midia) {
@@ -89,23 +93,31 @@ public class ExercicioService {
     }
 
     public ExercicioResponse createExercicio(ExercicioRequest exercicioDTO, String token) {
-        List<Midia> midias = new ArrayList<>();
-        try {
-            midias.addAll(midiaRepository.findAllById(exercicioDTO.midias()));
-        } catch (Exception e) {
-            throw new NotFoundException("Erro ao buscar midias [" + exercicioDTO.midias() + "]");
-        }
-
         String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
+        List<Midia> midias = new ArrayList<>();
+        if (!exercicioDTO.midias().isEmpty()) {
+            try {
+                midias.addAll(midiaRepository.findAllById(exercicioDTO.midias()));
+            } catch (Exception e) {
+                throw new NotFoundException("Erro ao buscar midias [" + exercicioDTO.midias() + "]");
+            }
 
-        if (midias.stream()
-                .anyMatch(midia -> !midia.getFisioterapeuta()
-                        .getEmail()
-                        .equals(loggedUserEmail))) {
-            throw new NotFoundException("Você não pode criar um exercício com mídias de outro fisioterapeuta");
+
+            if (midias.stream()
+                    .anyMatch(midia -> !midia.getFisioterapeuta().getEmail().equals(loggedUserEmail)) &&
+                    midias.stream()
+                            .anyMatch(midia -> !midia.getIsPublic())) {
+                throw new NotFoundException(
+                        "Você não pode criar um exercício com mídias de outro fisioterapeuta sem que elas estejam públicas");
+            }
         }
 
-        Fisioterapeuta fisioterapeuta = midias.get(0).getFisioterapeuta();
+        Fisioterapeuta fisioterapeuta = null;
+        if(!exercicioDTO.midias().isEmpty()) {
+            fisioterapeuta = midias.get(0).getFisioterapeuta();
+        } else {
+            fisioterapeuta = fisioterapeutaRepository.findByEmail(loggedUserEmail);
+        }
 
         Exercicio exercicio = ExercicioRequest.toEntity(exercicioDTO, fisioterapeuta, midias);
 
