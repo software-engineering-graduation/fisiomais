@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaxaTratamentoFisioterapeutaMetrics {
-    private Integer fisioterapeutaId;
+    private String fisioterapeutaNome;
     private Long totalTratamentosCriados;
     private Double taxaCriacaoTratamentos;
 }
