@@ -72,6 +72,7 @@ public class PacienteController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/novos-pacientes-mes")
     @Operation(summary = "Obter quantidade de criação de novos pacientes por mês", description = "Obter quantidade de criação de novos pacientes por mês")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NovosPacientesMetrics.class)))

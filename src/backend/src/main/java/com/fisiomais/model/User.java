@@ -18,7 +18,7 @@ import lombok.Data;
 
 @MappedSuperclass
 @Data
-public abstract class User implements UserDetails{
+public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")

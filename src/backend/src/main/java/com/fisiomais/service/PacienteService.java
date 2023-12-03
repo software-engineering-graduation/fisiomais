@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService{
+public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final FisioterapeutaRepository fisioterapeutaRepository;
@@ -45,11 +45,12 @@ public class PacienteService{
     public PacienteResponse createPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = toEntity(pacienteDTO);
 
-        if(pacienteRepository.findByEmail(paciente.getEmail()) != null || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null){
+        if (pacienteRepository.findByEmail(paciente.getEmail()) != null
+                || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null) {
             throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
-        if(pacienteRepository.findByCpf(paciente.getCpf()) != null){
+        if (pacienteRepository.findByCpf(paciente.getCpf()) != null) {
             throw new BusinessException("CPF já cadastrado. Tente realizar o login.");
         }
 
@@ -138,7 +139,7 @@ public class PacienteService{
                 .collect(Collectors.toList());
     }
 
-    public List<NovosPacientesMetrics> getQtdNovosPacientesMes(){
+    public List<NovosPacientesMetrics> getQtdNovosPacientesMes() {
         return pacienteRepository.getNovosPacientesPorMes();
     }
 }

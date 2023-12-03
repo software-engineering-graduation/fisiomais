@@ -9,8 +9,7 @@ public record NovosFisioterapeutasMetricsDTO(
 
     static public NovosFisioterapeutasMetricsDTO toDTO(NovosFisioterapeutasMetrics metrics) {
         return new NovosFisioterapeutasMetricsDTO(
-            Mes.toEnum(metrics.getMes()).getNome(),
-            metrics.getNumNovosCadastros()
-        );
+                Mes.toEnum(metrics.getMes()).getNome(),
+                metrics.getNumNovosCadastros());
     }
 }

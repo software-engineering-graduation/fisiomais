@@ -37,12 +37,10 @@ public class Exercicio {
     private String descricao;
 
     @ManyToMany
-    @JoinTable(
-            name = "exercicio_has_midias",
-            joinColumns = {@JoinColumn(name = "exercicio__id")},
-            inverseJoinColumns = {@JoinColumn(name = "midia__id", referencedColumnName = "_id"),
-                    @JoinColumn(name = "midia_fisioterapeuta__id", referencedColumnName = "fisioterapeuta__id")}
-    )
+    @JoinTable(name = "exercicio_has_midias", joinColumns = {
+            @JoinColumn(name = "exercicio__id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "midia__id", referencedColumnName = "_id"),
+                    @JoinColumn(name = "midia_fisioterapeuta__id", referencedColumnName = "fisioterapeuta__id") })
     private List<Midia> midias;
 
     @Column(name = "public", nullable = false)

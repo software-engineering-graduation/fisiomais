@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PacienteDTO implements Serializable{
+public class PacienteDTO implements Serializable {
     private Integer id;
     private Date create_time;
     private String nome;

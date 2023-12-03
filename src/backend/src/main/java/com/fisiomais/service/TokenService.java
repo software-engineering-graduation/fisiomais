@@ -37,12 +37,12 @@ public class TokenService {
     }
 
     public Boolean sameUserEmail(String email, String token) {
-        String subject = this.getSubject(getTokenFromBearer(token)); 
+        String subject = this.getSubject(getTokenFromBearer(token));
         return subject.equals(email);
     }
 
     public Boolean isAdmin(String token) {
-        String subject = this.getSubject(getTokenFromBearer(token)); 
+        String subject = this.getSubject(getTokenFromBearer(token));
         return subject.equals("fisiomaisclinicas@gmail.com");
     }
 }

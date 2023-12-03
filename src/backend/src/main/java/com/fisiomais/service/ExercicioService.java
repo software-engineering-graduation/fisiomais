@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.Spring;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -13,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fisiomais.bodys.ExercicioRequest;
 import com.fisiomais.bodys.ExercicioResponse;
-import com.fisiomais.bodys.MidiaTratamentoResponse;
-import com.fisiomais.controller.ConsultaController;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.exception.NotFoundException;
 import com.fisiomais.model.Exercicio;
@@ -102,7 +98,6 @@ public class ExercicioService {
                 throw new NotFoundException("Erro ao buscar midias [" + exercicioDTO.midias() + "]");
             }
 
-
             if (midias.stream()
                     .anyMatch(midia -> !midia.getFisioterapeuta().getEmail().equals(loggedUserEmail)) &&
                     midias.stream()
@@ -113,7 +108,7 @@ public class ExercicioService {
         }
 
         Fisioterapeuta fisioterapeuta = null;
-        if(!exercicioDTO.midias().isEmpty()) {
+        if (!exercicioDTO.midias().isEmpty()) {
             fisioterapeuta = midias.get(0).getFisioterapeuta();
         } else {
             fisioterapeuta = fisioterapeutaRepository.findByEmail(loggedUserEmail);

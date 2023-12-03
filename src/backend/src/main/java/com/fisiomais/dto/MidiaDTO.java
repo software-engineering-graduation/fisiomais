@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MidiaDTO implements Serializable{
+public class MidiaDTO implements Serializable {
     private Integer id;
     private Integer fisioterapeutaId;
     private Date createTime;

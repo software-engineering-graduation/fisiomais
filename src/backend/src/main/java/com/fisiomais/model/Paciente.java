@@ -25,7 +25,7 @@ import com.fisiomais.model.enums.Genero;
 @Data
 @Entity
 @Table(name = "paciente")
-public class Paciente extends User{
+public class Paciente extends User {
     @Column(nullable = false, name = "data_nascimento")
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -71,9 +71,10 @@ public class Paciente extends User{
     public boolean isEnabled() {
         return true;
     }
+
     @Column(length = 200)
     private String endereco;
-    
+
     // @OneToMany(mappedBy = "paciente")
     // private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Login implements Serializable{
+public class Login implements Serializable {
     String email;
     String senha;
 }

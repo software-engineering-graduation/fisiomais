@@ -4,17 +4,14 @@ import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
 import com.fisiomais.dto.FisioterapeutaDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Fisioterapeuta;
-import com.fisiomais.model.indicators.NovosFisioterapeutasMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.PacienteRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -112,7 +109,8 @@ public class FisioterapeutaService {
     // }
 
     public Fisioterapeuta create(FisioterapeutaDTO fisioterapeutaDTO) {
-        if(pacienteRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null || fisioterapeutaRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null){
+        if (pacienteRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null
+                || fisioterapeutaRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null) {
             throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
