@@ -51,7 +51,7 @@ public class TratamentoController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping
+    @PostMapping("/novo")
     @Operation(summary = "Criar novo tratamento para paciente", description = "Criar um novo tratamento.")
     @ApiResponse(responseCode = "201", description = "Tratamento criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tratamento.class)))
     public ResponseEntity<TratamentoResponse> createTratamento(@RequestBody NovoTratamentoRequest tratamento) {
