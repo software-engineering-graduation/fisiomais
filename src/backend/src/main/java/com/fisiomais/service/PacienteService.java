@@ -1,12 +1,12 @@
 package com.fisiomais.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Paciente;
+import com.fisiomais.model.indicators.NovosPacientesMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.PacienteRepository;
 
@@ -136,5 +136,9 @@ public class PacienteService{
         return pacientes.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<NovosPacientesMetrics> getQtdNovosPacientesMes(){
+        return pacienteRepository.getNovosPacientesPorMes();
     }
 }
