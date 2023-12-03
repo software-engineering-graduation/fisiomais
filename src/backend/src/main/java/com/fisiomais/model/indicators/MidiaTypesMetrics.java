@@ -16,4 +16,3 @@ public class MidiaTypesMetrics {
     private Double taxaImagens;
     private Double taxaGifs;
 }
-

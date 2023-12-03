@@ -36,8 +36,10 @@ public class ConsultaUtil {
     }
 
     public Consulta convertToConsulta(NovaConsultaRequest consulta) {
-        Paciente paciente = pacienteRepository.findById(consulta.pacienteId()).orElseThrow(() -> new BusinessException("Paciente não encontrado"));
-        Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(consulta.fisioterapeutaId()).orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
+        Paciente paciente = pacienteRepository.findById(consulta.pacienteId())
+                .orElseThrow(() -> new BusinessException("Paciente não encontrado"));
+        Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(consulta.fisioterapeutaId())
+                .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
 
         Consulta novaConsulta = new Consulta();
         novaConsulta.setPaciente(paciente);
@@ -46,7 +48,7 @@ public class ConsultaUtil {
 
         if (fisioterapeuta.getAutomatic()) {
             novaConsulta.setConfirmacao(StatusConsulta.confirmado);
-        } else{
+        } else {
             novaConsulta.setConfirmacao(StatusConsulta.pendente);
         }
 

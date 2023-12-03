@@ -12,4 +12,3 @@ public class MidiaUtilizationMetrics {
     private Long midiasComExercicios;
     private Double taxaUtilizacao;
 }
-

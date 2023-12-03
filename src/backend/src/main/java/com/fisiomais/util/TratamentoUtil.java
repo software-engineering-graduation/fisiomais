@@ -23,16 +23,20 @@ public class TratamentoUtil {
     private final ExercicioRepository exercicioRepository;
 
     @Autowired
-    public TratamentoUtil(PacienteRepository pacienteRepository, FisioterapeutaRepository fisioterapeutaRepository, ExercicioRepository exercicioRepository) {
+    public TratamentoUtil(PacienteRepository pacienteRepository, FisioterapeutaRepository fisioterapeutaRepository,
+            ExercicioRepository exercicioRepository) {
         this.pacienteRepository = pacienteRepository;
         this.fisioterapeutaRepository = fisioterapeutaRepository;
         this.exercicioRepository = exercicioRepository;
     }
 
     public Tratamento convertToTratamento(NovoTratamentoRequest tratamento) {
-        Paciente paciente = pacienteRepository.findById(tratamento.pacienteId()).orElseThrow(() -> new BusinessException("Paciente não encontrado"));
-        Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(tratamento.fisioterapeutaId()).orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
-        Exercicio exercicio = exercicioRepository.findById(tratamento.fisioterapeutaId()).orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
+        Paciente paciente = pacienteRepository.findById(tratamento.pacienteId())
+                .orElseThrow(() -> new BusinessException("Paciente não encontrado"));
+        Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(tratamento.fisioterapeutaId())
+                .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
+        Exercicio exercicio = exercicioRepository.findById(tratamento.fisioterapeutaId())
+                .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
         List<Exercicio> listaExercicios = new ArrayList<>();
         listaExercicios.add(exercicio);
 

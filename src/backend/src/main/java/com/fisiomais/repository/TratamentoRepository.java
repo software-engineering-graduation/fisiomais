@@ -28,15 +28,14 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Integer>
 
     Optional<List<Tratamento>> findByFisioterapeutaIdAndPacienteId(Integer id, Integer idPaciente);
 
-
     @Query("SELECT new com.fisiomais.model.indicators.TaxaTratamentoFisioterapeutaMetrics(" +
-           "t.fisioterapeuta.nome AS fisioterapeutaNome, " +
-           "COUNT(t) AS totalTratamentosCriados, " +
-           "CAST((COUNT(t) * 1.0 / (SELECT COUNT(tr) FROM Tratamento tr)) * 100 AS DOUBLE) AS taxaCriacaoTratamentos) " +
-           "FROM Tratamento t " +
-           "GROUP BY t.fisioterapeuta.id")
+            "t.fisioterapeuta.nome AS fisioterapeutaNome, " +
+            "COUNT(t) AS totalTratamentosCriados, " +
+            "CAST((COUNT(t) * 1.0 / (SELECT COUNT(tr) FROM Tratamento tr)) * 100 AS DOUBLE) AS taxaCriacaoTratamentos) "
+            +
+            "FROM Tratamento t " +
+            "GROUP BY t.fisioterapeuta.id")
     List<TaxaTratamentoFisioterapeutaMetrics> getTaxaCriacaoTratamentosPorFisioterapeuta();
-
 
     void deleteTratamentoHasExerciciosByExercicios(Exercicio exercicio);
 

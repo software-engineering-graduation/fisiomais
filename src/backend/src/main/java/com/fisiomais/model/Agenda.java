@@ -45,4 +45,3 @@ public class Agenda {
     @JoinColumn(name = "fisioterapeuta__id", nullable = false)
     private Fisioterapeuta fisioterapeuta;
 }
-
