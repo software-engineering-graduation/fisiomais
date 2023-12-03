@@ -8,12 +8,12 @@ import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
 
 public record ConsultaResponse(
-        Integer pacienteId,
-        Integer fisioterapeutaId,
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Date dataEHora,
-        String observacoes,
-        StatusConsulta status,
-        String link) {
+                Integer pacienteId,
+                Integer fisioterapeutaId,
+                @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Date dataEHora,
+                String observacoes,
+                StatusConsulta status,
+                String link) {
 
         public static List<ConsultaResponse> toResponse(List<Consulta> consultasByFisioterapeuta) {
                 return consultasByFisioterapeuta.stream().map(consulta -> new ConsultaResponse(

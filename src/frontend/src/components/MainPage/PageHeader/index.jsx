@@ -20,7 +20,7 @@ const PageHeader = ({ collapsed, setCollapsed, colorBgContainer }) => {
 
     const currentUser = useSelector(state => state.currentUser.value);
 
-    if(currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
+    if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {
         return null;
     }
 
@@ -74,6 +74,24 @@ const PageHeader = ({ collapsed, setCollapsed, colorBgContainer }) => {
                             height: 64,
                         }}
                     />
+                    <WellcomeContainer>
+                        <WellcomeMessage>
+                            {`Painel ${userIsPaciente
+                                    ? currentUser.user.genero === 'Mulher'
+                                        ? 'da'
+                                        : 'do'
+                                    : userIsFisio
+                                        ? 'da(o)'
+                                        : 'dos'
+                                } ${userIsFisio
+                                    ? 'Fisioterapeuta'
+                                    : userIsPaciente
+                                        ? 'Paciente'
+                                        : 'Administradores - '
+                                } ${currentUser.user.nome}`}
+                        </WellcomeMessage>
+
+                    </WellcomeContainer>
                     <UserHeaderOptionsContainer>
                         <LogoutButton onClick={() => navigate(handleLogout())} loading={loadingLogout}>
                             Sair da conta <CiLogout />
@@ -86,6 +104,21 @@ const PageHeader = ({ collapsed, setCollapsed, colorBgContainer }) => {
 }
 
 export default PageHeader;
+
+const WellcomeContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+`;
+
+const WellcomeMessage = styled.h1`
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    color: #000;
+`;
 
 const HeaderOptionsContainer = styled.div`
     display: flex;

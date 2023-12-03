@@ -20,16 +20,24 @@ const SideBar = ({ collapsed }) => {
     const { status } = currentUser;
     const [api, contextHolder] = notification.useNotification();
 
-    const menu = currentUser.user?.role === 'admin' ?
-        SideMenuItensAdmin : currentUser.user?.role === 'fisioterapeuta' ?
-        SideMenuItensFisio : 
-        SideMenuItensPaciente
+    let menu = currentUser.user?.role === 'fisioterapeuta' ?
+        SideMenuItensFisio : currentUser.user?.role === 'paciente' ?
+        SideMenuItensPaciente : currentUser.user?.role === 'admin' ?
+        SideMenuItensAdmin.concat(SideMenuItensFisio, SideMenuItensPaciente).filter((item, index, self) =>
+            index === self.findIndex((t) => (
+                t.key === item.key
+            ))
+        ) : []
 
-    const currentPath = window.location.pathname
-    if (currentUser.user?.role === 'admin' && currentPath !== '/indicadores') {
-        navigate('/indicadores')
-        return null
-    }
+    menu = menu.sort((a, b) => {
+        if (a.label > b.label) {
+            return 1;
+        }
+        if (a.label < b.label) {
+            return -1;
+        }
+        return 0;
+    })
 
     useEffect(() => {
         if (currentUser === null || currentUser === undefined || currentUser.user === null || currentUser.user === undefined) {

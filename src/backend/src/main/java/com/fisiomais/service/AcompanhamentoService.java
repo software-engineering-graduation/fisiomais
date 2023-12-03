@@ -29,7 +29,8 @@ public class AcompanhamentoService {
         return repository.findById(id);
     }
 
-    public AcompanhamentoVirtual atualizar(Long id, AcompanhamentoVirtual acompanhamento) throws IllegalArgumentException {
+    public AcompanhamentoVirtual atualizar(Long id, AcompanhamentoVirtual acompanhamento)
+            throws IllegalArgumentException {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Acompanhamento com ID " + id + " não encontrado.");
         }

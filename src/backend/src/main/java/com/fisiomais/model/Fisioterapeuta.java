@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "fisioterapeuta")
-public class Fisioterapeuta extends User{
+public class Fisioterapeuta extends User {
     @Column(name = "controle_automatico", nullable = false)
     private Boolean automatic;
 

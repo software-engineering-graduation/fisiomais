@@ -1,5 +1,6 @@
 package com.fisiomais.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -39,4 +40,6 @@ public interface MidiaRepository extends JpaRepository<Midia, Integer> {
             + "CAST((COUNT(DISTINCT CASE WHEN m.type = 'GIF' THEN m.id END) / COUNT(DISTINCT m.id)) * 100 AS DOUBLE) AS taxaGifs) "
             + "FROM Midia m")
     List<MidiaTypesMetrics> getTaxaUtilizacao();
+
+    List<Midia> findAllByIsPublicTrue();
 }

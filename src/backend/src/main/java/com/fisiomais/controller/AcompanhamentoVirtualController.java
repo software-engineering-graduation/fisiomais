@@ -23,7 +23,8 @@ public class AcompanhamentoVirtualController {
     private AcompanhamentoService AcompanhamentoService;
 
     @PostMapping
-    public ResponseEntity<AcompanhamentoVirtual> criarAcompanhamento(@RequestBody AcompanhamentoVirtual acompanhamento) {
+    public ResponseEntity<AcompanhamentoVirtual> criarAcompanhamento(
+            @RequestBody AcompanhamentoVirtual acompanhamento) {
         try {
             AcompanhamentoVirtual salvo = AcompanhamentoService.salvar(acompanhamento);
             return new ResponseEntity<>(salvo, HttpStatus.CREATED);
@@ -47,7 +48,8 @@ public class AcompanhamentoVirtualController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AcompanhamentoVirtual> atualizarAcompanhamento(@PathVariable Long id, @RequestBody AcompanhamentoVirtual acompanhamento) {
+    public ResponseEntity<AcompanhamentoVirtual> atualizarAcompanhamento(@PathVariable Long id,
+            @RequestBody AcompanhamentoVirtual acompanhamento) {
         try {
             AcompanhamentoVirtual atualizado = AcompanhamentoService.atualizar(id, acompanhamento);
             return new ResponseEntity<>(atualizado, HttpStatus.OK);

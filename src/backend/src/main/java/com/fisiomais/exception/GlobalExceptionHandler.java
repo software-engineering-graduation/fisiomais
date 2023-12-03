@@ -3,6 +3,9 @@ package com.fisiomais.exception;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+
+import javax.naming.NoPermissionException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +30,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({
+            NotFoundException.class,
+            NoSuchElementException.class
+    })
     public ResponseEntity<Object> handleNoContentException(NotFoundException ex, WebRequest request) {
         String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
         Map<String, Object> response = new HashMap<>();
@@ -78,10 +84,25 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception ex) {
+    @ExceptionHandler(NoPermissionException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<Object> handleNoPermissionException(NoPermissionException ex, WebRequest request) {
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", new Date());
+        response.put("path", requestUri);
+        response.put("status", HttpStatus.FORBIDDEN.value());
+        response.put("error", HttpStatus.FORBIDDEN.getReasonPhrase());
+        response.put("message", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception ex, WebRequest request) {
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", new Date());
+        response.put("path", requestUri);
         response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("error", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         response.put("message", ex.getMessage());

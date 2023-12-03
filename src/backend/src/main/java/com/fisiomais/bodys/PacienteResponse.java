@@ -1,6 +1,5 @@
 package com.fisiomais.bodys;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,16 +16,11 @@ public record PacienteResponse(
         Genero genero) {
 
     public static PacienteResponse toPacienteResponse(Paciente paciente) {
-        String nome = new String(paciente.getNome().getBytes(StandardCharsets.ISO_8859_1),
-                                                StandardCharsets.UTF_8);
-        String endereco = new String(paciente.getEndereco().getBytes(StandardCharsets.ISO_8859_1),
-                                                StandardCharsets.UTF_8);
-
         return new PacienteResponse(paciente.getId(),
-                nome,
+                paciente.getNome(),
                 paciente.getEmail(),
                 paciente.getTelefone(),
-                endereco,
+                paciente.getEndereco(),
                 paciente.getDataNascimento(),
                 paciente.getGenero());
     }

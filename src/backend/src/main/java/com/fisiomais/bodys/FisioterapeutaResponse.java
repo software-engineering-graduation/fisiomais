@@ -1,7 +1,5 @@
 package com.fisiomais.bodys;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fisiomais.model.Fisioterapeuta;
 
 public record FisioterapeutaResponse(
@@ -15,12 +13,10 @@ public record FisioterapeutaResponse(
         public static FisioterapeutaResponse toFisioterapeutaResponse(Fisioterapeuta fisioterapeuta) {
                 return new FisioterapeutaResponse(
                                 fisioterapeuta.getId(),
-                                new String(fisioterapeuta.getNome().getBytes(StandardCharsets.ISO_8859_1),
-                                                StandardCharsets.UTF_8),
+                                fisioterapeuta.getNome(),
                                 fisioterapeuta.getEmail(),
                                 fisioterapeuta.getTelefone(),
-                                new String(fisioterapeuta.getEndereco().getBytes(StandardCharsets.ISO_8859_1),
-                                                StandardCharsets.UTF_8),
+                                fisioterapeuta.getEndereco(),
                                 fisioterapeuta.getAutomatic());
         }
 }

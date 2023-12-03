@@ -38,13 +38,15 @@ public class AgendaController {
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/dia/{dia}")
-    public ResponseEntity<List<Agenda>> getAgendasByDiaAndFisioterapeuta(@PathVariable Byte dia, @PathVariable Integer fisioterapeutaId) {
+    public ResponseEntity<List<Agenda>> getAgendasByDiaAndFisioterapeuta(@PathVariable Byte dia,
+            @PathVariable Integer fisioterapeutaId) {
         List<Agenda> agendas = agendaService.getAgendasByDiaAndFisioterapeuta(dia, fisioterapeutaId);
         return ResponseEntity.ok(agendas);
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/disponibilidade")
-    public ResponseEntity<List<Agenda>> getAgendasByDisponibilidadeAndFisioterapeuta(@RequestParam Boolean disponivel, @PathVariable Integer fisioterapeutaId) {
+    public ResponseEntity<List<Agenda>> getAgendasByDisponibilidadeAndFisioterapeuta(@RequestParam Boolean disponivel,
+            @PathVariable Integer fisioterapeutaId) {
         List<Agenda> agendas = agendaService.getAgendasByDisponibilidadeAndFisioterapeuta(disponivel, fisioterapeutaId);
         return ResponseEntity.ok(agendas);
     }
@@ -55,7 +57,8 @@ public class AgendaController {
             @PathVariable Byte dia,
             @RequestParam Time horarioInicio,
             @RequestParam Time horarioFim) {
-        List<Agenda> agendas = agendaService.getAgendasByFisioterapeutaDiaEHorario(fisioterapeutaId, dia, horarioInicio, horarioFim);
+        List<Agenda> agendas = agendaService.getAgendasByFisioterapeutaDiaEHorario(fisioterapeutaId, dia, horarioInicio,
+                horarioFim);
         return ResponseEntity.ok(agendas);
     }
 
@@ -64,7 +67,8 @@ public class AgendaController {
             @PathVariable Integer fisioterapeutaId,
             @PathVariable Byte dia,
             @RequestParam Boolean disponivel) {
-        List<Agenda> agendas = agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(fisioterapeutaId, dia, disponivel);
+        List<Agenda> agendas = agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(fisioterapeutaId, dia,
+                disponivel);
         return ResponseEntity.ok(agendas);
     }
 
@@ -77,7 +81,8 @@ public class AgendaController {
                 return ResponseEntity.badRequest().body("O ID do fisioterapeuta não pode ser nulo.");
             }
             Fisioterapeuta fisioterapeuta = fisioterapeutaService.findById(agendaRequest.getFisioterapeutaId())
-                    .orElseThrow(() -> new IllegalArgumentException("Fisioterapeuta não encontrado com o ID: " + agendaRequest.getFisioterapeutaId()));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Fisioterapeuta não encontrado com o ID: " + agendaRequest.getFisioterapeutaId()));
 
             Agenda agenda = new Agenda();
             agenda.setFisioterapeuta(fisioterapeuta);
@@ -94,6 +99,7 @@ public class AgendaController {
             return ResponseEntity.internalServerError().body("Ocorreu um erro ao criar a agenda.");
         }
     }
+
     @PutMapping("/{agendaId}")
     public ResponseEntity<Agenda> updateAgenda(@PathVariable Integer agendaId, @RequestBody Agenda updatedAgenda) {
         Agenda existingAgenda = agendaService.getAgendaById(agendaId);
@@ -111,7 +117,6 @@ public class AgendaController {
 
         return ResponseEntity.ok(savedAgenda);
     }
-
 
     @GetMapping("/{agendaId}")
     public ResponseEntity<Agenda> getAgendaById(@PathVariable Integer agendaId) {

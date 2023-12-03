@@ -17,7 +17,7 @@ public class ExceptionHandlingFilter implements AuthenticationEntryPoint, Access
     public void handle(HttpServletRequest request,
             HttpServletResponse response, AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Acesso não autorizado. Faça login.");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Acesso não autorizado. Faça login.");
 
     }
 
@@ -25,7 +25,8 @@ public class ExceptionHandlingFilter implements AuthenticationEntryPoint, Access
     public void commence(HttpServletRequest request,
             HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {
-               response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso proibido. Você não tem permissão para acessar este recurso.");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                "Acesso proibido. Você não tem permissão para acessar este recurso.");
 
     }
 }

@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`midia` (
   `link_arquivo` LONGTEXT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_midia_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_midia_fisioterapeuta1`
@@ -135,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio` (
   `nome` VARCHAR(150) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
   `fisioterapeuta__id` INT NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_exercicio_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_exercicio_fisioterapeuta1`
