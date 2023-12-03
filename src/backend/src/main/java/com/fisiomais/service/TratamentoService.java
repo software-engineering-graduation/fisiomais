@@ -91,7 +91,8 @@ public class TratamentoService {
     }
 
     public List<TaxaTratamentoFisioterapeutaMetrics> getTaxaCriacaoTratamentosPorFisioterapeuta() {
-        List<TaxaTratamentoFisioterapeutaMetrics> taxaTratamentoFisioterapeutaMetrics = tratamentoRepository.getTaxaCriacaoTratamentosPorFisioterapeuta();
+        List<TaxaTratamentoFisioterapeutaMetrics> taxaTratamentoFisioterapeutaMetrics = tratamentoRepository
+                .getTaxaCriacaoTratamentosPorFisioterapeuta();
         return taxaTratamentoFisioterapeutaMetrics;
     }
 }

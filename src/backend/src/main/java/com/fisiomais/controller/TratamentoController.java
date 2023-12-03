@@ -140,7 +140,8 @@ public class TratamentoController {
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TaxaTratamentoFisioterapeutaMetrics.class)))
     public ResponseEntity<List<TaxaTratamentoFisioterapeutaMetrics>> getTaxaCriacaoTratamentosPorFisioterapeuta() {
         try {
-            List<TaxaTratamentoFisioterapeutaMetrics> taxaCriacao = tratamentoService.getTaxaCriacaoTratamentosPorFisioterapeuta();
+            List<TaxaTratamentoFisioterapeutaMetrics> taxaCriacao = tratamentoService
+                    .getTaxaCriacaoTratamentosPorFisioterapeuta();
             return new ResponseEntity<>(taxaCriacao, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Erro ao obter taxa de criação de tratamentos por fisioterapeuta: {}", e.getMessage());
