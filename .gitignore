@@ -1,0 +1,4 @@
+src/backend/example-env
+src/backend/src/main/resources/credentials.json
+src/backend/tokens/
+src/backend/.env
