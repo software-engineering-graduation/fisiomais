@@ -3,6 +3,7 @@ package com.fisiomais.controller;
 import com.fisiomais.model.AcompanhamentoVirtual;
 import com.fisiomais.service.AcompanhamentoService;
 
+import com.fisiomais.service.interfaces.AcompanhamentoInterface;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +75,7 @@ public class AcompanhamentoVirtualController {
     }
 
     @GetMapping("/indiceAcompanhamento")
-    public ResponseEntity<Double> indiceAcompanhamento() {
-        Double indice = AcompanhamentoService.getIndiceAcompanhamento();
-        return new ResponseEntity<>(indice, HttpStatus.OK);
+    public List<AcompanhamentoInterface> indiceAcompanhamento() {
+       return AcompanhamentoService.getIndiceAcompanhamento();
     }
 }

@@ -1,7 +1,8 @@
 import React from "react";
 
-export const IconEdit = () => {
+export const IconEdit = ({ onClick }) => {
   return (
+    <button onClick={onClick} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -17,5 +18,6 @@ export const IconEdit = () => {
         strokeLinejoin="round"
       />
     </svg>
+    </button>
   );
 };

@@ -28,7 +28,7 @@ public interface FisioterapeutaRepository extends JpaRepository<Fisioterapeuta, 
     @Query(value = "SELECT ROUND(((COUNT(*) - SUB.total_last_month) / SUB.total_last_month) * 100, 2) FROM fisioterapeuta CROSS JOIN (SELECT COUNT(*) AS total_last_month FROM fisioterapeuta WHERE create_time >= DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH) AND create_time < DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) SUB WHERE create_time >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)", nativeQuery = true)
     Double calculateTaxaCrescimento();
 
-    @Query(value = "SELECT ROUND((SUM(CASE WHEN nome IS NOT NULL AND email IS NOT NULL AND telefone IS NOT NULL AND endereco IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) FROM fisioterapeuta", nativeQuery = true)
+    @Query(value = "SELECT ROUND((SUM(CASE WHEN nome != '' AND nome IS NOT NULL AND email != '' AND email IS NOT NULL AND telefone != '' AND telefone IS NOT NULL AND endereco != '' AND endereco IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) FROM fisioterapeuta", nativeQuery = true)
     Double calculateIndicePerfisCompletos();
 
 }

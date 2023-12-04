@@ -133,14 +133,14 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por fisioterapeuta", description = "Obter uma lista de consultas com base em um fisioterapeuta.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "400", description = "Fisioterapeuta inválido")
-    public ResponseEntity<List<ConsultaResponse>> getConsultasByFisioterapeutaId(
+    public ResponseEntity<List<ConsultaResponseAgenda>> getConsultasByFisioterapeutaId(
             @Parameter(name = "fisioterapeutaId", description = "Id do fisioterapeuta a ser pesquisado") @PathVariable(required = false) Integer fisioterapeutaId) {
         // Verificar se o fisioterapeuta existe
         fisioterapeutaRepository
                 .findById(fisioterapeutaId)
                 .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
 
-        List<ConsultaResponse> consultaResponse = ConsultaResponse
+        List<ConsultaResponseAgenda> consultaResponse = ConsultaResponseAgenda
                 .toResponse(consultaService.getConsultasByFisioterapeuta(fisioterapeutaId));
 
         return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
@@ -150,9 +150,10 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por ID do Paciente", description = "Obter uma lista de consultas associadas a um Paciente específico pelo seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Paciente não encontrado")
-    public ResponseEntity<List<Consulta>> getConsultasByPacienteId(
+    public ResponseEntity<List<ConsultaResponseAgenda>> getConsultasByPacienteId(
             @Parameter(name = "pacienteId", description = "Id do paciente a ser pesquisado") @PathVariable Integer pacienteId) {
-        List<Consulta> consultas = consultaService.getConsultasByPacienteId(pacienteId);
+        List<ConsultaResponseAgenda> consultas = ConsultaResponseAgenda
+                .toResponse(consultaService.getConsultasByPacienteId(pacienteId));
         return new ResponseEntity<>(consultas, HttpStatus.OK);
     }
 
