@@ -76,12 +76,12 @@ public class AgendaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createAgenda(@RequestBody @Valid AgendaRequest agendaRequest) {
+    public ResponseEntity<Agenda> createAgenda(@RequestBody @Valid AgendaRequest agendaRequest) {
         try {
             System.out.println("Fisioterapeuta ID recebido: " + agendaRequest.getFisioterapeutaId());
 
             if (agendaRequest.getFisioterapeutaId() == null) {
-                return ResponseEntity.badRequest().body("O ID do fisioterapeuta não pode ser nulo.");
+                throw new IllegalArgumentException("O ID do fisioterapeuta não pode ser nulo.");
             }
             Fisioterapeuta fisioterapeuta = fisioterapeutaService.findById(agendaRequest.getFisioterapeutaId())
                     .orElseThrow(() -> new IllegalArgumentException(
@@ -94,12 +94,16 @@ public class AgendaController {
             agenda.setHorarioFim(agendaRequest.getHorarioFimAsTime());
             agenda.setDisponivel(agendaRequest.getDisponivel());
 
+            System.out.println("Agenda: " + agenda);
+
             Agenda newAgenda = agendaService.saveAgenda(agenda);
-            return ResponseEntity.ok(newAgenda);
+
+            System.out.println("Agenda criada: " + newAgenda);
+            return new ResponseEntity<>(newAgenda, HttpStatus.CREATED);
         } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            throw new BusinessException("Ocorreu um erro ao criar a agenda: " + ex.getMessage());
         } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body("Ocorreu um erro ao criar a agenda.");
+            throw new BusinessException("Ocorreu um erro ao criar a agenda: " + ex.getMessage());
         }
     }
 

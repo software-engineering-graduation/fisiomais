@@ -54,7 +54,12 @@ public class AgendaService {
     @Transactional
     public Agenda saveAgenda(Agenda agenda) {
         validateAgenda(agenda);
-        return agendaRepository.save(agenda);
+        try {
+            return agendaRepository.save(agenda);
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar agenda: " + e.getMessage());
+            throw new BusinessException("Erro ao salvar agenda: " + e.getMessage());
+        }
     }
 
     public void deleteAgenda(List<Integer> ids, String token) {
@@ -105,7 +110,7 @@ public class AgendaService {
 
     public void validateAgenda(Agenda agenda) {
         if (agenda.getHorarioInicio().after(agenda.getHorarioFim())) {
-            throw new RuntimeException("O horário de início não pode ser posterior ao horário de término.");
+            throw new BusinessException("O horário de início não pode ser posterior ao horário de término.");
         }
     }
 
