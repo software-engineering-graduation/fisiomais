@@ -23,8 +23,8 @@ const checkSession = async () => {
     if (storedToken) {
         storedToken = JSON.parse(storedToken);
         const decoded = jwtDecode(storedToken);
-
         const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
+
         const userEmail = decoded.email;
         try {
             const response = await axios.post(apiRoute, { email: userEmail }, {
@@ -32,11 +32,11 @@ const checkSession = async () => {
                     Authorization: `Bearer ${storedToken}`,
                     'Access-Control-Allow-Origin': '*',
                 },
+                timeout: 3000
             });
             userData = response.data;
-            // console.info("Token validado: ", userData)
         } catch (error) {
-            // console.error('Token expirado ou inválido', error);
+            localStorage.removeItem('token');
         }
     }
     return userData;
@@ -91,7 +91,6 @@ const App = () => {
                 if (currentPath !== '/login' && !currentPath.includes('signup')) {
                     navigate('/login');
                 }
-                return
             }
 
             dispatch(setCurrentUser(userData));
