@@ -65,6 +65,9 @@ export const currentUser = createSlice({
             state.value.error = null;
             localStorage.removeItem('token');
         },
+        setLoginStatus: (state, action) => {
+            state.value.status = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -86,11 +89,10 @@ export const currentUser = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { login, setCurrentUser, logout } = currentUser.actions;
+export const { login, setCurrentUser, logout, setLoginStatus } = currentUser.actions;
 
 export default currentUser.reducer;
 
-// Example of a function to handle login API request
 const fetchLoginUser = async (credentials) => {
     let apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth`;
     let token = null;

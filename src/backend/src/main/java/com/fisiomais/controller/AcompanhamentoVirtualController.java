@@ -3,6 +3,7 @@ package com.fisiomais.controller;
 import com.fisiomais.model.AcompanhamentoVirtual;
 import com.fisiomais.service.AcompanhamentoService;
 
+import com.fisiomais.service.interfaces.AcompanhamentoInterface;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class AcompanhamentoVirtualController {
     private AcompanhamentoService AcompanhamentoService;
 
     @PostMapping
-    public ResponseEntity<AcompanhamentoVirtual> criarAcompanhamento(@RequestBody AcompanhamentoVirtual acompanhamento) {
+    public ResponseEntity<AcompanhamentoVirtual> criarAcompanhamento(
+            @RequestBody AcompanhamentoVirtual acompanhamento) {
         try {
             AcompanhamentoVirtual salvo = AcompanhamentoService.salvar(acompanhamento);
             return new ResponseEntity<>(salvo, HttpStatus.CREATED);
@@ -46,7 +48,8 @@ public class AcompanhamentoVirtualController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AcompanhamentoVirtual> atualizarAcompanhamento(@PathVariable Long id, @RequestBody AcompanhamentoVirtual acompanhamento) {
+    public ResponseEntity<AcompanhamentoVirtual> atualizarAcompanhamento(@PathVariable Long id,
+            @RequestBody AcompanhamentoVirtual acompanhamento) {
         try {
             AcompanhamentoVirtual atualizado = AcompanhamentoService.atualizar(id, acompanhamento);
             return new ResponseEntity<>(atualizado, HttpStatus.OK);
@@ -72,8 +75,7 @@ public class AcompanhamentoVirtualController {
     }
 
     @GetMapping("/indiceAcompanhamento")
-    public ResponseEntity<Double> indiceAcompanhamento() {
-        Double indice = AcompanhamentoService.getIndiceAcompanhamento();
-        return new ResponseEntity<>(indice, HttpStatus.OK);
+    public List<AcompanhamentoInterface> indiceAcompanhamento() {
+       return AcompanhamentoService.getIndiceAcompanhamento();
     }
 }

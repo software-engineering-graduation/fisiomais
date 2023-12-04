@@ -29,7 +29,7 @@ export const Filters = ({ totalAppointments, statusOptions, onStatusChange }) =>
           marginRight: '16px'
         }}
       >
-        <option value="">All Statuses</option>
+        <option value="">Selecione um status</option>
         {statusOptions.map((status) => (
           <option key={status} value={status}>{status}</option>
         ))}

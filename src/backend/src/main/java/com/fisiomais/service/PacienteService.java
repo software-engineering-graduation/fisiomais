@@ -1,12 +1,12 @@
 package com.fisiomais.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Paciente;
+import com.fisiomais.model.indicators.NovosPacientesMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.PacienteRepository;
 
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService{
+public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final FisioterapeutaRepository fisioterapeutaRepository;
@@ -45,12 +45,13 @@ public class PacienteService{
     public PacienteResponse createPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = toEntity(pacienteDTO);
 
-        if(pacienteRepository.findByEmail(paciente.getEmail()) != null || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null){
-            throw new BusinessException("Email already exists");
+        if (pacienteRepository.findByEmail(paciente.getEmail()) != null
+                || fisioterapeutaRepository.findByEmail(paciente.getEmail()) != null) {
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
-        if(pacienteRepository.findByCpf(paciente.getCpf()) != null){
-            throw new BusinessException("CPF already exists");
+        if (pacienteRepository.findByCpf(paciente.getCpf()) != null) {
+            throw new BusinessException("CPF já cadastrado. Tente realizar o login.");
         }
 
         Paciente savedPaciente = pacienteRepository.save(paciente);
@@ -136,5 +137,9 @@ public class PacienteService{
         return pacientes.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<NovosPacientesMetrics> getQtdNovosPacientesMes() {
+        return pacienteRepository.getNovosPacientesPorMes();
     }
 }

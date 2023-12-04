@@ -1,5 +1,6 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.ConsultaResponseAgenda;
 import com.fisiomais.bodys.ConsultaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.exception.BusinessException;
@@ -51,8 +52,9 @@ public class ConsultaController {
     @GetMapping("/all")
     @Operation(summary = "Obter todas as consultas", description = "Obter uma lista de todas as consultas cadastradas no sistema.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
-    public ResponseEntity<List<Consulta>> getAllConsultas() {
-        List<Consulta> consultas = consultaService.getAllConsultas();
+    public ResponseEntity<List<ConsultaResponseAgenda>> getAllConsultas() {
+        List<ConsultaResponseAgenda> consultas = consultaService
+                .toConsultaResponseAgenda(consultaService.getAllConsultas());
         return ResponseEntity.ok(consultas);
     }
 
@@ -77,10 +79,11 @@ public class ConsultaController {
     @Operation(summary = "Obter consulta por ID", description = "Obter uma consulta específica com base no seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Consulta não encontrada")
-    public ResponseEntity<Consulta> getConsultaById(
+    public ResponseEntity<ConsultaResponseAgenda> getConsultaById(
             @Parameter(name = "consultaId", description = "Id da consulta a ser pesquisada") @PathVariable Integer consultaId) {
         Consulta consulta = consultaService.getConsultaById(consultaId);
-        return new ResponseEntity<>(consulta, HttpStatus.OK);
+        ConsultaResponseAgenda consultaResponse = ConsultaResponseAgenda.toResponse(consulta);
+        return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
     }
 
     @GetMapping("/status/{status}")
@@ -131,14 +134,14 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por fisioterapeuta", description = "Obter uma lista de consultas com base em um fisioterapeuta.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "400", description = "Fisioterapeuta inválido")
-    public ResponseEntity<List<ConsultaResponse>> getConsultasByFisioterapeutaId(
+    public ResponseEntity<List<ConsultaResponseAgenda>> getConsultasByFisioterapeutaId(
             @Parameter(name = "fisioterapeutaId", description = "Id do fisioterapeuta a ser pesquisado") @PathVariable(required = false) Integer fisioterapeutaId) {
         // Verificar se o fisioterapeuta existe
         fisioterapeutaRepository
                 .findById(fisioterapeutaId)
                 .orElseThrow(() -> new BusinessException("Fisioterapeuta não encontrado"));
 
-        List<ConsultaResponse> consultaResponse = ConsultaResponse
+        List<ConsultaResponseAgenda> consultaResponse = ConsultaResponseAgenda
                 .toResponse(consultaService.getConsultasByFisioterapeuta(fisioterapeutaId));
 
         return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
@@ -148,9 +151,10 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por ID do Paciente", description = "Obter uma lista de consultas associadas a um Paciente específico pelo seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Paciente não encontrado")
-    public ResponseEntity<List<Consulta>> getConsultasByPacienteId(
+    public ResponseEntity<List<ConsultaResponseAgenda>> getConsultasByPacienteId(
             @Parameter(name = "pacienteId", description = "Id do paciente a ser pesquisado") @PathVariable Integer pacienteId) {
-        List<Consulta> consultas = consultaService.getConsultasByPacienteId(pacienteId);
+        List<ConsultaResponseAgenda> consultas = ConsultaResponseAgenda
+                .toResponse(consultaService.getConsultasByPacienteId(pacienteId));
         return new ResponseEntity<>(consultas, HttpStatus.OK);
     }
 
@@ -213,6 +217,21 @@ public class ConsultaController {
             Consulta novaConsultaMapped = consultaUtil.convertToConsulta(consulta);
             ConsultaResponse newConsulta = consultaService.addConsulta(novaConsultaMapped);
             return new ResponseEntity<>(newConsulta, HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{consultaId}")
+    @Operation(summary = "Atualizar consulta", description = "Atualizar uma consulta específica e retornar a consulta atualizada.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ConsultaResponse.class)))
+    @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessException.class)))
+    public ResponseEntity<ConsultaResponse> updateConsulta(
+            @Parameter(name = "consultaId", description = "Id da consulta a ser atualizada") @PathVariable Integer consultaId,
+            @Parameter(name = "Consulta", description = "Consulta a ser atualizada") @RequestBody Consulta consulta) {
+        try {
+            ConsultaResponse consultaResponse = consultaService.updateConsulta(consultaId, consulta);
+            return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

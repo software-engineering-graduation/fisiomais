@@ -2,6 +2,7 @@ package com.fisiomais.service;
 
 import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.bodys.FisioterapeutaResponse;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ import java.util.List;
 
 @Service
 public class AgendaService {
-
     private final AgendaRepository agendaRepository;
+    private final TokenService tokenService;
 
-    @Autowired
-    public AgendaService(AgendaRepository agendaRepository) {
+    public AgendaService(AgendaRepository agendaRepository, TokenService tokenService) {
         this.agendaRepository = agendaRepository;
+        this.tokenService = tokenService;
     }
 
     public List<AgendaResponse> getAgendasByFisioterapeuta(Integer fisioterapeutaId) {
@@ -53,14 +54,44 @@ public class AgendaService {
     @Transactional
     public Agenda saveAgenda(Agenda agenda) {
         validateAgenda(agenda);
-        return agendaRepository.save(agenda);
+        try {
+            return agendaRepository.save(agenda);
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar agenda: " + e.getMessage());
+            throw new BusinessException("Erro ao salvar agenda: " + e.getMessage());
+        }
     }
 
-    public void deleteAgenda(Integer agendaId) {
-        if (!agendaRepository.existsById(agendaId)) {
-            throw new RuntimeException("Agenda não encontrada para o ID: " + agendaId);
+    public void deleteAgenda(List<Integer> ids, String token) {
+        List<Agenda> existingAgendas = new ArrayList<>();
+        try {
+            existingAgendas.addAll(agendaRepository.findAllById(ids));
+            System.out.println("Agendas: " + existingAgendas);
+        } catch (Exception e) {
+            throw new BusinessException("Não foi possível encontrar as agendas [" + ids + "]");
         }
-        agendaRepository.deleteById(agendaId);
+
+        if (existingAgendas.isEmpty()) {
+            throw new BusinessException("Não foi possível encontrar as agendas [" + ids + "]");
+        }
+
+        for (Agenda agenda : existingAgendas) {
+            String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
+
+            if (!agenda.getFisioterapeuta()
+                    .getEmail()
+                    .equals(loggedUserEmail) &&
+                    !this.tokenService.isAdmin(loggedUserEmail)) {
+                throw new BusinessException("Não é possível deletar uma agenda que não pertence ao usuário logado.");
+            }
+
+            try {
+                agendaRepository.delete(agenda);
+            } catch (Exception e) {
+                throw new BusinessException(
+                        "Erro ao excluir agenda de id [" + agenda.getId() + "]: " + e.getMessage());
+            }
+        }
     }
 
     @Transactional
@@ -79,7 +110,7 @@ public class AgendaService {
 
     public void validateAgenda(Agenda agenda) {
         if (agenda.getHorarioInicio().after(agenda.getHorarioFim())) {
-            throw new RuntimeException("O horário de início não pode ser posterior ao horário de término.");
+            throw new BusinessException("O horário de início não pode ser posterior ao horário de término.");
         }
     }
 

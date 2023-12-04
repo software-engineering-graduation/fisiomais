@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import { Modal } from 'antd';
+import { useNavigate } from "react-router-dom";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import axios from 'axios';
+
 import { Status } from "../../components/Status/Status";
 import { IconMore } from "../../icons/IconMore";
 import { IconDelete } from "../../icons/IconDelete";
 import { IconEdit } from "../../icons/IconEdit";
 
-export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observacoes, linkConsulta }) => {
+export const ContentLine = ({ id, paciente, fisioterapeuta, dataHora, status, observacoes, linkConsulta, onDelete }) => {
     const [showIcons, setShowIcons] = useState(false);
+    const navigate = useNavigate();
+
+    const handleDeleteClick = () => {
+        Modal.confirm({
+            title: 'Você tem certeza que quer deletar esta consulta?',
+            icon: <ExclamationCircleOutlined />,
+            content: 'Esta ação não pode ser desfeita.',
+            okText: 'Sim, deletar',
+            okType: 'danger',
+            cancelText: 'Não, cancelar',
+            onOk: () => onDelete(id)
+        });
+    };
+
+    const handleEditClick = () => {
+        navigate(`/consulta/editar/${id}`);
+    };
 
     return (
         <tr onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)}>
@@ -18,17 +40,17 @@ export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observ
             </td>
             <td className="px-4 text-left">{observacoes}</td>
             <td className="px-4 text-left">
-                <a href={linkConsulta} target="_blank" rel="noopener noreferrer">Link</a>
+                <a href={linkConsulta} target="_blank" rel="noopener noreferrer">Link Consulta</a>
             </td>
             <td>
-                <div className="flex items-center">
+                <div className="flex items-center justify-end space-x-2">
                     {showIcons && (
                         <>
-                            <IconEdit />
-                            <IconDelete />
+                            <IconEdit onClick={handleEditClick} />
+                            <IconDelete onClick={handleDeleteClick} />
                         </>
                     )}
-                    <IconMore className="ml-2" />
+                    <IconMore />
                 </div>
             </td>
         </tr>
@@ -36,6 +58,7 @@ export const ContentLine = ({ paciente, fisioterapeuta, dataHora, status, observ
 };
 
 ContentLine.propTypes = {
+    id: PropTypes.number.isRequired,
     paciente: PropTypes.shape({
         nome: PropTypes.string.isRequired,
     }).isRequired,
@@ -45,7 +68,8 @@ ContentLine.propTypes = {
     dataHora: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     observacoes: PropTypes.string,
-    linkConsulta: PropTypes.string
+    linkConsulta: PropTypes.string,
+    onDelete: PropTypes.func.isRequired
 };
 
 export default ContentLine;

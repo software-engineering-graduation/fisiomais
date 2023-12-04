@@ -1,4 +1,3 @@
-import { Content } from 'antd/es/layout/layout';
 import React from 'react';
 import LoginForm from './LoginForm';
 import styled from 'styled-components';
@@ -13,7 +12,7 @@ const Login = () => {
 
 export default Login;
 
-const FullScreenContainer = styled.div`
+export const FullScreenContainer = styled.div`
     position: absolute;
     left: 0;
     top: 0;

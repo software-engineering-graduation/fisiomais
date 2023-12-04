@@ -2,6 +2,7 @@ package com.fisiomais.service;
 
 import org.springframework.stereotype.Service;
 
+import com.fisiomais.bodys.MidiaTratamentoResponse;
 import com.fisiomais.dto.MidiaDTO;
 import com.fisiomais.exception.BusinessException;
 import com.fisiomais.exception.NotFoundException;
@@ -9,11 +10,13 @@ import com.fisiomais.model.Exercicio;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.model.Midia;
 import com.fisiomais.model.enums.TipoArquivo;
+import com.fisiomais.model.indicators.MidiaTypesMetrics;
 import com.fisiomais.repository.FisioterapeutaRepository;
 import com.fisiomais.repository.MidiaRepository;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,12 +27,14 @@ public class MidiaService {
     private final MidiaRepository midiaRepository;
     private final FisioterapeutaRepository fisioterapeutaRepository;
     private final ExercicioService exercicioService;
+    private final TokenService tokenService;
 
     public MidiaService(MidiaRepository midiaRepository, FisioterapeutaRepository fisioterapeutaRepository,
-            ExercicioService exercicioService) {
+            ExercicioService exercicioService, TokenService tokenService) {
         this.midiaRepository = midiaRepository;
         this.fisioterapeutaRepository = fisioterapeutaRepository;
         this.exercicioService = exercicioService;
+        this.tokenService = tokenService;
     }
 
     public List<Midia> getMidiaByFisioterapeuta(Fisioterapeuta fisioterapeuta) {
@@ -53,23 +58,13 @@ public class MidiaService {
     }
 
     public MidiaDTO createMidia(MidiaDTO midiaDTO) {
-        // Convert PacienteDTO to Paciente entity, if necessary
-        // For simplicity, we assume the DTO structure is identical to the entity
         Midia midia = toEntity(midiaDTO);
 
-        // check if arquivo or linkArquivo is different from null
-        if (midia.getArquivo() == null && midia.getLinkArquivo() == null) {
-            throw new BusinessException("Arquivo ou link do arquivo não podem ser ambos nulos");
+        if (midia.getLinkArquivo() == null) {
+            throw new BusinessException("Link do arquivo não pode ser nulo");
         }
 
-        if (midia.getArquivo() != null && midia.getLinkArquivo() != null) {
-            throw new BusinessException("Apenas um dos campos arquivo ou link do arquivo pode ser preenchido");
-        }
-
-        // Save the Paciente entity to the database
         Midia savedMidia = midiaRepository.save(midia);
-
-        // Convert the saved Paciente entity back to PacienteDTO
         return toDTO(savedMidia);
     }
 
@@ -96,12 +91,33 @@ public class MidiaService {
         return false; // Return false if the Paciente is not found
     }
 
-    public boolean deleteMidia(List<Integer> ids) {
-        boolean deleted = false;
-        for (Integer id : ids) {
-            deleted = deleteMidia(id);
+    public void deleteMidia(List<Integer> ids, String token) {
+        List<Midia> existingMidias = new ArrayList<>();
+        try {
+            existingMidias.addAll(midiaRepository.findAllById(ids));
+        } catch (Exception e) {
+            throw new NotFoundException("Erro ao buscar midias [" + ids + "]");
         }
-        return deleted;
+
+        if (existingMidias.isEmpty()) {
+            throw new NotFoundException("Nenhuma mídia encontrada");
+        }
+
+        for (Midia midia : existingMidias) {
+            String loggedUserEmail = this.tokenService.getSubject(this.tokenService.getTokenFromBearer(token));
+
+            if (!midia.getFisioterapeuta()
+                    .getEmail()
+                    .equals(loggedUserEmail)) {
+                throw new NotFoundException("Você não pode excluir uma mídia de outro fisioterapeuta");
+            }
+            try {
+                midiaRepository.delete(midia);
+            } catch (Exception e) {
+                throw new BusinessException(
+                        "Erro ao excluir mídia de id [" + midia.getId() + "]: " + e.getMessage());
+            }
+        }
     }
 
     // Additional methods for custom business logic, validation, etc.
@@ -132,7 +148,6 @@ public class MidiaService {
 
         midiaDTO.setTitulo(titulo);
         midiaDTO.setDescricao(descricao);
-        midiaDTO.setArquivo(midia.getArquivo());
         midiaDTO.setLinkArquivo(midia.getLinkArquivo());
         return midiaDTO;
     }
@@ -144,11 +159,11 @@ public class MidiaService {
         if (owner == null) {
             throw new NullPointerException("Fisioterapeuta from Midia: null");
         }
-        midia.setFisioterapeuta(owner); // TODO - add link to fisioterapeuta repository, seraching by id
+        midia.setFisioterapeuta(owner);
         midia.setCreateTime(midiaDTO.getCreateTime());
         midia.setType(midiaDTO.getType());
-        midia.setArquivo(midiaDTO.getArquivo());
         midia.setLinkArquivo(midiaDTO.getLinkArquivo());
+        midia.setIsPublic(midiaDTO.getIsPublic());
 
         // Encode Titulo and Descricao to ISO-8859-1
         String titulo = null;
@@ -171,5 +186,32 @@ public class MidiaService {
         return midias.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<MidiaTypesMetrics> getTaxaUtilizacao() {
+        return midiaRepository.getTaxaUtilizacao();
+    }
+
+    public List<Midia> getAvailableMidias(String token, Fisioterapeuta fisioterapeuta) {
+        if (this.tokenService.isAdmin(token)) {
+            return midiaRepository
+                    .findAll();
+        }
+
+        List<Midia> midiasFisioterapeut = this.getMidiaByFisioterapeuta(fisioterapeuta);
+        List<Midia> midiasPublicas = midiaRepository.findAllByIsPublicTrue();
+        List<Midia> groupedMidias = new ArrayList<>();
+        groupedMidias.addAll(midiasFisioterapeut);
+        groupedMidias.addAll(midiasPublicas);
+
+        return groupedMidias
+                .stream()
+                .distinct()
+                .sorted((m1, m2) -> m1.getId().compareTo(m2.getId()))
+                .toList();
+    }
+
+    public List<Midia> getPublicMidias() {
+        return midiaRepository.findAllByIsPublicTrue();
     }
 }

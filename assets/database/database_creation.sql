@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`midia` (
   `link_arquivo` LONGTEXT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_midia_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_midia_fisioterapeuta1`
@@ -135,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio` (
   `nome` VARCHAR(150) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
   `fisioterapeuta__id` INT NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_exercicio_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_exercicio_fisioterapeuta1`
@@ -148,24 +150,27 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fisiomais_db`.`exercicio_has_midias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_midias` (
-  `midia__id` INT NOT NULL,
-  `midia_fisioterapeuta__id` INT NOT NULL,
-  `exercicio__id` INT NOT NULL,
-  PRIMARY KEY (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`),
-  INDEX `fk_exercicio_videos_midia1_idx` (`midia__id` ASC, `midia_fisioterapeuta__id` ASC) VISIBLE,
-  INDEX `fk_exercicio_has_videos_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
-  CONSTRAINT `fk_exercicio_videos_midia1`
-    FOREIGN KEY (`midia__id` , `midia_fisioterapeuta__id`)
-    REFERENCES `fisiomais_db`.`midia` (`_id` , `fisioterapeuta__id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exercicio_has_videos_exercicio1`
-    FOREIGN KEY (`exercicio__id`)
-    REFERENCES `fisiomais_db`.`exercicio` (`_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE
+    IF NOT EXISTS fisiomais_db.exercicio_has_midias (
+        midia__id INT NOT NULL,
+        midia_fisioterapeuta__id INT NOT NULL,
+        exercicio__id INT NOT NULL,
+        PRIMARY KEY (
+            midia__id,
+            midia_fisioterapeuta__id,
+            exercicio__id
+        ),
+        INDEX fk_exercicio_videos_midia1_idx (
+            midia__id ASC,
+            midia_fisioterapeuta__id ASC
+        ) VISIBLE,
+        INDEX fk_exercicio_has_videos_exercicio1_idx (exercicio__id ASC) VISIBLE,
+        CONSTRAINT fk_exercicio_videos_midia1 FOREIGN KEY (
+            midia__id,
+            midia_fisioterapeuta__id
+        ) REFERENCES fisiomais_db.midia (_id, fisioterapeuta__id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        CONSTRAINT fk_exercicio_has_videos_exercicio1 FOREIGN KEY (exercicio__id) REFERENCES fisiomais_db.exercicio (_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------

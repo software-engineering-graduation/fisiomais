@@ -6,12 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.fisiomais.exception.TokenExpirationException;
 import com.fisiomais.model.User;
-
-import java.util.Date;
-import java.time.Instant;
 
 @Service
 public class TokenService {
@@ -19,6 +14,7 @@ public class TokenService {
     private static final Logger logger = LogManager.getLogger(TokenService.class);
 
     public String gerarToken(User usuario) {
+        logger.info("Gerando token para o usuário: " + usuario.getUsername());
         return JWT.create()
                 .withIssuer("User")
                 .withSubject(usuario.getUsername())
@@ -34,5 +30,19 @@ public class TokenService {
                 .build()
                 .verify(token)
                 .getSubject();
+    }
+
+    public String getTokenFromBearer(String bearerToken) {
+        return bearerToken.split(" ")[1];
+    }
+
+    public Boolean sameUserEmail(String email, String token) {
+        String subject = this.getSubject(getTokenFromBearer(token));
+        return subject.equals(email);
+    }
+
+    public Boolean isAdmin(String token) {
+        String subject = this.getSubject(getTokenFromBearer(token));
+        return subject.equals("fisiomaisclinicas@gmail.com");
     }
 }

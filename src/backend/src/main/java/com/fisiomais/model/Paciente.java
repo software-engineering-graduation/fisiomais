@@ -19,12 +19,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fisiomais.model.enums.Genero;
 
 @Data
 @Entity
 @Table(name = "paciente")
-public class Paciente extends User{
+public class Paciente extends User {
     @Column(nullable = false, name = "data_nascimento")
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -33,17 +34,15 @@ public class Paciente extends User{
     @Column(nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false, length = 11)
-    private String telefone;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "ENUM('Homem', 'Mulher', 'Outro')")
     private Genero genero;
 
     @OneToMany(mappedBy = "paciente")
-    private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
+    private List<Tratamento> tratamentos = new ArrayList<>();
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("FISIOTERAPEUTA"));
     }
@@ -72,9 +71,10 @@ public class Paciente extends User{
     public boolean isEnabled() {
         return true;
     }
+
     @Column(length = 200)
     private String endereco;
-    
+
     // @OneToMany(mappedBy = "paciente")
     // private List<Tratamento> tratamentos = new ArrayList<Tratamento>();
 }

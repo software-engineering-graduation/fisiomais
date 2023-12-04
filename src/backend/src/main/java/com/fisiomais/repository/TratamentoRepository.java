@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.fisiomais.bodys.TratamentoResponse;
+import com.fisiomais.model.Exercicio;
 import com.fisiomais.model.Tratamento;
-import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
+import com.fisiomais.model.indicators.TaxaTratamentoFisioterapeutaMetrics;
 
 @Repository
 public interface TratamentoRepository extends JpaRepository<Tratamento, Integer> {
@@ -26,12 +26,17 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Integer>
 
     Optional<Tratamento> findById(Integer id);
 
-    // @Query("SELECT new com.fisiomais.model.indicators.MidiaUtilizationMetrics("
-    //         + "COUNT(DISTINCT m.id) AS totalMidias, "
-    //         + "COUNT(m.id) AS totalExercicios, "
-    //         + "COUNT(DISTINCT em.midia.id) AS midiasComExercicios, "
-    //         + "(COUNT(DISTINCT em.midia.id) / COUNT(DISTINCT m.id)) * 100 AS taxaUtilizacao) "
-    //         + "FROM Midia m "
-    //         + "LEFT JOIN ExercicioHasMidias em ON m.id = em.midia.id")
-    // MidiaUtilizationMetrics getTaxaUtilizacao();
+    Optional<List<Tratamento>> findByFisioterapeutaIdAndPacienteId(Integer id, Integer idPaciente);
+
+    @Query("SELECT new com.fisiomais.model.indicators.TaxaTratamentoFisioterapeutaMetrics(" +
+            "t.fisioterapeuta.nome AS fisioterapeutaNome, " +
+            "COUNT(t) AS totalTratamentosCriados, " +
+            "CAST((COUNT(t) * 1.0 / (SELECT COUNT(tr) FROM Tratamento tr)) * 100 AS DOUBLE) AS taxaCriacaoTratamentos) "
+            +
+            "FROM Tratamento t " +
+            "GROUP BY t.fisioterapeuta.id")
+    List<TaxaTratamentoFisioterapeutaMetrics> getTaxaCriacaoTratamentosPorFisioterapeuta();
+
+    void deleteTratamentoHasExerciciosByExercicios(Exercicio exercicio);
+
 }

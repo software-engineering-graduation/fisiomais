@@ -1,6 +1,7 @@
 package com.fisiomais.service;
 
 import com.fisiomais.bodys.ConsultaResponse;
+import com.fisiomais.bodys.ConsultaResponseAgenda;
 import com.fisiomais.bodys.FisioterapeutaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.bodys.PacienteResponse;
@@ -17,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -114,7 +116,7 @@ public class ConsultaService {
         return consultaRepository.findAll();
     }
 
-    private ConsultaResponse toConsultaResponse(Consulta consulta) {
+    public ConsultaResponse toConsultaResponse(Consulta consulta) {
         String obsevacoesConsulta = consulta.getObservacoes() != null
                 ? new String(consulta.getObservacoes().getBytes(StandardCharsets.ISO_8859_1),
                         StandardCharsets.UTF_8)
@@ -128,9 +130,17 @@ public class ConsultaService {
                 consulta.getLink());
     }
 
-	public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
+    public List<ConsultaResponseAgenda> toConsultaResponseAgenda(List<Consulta> consultaList) {
+        List<ConsultaResponseAgenda> consultasResponse = new ArrayList<>();
+        for (Consulta c : consultaList) {
+            consultasResponse.add(ConsultaResponseAgenda.toResponse(c));
+        }
+        return consultasResponse;
+    }
+
+    public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
         return consultaRepository.findByFisioterapeutaId(fisioterapeutaId);
-	}
+    }
 
     public double getTaxaConclusao() {
         return consultaRepository.calculateTaxaConclusao();
@@ -146,5 +156,17 @@ public class ConsultaService {
 
     public CancelationMetrics getTaxaCancelamento() {
         return consultaRepository.getCancelationMetrics();
+    }
+
+    public ConsultaResponse updateConsulta(Integer consultaId, Consulta consultaMapped) {
+        Consulta consulta = getConsultaById(consultaId);
+        consulta.setObservacoes(consultaMapped.getObservacoes());
+        consulta.setConfirmacao(consultaMapped.getConfirmacao());
+        consulta.setDataEHora(consultaMapped.getDataEHora());
+        consulta.setLink(consultaMapped.getLink());
+        consulta.setGoogleEventId(consultaMapped.getGoogleEventId());
+        consulta.setFisioterapeuta(consultaMapped.getFisioterapeuta());
+        consulta.setPaciente(consultaMapped.getPaciente());
+        return toConsultaResponse(consultaRepository.save(consulta));
     }
 }

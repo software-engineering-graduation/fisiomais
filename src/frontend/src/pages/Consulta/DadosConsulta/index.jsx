@@ -14,19 +14,31 @@ import { useNavigate } from 'react-router-dom';
 const { Content } = Layout;
 const { Title, Text, Link } = Typography;
 
-const DadosConsulta = () => {
+const DadosConsulta = ({ consulta }) => {
+    // console.log('consulta', consulta)
+    const initialFisioterapeuta = consulta ? consulta.fisioterapeuta : null;
+
+    const initialDateSelected = consulta ?
+        dayjs(consulta.dataEHora) : null;
+
+    const initialTimeSelected = consulta ?
+        dayjs(consulta.dataEHora) : null;
+
+    const initialConsultaData = consulta || null;
+    const initialFinished = consulta?.finished || null;
+
     const [fisioterapeutas, setFisioterapeutas] = useState([]);
-    const [selectedFisioterapeuta, setSelectedFisioterapeuta] = useState(null);
+    const [selectedFisioterapeuta, setSelectedFisioterapeuta] = useState(initialFisioterapeuta);
     const [agenda, setAgenda] = useState([]);
     const [consultas, setConsultas] = useState([]);
-    const [dateSelected, setDateSelected] = useState(null);
-    const [timeSelected, setTimeSelected] = useState(null);
-    const [consultaData, setConsultaData] = useState(null);
+    const [dateSelected, setDateSelected] = useState(initialDateSelected);
+    const [timeSelected, setTimeSelected] = useState(initialTimeSelected);
+    const [consultaData, setConsultaData] = useState(initialConsultaData);
 
     const [fisioFetchStatus, setFisioFetchStatus] = useState('idle');
     const [agendaFetchStatus, setAgendaFetchStatus] = useState('idle');
     const [requestStatus, setRequestStatus] = useState('idle');
-    const [finished, setFinished] = useState(null); // ['confirmacao', 'pendente', null]
+    const [finished, setFinished] = useState(initialFinished);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -128,7 +140,6 @@ const DadosConsulta = () => {
 
     const sendAppointmentRequest = async () => {
         setRequestStatus('loading');
-        // console.log(selectedFisioterapeuta)
         if (!selectedFisioterapeuta.controle_automatico && process.env.API_TYPE === "json") { return setRequestStatus('error') }
         const requestBody = process.env.API_TYPE === 'json' ?
             {
@@ -171,9 +182,46 @@ const DadosConsulta = () => {
         // }
     };
 
+    const updateAppointment = async () => {
+        setRequestStatus('loading');
+        const requestBody =
+        {
+            // dd/MM/yyyy HH:mm:ss
+            dataEHora: dayjs(dateSelected).hour(timeSelected.hour()).minute(timeSelected.minute()).second(0).format('DD/MM/YYYY HH:mm:ss'),
+            _id: consulta.id,
+            confirmacao: consultaData.status,
+            link: consultaData.link,
+            observacoes: consultaData.observacoes,
+            fisioterapeuta: consultaData.fisioterapeuta,
+            paciente: consultaData.paciente,
+            googleEventId: consultaData.googleEventId,
+        };
+
+        const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/${consulta.id}`;
+
+        await axios.put(apiRoute, requestBody)
+            .then((res) => {
+                // console.log(`Consulta atualizada:`, res.data);
+                setConsultaData(res.data);
+                openNotification('success', 'Consulta atualizada', 'Os dados da consulta foram atualizados com sucesso');
+                setFinished(res.data.status);
+            })
+            .catch((err) => {
+                setRequestStatus('error');
+                openNotification('error', 'Erro ao atualizar dados da consulta', err.message);
+            })
+            .finally(() => {
+                setRequestStatus('success');
+            });
+    };
+
     useEffect(() => {
+        if (consulta) {
+            return;
+        }
+
         fetchAllFisioterapeutas();
-    }, []);
+    }, [consulta]);
 
     useEffect(() => {
         if (selectedFisioterapeuta !== null) {
@@ -183,7 +231,7 @@ const DadosConsulta = () => {
     }, [selectedFisioterapeuta]);
 
     const handleDatePicker = (date) => {
-        setDateSelected(date.$d);
+        setDateSelected(date);
     };
 
     const updateFisioSelected = async (value) => {
@@ -255,7 +303,7 @@ const DadosConsulta = () => {
         const disabeld = current && current < dayjs().endOf('day');
 
         // also disable days that are disabled in the agenda
-        const filteredObjects = agenda.filter(obj => obj.dia === current.$W && obj.disponivel === 0);
+        const filteredObjects = agenda.filter(obj => obj.dia === current.$W && obj.disponivel === false);
         const disabledInAgenda = filteredObjects.length > 0;
 
         return disabeld || disabledInAgenda;
@@ -277,7 +325,8 @@ const DadosConsulta = () => {
         const hoursDisabled = dateSelected && dayjs(dateSelected).isSame(dayjs(), 'day') ? range(0, moment().hour() + 1) : [];
         const minutesDisabled = dateSelected && dayjs(dateSelected).isSame(dayjs(), 'day') ? range(0, moment().minute() + 1) : [];
 
-        const dayNumber = dateSelected.getDay();
+        const dayNumber = dateSelected ? dateSelected.$W : null;
+
         const agenda_day = agenda.find((obj) => obj.dia === dayNumber);
 
         if (agenda_day) {
@@ -338,7 +387,15 @@ const DadosConsulta = () => {
         return `${telFormatted}`;
     }
 
-    if (role === 'fisioterapeuta') {
+    const handleSendData = async () => {
+        if (!consulta) {
+            return sendAppointmentRequest();
+        }
+
+        updateAppointment();
+    }
+
+    if (role === 'paciente' && consulta) {
         return (
             <Result title="Usuário não tem permissão para acessar essa página"
                 subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
@@ -367,9 +424,15 @@ const DadosConsulta = () => {
     }
 
     if (finished) {
+        // console.log('finished', consultaData)
         const title = finished === 'confirmado' ? 'Solicitação de agendamento confirmada' : 'Solicitação de agendamento enviada';
         const description = finished === 'confirmado' ? 'Lembre-se de comparecer no horário' : 'Aguarde a confirmação do profissional';
         const status = finished === 'confirmado' ? 'success' : 'info';
+
+        // for update
+        const titleUpdate = 'Consulta atualizada'
+        const descriptionUpdate = 'Os dados da consulta foram atualizados com sucesso'
+        const statusUpdate = 'success'
 
         let consultaStatus;
         if (consultaData.status === 'confirmado') {
@@ -385,9 +448,10 @@ const DadosConsulta = () => {
             <Content>
                 {contextHolder}
                 <Result
-                    status={status}
-                    title={title}
-                    subTitle={description} />
+                    status={consulta ? statusUpdate : status}
+                    title={consulta ? titleUpdate : title}
+                    subTitle={consulta ? descriptionUpdate : description}
+                />
                 <Divider />
                 <Card title="Dados da consulta" type={'inner'}>
                     <BaseInfoContainer>
@@ -396,6 +460,9 @@ const DadosConsulta = () => {
                         <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Horário:</Text> {formatTime(consultaData.dataEHora)}<br /></InfoRow>
                         <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Nome do profissional:</Text> {selectedFisioterapeuta.nome}<br /></InfoRow>
                         <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Telefone do profissional para contato:</Text> {formatTelefone(selectedFisioterapeuta.telefone)} <br /></InfoRow>
+                        {consultaData.observacoes &&
+                            <InfoRow><Text strong style={{ fontSize: '1.2rem' }}>Observações:</Text> {consultaData.observacoes} <br /></InfoRow>
+                        }
                         {consultaData.link &&
                             <InfoRow style={{
                                 display: 'flex',
@@ -426,6 +493,7 @@ const DadosConsulta = () => {
             <Space>
                 <FisioInputLabel>Selecione um profissional:</FisioInputLabel>
                 <Select
+                    value={selectedFisioterapeuta?.nome ?? undefined}
                     loading={fisioFetchStatus === 'loading'}
                     disabled={fisioFetchStatus !== 'success'}
                     showSearch
@@ -450,6 +518,7 @@ const DadosConsulta = () => {
                     <DatePickerContainer>
                         <FisioInputLabel>Data da consulta:</FisioInputLabel>
                         <DatePicker
+                            value={dateSelected}
                             disabled={!isSuccessAgenda}
                             onChange={handleDatePicker}
                             locale={locale}
@@ -473,16 +542,99 @@ const DadosConsulta = () => {
                                 placeholder={'Horário'}
                                 disabledTime={disabledTime} />
                         </DatePickerContainer>}
+                </BottomInputsContainer>
+            }
 
-                    {timeSelected &&
-                        <ButtonContainer>
-                            <NextStepButton size="large"
-                                loading={isLoadingRequest}
-                                onClick={() => sendAppointmentRequest()}>
-                                Enviar solicitação de agendamento
-                            </NextStepButton>
-                        </ButtonContainer>}
-                </BottomInputsContainer>}
+            {role === 'fisioterapeuta' && consulta &&
+                (
+                    <>
+                        <BottomInputsContainer direction='vertical'>
+                            <FisioInputLabel>Atualizar status da consulta:</FisioInputLabel>
+                            <Select
+                                value={consultaData.status ?? undefined}
+                                loading={fisioFetchStatus === 'loading'}
+                                style={{
+                                    width: 200,
+                                }}
+                                onChange={(value) => {
+                                    setConsultaData({
+                                        ...consultaData,
+                                        status: value,
+                                    });
+                                }}
+                                placeholder="Selecione um status"
+                                optionFilterProp="children"
+                                filterOption={(input, option) => (option?.label.toLowerCase() ?? '').includes(input.toLowerCase())}
+                                filterSort={(optionA, optionB) => (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())}
+                                options={[
+                                    {
+                                        value: 'confirmado',
+                                        label: 'Confirmada',
+                                    },
+                                    {
+                                        value: 'pendente',
+                                        label: 'Pendente',
+                                    },
+                                    {
+                                        value: 'cancelado',
+                                        label: 'Cancelada',
+                                    },
+                                    {
+                                        value: 'realizado',
+                                        label: 'Realizada',
+                                    }
+                                ]} />
+                        </BottomInputsContainer>
+                        {/* observaçoes field */}
+                        <BottomInputsContainer direction='vertical'>
+                            <FisioInputLabel>Observações:</FisioInputLabel>
+                            <textarea
+                                value={consultaData.observacoes ?? ''}
+                                onChange={(e) => {
+                                    setConsultaData({
+                                        ...consultaData,
+                                        observacoes: e.target.value,
+                                    });
+                                }}
+                                style={{
+                                    width: '100%',
+                                    height: '100px',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #ccc',
+                                    resize: 'none',
+                                }} />
+                        </BottomInputsContainer>
+                        {/* link field */}
+                        <BottomInputsContainer direction='vertical'>
+                            <FisioInputLabel>Link da consulta:</FisioInputLabel>
+                            <input
+                                value={consultaData.link ?? ''}
+                                onChange={(e) => {
+                                    setConsultaData({
+                                        ...consultaData,
+                                        link: e.target.value,
+                                    });
+                                }}
+                                style={{
+                                    width: '100%',
+                                    height: '40px',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #ccc',
+                                }} />
+                        </BottomInputsContainer>
+                    </>
+                )}
+
+            {timeSelected &&
+                <ButtonContainer>
+                    <NextStepButton size="large"
+                        loading={isLoadingRequest}
+                        onClick={() => handleSendData()}>
+                        {!consulta ? 'Enviar solicitação de agendamento' : 'Atualizar dados da consulta'}
+                    </NextStepButton>
+                </ButtonContainer>}
         </Content>
     );
 };

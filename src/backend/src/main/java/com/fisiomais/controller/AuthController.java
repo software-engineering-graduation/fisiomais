@@ -63,6 +63,9 @@ public class AuthController {
     public ResponseEntity<String> login(
             @Parameter(description = "Objeto contendo as credenciais do usuário") @RequestBody Login login) {
         try {
+            logger.info("Logging in user with email: {}", login.getEmail());
+            logger.info("Logging in user with password: {}", login.getSenha());
+
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     login.getEmail(), login.getSenha());
 
@@ -118,7 +121,13 @@ public class AuthController {
         Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(id).orElse(null);
         logger.info("Fisioterapeuta email searched: {}", fisioterapeuta.getEmail());
         if (fisioterapeuta != null && fisioterapeuta.getEmail().equals(userCred.email())) {
-            return new ResponseEntity<>(UserCredentialsResponse.parseFisioterapeuta(fisioterapeuta), HttpStatus.OK);
+            // if email is fisiomaisclinicas@gmail.com change the role to "admin"
+            UserCredentialsResponse response = UserCredentialsResponse.parseFisioterapeuta(fisioterapeuta);
+            if (response.email().equals("fisiomaisclinicas@gmail.com")) {
+                response = new UserCredentialsResponse(response.id(), response.nome(), response.email(),
+                        response.telefone(), response.endereco(), response.controle_automatico(), "admin");
+            }
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
         logger.error("User not found for id: {}", id);

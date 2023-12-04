@@ -9,11 +9,9 @@ import com.fisiomais.repository.PacienteRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +49,7 @@ public class FisioterapeutaService {
 
         if (pacienteRepository.findByEmail(fisioterapeuta.getEmail()) != null
                 || fisioterapeutaRepository.findByEmail(fisioterapeuta.getEmail()) != null) {
-            throw new BusinessException("Email already exists");
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
         }
 
         return fisioterapeutaRepository.save(fisioterapeuta);
@@ -111,6 +109,11 @@ public class FisioterapeutaService {
     // }
 
     public Fisioterapeuta create(FisioterapeutaDTO fisioterapeutaDTO) {
+        if (pacienteRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null
+                || fisioterapeutaRepository.findByEmail(fisioterapeutaDTO.getEmail()) != null) {
+            throw new BusinessException("Email já cadastrado. Tente realizar o login.");
+        }
+
         Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
         fisioterapeuta.setNome(fisioterapeutaDTO.getNome());
         fisioterapeuta.setEmail(fisioterapeutaDTO.getEmail());
@@ -126,19 +129,17 @@ public class FisioterapeutaService {
         List<Fisioterapeuta> fisioterapeutas = fisioterapeutaRepository.findAll();
         List<FisioterapeutaNamesAndIdsResponse> fisioterapeutasNamesIds = new ArrayList<>();
         for (Fisioterapeuta fisioterapeuta : fisioterapeutas) {
-            // Decode Titulo and Descricao from UTF-8
-            String nome = null;
-
-            try {
-                nome = new String(fisioterapeuta.getNome().getBytes(StandardCharsets.ISO_8859_1),
-                        StandardCharsets.UTF_8);
-            } catch (Exception e) {
-                throw new RuntimeException("Error decoding string. Please provide a valid string format.");
-            }
-
             fisioterapeutasNamesIds
-                    .add(new FisioterapeutaNamesAndIdsResponse(nome, fisioterapeuta.getId()));
+                    .add(new FisioterapeutaNamesAndIdsResponse(fisioterapeuta.getNome(), fisioterapeuta.getId()));
         }
         return fisioterapeutasNamesIds;
+    }
+
+    public Double getTaxaCrescimento() {
+        return fisioterapeutaRepository.calculateTaxaCrescimento();
+    }
+
+    public Double getIndicePerfisCompletos() {
+        return fisioterapeutaRepository.calculateIndicePerfisCompletos();
     }
 }

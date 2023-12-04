@@ -1,12 +1,15 @@
 package com.fisiomais.controller;
 
 import com.fisiomais.dto.AgendaRequest;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.service.AgendaService;
 import com.fisiomais.service.FisioterapeutaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +41,15 @@ public class AgendaController {
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/dia/{dia}")
-    public ResponseEntity<List<Agenda>> getAgendasByDiaAndFisioterapeuta(@PathVariable Byte dia, @PathVariable Integer fisioterapeutaId) {
+    public ResponseEntity<List<Agenda>> getAgendasByDiaAndFisioterapeuta(@PathVariable Byte dia,
+            @PathVariable Integer fisioterapeutaId) {
         List<Agenda> agendas = agendaService.getAgendasByDiaAndFisioterapeuta(dia, fisioterapeutaId);
         return ResponseEntity.ok(agendas);
     }
 
     @GetMapping("/fisioterapeuta/{fisioterapeutaId}/disponibilidade")
-    public ResponseEntity<List<Agenda>> getAgendasByDisponibilidadeAndFisioterapeuta(@RequestParam Boolean disponivel, @PathVariable Integer fisioterapeutaId) {
+    public ResponseEntity<List<Agenda>> getAgendasByDisponibilidadeAndFisioterapeuta(@RequestParam Boolean disponivel,
+            @PathVariable Integer fisioterapeutaId) {
         List<Agenda> agendas = agendaService.getAgendasByDisponibilidadeAndFisioterapeuta(disponivel, fisioterapeutaId);
         return ResponseEntity.ok(agendas);
     }
@@ -55,7 +60,8 @@ public class AgendaController {
             @PathVariable Byte dia,
             @RequestParam Time horarioInicio,
             @RequestParam Time horarioFim) {
-        List<Agenda> agendas = agendaService.getAgendasByFisioterapeutaDiaEHorario(fisioterapeutaId, dia, horarioInicio, horarioFim);
+        List<Agenda> agendas = agendaService.getAgendasByFisioterapeutaDiaEHorario(fisioterapeutaId, dia, horarioInicio,
+                horarioFim);
         return ResponseEntity.ok(agendas);
     }
 
@@ -64,20 +70,22 @@ public class AgendaController {
             @PathVariable Integer fisioterapeutaId,
             @PathVariable Byte dia,
             @RequestParam Boolean disponivel) {
-        List<Agenda> agendas = agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(fisioterapeutaId, dia, disponivel);
+        List<Agenda> agendas = agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(fisioterapeutaId, dia,
+                disponivel);
         return ResponseEntity.ok(agendas);
     }
 
     @PostMapping
-    public ResponseEntity<?> createAgenda(@RequestBody @Valid AgendaRequest agendaRequest) {
+    public ResponseEntity<Agenda> createAgenda(@RequestBody @Valid AgendaRequest agendaRequest) {
         try {
             System.out.println("Fisioterapeuta ID recebido: " + agendaRequest.getFisioterapeutaId());
 
             if (agendaRequest.getFisioterapeutaId() == null) {
-                return ResponseEntity.badRequest().body("O ID do fisioterapeuta não pode ser nulo.");
+                throw new IllegalArgumentException("O ID do fisioterapeuta não pode ser nulo.");
             }
             Fisioterapeuta fisioterapeuta = fisioterapeutaService.findById(agendaRequest.getFisioterapeutaId())
-                    .orElseThrow(() -> new IllegalArgumentException("Fisioterapeuta não encontrado com o ID: " + agendaRequest.getFisioterapeutaId()));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Fisioterapeuta não encontrado com o ID: " + agendaRequest.getFisioterapeutaId()));
 
             Agenda agenda = new Agenda();
             agenda.setFisioterapeuta(fisioterapeuta);
@@ -86,14 +94,19 @@ public class AgendaController {
             agenda.setHorarioFim(agendaRequest.getHorarioFimAsTime());
             agenda.setDisponivel(agendaRequest.getDisponivel());
 
+            System.out.println("Agenda: " + agenda);
+
             Agenda newAgenda = agendaService.saveAgenda(agenda);
-            return ResponseEntity.ok(newAgenda);
+
+            System.out.println("Agenda criada: " + newAgenda);
+            return new ResponseEntity<>(newAgenda, HttpStatus.CREATED);
         } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            throw new BusinessException("Ocorreu um erro ao criar a agenda: " + ex.getMessage());
         } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body("Ocorreu um erro ao criar a agenda.");
+            throw new BusinessException("Ocorreu um erro ao criar a agenda: " + ex.getMessage());
         }
     }
+
     @PutMapping("/{agendaId}")
     public ResponseEntity<Agenda> updateAgenda(@PathVariable Integer agendaId, @RequestBody Agenda updatedAgenda) {
         Agenda existingAgenda = agendaService.getAgendaById(agendaId);
@@ -112,16 +125,24 @@ public class AgendaController {
         return ResponseEntity.ok(savedAgenda);
     }
 
-
     @GetMapping("/{agendaId}")
     public ResponseEntity<Agenda> getAgendaById(@PathVariable Integer agendaId) {
         Agenda agenda = agendaService.getAgendaById(agendaId);
         return ResponseEntity.ok(agenda);
     }
 
-    @DeleteMapping("/{agendaId}")
-    public ResponseEntity<?> deleteAgenda(@PathVariable Integer agendaId) {
-        agendaService.deleteAgenda(agendaId);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("{ids}")
+    @Operation(summary = "Excluir agenda", description = "Excluir um ou mais itens de agenda com base nos seus IDs.")
+    @ApiResponse(responseCode = "200", description = "Agenda excluída com sucesso")
+    @ApiResponse(responseCode = "404", description = "Agenda não encontrada")
+    public ResponseEntity<Void> deleteAgenda(@PathVariable List<Integer> ids,
+            @RequestHeader("Authorization") String token) {
+        System.out.println("Deleting agenda with IDs: " + ids);
+        if (ids == null || ids.isEmpty()) {
+            throw new BusinessException("No agenda IDs provided. Accepted format: /agenda/12,78,5,4,1,2");
+        }
+        agendaService.deleteAgenda(ids, token);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

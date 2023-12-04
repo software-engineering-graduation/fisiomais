@@ -2,6 +2,7 @@ package com.fisiomais.service;
 
 import com.fisiomais.model.AcompanhamentoVirtual;
 import com.fisiomais.repository.AcompanhamentoRepository;
+import com.fisiomais.service.interfaces.AcompanhamentoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,8 @@ public class AcompanhamentoService {
         return repository.findById(id);
     }
 
-    public AcompanhamentoVirtual atualizar(Long id, AcompanhamentoVirtual acompanhamento) throws IllegalArgumentException {
+    public AcompanhamentoVirtual atualizar(Long id, AcompanhamentoVirtual acompanhamento)
+            throws IllegalArgumentException {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Acompanhamento com ID " + id + " não encontrado.");
         }
@@ -51,7 +53,7 @@ public class AcompanhamentoService {
         Logger.getGlobal().info("Acompanhamento validado com sucesso.");
     }
 
-    public Double getIndiceAcompanhamento() {
+    public List<AcompanhamentoInterface> getIndiceAcompanhamento() {
         return repository.indiceAcompanhamento();
     }
 

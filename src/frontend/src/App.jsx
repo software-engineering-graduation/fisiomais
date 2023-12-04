@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from 'store/currentUser';
 
 import { RightSideContainer } from 'style.jsx';
+import PacienteSignup from 'pages/SignUp/PacienteSignUp';
+import FisioterapeutaSignup from 'pages/SignUp/FisioterapeutaSignUp';
 
 const checkSession = async () => {
     let storedToken = localStorage.getItem('token');
@@ -21,8 +23,8 @@ const checkSession = async () => {
     if (storedToken) {
         storedToken = JSON.parse(storedToken);
         const decoded = jwtDecode(storedToken);
-
         const apiRoute = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/auth/credentials/${decoded.id}`;
+
         const userEmail = decoded.email;
         try {
             const response = await axios.post(apiRoute, { email: userEmail }, {
@@ -30,11 +32,11 @@ const checkSession = async () => {
                     Authorization: `Bearer ${storedToken}`,
                     'Access-Control-Allow-Origin': '*',
                 },
+                timeout: 3000
             });
             userData = response.data;
-            // console.info("Token validado: ", userData)
         } catch (error) {
-            // console.error('Token expirado ou inválido', error);
+            localStorage.removeItem('token');
         }
     }
     return userData;
@@ -50,22 +52,45 @@ const App = () => {
         token: { colorBgContainer },
     } = theme.useToken();
 
+    useEffect(() => {
+        document.title = 'Fisio+';
+    }, []);
+
+    const noUser = () =>
+        currentUser === null ||
+        currentUser === undefined ||
+        currentUser.user === null ||
+        currentUser.user === undefined
+
+    const isSignUpPage = () => {
+        if (!noUser()) return false;
+        const currentPath = window.location.pathname;
+        return currentPath.includes('signup');
+    }
+
+    const signUpRender = () => {
+        if (noUser()) {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('signup')) {
+                if (currentPath.includes('fisioterapeuta')) {
+                    return <FisioterapeutaSignup />
+                } else if (currentPath.includes('paciente')) {
+                    return <PacienteSignup />
+                }
+            }
+        }
+        return <></>
+    }
+
     const performSessionCheck = async () => {
-        if (
-            currentUser === null ||
-            currentUser === undefined ||
-            currentUser.user === null ||
-            currentUser.user === undefined
-        ) {
+        if (noUser()) {
             const userData = await checkSession();
 
             if (userData === null) {
                 const currentPath = window.location.pathname;
-                if (currentPath !== '/login' && currentPath !== '/signup') {
-                    // console.info('Usuário não logado, redirecionando para a página de login')
+                if (currentPath !== '/login' && !currentPath.includes('signup')) {
                     navigate('/login');
                 }
-                return
             }
 
             dispatch(setCurrentUser(userData));
@@ -75,6 +100,10 @@ const App = () => {
     useEffect(() => {
         performSessionCheck();
     }, [currentUser, navigate]);
+
+    if (isSignUpPage()) {
+        return signUpRender();
+    }
 
     return (
         <div >
