@@ -33,5 +33,5 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 
 # Links
 - [API docs - Prod](https://fisiomais-api.azurewebsites.net/swagger-ui/index.html#/)
-- [Frontend - Prod](https://plf-es-2023-2-ti2-1381100-fisiomais.vercel.app/)
+- [Frontend - Prod](https://fisiomais.vercel.app/)
 
