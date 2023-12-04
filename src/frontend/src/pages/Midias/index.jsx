@@ -29,7 +29,6 @@ const columns = [
 const SELECTED = true
 
 const Midias = () => {
-
     const [shortMidias, setShortMidias] = useState([]);
     const [deletionStack, setDeletionStack] = useState([]);
     const [deleteMidias, setDeleteMidias] = useState(false);

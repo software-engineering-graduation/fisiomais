@@ -3,7 +3,7 @@ import {
     FileImageOutlined
 } from '@ant-design/icons';
 
-import { GrSchedule } from 'react-icons/gr'
+import { GrSchedule, GrScheduleNew } from 'react-icons/gr'
 import { MdPeopleOutline } from 'react-icons/md'
 import { AiOutlineBarChart } from 'react-icons/ai'
 import { MdHealing } from 'react-icons/md'
@@ -43,6 +43,12 @@ const SideMenuItensFisio = [
         icon: <MdOutlineSportsGymnastics />,
         label: 'Exercícios',
         route: 'exercicio',
+    },
+    {
+        key: 7,
+        icon: <GrScheduleNew />,
+        label: 'Disponibilidade',
+        route: 'disponibilidade',
     }
 ]
 

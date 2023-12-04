@@ -1,12 +1,15 @@
 package com.fisiomais.controller;
 
 import com.fisiomais.dto.AgendaRequest;
+import com.fisiomais.exception.BusinessException;
 import com.fisiomais.bodys.AgendaResponse;
 import com.fisiomais.model.Agenda;
 import com.fisiomais.model.Fisioterapeuta;
 import com.fisiomais.service.AgendaService;
 import com.fisiomais.service.FisioterapeutaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,9 +127,18 @@ public class AgendaController {
         return ResponseEntity.ok(agenda);
     }
 
-    @DeleteMapping("/{agendaId}")
-    public ResponseEntity<?> deleteAgenda(@PathVariable Integer agendaId) {
-        agendaService.deleteAgenda(agendaId);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("{ids}")
+    @Operation(summary = "Excluir agenda", description = "Excluir um ou mais itens de agenda com base nos seus IDs.")
+    @ApiResponse(responseCode = "200", description = "Agenda excluída com sucesso")
+    @ApiResponse(responseCode = "404", description = "Agenda não encontrada")
+    public ResponseEntity<Void> deleteAgenda(@PathVariable List<Integer> ids,
+            @RequestHeader("Authorization") String token) {
+        System.out.println("Deleting agenda with IDs: " + ids);
+        if (ids == null || ids.isEmpty()) {
+            throw new BusinessException("No agenda IDs provided. Accepted format: /agenda/12,78,5,4,1,2");
+        }
+        agendaService.deleteAgenda(ids, token);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
