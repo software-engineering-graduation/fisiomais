@@ -23,6 +23,7 @@ import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
 import NewExercicio from "pages/Exercicios/NewExercicio";
 import EditarDadosConsulta from 'pages/Consulta/EditarDadosConsulta';
 import Disponibilidade from 'pages/Disponibilidade';
+import NewDisp from 'pages/Disponibilidade/NewDisp';
 
 const Router = () => {
     return (
@@ -49,6 +50,7 @@ const Router = () => {
             <Route component={NewExercicio} path='/exercicio/criar' />
             <Route component={EditarDadosConsulta} path='/consulta/editar/:id' />
             <Route component={Disponibilidade} path='/disponibilidade' />
+            <Route component={NewDisp} path='/disponibilidade/criar' />
             <Route component={Login} path='/login' />
         </Routes>
     )
