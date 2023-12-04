@@ -7,35 +7,11 @@ const loadingRowsMock = () => {
             key: `loading-${i}`,
             titulo: '.'.repeat(10),
             descricao: '.'.repeat(120),
-            tipo: '.'.repeat(10),
-            created_at: '.'.repeat(20)
+            type: '.'.repeat(10),
+            createTime: '.'.repeat(20)
         });
     }
     return rows;
-}
-
-const getMidias = (midias, loading) => {
-    if (loading) {
-        return loadingRowsMock;
-    }
-    return midias;
-}
-
-const getShortMidias = (midias, loading) => {
-    if (loading) {
-        return loadingRowsMock;
-    }
-    return midias.map(midia => {
-        const { id, titulo, descricao, tipo, created_at } = midia;
-        return {
-            key: id,
-            id,
-            titulo,
-            descricao,
-            tipo,
-            created_at
-        }
-    });
 }
 
 const MidiasTable = ({ deleteMidias, handleRowSelection, getPageSizeBasedOnScreenSize, shortMidias, columns, loadingMidias: loading }) => {

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fisiomais.model.enums.TipoArquivo;
 
 @Data
@@ -21,6 +22,7 @@ public class Midia {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
     private Date createTime;
 
     @ManyToOne
@@ -31,9 +33,6 @@ public class Midia {
     @Enumerated(EnumType.STRING)
     private TipoArquivo type;
 
-    @Lob
-    private byte[] arquivo;
-
     @Column(name = "link_arquivo", length = 1000)
     private String linkArquivo;
 
@@ -42,4 +41,7 @@ public class Midia {
 
     @Column(nullable = false, length = 1000)
     private String descricao;
+
+    @Column(name = "public", nullable = false)
+    private Boolean isPublic;
 }

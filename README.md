@@ -31,3 +31,7 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 * 0.0.1
     * Trabalhando na modelagem do processo de negócio.
 
+# Links
+- [API docs - Prod](https://fisiomais-api.azurewebsites.net/swagger-ui/index.html#/)
+- [Frontend - Prod](https://fisiomais.vercel.app/)
+

@@ -3,6 +3,11 @@ package com.fisiomais.model;
 import lombok.Data;
 
 import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Time;
 
 import jakarta.persistence.*;
@@ -16,7 +21,10 @@ public class Agenda {
     @Column(name = "_id")
     private Integer id;
 
-    @Column(name = "create_time")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
     private Date createTime;
 
     @Column(name = "disponivel", nullable = false)
@@ -26,13 +34,14 @@ public class Agenda {
     private Byte dia;
 
     @Column(name = "horario_inicio")
+    @JsonFormat(pattern = "HH:mm:ss")
     private Time horarioInicio;
 
     @Column(name = "horario_fim")
+    @JsonFormat(pattern = "HH:mm:ss")
     private Time horarioFim;
 
     @ManyToOne
     @JoinColumn(name = "fisioterapeuta__id", nullable = false)
     private Fisioterapeuta fisioterapeuta;
 }
-

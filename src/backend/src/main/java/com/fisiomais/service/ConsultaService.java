@@ -1,13 +1,24 @@
 package com.fisiomais.service;
 
+import com.fisiomais.bodys.ConsultaResponse;
+import com.fisiomais.bodys.ConsultaResponseAgenda;
+import com.fisiomais.bodys.FisioterapeutaResponse;
+import com.fisiomais.bodys.NovaConsultaRequest;
+import com.fisiomais.bodys.PacienteResponse;
+import com.fisiomais.entities.ConferenceEventData;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
+import com.fisiomais.model.indicators.CancelationMetrics;
+import com.fisiomais.model.indicators.ConfirmationMetrics;
 import com.fisiomais.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +27,16 @@ import java.util.Optional;
 public class ConsultaService {
 
     private final ConsultaRepository consultaRepository;
+    private final GoogleCalendarService googleCalendarService;
 
-    @Autowired
-    public ConsultaService(ConsultaRepository consultaRepository) {
+    public ConsultaService(ConsultaRepository consultaRepository, GoogleCalendarService googleCalendarService) {
         this.consultaRepository = consultaRepository;
+        this.googleCalendarService = googleCalendarService;
     }
 
-    public List<Consulta> getConsultasForDate(LocalDate date) {
-        LocalDateTime startOfDay = date.atStartOfDay();
-        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+    public List<Consulta> getConsultasForDate(LocalDate start, LocalDate end) {
+        Date startOfDay = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endOfDay = Date.from(end.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return consultaRepository.findByDataEHoraBetween(startOfDay, endOfDay);
     }
 
@@ -39,8 +51,15 @@ public class ConsultaService {
         }
     }
 
-    public Consulta addConsulta(Consulta consulta) {
-        return consultaRepository.save(consulta);
+    public ConsultaResponse addConsulta(Consulta consulta) {
+        if (consulta.getFisioterapeuta().getAutomatic()) {
+            ConferenceEventData consultaCriada = googleCalendarService.criarEventoConsulta(consulta);
+            consulta.setGoogleEventId(consultaCriada.eventId());
+            consulta.setLink(consultaCriada.meetLink());
+        }
+
+        Consulta consultaSalva = consultaRepository.save(consulta);
+        return toConsultaResponse(consultaSalva);
     }
 
     public void deleteConsulta(Integer consultaId) {
@@ -56,19 +75,19 @@ public class ConsultaService {
         return consultaRepository.findByConfirmacao(status);
     }
 
-    public List<Consulta> getConsultasByPacienteId(Long pacienteId) {
+    public List<Consulta> getConsultasByPacienteId(Integer pacienteId) {
         return consultaRepository.findByPaciente_Id(pacienteId);
     }
 
     public Consulta marcarConsultaComoConcluida(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Realizado);
+        consulta.setConfirmacao(StatusConsulta.realizado);
         return consultaRepository.save(consulta);
     }
 
     public Consulta cancelarConsulta(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Cancelado);
+        consulta.setConfirmacao(StatusConsulta.cancelado);
         return consultaRepository.save(consulta);
     }
 
@@ -83,7 +102,7 @@ public class ConsultaService {
 
     public Consulta confirmarPresenca(Integer consultaId) {
         Consulta consulta = getConsultaById(consultaId);
-        consulta.setConfirmacao(StatusConsulta.Confirmado);
+        consulta.setConfirmacao(StatusConsulta.confirmado);
         return consultaRepository.save(consulta);
     }
 
@@ -95,5 +114,59 @@ public class ConsultaService {
 
     public List<Consulta> getAllConsultas() {
         return consultaRepository.findAll();
+    }
+
+    public ConsultaResponse toConsultaResponse(Consulta consulta) {
+        String obsevacoesConsulta = consulta.getObservacoes() != null
+                ? new String(consulta.getObservacoes().getBytes(StandardCharsets.ISO_8859_1),
+                        StandardCharsets.UTF_8)
+                : null;
+        return new ConsultaResponse(
+                consulta.getPaciente().getId(),
+                consulta.getFisioterapeuta().getId(),
+                consulta.getDataEHora(),
+                obsevacoesConsulta,
+                consulta.getConfirmacao(),
+                consulta.getLink());
+    }
+
+    public List<ConsultaResponseAgenda> toConsultaResponseAgenda(List<Consulta> consultaList) {
+        List<ConsultaResponseAgenda> consultasResponse = new ArrayList<>();
+        for (Consulta c : consultaList) {
+            consultasResponse.add(ConsultaResponseAgenda.toResponse(c));
+        }
+        return consultasResponse;
+    }
+
+    public List<Consulta> getConsultasByFisioterapeuta(Integer fisioterapeutaId) {
+        return consultaRepository.findByFisioterapeutaId(fisioterapeutaId);
+    }
+
+    public double getTaxaConclusao() {
+        return consultaRepository.calculateTaxaConclusao();
+    }
+
+    public double getTaxaReagendamento() {
+        return consultaRepository.calculateTaxaReagendamento();
+    }
+
+    public ConfirmationMetrics getTaxaConfirmacao(Integer mes, Integer ano) {
+        return consultaRepository.getConfirmationMetricsForMonthAndYear(mes, ano);
+    }
+
+    public CancelationMetrics getTaxaCancelamento() {
+        return consultaRepository.getCancelationMetrics();
+    }
+
+    public ConsultaResponse updateConsulta(Integer consultaId, Consulta consultaMapped) {
+        Consulta consulta = getConsultaById(consultaId);
+        consulta.setObservacoes(consultaMapped.getObservacoes());
+        consulta.setConfirmacao(consultaMapped.getConfirmacao());
+        consulta.setDataEHora(consultaMapped.getDataEHora());
+        consulta.setLink(consultaMapped.getLink());
+        consulta.setGoogleEventId(consultaMapped.getGoogleEventId());
+        consulta.setFisioterapeuta(consultaMapped.getFisioterapeuta());
+        consulta.setPaciente(consultaMapped.getPaciente());
+        return toConsultaResponse(consultaRepository.save(consulta));
     }
 }

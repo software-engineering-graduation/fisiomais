@@ -34,6 +34,8 @@ const NewMidia = () => {
     const navigate = useNavigate();
 
     const currentUser = useSelector(state => state.currentUser.value);
+    const { token } = currentUser;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     if (currentUser.user.role !== 'fisioterapeuta') {
         return (
@@ -59,16 +61,32 @@ const NewMidia = () => {
 
     const handleMidiaCreation = (newMidia) => {
         setLoadCreateMidia(true);
-        // FIXME: add id, fisioterapeuta_id and created_at to newMidia
+
         const mockNewMidia = {
-            // id: 1,
             fisioterapeuta_id: 1,
             titulo: newMidia.titulo,
             descricao: newMidia.descricao,
-            tipo: newMidia.tipo,
-            created_at: new Date().toISOString(),
+            type: newMidia.type,
+            createTime: new Date().toISOString(),
+            isPublic: newMidia.publico,
         }
-        axios.post(`${import.meta.env.VITE_API_BASE_ROUTE}/midia`, mockNewMidia).
+
+        const newMidiaOfficial = {
+            fisioterapeutaId: currentUser.user.id,
+            type: newMidia.type,
+            linkArquivo: newMidia.linkArquivo,
+            titulo: newMidia.titulo,
+            descricao: newMidia.descricao,
+            isPublic: newMidia.publico,
+        }
+
+        const body = process.env.API_TYPE === 'json' ? mockNewMidia : newMidiaOfficial;
+
+        const apiRoute = process.env.API_TYPE === 'json' ?
+            `${import.meta.env.VITE_API_BASE_ROUTE_JSON}/midia` :
+            `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`;
+
+        axios.post(apiRoute, body).
             then(response => {
                 if (response.status !== 201) {
                     openNotification('error', 'Erro ao criar mídia!', response.message);
@@ -79,48 +97,9 @@ const NewMidia = () => {
             }).
             finally(() => {
                 openNotification('success', 'Sucesso ao criar mídia!', 'Mídia criada com sucesso!');
-                // TODO - Remover o setTimeout quando a API estiver pronta
-                setTimeout(() => {
-                    navigate('/midias');
-                    setLoadCreateMidia(false);
-                }, 2000);
+                setLoadCreateMidia(false);
+                navigate('/midias');
             });
-    }
-
-    const fileDraggerProps = {
-        accept: '.mp4, .gif, .jpg, .png',
-        name: 'file',
-        multiple: false,
-        maxCount: 1,
-        rules: [
-            {
-                required: false,
-            },
-        ],
-        action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'Carregando...') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'Finalizado') {
-                message.success(`${info.file.name} Arquivo carregado com sucesso.`);
-            } else if (status === 'error') {
-                message.error(`${info.file.name} Erro ao carregar arquivo.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-    };
-
-    const isvalidUrl = (url) => {
-        try {
-            new URL(url);
-            return true;
-        } catch (error) {
-            return false;
-        }
     }
 
     const notifyErrorField = (errorInfo) => {
@@ -148,14 +127,17 @@ const NewMidia = () => {
                 wrapperCol={{ span: 15 }}
                 disabled={loadCreateMidia}
             >
-                <Form.Item label="Tipo" name="tipo" required rules={[{ required: true, message: "Por favor, selecione o tipo" }]}>
+                <CheckPublicMidia label="Público" name="publico" valuePropName="checked" initialValue={false}>
+                    <Input type="checkbox" />
+                </CheckPublicMidia>
+
+                <Form.Item label="Tipo" name="type" required rules={[{ required: true, message: "Por favor, selecione o type" }]}>
                     <Select >
-                        <Option value="Vídeo">Vídeo</Option>
+                        <Option value="Video">Video</Option>
                         <Option value="GIF">GIF</Option>
                         <Option value="Imagem">Imagem</Option>
                     </Select>
                 </Form.Item>
-
 
                 <Form.Item label="Título" name="titulo" rules={[{ required: true, message: 'Por favor, digite um título' }]} >
                     <Input size='large' />
@@ -181,7 +163,7 @@ const NewMidia = () => {
                 </Space>
 
                 <Form.Item label="Link Arquivo"
-                    name="link_arquivo"
+                    name="linkArquivo"
                     rules={[{
                         required: true,
                         message: 'Por favor digite um link válido',
@@ -191,21 +173,6 @@ const NewMidia = () => {
                 >
                     <Input size='large' />
                 </Form.Item>
-
-                <DraggerContainer >
-                    <Dragger {...fileDraggerProps}
-                        style={{
-                            width: '500px',
-                        }}>
-                        <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">Clique ou arraste o arquivo para esta área para fazer upload</p>
-                        <p className="ant-upload-hint">
-                            Suporte para upload único. Tipos de arquivos: .mp4, .gif, .jpg, .png
-                        </p>
-                    </Dragger>
-                </DraggerContainer>
 
                 <Form.Item style={{
                     textAlign: 'center',
@@ -224,3 +191,16 @@ const NewMidia = () => {
     );
 };
 export default NewMidia;
+
+const CheckPublicMidia = styled(Form.Item)`
+     .ant-form-item-label {
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        width: 250px;
+    }
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+`

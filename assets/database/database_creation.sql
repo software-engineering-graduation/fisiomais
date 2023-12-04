@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`consulta` (
   `observacoes` TEXT(500) NULL,
   `confirmacao` ENUM('confirmado', 'cancelado', 'realizado', 'pendente') NOT NULL,
   `link` LONGTEXT NULL,
+  `google_event_id` VARCHAR(255) NULL,
   PRIMARY KEY (`_id`, `paciente__id`, `fisioterapeuta__id`),
   INDEX `fk_consulta_paciente_idx` (`paciente__id` ASC) VISIBLE,
   INDEX `fk_consulta_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
@@ -84,10 +85,10 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`midia` (
   `_id` INT NOT NULL AUTO_INCREMENT,
   `fisioterapeuta__id` INT NOT NULL,
   `type` ENUM('Video', 'Imagem', 'GIF') NOT NULL,
-  `arquivo` LONGBLOB NULL,
   `link_arquivo` LONGTEXT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_midia_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_midia_fisioterapeuta1`
@@ -135,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio` (
   `nome` VARCHAR(150) NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
   `fisioterapeuta__id` INT NOT NULL,
+  `public` TINYINT NOT NULL DEFAULT 0,	
   PRIMARY KEY (`_id`, `fisioterapeuta__id`),
   INDEX `fk_exercicio_fisioterapeuta1_idx` (`fisioterapeuta__id` ASC) VISIBLE,
   CONSTRAINT `fk_exercicio_fisioterapeuta1`
@@ -148,24 +150,27 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fisiomais_db`.`exercicio_has_midias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fisiomais_db`.`exercicio_has_midias` (
-  `midia__id` INT NOT NULL,
-  `midia_fisioterapeuta__id` INT NOT NULL,
-  `exercicio__id` INT NOT NULL,
-  PRIMARY KEY (`midia__id`, `midia_fisioterapeuta__id`, `exercicio__id`),
-  INDEX `fk_exercicio_videos_midia1_idx` (`midia__id` ASC, `midia_fisioterapeuta__id` ASC) VISIBLE,
-  INDEX `fk_exercicio_has_videos_exercicio1_idx` (`exercicio__id` ASC) VISIBLE,
-  CONSTRAINT `fk_exercicio_videos_midia1`
-    FOREIGN KEY (`midia__id` , `midia_fisioterapeuta__id`)
-    REFERENCES `fisiomais_db`.`midia` (`_id` , `fisioterapeuta__id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exercicio_has_videos_exercicio1`
-    FOREIGN KEY (`exercicio__id`)
-    REFERENCES `fisiomais_db`.`exercicio` (`_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE
+    IF NOT EXISTS fisiomais_db.exercicio_has_midias (
+        midia__id INT NOT NULL,
+        midia_fisioterapeuta__id INT NOT NULL,
+        exercicio__id INT NOT NULL,
+        PRIMARY KEY (
+            midia__id,
+            midia_fisioterapeuta__id,
+            exercicio__id
+        ),
+        INDEX fk_exercicio_videos_midia1_idx (
+            midia__id ASC,
+            midia_fisioterapeuta__id ASC
+        ) VISIBLE,
+        INDEX fk_exercicio_has_videos_exercicio1_idx (exercicio__id ASC) VISIBLE,
+        CONSTRAINT fk_exercicio_videos_midia1 FOREIGN KEY (
+            midia__id,
+            midia_fisioterapeuta__id
+        ) REFERENCES fisiomais_db.midia (_id, fisioterapeuta__id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        CONSTRAINT fk_exercicio_has_videos_exercicio1 FOREIGN KEY (exercicio__id) REFERENCES fisiomais_db.exercicio (_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -208,6 +213,22 @@ CREATE TABLE IF NOT EXISTS `fisiomais_db`.`agenda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table fisiomais_db.acompanhamento_virtual
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS fisiomais_db.acompanhamento_virtual (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  data_sessao DATETIME(6) NULL DEFAULT NULL,
+  plataforma VARCHAR(255) NOT NULL,
+  recursos TEXT NULL DEFAULT NULL,
+  feedback TEXT NULL DEFAULT NULL,
+  avaliacao VARCHAR(50) NOT NULL,
+  data_criacao TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------

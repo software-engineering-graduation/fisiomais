@@ -10,11 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import com.fisiomais.model.Paciente;
 import com.fisiomais.model.enums.Genero;
+import com.fisiomais.model.indicators.NovosPacientesMetrics;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
     Paciente findByEmail(String email);
+
+    Paciente findByCpf(String cpf);
 
     List<Paciente> findByGenero(Genero genero);
 
@@ -25,4 +28,11 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
     @Query(value = "SELECT * FROM paciente WHERE cpf = ?1", nativeQuery = true)
     List<Paciente> findPacientesByCpf(String cpf);
+
+    @Query("SELECT new com.fisiomais.model.indicators.NovosPacientesMetrics("
+            + "FUNCTION('MONTH', p.create_time) AS mes, "
+            + "COUNT(p) AS numNovosPacientes) "
+            + "FROM Paciente p "
+            + "GROUP BY FUNCTION('MONTH', p.create_time)")
+    List<NovosPacientesMetrics> getNovosPacientesPorMes();
 }

@@ -1,52 +1,75 @@
- package com.fisiomais.controller;
+package com.fisiomais.controller;
 
- import com.fisiomais.dto.FisioterapeutaDTO;
- import com.fisiomais.service.FisioterapeutaService;
- import com.fisiomais.model.Fisioterapeuta;
+import com.fisiomais.bodys.FisioterapeutaNamesAndIdsResponse;
+import com.fisiomais.dto.FisioterapeutaDTO;
+import com.fisiomais.service.FisioterapeutaService;
 
- import org.springframework.http.ResponseEntity;
- import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
- import java.util.List;
- import java.util.Optional;
+import com.fisiomais.model.Fisioterapeuta;
 
- @RestController
- @RequestMapping("api/fisioterapeuta")
- public class FisioterapeutaController {
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-     private final FisioterapeutaService fisioterapeutaService;
+import java.util.List;
+import java.util.Optional;
 
-     public FisioterapeutaController(FisioterapeutaService fisioterapeutaService) {
-         this.fisioterapeutaService = fisioterapeutaService;
-     }
+@RestController
+@RequestMapping("api/fisioterapeuta")
+@SecurityRequirement(name = "Bearer Authentication")
+public class FisioterapeutaController {
 
-     @GetMapping
-     public ResponseEntity<List<Fisioterapeuta>> getAllFisioterapeutas() {
-         List<Fisioterapeuta> fisioterapeutas = fisioterapeutaService.findAll();
-         return ResponseEntity.ok(fisioterapeutas);
-     }
+    private final FisioterapeutaService fisioterapeutaService;
 
-     @GetMapping("/{id}")
-     public ResponseEntity<Optional<Fisioterapeuta>> getFisioterapeutaById(@PathVariable Integer id) {
-         Optional<Fisioterapeuta> fisioterapeuta = fisioterapeutaService.findById(id);
-         return ResponseEntity.ok(fisioterapeuta);
-     }
+    public FisioterapeutaController(FisioterapeutaService fisioterapeutaService) {
+        this.fisioterapeutaService = fisioterapeutaService;
+    }
 
-     @PostMapping
-     public ResponseEntity<Fisioterapeuta> createFisioterapeuta(@RequestBody FisioterapeutaDTO fisioterapeutaDTO) {
-         Fisioterapeuta newFisioterapeuta = fisioterapeutaService.create(fisioterapeutaDTO);
-         return ResponseEntity.ok(newFisioterapeuta);
-     }
+    @GetMapping("/all")
+    public ResponseEntity<List<Fisioterapeuta>> getAllFisioterapeutas() {
+        List<Fisioterapeuta> fisioterapeutas = fisioterapeutaService.findAll();
+        return ResponseEntity.ok(fisioterapeutas);
+    }
 
-     @PutMapping("/{id}")
-     public ResponseEntity<Fisioterapeuta> updateFisioterapeuta(@PathVariable Integer id, @RequestBody FisioterapeutaDTO fisioterapeutaDTO) {
-         Fisioterapeuta updatedFisioterapeuta = fisioterapeutaService.update(id, fisioterapeutaDTO);
-         return ResponseEntity.ok(updatedFisioterapeuta);
-     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Fisioterapeuta>> getFisioterapeutaById(@PathVariable Integer id) {
+        Optional<Fisioterapeuta> fisioterapeuta = fisioterapeutaService.findById(id);
+        return ResponseEntity.ok(fisioterapeuta);
+    }
 
-     @DeleteMapping("/{id}")
-     public ResponseEntity<Void> deleteFisioterapeuta(@PathVariable Integer id) {
-         fisioterapeutaService.deleteById(id);
-         return ResponseEntity.ok().build();
-     }
- }
+    @GetMapping("/nomes")
+    public ResponseEntity<List<FisioterapeutaNamesAndIdsResponse>> getAllFisioterapeutasNames() {
+        List<FisioterapeutaNamesAndIdsResponse> fisioterapeutas = fisioterapeutaService.findAllNames();
+        return new ResponseEntity<>(fisioterapeutas, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Fisioterapeuta> createFisioterapeuta(@RequestBody FisioterapeutaDTO fisioterapeutaDTO) {
+        Fisioterapeuta newFisioterapeuta = fisioterapeutaService.create(fisioterapeutaDTO);
+        return ResponseEntity.ok(newFisioterapeuta);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Fisioterapeuta> updateFisioterapeuta(@PathVariable Integer id,
+            @RequestBody FisioterapeutaDTO fisioterapeutaDTO) {
+        Fisioterapeuta updatedFisioterapeuta = fisioterapeutaService.update(id, fisioterapeutaDTO);
+        return ResponseEntity.ok(updatedFisioterapeuta);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFisioterapeuta(@PathVariable Integer id) {
+        fisioterapeutaService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/taxaCrescimento")
+    public ResponseEntity<Double> getTaxaCrescimento() {
+        return ResponseEntity.ok(fisioterapeutaService.getTaxaCrescimento());
+    }
+
+    @GetMapping("/indicePerfisCompletos")
+    public ResponseEntity<Double> getIndicePerfisCompletos() {
+        return ResponseEntity.ok(fisioterapeutaService.getIndicePerfisCompletos());
+    }
+}

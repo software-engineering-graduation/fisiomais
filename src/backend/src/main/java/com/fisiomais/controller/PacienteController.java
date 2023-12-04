@@ -1,8 +1,16 @@
 package com.fisiomais.controller;
 
+import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.dto.PacienteDTO;
+import com.fisiomais.exception.BusinessException;
+import com.fisiomais.model.indicators.NovosPacientesMetrics;
 import com.fisiomais.service.PacienteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/paciente")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Paciente", description = "Paciente API")
 public class PacienteController {
 
@@ -39,8 +48,8 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteDTO> createPaciente(@RequestBody PacienteDTO pacienteDTO) {
-        PacienteDTO createdPaciente = pacienteService.createPaciente(pacienteDTO);
+    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody PacienteDTO pacienteDTO) {
+        PacienteResponse createdPaciente = pacienteService.createPaciente(pacienteDTO);
         return new ResponseEntity<>(createdPaciente, HttpStatus.CREATED);
     }
 
@@ -61,6 +70,18 @@ public class PacienteController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/novos-pacientes-mes")
+    @Operation(summary = "Obter quantidade de criação de novos pacientes por mês", description = "Obter quantidade de criação de novos pacientes por mês")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NovosPacientesMetrics.class)))
+    public ResponseEntity<List<NovosPacientesMetrics>> getQtdPacientesMes() {
+        try {
+            List<NovosPacientesMetrics> qtdPacientesMes = pacienteService.getQtdNovosPacientesMes();
+            return new ResponseEntity<>(qtdPacientesMes, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao obter a quantidade de pacientes por mês.");
         }
     }
 }
