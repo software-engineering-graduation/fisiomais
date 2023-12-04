@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**", "/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/api/auth").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/fisioterapeuta").permitAll()
