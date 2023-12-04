@@ -21,6 +21,7 @@ import Tratamento from "pages/Tratamento";
 import TratamentoDetail from "pages/Tratamento/TratamentoDetail";
 import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
 import NewExercicio from "pages/Exercicios/NewExercicio";
+import EditarDadosConsulta from 'pages/Consulta/EditarDadosConsulta';
 
 const Router = () => {
     return (
@@ -45,6 +46,7 @@ const Router = () => {
             <Route component={TratamentoDetail} path='/tratamento/:id' />
             <Route component={ExercicioDetail} path='/exercicio/:id' />
             <Route component={NewExercicio} path='/exercicio/criar' />
+            <Route component={EditarDadosConsulta} path='/consulta/editar/:id' />
             <Route component={Login} path='/login' />
         </Routes>
     )

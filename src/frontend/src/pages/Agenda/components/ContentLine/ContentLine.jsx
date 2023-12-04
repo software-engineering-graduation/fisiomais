@@ -26,10 +26,8 @@ export const ContentLine = ({ id, paciente, fisioterapeuta, dataHora, status, ob
         });
     };
 
-    // console.log("status", status)
-
     const handleEditClick = () => {
-        navigate('/nova-consulta', { state: { consulta: { id, paciente, fisioterapeuta, dataHora, status, observacoes, linkConsulta } } });
+        navigate(`/consulta/editar/${id}`);
     };
 
     return (
