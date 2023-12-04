@@ -157,4 +157,16 @@ public class ConsultaService {
     public CancelationMetrics getTaxaCancelamento() {
         return consultaRepository.getCancelationMetrics();
     }
+
+    public ConsultaResponse updateConsulta(Integer consultaId, Consulta consultaMapped) {
+        Consulta consulta = getConsultaById(consultaId);
+        consulta.setObservacoes(consultaMapped.getObservacoes());
+        consulta.setConfirmacao(consultaMapped.getConfirmacao());
+        consulta.setDataEHora(consultaMapped.getDataEHora());
+        consulta.setLink(consultaMapped.getLink());
+        consulta.setGoogleEventId(consultaMapped.getGoogleEventId());
+        consulta.setFisioterapeuta(consultaMapped.getFisioterapeuta());
+        consulta.setPaciente(consultaMapped.getPaciente());
+        return toConsultaResponse(consultaRepository.save(consulta));
+    }
 }

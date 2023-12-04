@@ -79,10 +79,11 @@ public class ConsultaController {
     @Operation(summary = "Obter consulta por ID", description = "Obter uma consulta específica com base no seu ID.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "404", description = "Consulta não encontrada")
-    public ResponseEntity<Consulta> getConsultaById(
+    public ResponseEntity<ConsultaResponseAgenda> getConsultaById(
             @Parameter(name = "consultaId", description = "Id da consulta a ser pesquisada") @PathVariable Integer consultaId) {
         Consulta consulta = consultaService.getConsultaById(consultaId);
-        return new ResponseEntity<>(consulta, HttpStatus.OK);
+        ConsultaResponseAgenda consultaResponse = ConsultaResponseAgenda.toResponse(consulta);
+        return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
     }
 
     @GetMapping("/status/{status}")
@@ -216,6 +217,21 @@ public class ConsultaController {
             Consulta novaConsultaMapped = consultaUtil.convertToConsulta(consulta);
             ConsultaResponse newConsulta = consultaService.addConsulta(novaConsultaMapped);
             return new ResponseEntity<>(newConsulta, HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{consultaId}")
+    @Operation(summary = "Atualizar consulta", description = "Atualizar uma consulta específica e retornar a consulta atualizada.")
+    @ApiResponse(responseCode = "200", description = "Operação bem-sucedida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ConsultaResponse.class)))
+    @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessException.class)))
+    public ResponseEntity<ConsultaResponse> updateConsulta(
+            @Parameter(name = "consultaId", description = "Id da consulta a ser atualizada") @PathVariable Integer consultaId,
+            @Parameter(name = "Consulta", description = "Consulta a ser atualizada") @RequestBody Consulta consulta) {
+        try {
+            ConsultaResponse consultaResponse = consultaService.updateConsulta(consultaId, consulta);
+            return new ResponseEntity<>(consultaResponse, HttpStatus.OK);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
