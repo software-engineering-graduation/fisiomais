@@ -23,7 +23,7 @@ const Processo6 = () => {
                 const responseSessoes = await axios.get('http://localhost:8081/api/acompanhamento/indiceAcompanhamento');
                 setDadosSessoes(responseSessoes.data);
             } catch (error) {
-                console.error('Erro ao buscar dados', error.response || error);
+                // console.error('Erro ao buscar dados', error.response || error);
             }
         };
     

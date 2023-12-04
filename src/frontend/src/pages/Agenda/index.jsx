@@ -34,7 +34,7 @@ const Agenda = () => {
             }
             const response = await axios.get(apiUrl);
             setConsultas(response.data);
-            console.log("request data:", response.data);
+            // console.log("request data:", response.data);
         } catch (error) {
             // console.error("Erro ao buscar consultas", error);
         }
@@ -55,14 +55,14 @@ const Agenda = () => {
         );
     });
 
-    console.log(consultasFiltradas);
+    // console.log(consultasFiltradas);
 
     const handleDelete = async (idToDelete) => {
         try {
             await axios.delete(`http://localhost:8081/api/consulta/${idToDelete}`);
             fetchConsultas();
         } catch (error) {
-            console.error('Erro ao deletar consulta', error);
+            // console.error('Erro ao deletar consulta', error);
         }
     };
         

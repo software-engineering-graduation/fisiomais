@@ -22,7 +22,7 @@ const Processo4 = () => {
                 setTaxaCrescimento(responseCrescimento.data);
                 setIndicePerfisCompletos(responsePerfis.data);
             } catch (error) {
-                console.error('Erro ao buscar dados', error.response || error);
+                // console.error('Erro ao buscar dados', error.response || error);
             }
         };
     

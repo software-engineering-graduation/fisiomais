@@ -23,7 +23,7 @@ const Processo2 = () => {
                 setconsultasReagendadas(responseReagendamento.data);
             
             } catch (error) {
-                console.error('Erro ao buscar dados', error.message);
+                // console.error('Erro ao buscar dados', error.message);
             }
         };
     
