@@ -96,7 +96,7 @@ const Disponibilidade = () => {
                         horario: avaibleTimeRange,
                     }
                 })
-                console.log('data', data);
+                // console.log('data', data);
                 if (type === 'disponivel')
                     setDisponibilidades(data.filter(item => item.disponibilidade === 'Disponível'));
                 else if (type === 'indisponivel')
@@ -106,7 +106,7 @@ const Disponibilidade = () => {
                 setLoadingDisponibilidades('succeeded');
             })
             .catch((error) => {
-                console.error(error);
+                // console.error(error);
                 setLoadingDisponibilidades(false);
                 setLoadingDisponibilidades('failed');
             })
@@ -122,7 +122,7 @@ const Disponibilidade = () => {
                 }
             }
             ).catch(error => {
-                console.log(error)
+                // console.log(error)
                 finalError = error;
             }).
             finally((error) => {
@@ -166,7 +166,7 @@ const Disponibilidade = () => {
     }
 
     const handleTypeDisponibilidadeSelection = (value) => {
-        console.log('value', value);
+        // console.log('value', value);
         switch (value) {
             case 'Todos':
                 fetchDisponibilidades();

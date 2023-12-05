@@ -35,7 +35,7 @@ const EditarDadosConsulta = () => {
                 setFetchStatus('succeeded');
             })
             .catch((error) => {
-                console.error(error);
+                // console.error(error);
                 setErrorMessage(error.message);
                 setFetchStatus('failed');
             })
