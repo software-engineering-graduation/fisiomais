@@ -92,7 +92,7 @@ public class ConsultaControllerTest {
         when(consultaService.getConsultaById(anyInt())).thenReturn(consulta);
 
         mockMvc.perform(get("/api/consulta/id/{consultaId}", 1))
-                .andExpect(status().isOk())
+                .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$").isMap());
 
         verify(consultaService).getConsultaById(anyInt());

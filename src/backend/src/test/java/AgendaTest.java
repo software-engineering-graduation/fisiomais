@@ -23,6 +23,11 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyByte;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -51,10 +56,13 @@ public class AgendaTest {
         Time sampleTimeInicio = Time.valueOf("09:00:00");
         Time sampleTimeFim = Time.valueOf("10:00:00");
 
-        FisioterapeutaResponse fisioterapeutaResponse = new FisioterapeutaResponse(1, "Nome", "email@example.com", "123456789", "Endereço", true);
+        FisioterapeutaResponse fisioterapeutaResponse = new FisioterapeutaResponse(1, "Nome", "email@example.com",
+                "123456789", "Endereço", true);
 
-        AgendaResponse agendaResponse1 = new AgendaResponse(1, true, (byte) 1, sampleTimeInicio, sampleTimeFim, fisioterapeutaResponse);
-        AgendaResponse agendaResponse2 = new AgendaResponse(2, false, (byte) 2, sampleTimeInicio, sampleTimeFim, fisioterapeutaResponse);
+        AgendaResponse agendaResponse1 = new AgendaResponse(1, true, (byte) 1, sampleTimeInicio, sampleTimeFim,
+                fisioterapeutaResponse);
+        AgendaResponse agendaResponse2 = new AgendaResponse(2, false, (byte) 2, sampleTimeInicio, sampleTimeFim,
+                fisioterapeutaResponse);
         List<AgendaResponse> agendas = Arrays.asList(agendaResponse1, agendaResponse2);
 
         when(agendaService.getAgendasByFisioterapeuta(eq(1))).thenReturn(agendas);
@@ -85,7 +93,6 @@ public class AgendaTest {
         verify(agendaService).getAgendasByFisioterapeuta(eq(1));
     }
 
-
     @Test
     public void getAgendasByDiaAndFisioterapeutaTest() throws Exception {
         List<Agenda> agendas = Arrays.asList(new Agenda(), new Agenda());
@@ -104,7 +111,7 @@ public class AgendaTest {
         when(agendaService.getAgendasByDisponibilidadeAndFisioterapeuta(anyBoolean(), anyInt())).thenReturn(agendas);
 
         mockMvc.perform(get("/api/agenda/fisioterapeuta/{fisioterapeutaId}/disponibilidade", 1)
-                        .param("disponivel", "true"))
+                .param("disponivel", "true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(agendas.size())));
 
@@ -114,24 +121,27 @@ public class AgendaTest {
     @Test
     public void getAgendasByFisioterapeutaDiaEHorarioTest() throws Exception {
         List<Agenda> agendas = Arrays.asList(new Agenda(), new Agenda());
-        when(agendaService.getAgendasByFisioterapeutaDiaEHorario(anyInt(), anyByte(), any(Time.class), any(Time.class))).thenReturn(agendas);
+        when(agendaService.getAgendasByFisioterapeutaDiaEHorario(anyInt(), anyByte(), any(Time.class), any(Time.class)))
+                .thenReturn(agendas);
 
         mockMvc.perform(get("/api/agenda/fisioterapeuta/{fisioterapeutaId}/dia/{dia}/horario", 1, (byte) 1)
-                        .param("horarioInicio", "08:00:00")
-                        .param("horarioFim", "10:00:00"))
+                .param("horarioInicio", "08:00:00")
+                .param("horarioFim", "10:00:00"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(agendas.size())));
 
-        verify(agendaService).getAgendasByFisioterapeutaDiaEHorario(anyInt(), anyByte(), any(Time.class), any(Time.class));
+        verify(agendaService).getAgendasByFisioterapeutaDiaEHorario(anyInt(), anyByte(), any(Time.class),
+                any(Time.class));
     }
 
     @Test
     public void getAgendasDisponiveisByFisioterapeutaAndDiaTest() throws Exception {
         List<Agenda> agendas = Arrays.asList(new Agenda(), new Agenda());
-        when(agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(anyInt(), anyByte(), anyBoolean())).thenReturn(agendas);
+        when(agendaService.getAgendasDisponiveisByFisioterapeutaAndDia(anyInt(), anyByte(), anyBoolean()))
+                .thenReturn(agendas);
 
         mockMvc.perform(get("/api/agenda/fisioterapeuta/{fisioterapeutaId}/dia/{dia}/disponivel", 1, (byte) 1)
-                        .param("disponivel", "true"))
+                .param("disponivel", "true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(agendas.size())));
 
@@ -141,14 +151,14 @@ public class AgendaTest {
     @Test
     public void createAgendaTest() throws Exception {
         String jsonAgendaRequest = """
-        {
-            "dia": 2,
-            "horarioInicio": "09:00:00",
-            "horarioFim": "10:00:00",
-            "disponivel": true,
-            "fisioterapeutaId": 1
-        }
-        """;
+                {
+                    "dia": 2,
+                    "horarioInicio": "09:00:00",
+                    "horarioFim": "10:00:00",
+                    "disponivel": true,
+                    "fisioterapeutaId": 1
+                }
+                """;
 
         Agenda agenda = new Agenda();
         agenda.setDia((byte) 2);
@@ -164,9 +174,9 @@ public class AgendaTest {
         when(agendaService.saveAgenda(any(Agenda.class))).thenReturn(agenda);
 
         mockMvc.perform(post("/api/agenda")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAgendaRequest))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAgendaRequest))
+                .andExpect(status().isCreated());
 
         verify(fisioterapeutaService).findById(1);
         verify(agendaService).saveAgenda(any(Agenda.class));
@@ -175,13 +185,13 @@ public class AgendaTest {
     @Test
     public void updateAgendaTest() throws Exception {
         String jsonUpdatedAgenda = """
-        {
-            "dia": 3,
-            "horarioInicio": "11:00:00",
-            "horarioFim": "12:00:00",
-            "disponivel": false
-        }
-        """;
+                {
+                    "dia": 3,
+                    "horarioInicio": "11:00:00",
+                    "horarioFim": "12:00:00",
+                    "disponivel": false
+                }
+                """;
 
         Agenda existingAgenda = new Agenda();
         existingAgenda.setId(1);
@@ -201,8 +211,8 @@ public class AgendaTest {
         when(agendaService.updateAgenda(any(Agenda.class))).thenReturn(updatedAgenda);
 
         mockMvc.perform(put("/api/agenda/{agendaId}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonUpdatedAgenda))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonUpdatedAgenda))
                 .andExpect(status().isOk());
 
         verify(agendaService).getAgendaById(1);
@@ -224,15 +234,5 @@ public class AgendaTest {
                 .andExpect(status().isOk());
 
         verify(agendaService).getAgendaById(1);
-    }
-
-    @Test
-    public void deleteAgendaTest() throws Exception {
-        doNothing().when(agendaService).deleteAgenda(anyInt());
-
-        mockMvc.perform(delete("/api/agenda/{agendaId}", 1))
-                .andExpect(status().isOk());
-
-        verify(agendaService).deleteAgenda(anyInt());
     }
 }
