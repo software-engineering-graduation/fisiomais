@@ -1,21 +1,14 @@
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fisiomais.bodys.*;
 import com.fisiomais.controller.TratamentoController;
 import com.fisiomais.model.*;
-import com.fisiomais.model.enums.Genero;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
 import com.fisiomais.service.TokenService;
 import com.fisiomais.service.TratamentoService;
-
-import util.JsonUtil;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,11 +23,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
