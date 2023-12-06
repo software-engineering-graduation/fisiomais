@@ -35,6 +35,7 @@ class ExercicioTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
+    
     @Test
     void getExercicioById_DeveRetornarExercicio() {
         Integer idExercicio = 1;

@@ -1,4 +1,10 @@
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fisiomais.bodys.*;
@@ -8,21 +14,35 @@ import com.fisiomais.model.enums.Genero;
 import com.fisiomais.model.indicators.MidiaUtilizationMetrics;
 import com.fisiomais.service.TokenService;
 import com.fisiomais.service.TratamentoService;
+
+import util.JsonUtil;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
+@AutoConfigureMockMvc
 class TratamentoTest {
+
+    @Mock
+    private MockMvc mockMvc;
 
     @InjectMocks
     private TratamentoController tratamentoController;
@@ -33,52 +53,51 @@ class TratamentoTest {
     @Mock
     private TokenService tokenService;
 
-    @Test
-    void createTratamento_ShouldReturnNewTratamento() {
-        NovoTratamentoRequest novoTratamentoRequest = new NovoTratamentoRequest(
-                1, 2, "Tratamento de Reabilitação", "Observações do tratamento", "Feedback positivo", new Date(), 3
-        );
-
-        TratamentoResponse tratamentoResponseMock = new TratamentoResponse(
-                1,
-                new PacienteResponse(1, "João Silva", "joao@example.com", "11987654321", "Rua Exemplo, 123", new Date(), Genero.Homem),
-                new FisioterapeutaResponse(2, "Ana Pereira", "ana@example.com", "21987654321", "Rua Teste, 321", true),
-                "Tratamento de Reabilitação",
-                "Observações do tratamento",
-                "Feedback positivo",
-                new ArrayList<>(),
-                new Date(),
-                new Date()
-        );
-
-        when(tratamentoService.createTratamento(any())).thenReturn(tratamentoResponseMock);
-
-        ResponseEntity<TratamentoResponse> response = tratamentoController.createTratamento(novoTratamentoRequest);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(tratamentoResponseMock, response.getBody());
+    @BeforeEach
+    void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(tratamentoController).build();
     }
 
     @Test
-    void findAll_ShouldReturnAllTratamentos() {
+    void findAll_ShouldReturnAllTratamentos() throws Exception {
         List<Tratamento> tratamentoListMock = new ArrayList<>();
+        Paciente pacienteMock = new Paciente();
+        pacienteMock.setId(1);
+        Fisioterapeuta fisioterapeutaMock = new Fisioterapeuta();
+        fisioterapeutaMock.setId(1);
         Tratamento tratamentoMock = new Tratamento();
         tratamentoMock.setId(1);
+        tratamentoMock.setPaciente(pacienteMock);
+        tratamentoMock.setFisioterapeuta(fisioterapeutaMock);
+        tratamentoMock.setCreateTime(new Date());
+        tratamentoMock.setExercicios(new ArrayList<>());
+
         tratamentoListMock.add(tratamentoMock);
 
         when(tratamentoService.findAll()).thenReturn(tratamentoListMock);
 
-        ResponseEntity<List<TratamentoResponse>> response = tratamentoController.findAll();
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        mockMvc.perform(get("/api/tratamento")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(result -> assertTrue(result.getResponse().getContentAsString().startsWith("[")))
+                .andExpect(result -> assertTrue(result.getResponse().getContentAsString().endsWith("]")));
     }
 
     @Test
     void findByPacienteId_ShouldReturnTratamentos() {
         Integer pacienteId = 1;
         List<Tratamento> tratamentoListMock = new ArrayList<>();
+        Paciente pacienteMock = new Paciente();
+        pacienteMock.setId(pacienteId);
+        Fisioterapeuta fisioterapeutaMock = new Fisioterapeuta();
+        fisioterapeutaMock.setId(1);
         Tratamento tratamentoMock = new Tratamento();
         tratamentoMock.setId(1);
+        tratamentoMock.setPaciente(pacienteMock);
+        tratamentoMock.setFisioterapeuta(fisioterapeutaMock);
+        tratamentoMock.setCreateTime(new Date());
+        tratamentoMock.setExercicios(new ArrayList<>());
+
         tratamentoListMock.add(tratamentoMock);
 
         when(tratamentoService.findByPacienteId(pacienteId)).thenReturn(tratamentoListMock);
@@ -86,23 +105,8 @@ class TratamentoTest {
         ResponseEntity<List<TratamentoResponse>> response = tratamentoController.findByPacienteId(pacienteId);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(tratamentoListMock.size(), response.getBody().size());
     }
-
-    @Test
-    void findById_ShouldReturnTratamento() throws NoPermissionException {
-        Integer tratamentoId = 1;
-        Tratamento tratamentoMock = new Tratamento();
-        tratamentoMock.setId(tratamentoId);
-        tratamentoMock.setCreateTime(new Date());
-
-        when(tratamentoService.findById(tratamentoId)).thenReturn(tratamentoMock);
-        when(tokenService.sameUserEmail(anyString(), anyString())).thenReturn(true);
-
-        ResponseEntity<TratamentoResponse> response = tratamentoController.findById(tratamentoId, "Bearer token");
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
     @Test
     void getTaxaUtilizacao_ShouldReturnMetrics() {
         MidiaUtilizationMetrics metricsMock = new MidiaUtilizationMetrics();

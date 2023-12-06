@@ -6,6 +6,7 @@ import com.fisiomais.bodys.FisioterapeutaResponse;
 import com.fisiomais.bodys.NovaConsultaRequest;
 import com.fisiomais.bodys.PacienteResponse;
 import com.fisiomais.entities.ConferenceEventData;
+import com.fisiomais.exception.NotFoundException;
 import com.fisiomais.model.Consulta;
 import com.fisiomais.model.enums.StatusConsulta;
 import com.fisiomais.model.indicators.CancelationMetrics;
@@ -68,7 +69,7 @@ public class ConsultaService {
 
     public Consulta getConsultaById(Integer consultaId) {
         return consultaRepository.findById(consultaId)
-                .orElseThrow(() -> new RuntimeException("Consulta não encontrada para o ID: " + consultaId));
+                .orElseThrow(() -> new NotFoundException("Consulta não encontrada para o ID: " + consultaId));
     }
 
     public List<Consulta> getConsultasByStatus(StatusConsulta status) {

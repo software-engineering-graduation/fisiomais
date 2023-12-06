@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -71,7 +72,7 @@ public class ConsultaController {
             List<Consulta> consultas = consultaService.getConsultasForDate(parsedDateStart, parsedDateEnd);
             return new ResponseEntity<>(consultas, HttpStatus.OK);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Datas inválidas. Formato esperado: dd-MM-yyyy");
+            throw new BusinessException("Datas inválidas. Formato esperado: dd-MM-yyyy");
         }
     }
 
@@ -90,12 +91,12 @@ public class ConsultaController {
     @Operation(summary = "Obter consultas por status", description = "Obter uma lista de consultas com base em um status.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     @ApiResponse(responseCode = "400", description = "Status inválido")
-    public ResponseEntity<List<Consulta>> getConsultasByStatus(
+    public ResponseEntity<List<ConsultaResponseAgenda>> getConsultasByStatus(
             @Parameter(name = "status", description = "Status da consulta a ser pesquisada", examples = @ExampleObject(name = "Status Válidos", value = "pendente, confirmado, cancelado, realizado")) @PathVariable(required = true) String status) {
-        StatusConsulta statusConsulta = consultaUtil.convertToStatusConsulta(status);
-
-        if (statusConsulta != null) {
-            List<Consulta> consultas = consultaService.getConsultasByStatus(statusConsulta);
+        if (EnumUtils.isValidEnum(StatusConsulta.class, status)) {
+            StatusConsulta statusConsulta = StatusConsulta.valueOf(status);
+            List<ConsultaResponseAgenda> consultas = ConsultaResponseAgenda
+                    .toResponse(consultaService.getConsultasByStatus(statusConsulta));
             return new ResponseEntity<>(consultas, HttpStatus.OK);
         } else {
             throw new IllegalArgumentException(
