@@ -18,11 +18,15 @@ Os pacientes são responsáveis por fornecer informações pessoais, como nome, 
 | **Campo**         | **Tipo**         | **Restrições**             | **Valor default** |
 | ---               | ---              | ---                        | ---               |
 | Nome              | Caixa de Texto   | Apenas caracteres de letra |                   |
-| Data de nascimento| Data             |                            |                   |
+| Email             | Caixa de Texto   |                            |                   |
+| Senha             | Caixa de Texto   |                            |                   |
 | Endereço          | Área de texto    |                            |                   |
-| Convênio          | Seleção única    |                            | Não possui        |
+| Telefone de Contato| Área de texto   |                            |                   |
+| Data de nascimento| Data             |                            |                   |
+| CPF               | Caixa de Texto   |                            |                   |
+| Gênero            | Seleção única    |                            | Não possui        |
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| Confirmar            | Confirmação de cadastro        |                   |
-| Cancelar             | Página inicial                 |                   |
+| Cadastrar            | Tela de Login                  |                   |
+
