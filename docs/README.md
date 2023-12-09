@@ -104,7 +104,7 @@ Esses são profissionais da fisioterapia buscando modernizar, expandir ou inicia
 Neste capítulo, será discutido a modelagem do processo de negócio, apresentando uma proposta e detalhando os processos-chave envolvidos.
 ### 3.1. Análise da situação atual
 
-Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas por telefone ou email, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos. ([AS-IS](as_is.md))
+Os sistemas atuais de consultas online usam plataformas de videoconferência, email e compartilhamento de documentos para conectar médicos e pacientes. Os pacientes agendam consultas pela plataforma, realizam sessões de videoconferência para avaliação e recebem planos de tratamento, depois, seguem esses planos por conta própria, não possuindo opções de contato para atualizações e possíveis acompanhamentos e feedbacks das soluções propostas pelos médicos. ([AS-IS](as_is.md))
 
 ### 3.2. Descrição geral da proposta
 
