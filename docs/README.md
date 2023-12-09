@@ -98,7 +98,7 @@ Esses são profissionais da fisioterapia buscando modernizar, expandir ou inicia
    - **Idade:** 50 anos
    - **Gênero:** feminino
    - **Ocupação:** 20 anos de carreira como fisioterapeuta
-   - **Descrição:** Vitória é uma médica experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
+   - **Descrição:** Vitória é uma fisioterapeuta experiente que deseja atualizar sua gestão de atendimentos. Seu objetivo é atender mais pessoas de forma mais prática e eficiente, conquistando uma nova clientela.
 
 ## 3. Modelagem do processo de negócio
 Neste capítulo, será discutido a modelagem do processo de negócio, apresentando uma proposta e detalhando os processos-chave envolvidos.
