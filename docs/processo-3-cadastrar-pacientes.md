@@ -24,7 +24,7 @@ Os pacientes são responsáveis por fornecer informações pessoais, como nome, 
 | Telefone de Contato| Área de texto   |                            |                   |
 | Data de nascimento| Data             |                            |                   |
 | CPF               | Caixa de Texto   |                            |                   |
-| Gênero            | Seleção única    |                            | Não possui        |
+| Gênero            | Seleção única    |                            |                   |
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
