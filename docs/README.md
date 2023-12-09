@@ -10,9 +10,6 @@
 - **José Victor Mendes Dias**  
   **E-mail**: 1433596@sga.pucminas.br
 
-- **Marco Antonio Miranda Ferreira**  
-  **E-mail**: 28064@sga.pucminas.br
-
 - **Rubens Marcelo Ramos dos Santos**  
   **E-mail**: 1391000@sga.pucminas.br
 
