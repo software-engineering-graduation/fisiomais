@@ -9,7 +9,6 @@
 * Bruna Ribeiro Pérez | 1426468@sga.pucminas.br
 * Guilherme Henrique Coelho Santos | 1395175@sga.pucminas.br
 * José Victor Mendes Dias | 1433596@sga.pucminas.br
-* Marco Antonio Miranda Ferreira | 28064@sga.pucminas.br
 * Rubens Marcelo Ramos dos Santos | 1391000@sga.pucminas.br
 
 ## Professor
