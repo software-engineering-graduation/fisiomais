@@ -14,6 +14,7 @@ export const ContentLine = ({ id, paciente, fisioterapeuta, dataHora, status, ob
     const [showIcons, setShowIcons] = useState(false);
     const navigate = useNavigate();
 
+
     const handleDeleteClick = () => {
         Modal.confirm({
             title: 'Você tem certeza que quer deletar esta consulta?',
@@ -22,16 +23,25 @@ export const ContentLine = ({ id, paciente, fisioterapeuta, dataHora, status, ob
             okText: 'Sim, deletar',
             okType: 'danger',
             cancelText: 'Não, cancelar',
-            onOk: () => onDelete(id)
+            onOk: handleDelete
         });
     };
 
     const handleEditClick = () => {
         navigate(`/consulta/editar/${id}`);
     };
+    `/tratamento/${id}`
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/${id}`);
+            onDelete();
+        } catch (error) {
+            console.error('Erro ao deletar consulta', error);
+        }
+    };
 
     return (
-        <tr onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)}>
+        <tr>
             <td className="px-4 text-left">{paciente.nome}</td>
             <td className="px-4 text-left">{fisioterapeuta.nome}</td>
             <td className="px-4 text-left">{dataHora}</td>
@@ -40,13 +50,13 @@ export const ContentLine = ({ id, paciente, fisioterapeuta, dataHora, status, ob
             </td>
             <td className="px-4 text-left">{observacoes}</td>
             <td className="px-4 text-left">
-                <a href={linkConsulta} target="_blank" rel="noopener noreferrer">Link Consulta</a>
+                <a href={linkConsulta} target="_blank" rel="noopener noreferrer">Link</a>
             </td>
-            <td>
+            <td onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)}>
                 <div className="flex items-center justify-end space-x-2">
                     {showIcons && (
                         <>
-                            <IconEdit onClick={handleEditClick} />
+                            <IconEdit onClick={handleEditClick}/>
                             <IconDelete onClick={handleDeleteClick} />
                         </>
                     )}

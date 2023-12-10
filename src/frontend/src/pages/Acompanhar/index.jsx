@@ -22,7 +22,7 @@ const AcompanhamentoVirtual = () => {
     e.preventDefault();
     // console.log(form)
     try {
-      const url = 'http://localhost:8081/api/acompanhamento';
+      const url = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/acompanhamento`;
       const response = await axios.post(url, form, {
         headers: {
           Authorization: `Bearer ${token}`,

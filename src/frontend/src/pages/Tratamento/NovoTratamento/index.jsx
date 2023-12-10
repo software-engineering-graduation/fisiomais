@@ -29,20 +29,20 @@ const NovoTratamento = () => {
     const fetchData = async () => {
       try {
         const resPacientes = await axios.get(
-          "http://localhost:8081/api/paciente",
+          `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/paciente`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        const resMidias = await axios.get("http://localhost:8081/api/midia", {
+        const resMidias = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/midia`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const resExercicios = await axios.get(
-          "http://localhost:8081/api/exercicio/available",
+          `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/exercicio/available`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -103,7 +103,7 @@ const NovoTratamento = () => {
           exercicioId: exercicio.id,
         };
 
-        await axios.post("http://localhost:8081/api/tratamento/novo", payload, {
+        await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/novo`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

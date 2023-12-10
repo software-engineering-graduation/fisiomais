@@ -18,7 +18,7 @@ const Processo8 = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://localhost:8081/api/tratamento/taxa-criacao-fisioterapeutas');
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/taxa-criacao-fisioterapeutas`);
             setTratamentoData(response.data);
         } catch (err) {
             setError(err.response ? err.response.data : err.message);

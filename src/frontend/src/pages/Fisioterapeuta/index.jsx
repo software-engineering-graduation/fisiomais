@@ -25,7 +25,7 @@ const CadastroFisioterapeuta = () => {
   const onFinish = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8081/api/fisioterapeuta', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/fisioterapeuta`, {
         nome: form.nome,
         email: form.email,
         password: form.password,

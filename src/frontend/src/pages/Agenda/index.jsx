@@ -8,8 +8,8 @@ import { useSelector } from 'react-redux';
 
 const Agenda = () => {
     const [consultas, setConsultas] = useState([]);
-    const [filtroData, setFiltroData] = useState('');
-    const [filtroStatus, setFiltroStatus] = useState('');
+    const [filtroData, setFiltroData] = useState(new Date().toISOString().split('T')[0]);
+    const [selectedStatus, setSelectedStatus] = useState('todos');
     const currentUser = useSelector(state => state.currentUser.value);
     const { token } = currentUser;
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -18,63 +18,75 @@ const Agenda = () => {
 
     useEffect(() => {
         fetchConsultas();
-    }, []);
+    }, [filtroData, selectedStatus]);
 
     const fetchConsultas = async () => {
         try {
-            let apiUrl = `http://localhost:8081/api/consulta`
-            if(userRole === 'fisioterapeuta'){
+            let apiUrl = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta`
+            if (userRole === 'fisioterapeuta') {
                 apiUrl += `/fisioterapeuta/${currentUser.user.id}`
             }
-            else if(userRole === 'paciente'){
+            else if (userRole === 'paciente') {
                 apiUrl += `/paciente/${currentUser.user.id}`
             }
-            else{
+            else {
                 apiUrl += `/all`
             }
-            const response = await axios.get(apiUrl);
+            const response = await axios.get(apiUrl, {
+                params: { data: filtroData, status: selectedStatus },
+                headers: { Authorization: `Bearer ${token}` }
+            });
             setConsultas(response.data);
-            // console.log("request data:", response.data);
         } catch (error) {
-            // console.error("Erro ao buscar consultas", error);
+            console.error("Erro ao buscar consultas", error);
         }
     };
 
     const handleDataChange = (event) => {
+        console.log('Data changed to:', event.target.value);
         setFiltroData(event.target.value);
     };
 
+    const updateFiltroData = (newDate) => {
+        const formattedDate = newDate.toISOString().split('T')[0];
+        setFiltroData(formattedDate);
+    };
+
     const handleStatusChange = (event) => {
-        setFiltroStatus(event.target.value);
+        setSelectedStatus(event.target.value.toLowerCase());
     };
 
     const consultasFiltradas = consultas.filter((consulta) => {
-        return (
-            (!filtroData || consulta.dataEHora === filtroData) &&
-            (!filtroStatus || consulta.confirmacao === filtroStatus)
-        );
+        const dataConsulta = new Date(consulta.dataEHora.split('T')[0]);
+        const dataFiltro = new Date(filtroData);
+
+        const matchData = dataConsulta.toISOString().split('T')[0] === dataFiltro.toISOString().split('T')[0];
+        const matchStatus = selectedStatus === 'todos' || consulta.status.toLowerCase() === selectedStatus;
+
+        return matchData && matchStatus;
     });
 
-    // console.log(consultasFiltradas);
 
     const handleDelete = async (idToDelete) => {
         try {
-            await axios.delete(`http://localhost:8081/api/consulta/${idToDelete}`);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/${idToDelete}`);
             fetchConsultas();
         } catch (error) {
-            // console.error('Erro ao deletar consulta', error);
+            console.error('Erro ao deletar consulta', error);
         }
     };
-        
-    
+
+
     return (
         <div className="container mx-auto px-4 py-8">
-            <HeaderTable />
-            
+            <HeaderTable updateFiltroData={updateFiltroData} />
+
+
             <Filters
                 totalAppointments={consultasFiltradas.length}
                 statusOptions={["Todos", "Confirmado", "Pendente", "Cancelado", "Realizado"]}
                 onStatusChange={handleStatusChange}
+                selectedStatus={selectedStatus}
             />
 
             <div className="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
@@ -91,7 +103,7 @@ const Agenda = () => {
                                 status={consulta.status}
                                 observacoes={consulta.observacoes}
                                 linkConsulta={consulta.link}
-                                onDelete={handleDelete}
+                                onDelete={fetchConsultas}
                             />
                         ))}
                     </tbody>

@@ -26,6 +26,7 @@ const Indicadores = () => {
     <>
       <h1>Indicadores</h1>
       <AllMetricsContanier>
+        <Divider />
         <Processo1 />
         <Divider />
         <Processo2 />

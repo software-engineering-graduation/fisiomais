@@ -11,7 +11,8 @@ public interface AcompanhamentoRepository extends JpaRepository<AcompanhamentoVi
     @Query(value = "SELECT " +
             "    YEAR(data_sessao) as ano, " +
             "    MONTH(data_sessao) as mes, " +
-            "    AVG(sessoes) as mediaSessoes " +
+            "    AVG(sessoes) as mediaSessoes, " +
+            "    SUM(sessoes) OVER (PARTITION BY YEAR(data_sessao) ORDER BY MONTH(data_sessao)) as totalAcumulado " +
             "FROM ( " +
             "    SELECT data_sessao, " +
             "    COUNT(*) as sessoes " +

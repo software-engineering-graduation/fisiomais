@@ -16,8 +16,8 @@ const Processo2 = () => {
     useEffect(() => {
         const fetchIndicators = async () => {
             try {
-                const responseConclusao = await axios.get('http://localhost:8081/api/consulta/taxa-conclusao');
-                const responseReagendamento = await axios.get('http://localhost:8081/api/consulta/taxa-reagendamento');
+                const responseConclusao = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/taxa-conclusao`);
+                const responseReagendamento = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/taxa-reagendamento`);
                 
                 setconsultasConcluidas(responseConclusao.data);
                 setconsultasReagendadas(responseReagendamento.data);

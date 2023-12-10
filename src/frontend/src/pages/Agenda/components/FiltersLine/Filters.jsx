@@ -1,6 +1,13 @@
 import React from "react";
 
-export const Filters = ({ totalAppointments, statusOptions, onStatusChange }) => {
+export const Filters = ({ totalAppointments, statusOptions, onStatusChange, selectedStatus }) => {
+  const statusValues = {
+    Todos: 'Todos',
+    Confirmado: 'confirmado',
+    Cancelado: 'cancelado',
+    Realizado: 'realizado',
+    Pendente: 'pendente',
+  };
   return (
     <div style={{ 
       display: 'flex', 
@@ -17,6 +24,7 @@ export const Filters = ({ totalAppointments, statusOptions, onStatusChange }) =>
       </p>
       <select
         onChange={onStatusChange}
+        value={selectedStatus}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -29,9 +37,8 @@ export const Filters = ({ totalAppointments, statusOptions, onStatusChange }) =>
           marginRight: '16px'
         }}
       >
-        <option value="">Selecione um status</option>
         {statusOptions.map((status) => (
-          <option key={status} value={status}>{status}</option>
+          <option key={status} value={status.toLowerCase()}>{status}</option>
         ))}
       </select>
     </div>

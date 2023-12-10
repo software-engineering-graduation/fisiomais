@@ -17,13 +17,13 @@ const Processo6 = () => {
     useEffect(() => {
         const fetchIndicators = async () => {
             try {
-                const responseSatisfacao = await axios.get('http://localhost:8081/api/acompanhamento/taxaSatisfacao');
+                const responseSatisfacao = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/acompanhamento/taxaSatisfacao`);
                 setTaxaSatisfacao(responseSatisfacao.data);
 
-                const responseSessoes = await axios.get('http://localhost:8081/api/acompanhamento/indiceAcompanhamento');
+                const responseSessoes = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/acompanhamento/indiceAcompanhamento`);
                 setDadosSessoes(responseSessoes.data);
             } catch (error) {
-                // console.error('Erro ao buscar dados', error.response || error);
+             console.error('Erro ao buscar dados', error.response || error);
             }
         };
     

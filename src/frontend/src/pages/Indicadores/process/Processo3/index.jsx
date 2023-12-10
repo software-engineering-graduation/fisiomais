@@ -18,7 +18,7 @@ const Processo3 = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://localhost:8081/api/paciente/novos-pacientes-mes');
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/paciente/novos-pacientes-mes`);
             const sortedData = response.data.sort((a, b) => a.mes - b.mes);
             setNovosPacientesData(sortedData);
         } catch (err) {

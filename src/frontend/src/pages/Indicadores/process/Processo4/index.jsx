@@ -16,13 +16,13 @@ const Processo4 = () => {
     useEffect(() => {
         const fetchIndicators = async () => {
             try {
-                const responseCrescimento = await axios.get('http://localhost:8081/api/fisioterapeuta/taxaCrescimento');
-                const responsePerfis = await axios.get('http://localhost:8081/api/fisioterapeuta/indicePerfisCompletos');
+                const responseCrescimento = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/fisioterapeuta/taxaCrescimento`);
+                const responsePerfis = await axios.get(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/fisioterapeuta/indicePerfisCompletos`);
                 
                 setTaxaCrescimento(responseCrescimento.data);
                 setIndicePerfisCompletos(responsePerfis.data);
             } catch (error) {
-                // console.error('Erro ao buscar dados', error.response || error);
+                console.error('Erro ao buscar dados', error.response || error);
             }
         };
     

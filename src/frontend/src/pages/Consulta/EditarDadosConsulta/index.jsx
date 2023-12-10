@@ -6,7 +6,7 @@ import { Result } from 'antd';
 
 
 const EditarDadosConsulta = () => {
-    const [fetchStatus, setFetchStatus] = useState('idle'); // 'idle' | 'loading' | 'succeeded' | 'failed'
+    const [fetchStatus, setFetchStatus] = useState('idle');
     const [errorMessage, setErrorMessage] = useState(null);
     const [consulta, setConsulta] = useState(null);
     const currentUser = useSelector(state => state.currentUser.value);
@@ -35,7 +35,6 @@ const EditarDadosConsulta = () => {
                 setFetchStatus('succeeded');
             })
             .catch((error) => {
-                // console.error(error);
                 setErrorMessage(error.message);
                 setFetchStatus('failed');
             })
