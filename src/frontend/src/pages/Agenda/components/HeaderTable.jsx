@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import { IconChevronDown1 } from "../icons/IconChevronDown1";
 import { IconChevronLeft } from "../icons/IconChevronLeft";
-import { IconChevronRight } from "../icons/IconChevronRight";
+import { IconChevronRight } from "../icons/IconChevronRIght";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
