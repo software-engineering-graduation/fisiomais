@@ -225,19 +225,6 @@ const TratamentoDetail = () => {
                                 )
                             })}
                         export </ExerciciosCardsContainers>
-                        {currentUserIsOwner() &&
-                            <RowContainer>
-                                <EditTratamentoButtonContainer>
-                                    <Button
-                                        size="large"
-                                        icon={<EditOutlined />}
-                                        onClick={() => navigate('/tratamento/editar/' + tratamentoDetail.id)}
-                                    >
-                                        Editar Tratamento
-                                    </Button>
-                                </EditTratamentoButtonContainer>
-                            </RowContainer>
-                        }
                     </MidiasContainer>
                 </TratamentoDetailsContainer>
             }
@@ -246,14 +233,6 @@ const TratamentoDetail = () => {
     );
 };
 export default TratamentoDetail;
-
-const EditTratamentoButtonContainer = styled.div`
-margin-top: 16px;
-    .ant-btn-default:hover {
-        color: #0BD980 !important;
-        border-color: #0BD980 !important;
-    }
-`
 
 export const TratamentoTitle = styled.h2`
 width: fit-content;

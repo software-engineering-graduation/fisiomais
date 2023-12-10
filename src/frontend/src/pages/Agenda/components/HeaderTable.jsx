@@ -11,7 +11,6 @@ export const HeaderTable = ({ updateFiltroData }) => {
   const datePickerRef = useRef(null);
 
   useEffect(() => {
-    // Atualiza o filtroData com a data atual quando o componente é montado
     updateFiltroData(currentDate);
   }, []);
 
