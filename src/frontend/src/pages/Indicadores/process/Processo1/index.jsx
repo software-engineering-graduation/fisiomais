@@ -31,7 +31,6 @@ const Processo1 = () => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     const configModalConfirmationRate = () => {
-        // console.info('metricsDataConfirmation', metricsDataConfirmation)
         return {
             title: `Taxa de confirmações de consultas mensais - ${mesNome(metricsDataConfirmation?.mes)}/${metricsDataConfirmation?.year}`,
             centered: true,
@@ -61,7 +60,6 @@ const Processo1 = () => {
 
     const fetchDataConfirmation = async (month, year) => {
         setStatusConfirmation('loading');
-        // console.info('Fetching data for month', month, 'and year', year)
 
         let response
         let error = false
@@ -72,7 +70,6 @@ const Processo1 = () => {
             }
             ).catch((err) => {
                 if (err.response.status === 400) {
-                    // console.info('No data found for month', month, 'and year', year)
                     error = true
                     setMetricsDataConfirmation(undefined)
                     return
@@ -105,7 +102,6 @@ const Processo1 = () => {
             }
             ).catch((err) => {
                 if (err.response.status === 400) {
-                    // console.info('No data found for month', month, 'and year', year)
                     error = true
                     setMetricsDataCancellation(undefined)
                     return

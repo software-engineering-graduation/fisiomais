@@ -19,17 +19,28 @@ const Agenda = () => {
 
     const userRole = currentUser.user.role
 
+    const consultasFiltradas = consultas.filter((consulta) => {
+        const dataConsulta = new Date(consulta.dataEHora.split('T')[0]);
+        const dataFiltro = new Date(filtroData);
+
+        const matchData = dataConsulta.toISOString().split('T')[0] === dataFiltro.toISOString().split('T')[0];
+        const matchStatus = selectedStatus === 'todos' || consulta.status.toLowerCase() === selectedStatus;
+    
+        return matchData && matchStatus;
+    });
+
     useEffect(() => {
         fetchConsultas();
     }, [filtroData, selectedStatus]);
 
     useEffect(() => {
         if (!checkFilterDate) {
-            setShowData(consultas)
-            return
+            setShowData(consultas);
+        } else {
+            setShowData(consultasFiltradas);
         }
-        setShowData(consultasFiltradas)
-    }, [checkFilterDate]);
+    }, [checkFilterDate, consultas, consultasFiltradas, filtroData]);
+    
 
     const fetchConsultas = async () => {
         try {
@@ -47,16 +58,14 @@ const Agenda = () => {
                 params: { data: filtroData, status: selectedStatus },
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // console.log(response.data);
             setConsultas(response.data);
             setShowData(response.data);
         } catch (error) {
-            // console.error("Erro ao buscar consultas", error);
+             console.error("Erro ao buscar consultas", error);
         }
     };
 
     const handleDataChange = (event) => {
-        // console.log('Data changed to:', event.target.value);
         setFiltroData(event.target.value);
     };
 
@@ -69,34 +78,22 @@ const Agenda = () => {
         setSelectedStatus(event.target.value.toLowerCase());
     };
 
-    const consultasFiltradas = consultas.filter((consulta) => {
-        const dataConsulta = new Date(consulta.dataEHora.split('T')[0]);
-        const dataFiltro = new Date(filtroData);
-
-        const matchData = dataConsulta.toISOString().split('T')[0] === dataFiltro.toISOString().split('T')[0];
-        const matchStatus = selectedStatus === 'todos' || consulta.status.toLowerCase() === selectedStatus;
-        // console.log('consulta: ', dataConsulta.toISOString().split('T')[0]);
-        // console.log('filtro: ', dataFiltro.toISOString().split('T')[0]);
-
-        return matchData && matchStatus;
-    });
-
-
     const handleDelete = async (idToDelete) => {
         try {
             await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/${idToDelete}`);
             fetchConsultas();
         } catch (error) {
-            // console.error('Erro ao deletar consulta', error);
+            console.error('Erro ao deletar consulta', error);
         }
     };
 
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <HeaderTable updateFiltroData={updateFiltroData} setCheckFilterDate={setCheckFilterDate} />
+            <HeaderTable updateFiltroData={updateFiltroData} checkFilterDate={checkFilterDate}
+                setCheckFilterDate={setCheckFilterDate} />
             <Filters
-                totalAppointments={consultasFiltradas.length}
+                totalAppointments={checkFilterDate ? consultasFiltradas.length : consultas.length}
                 statusOptions={["Todos", "Confirmado", "Pendente", "Cancelado", "Realizado"]}
                 onStatusChange={handleStatusChange}
                 selectedStatus={selectedStatus}

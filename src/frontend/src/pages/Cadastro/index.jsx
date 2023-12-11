@@ -13,7 +13,6 @@ const Cadastro = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    // console.log('Formulário enviado com sucesso:', values);
     message.success('Paciente cadastrado com sucesso!');
   };
 

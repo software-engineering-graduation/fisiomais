@@ -50,7 +50,6 @@ const BarMetricCard = ({ title, objectives, description, chartData, cardHeaderIn
       tooltip: {
         callbacks: {
           label: function (context) {
-            // console.log(context);
             return context.dataset.label + ': ' + context.parsed.y + '%';
           },
         },

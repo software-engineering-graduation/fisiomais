@@ -86,7 +86,6 @@ const Exercicios = () => {
                 }
             }
             ).catch(error => {
-                // console.log(error)
                 finalError = error;
             }).
             finally((error) => {
@@ -193,7 +192,6 @@ const Exercicios = () => {
         let erroShown = false
 
         if (deleteOneByOne) {
-            // console.log(`Deleting one by one: ${deletionStack}`)
             deletionStack.forEach(async element => {
                 if (!erroShown) {
                     const resp = await fetchDeletedMidia(element);
@@ -206,7 +204,6 @@ const Exercicios = () => {
                 }
             });
         } else {
-            // console.log(`Deleting all at once: ${deletionStack}`)
             const resp = await fetchDeletedMidias(deletionStack);
             if (resp.message) {
                 openNotification('error', `Deletar Mídias`, resp.response.data.message);
