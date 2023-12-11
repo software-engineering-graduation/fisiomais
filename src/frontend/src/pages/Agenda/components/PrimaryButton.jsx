@@ -34,7 +34,7 @@ export const PrimaryButton = ({ stateProp, className }) => {
           state.state === "pressed" ? "text-textaccent" : "text-white"
         }`}
       >
-        New Appointment
+        Nova Consulta
       </span>
     </button>
   );

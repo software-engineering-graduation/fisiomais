@@ -29,6 +29,8 @@ const columns = [
 const Tratamento = () => {
 
   const [tratamentos, setTratamentos] = useState([]);
+  const [deletionStack, setDeletionStack] = useState([]);
+  const [deleteTratamentos, setDeleteTratamentos] = useState(false);
   const [loadingTratamentos, setLoadingTratamentos] = useState(true);
   const [selectedPaciente, setSelectedPaciente] = useState(null);
   const [pacientes, setPacientes] = useState([]);
@@ -65,6 +67,28 @@ const Tratamento = () => {
     }
     );
   }
+
+  const fetchDeletedTratamentos = async (ids) => {
+    let finalError = {};
+    const stringListOfIds = ids.map(item => item).join(',');
+    await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/${stringListOfIds}`).
+      then(response => {
+        if (response.status !== 200) {
+          finalError = response;
+        }
+      }
+      ).catch(error => {
+        finalError = error;
+      })
+
+    return finalError
+  }
+
+  useEffect(() => {
+    if (!deleteTratamentos) {
+      fetchTratamentos();
+    }
+  }, [deleteTratamentos]);
 
   const fetchTratamentos = async () => {
     setLoadingTratamentos(true);
@@ -126,10 +150,6 @@ const Tratamento = () => {
       });
   }
 
-  useEffect(() => {
-    fetchTratamentos();
-  }, [selectedPaciente]);
-
   const getPageSizeBasedOnScreenSize = () => {
     const width = window.innerWidth;
     if (width <= 1600) {
@@ -142,6 +162,43 @@ const Tratamento = () => {
     }
   }
 
+  const activateDeleteTratamentos = () => {
+    setDeleteTratamentos(true);
+  }
+
+  const cancelDeletion = () => {
+    setDeleteTratamentos(false);
+    setDeletionStack([]);
+  }
+
+  const handleTratamentoDeletion = async () => {
+    const resp = await fetchDeletedTratamentos(deletionStack);
+    if (resp.message) {
+      openNotification('error', `Deletar Tratamentos`, resp.response.data.message);
+    } else {
+      openNotification('success', 'Deletar Tratamentos', 'Tratamentos deletados com sucesso!');
+    }
+
+    setDeleteTratamentos(false);
+    setDeletionStack([]);
+  }
+
+  const handleRowSelection = (id, event) => {
+    if (event === true) {
+      if (!deletionStack.includes(id)) {
+        const newStack = deletionStack;
+        newStack.push(id);
+        setDeletionStack(newStack);
+      }
+      return;
+    }
+
+    if (deletionStack.includes(id)) {
+      const filteredStack = deletionStack.filter(item => item !== id);
+      setDeletionStack(filteredStack);
+    }
+  }
+
   return (
     <div>
       {contextHolder}
@@ -149,6 +206,10 @@ const Tratamento = () => {
         pacientes={pacientes}
         onChange={(pacienteId) => setSelectedPaciente(pacienteId)}
         isPaciente={userRole === 'paciente'}
+        deleteTratamentos={deleteTratamentos}
+        activateDeleteTratamentos={activateDeleteTratamentos}
+        cancelDeleteTratamentos={cancelDeletion}
+        handleTratamentoDeletion={handleTratamentoDeletion}
       />
       <Divider />
       <TratamentosTable
@@ -156,6 +217,8 @@ const Tratamento = () => {
         tratamentos={tratamentos}
         columns={columns}
         loading={loadingTratamentos}
+        handleRowSelection={handleRowSelection}
+        deleteTratamentos={deleteTratamentos}
       />
     </div>
   );

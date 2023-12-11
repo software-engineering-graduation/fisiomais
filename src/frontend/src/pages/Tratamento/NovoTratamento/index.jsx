@@ -27,6 +27,15 @@ const NovoTratamento = ({ tratamento }) => {
   const [exerciciosSelecionados, setExerciciosSelecionados] = useState(tratamento ? tratamento.exercicios : []);
   const [fetchStatus, setFetchStatus] = useState("idle");
   const isEditing = tratamento !== undefined;
+  const role = useSelector((state) => state.currentUser.value.user.role);
+
+  if (role === 'paciente') {
+    return (
+        <Result title="Usuário não tem permissão para acessar essa página"
+            subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+        </Result>
+    );
+}
 
   useEffect(() => {
     setFetchStatus("loading");

@@ -5,10 +5,13 @@ import { ContentLine } from "./components/ContentLine/ContentLine";
 import { Filters } from "./components/FiltersLine/Filters";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { set } from 'date-fns';
 
 const Agenda = () => {
     const [consultas, setConsultas] = useState([]);
+    const [checkFilterDate, setCheckFilterDate] = useState(false);
     const [filtroData, setFiltroData] = useState(new Date().toISOString().split('T')[0]);
+    const [showData, setShowData] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState('todos');
     const currentUser = useSelector(state => state.currentUser.value);
     const { token } = currentUser;
@@ -19,6 +22,14 @@ const Agenda = () => {
     useEffect(() => {
         fetchConsultas();
     }, [filtroData, selectedStatus]);
+
+    useEffect(() => {
+        if (!checkFilterDate) {
+            setShowData(consultas)
+            return
+        }
+        setShowData(consultasFiltradas)
+    }, [checkFilterDate]);
 
     const fetchConsultas = async () => {
         try {
@@ -36,14 +47,16 @@ const Agenda = () => {
                 params: { data: filtroData, status: selectedStatus },
                 headers: { Authorization: `Bearer ${token}` }
             });
+            // console.log(response.data);
             setConsultas(response.data);
+            setShowData(response.data);
         } catch (error) {
-            console.error("Erro ao buscar consultas", error);
+            // console.error("Erro ao buscar consultas", error);
         }
     };
 
     const handleDataChange = (event) => {
-        console.log('Data changed to:', event.target.value);
+        // console.log('Data changed to:', event.target.value);
         setFiltroData(event.target.value);
     };
 
@@ -62,6 +75,8 @@ const Agenda = () => {
 
         const matchData = dataConsulta.toISOString().split('T')[0] === dataFiltro.toISOString().split('T')[0];
         const matchStatus = selectedStatus === 'todos' || consulta.status.toLowerCase() === selectedStatus;
+        // console.log('consulta: ', dataConsulta.toISOString().split('T')[0]);
+        // console.log('filtro: ', dataFiltro.toISOString().split('T')[0]);
 
         return matchData && matchStatus;
     });
@@ -72,16 +87,14 @@ const Agenda = () => {
             await axios.delete(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/consulta/${idToDelete}`);
             fetchConsultas();
         } catch (error) {
-            console.error('Erro ao deletar consulta', error);
+            // console.error('Erro ao deletar consulta', error);
         }
     };
 
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <HeaderTable updateFiltroData={updateFiltroData} />
-
-
+            <HeaderTable updateFiltroData={updateFiltroData} setCheckFilterDate={setCheckFilterDate} />
             <Filters
                 totalAppointments={consultasFiltradas.length}
                 statusOptions={["Todos", "Confirmado", "Pendente", "Cancelado", "Realizado"]}
@@ -93,7 +106,7 @@ const Agenda = () => {
                 <table className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                     <TableTop />
                     <tbody>
-                        {consultasFiltradas.map((consulta, i) => (
+                        {showData.map((consulta, i) => (
                             <ContentLine
                                 key={i}
                                 id={consulta.id}
@@ -106,6 +119,14 @@ const Agenda = () => {
                                 onDelete={fetchConsultas}
                             />
                         ))}
+
+                        {!showData.length && (
+                            <tr>
+                                <td colSpan="7" className="py-4 px-6 text-center">
+                                    Nenhuma consulta encontrada
+                                </td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

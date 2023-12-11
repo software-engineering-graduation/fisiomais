@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Select } from 'antd';
 // icons
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdOutlineCancel } from 'react-icons/md';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { FaCheck } from 'react-icons/fa';
 
 const { Option } = Select;
 
@@ -32,7 +34,9 @@ const HeadContainer = styled.div`
     }
 `
 
-const TableHeader = ({ pacientes, onChange, isPaciente = false }) => {
+const TableHeader = ({ pacientes, onChange, isPaciente = false, deleteTratamentos,
+    activateDeleteTratamentos, cancelDeleteTratamentos, handleTratamentoDeletion
+}) => {
     const navigate = useNavigate();
     const [selectedPaciente, setSelectedPaciente] = useState('');
 
@@ -76,40 +80,76 @@ const TableHeader = ({ pacientes, onChange, isPaciente = false }) => {
 
             {!isPaciente && (
                 <ButtonsContainer>
-                    <ButtonContainer>
-                        <CreateTratamentoButtonContainer>
+                    {!deleteTratamentos && (
+                        <>
+                            <DeleteTratamentoButtonContainer>
+                                <Button
+                                    size="large"
+                                    icon={<AiOutlineDelete />}
+                                    onClick={() => activateDeleteTratamentos()}
+                                >
+                                    Deletar Tratamentos
+                                </Button>
+                            </DeleteTratamentoButtonContainer>
+                            <ButtonContainer>
+                                <CreateTratamentoButtonContainer>
+                                    <Button
+                                        size="large"
+                                        icon={<MdAdd />}
+                                        onClick={() => navigate('/tratamento/novo')}
+                                    >
+                                        Criar Tratamento
+                                    </Button>
+                                </CreateTratamentoButtonContainer>
+                            </ButtonContainer>
+
+                            <ButtonContainer>
+
+                                <SearchFilterContainer>
+                                    <LabelSelect>Filtrar por paciente:</LabelSelect>
+                                    <Select
+                                        showSearch
+                                        style={{ width: 200 }}
+                                        allowClear={true}
+                                        optionFilterProp="children"
+                                        onChange={handlePacienteChange}
+                                        filterOption={(input, option) =>
+                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        }
+                                        value={selectedPaciente}
+                                    >
+                                        {orderPacientes(pacientes).map((paciente) => (
+                                            <Option key={paciente.id} value={paciente.id}>
+                                                {paciente.nome}
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                </SearchFilterContainer>
+                            </ButtonContainer>
+                        </>
+                    )}
+
+                    {deleteTratamentos && (
+                        <>
                             <Button
                                 size="large"
-                                icon={<MdAdd />}
-                                onClick={() => navigate('/tratamento/novo')}
+                                icon={<MdOutlineCancel />}
+                                onClick={() => cancelDeleteTratamentos()}
                             >
-                                Criar Tratamento
+                                Cancelar
                             </Button>
-                        </CreateTratamentoButtonContainer>
-                    </ButtonContainer>
-                    <ButtonContainer>
 
-                        <SearchFilterContainer>
-                            <LabelSelect>Filtrar por paciente:</LabelSelect>
-                            <Select
-                                showSearch
-                                style={{ width: 200 }}
-                                allowClear={true}
-                                optionFilterProp="children"
-                                onChange={handlePacienteChange}
-                                filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                                value={selectedPaciente}
-                            >
-                                {orderPacientes(pacientes).map((paciente) => (
-                                    <Option key={paciente.id} value={paciente.id}>
-                                        {paciente.nome}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </SearchFilterContainer>
-                    </ButtonContainer>
+                            <ConfirmDeleteTratamentosButtonContainer>
+                                <Button
+                                    size="large"
+                                    icon={<FaCheck />}
+                                    onClick={() => handleTratamentoDeletion()}
+                                >
+                                    Confirmar
+                                </Button>
+                            </ConfirmDeleteTratamentosButtonContainer>
+                        </>
+                    )}
                 </ButtonsContainer>)}
         </HeadContainer>
     );
@@ -133,5 +173,25 @@ const CreateTratamentoButtonContainer = styled.div`
     .ant-btn-default:hover {
         color: #0BD980 !important;
         border-color: #0BD980 !important;
+    }
+`
+
+const DeleteTratamentoButtonContainer = styled.div`
+    .ant-btn-default:hover {
+        color: #F95E5A !important;
+        border-color: #F95E5A !important;
+    }
+`
+const ConfirmDeleteTratamentosButtonContainer = styled.div`
+    .ant-btn-default {
+        background-color: #F95E5A !important;
+        color: white !important;
+        border-color: white !important;
+    }
+
+    .ant-btn-default:hover {
+        background-color: #fa8c89 !important;
+        color: white !important;
+        border-color: white !important;
     }
 `

@@ -5,9 +5,11 @@ import { IconChevronLeft } from "../icons/IconChevronLeft";
 import { IconChevronRight } from "../icons/IconChevronRIght";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from "react-redux";
 
-export const HeaderTable = ({ updateFiltroData }) => {
+export const HeaderTable = ({ updateFiltroData, setCheckFilterDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const currentUser = useSelector((state) => state.currentUser.value);
   const datePickerRef = useRef(null);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const HeaderTable = ({ updateFiltroData }) => {
   };
 
   const formateDate = (date) => {
-    return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    return date.toLocaleDateString("pt-BR", { year: "numeric", month: "short", day: "numeric" });
   };
 
   const resetToToday = () => {
@@ -47,6 +49,17 @@ export const HeaderTable = ({ updateFiltroData }) => {
           Consultas
         </div>
         <div className="flex items-center gap-[24px]">
+          <div className="flex items-center gap-[10px]">
+            <label htmlFor="checkFilterDate">Habilitar filtro por data</label>
+            <input
+              className="w-[20px] h-[20px]"
+              type="checkbox"
+              id="checkFilterDate"
+              name="checkFilterDate"
+              onChange={(e) => setCheckFilterDate(e.target.checked)}
+            />
+          </div>
+          {/* <div> */}
           <div className="flex items-center gap-[4px] p-[8px] rounded-[36px] border-[0.7px] border-solid border-gray-400 cursor-pointer" onClick={prevDay}>
             <IconChevronLeft className="w-[20px] h-[20px]" />
           </div>
@@ -55,12 +68,13 @@ export const HeaderTable = ({ updateFiltroData }) => {
               {formateDate(currentDate)}
             </div>
             <div className="text-[#585e6a] font-normal [font-family:'Inter',Helvetica] text-[14px] cursor-pointer" onClick={resetToToday}>
-              Today
+              Hoje
             </div>
             <div onClick={handleCalendarClick} className="cursor-pointer">
               <IconChevronDown1 className="w-[20px] h-[20px]" />
             </div>
             <DatePicker
+              disabled={false}
               ref={datePickerRef}
               selected={currentDate}
               onChange={(date) => {
@@ -73,11 +87,15 @@ export const HeaderTable = ({ updateFiltroData }) => {
               showPopperArrow={false}
               className="hidden"
             />
+
             <div className="flex items-center gap-[4px] p-[8px] rounded-[36px] border-[0.7px] border-solid border-gray-400 cursor-pointer" onClick={nextDay}>
               <IconChevronRight className="w-[20px] h-[20px]" />
             </div>
           </div>
-          <PrimaryButton stateProp="default" />
+          {currentUser.user.role === "paciente" &&
+            <PrimaryButton stateProp="default" />
+          }
+
         </div>
       </div>
     </div>
