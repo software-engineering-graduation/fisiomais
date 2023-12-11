@@ -7,8 +7,10 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2023-2-ti2-1381100-fisiomais/.github/workflows/deploy_backend.yml@master
+    uses: ./.github/workflows/deploy_backend.yml
     secrets: inherit
+    with:
+      environment: staging
     
   build-and-push:
     runs-on: ubuntu-latest
