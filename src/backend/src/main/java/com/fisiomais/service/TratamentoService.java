@@ -95,4 +95,13 @@ public class TratamentoService {
                 .getTaxaCriacaoTratamentosPorFisioterapeuta();
         return taxaTratamentoFisioterapeutaMetrics;
     }
+
+    public Tratamento updateTratamento(Integer id, Tratamento novoTratamentoMapped) {
+        Optional<Tratamento> tratamento = tratamentoRepository.findById(id);
+        tratamento.get().setTitulo(novoTratamentoMapped.getTitulo());
+        tratamento.get().setObservacoes(novoTratamentoMapped.getObservacoes());
+        tratamento.get().setEndDate(novoTratamentoMapped.getEndDate());
+        tratamento.get().setFeedback(novoTratamentoMapped.getFeedback());
+        return tratamentoRepository.save(tratamento.get());
+    }
 }

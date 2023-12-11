@@ -113,10 +113,10 @@ public class TratamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tratamento> putTratamento(@PathVariable Integer id, @RequestBody Tratamento tratamento) {
-        tratamento.setId(id);
-        this.tratamentoService.update(tratamento);
-        return ResponseEntity.ok().body(tratamento);
+    public ResponseEntity<Tratamento> putTratamento(@PathVariable Integer id, @RequestBody NovoTratamentoRequest tratamento) {
+        Tratamento novoTratamentoMapped = tratamentoUtil.convertToTratamento(tratamento);
+        Tratamento newTratamento = tratamentoService.updateTratamento(id, novoTratamentoMapped);
+        return new ResponseEntity<>(newTratamento, HttpStatus.OK);
     }
 
     @GetMapping("/taxa-utilizacao")
