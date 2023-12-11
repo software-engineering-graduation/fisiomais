@@ -23,7 +23,7 @@ jobs:
 
     - name: Log in to Azure Container Registry
       run: |
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY_URL
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY_URL
 
     - name: Build and push Docker image
       run: |
