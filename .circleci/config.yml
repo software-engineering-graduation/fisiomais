@@ -1,6 +1,8 @@
 version: 2.1
+
 orbs:
   docker: circleci/docker@2.1.4
+
 jobs:
   build-and-test:
     docker:
@@ -9,10 +11,14 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: |
+            cd src/backend
+            mvn -B -DskipTests clean package
       - run:
           name: Test
-          command: mvn test
+          command: |
+            cd src/backend
+            mvn test
 
   deploy-docker-image:
     executor:
@@ -28,8 +34,9 @@ jobs:
       - run:
           name: "Build and push Docker image"
           command: |
+            cd src/backend
             docker login -u $DOCKER_USER -p $DOCKER_PASS fisiomais.azurecr.io
-            docker build -t fisiomais.azurecr.io/fisiomais-api:latest -f src/backend/Dockerfile
+            docker build -t fisiomais.azurecr.io/fisiomais-api:latest -f Dockerfile .
             docker push fisiomais.azurecr.io/fisiomais-api:latest
 
 workflows:
