@@ -45,7 +45,7 @@ public class TratamentoController {
     private final TokenService tokenService;
 
     @DeleteMapping("{ids}")
-    @Operation(summary = "Excluir tratamento", description = "Excluir um ou mais tratamentos com base nos seus IDs.")
+    @Operation(summary = "Excluir tratamento(os)", description = "Excluir um ou mais tratamentos com base nos seus IDs.")
     @ApiResponse(responseCode = "200", description = "Tratamento excluído com sucesso")
     @ApiResponse(responseCode = "404", description = "Tratamento não encontrado")
     public ResponseEntity<Void> deleteTratamento(@PathVariable List<Integer> ids,

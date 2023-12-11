@@ -36,8 +36,8 @@ jobs:
           command: |
             cd src/backend
             docker login -u $DOCKER_USER -p $DOCKER_PASS fisiomais.azurecr.io
-            docker build -t fisiomais.azurecr.io/fisiomais-api:latest -f Dockerfile .
-            docker push fisiomais.azurecr.io/fisiomais-api:latest
+            docker build -t fisiomais.azurecr.io/fisiomais:latest .
+            docker push fisiomais.azurecr.io/fisiomais:latest
 
 workflows:
   test-and-deploy:
