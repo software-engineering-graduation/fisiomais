@@ -22,6 +22,7 @@ import TratamentoDetail from 'pages/Tratamento/TratamentoDetail';
 import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
 import NewExercicio from 'pages/Exercicios/NewExercicio';
 import EditarDadosConsulta from 'pages/Consulta/EditarDadosConsulta';
+import EditarDadosTratamento from 'pages/Tratamento/EditarDadosTratamento';
 import Disponibilidade from 'pages/Disponibilidade';
 import NewDisp from 'pages/Disponibilidade/NewDisp';
 
@@ -52,6 +53,7 @@ const PagesRouter = () => {
             <Route path='/consulta/editar/:id' element={<EditarDadosConsulta />} />
             <Route path='/disponibilidade' element={<Disponibilidade />} />
             <Route path='/disponibilidade/criar' element={<NewDisp />} />
+            <Route path='/tratamento/editar/:id' element={<EditarDadosTratamento />} />
             <Route path='/login' element={<Login />} />
         </Routes>
     );

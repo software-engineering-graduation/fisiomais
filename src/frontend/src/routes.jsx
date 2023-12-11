@@ -22,6 +22,7 @@ import TratamentoDetail from "pages/Tratamento/TratamentoDetail";
 import ExercicioDetail from 'pages/Exercicios/ExercicioDetail';
 import NewExercicio from "pages/Exercicios/NewExercicio";
 import EditarDadosConsulta from 'pages/Consulta/EditarDadosConsulta';
+import EditarDadosTratamento from "pages/Tratamento/EditarDadosTratamento";
 import Disponibilidade from 'pages/Disponibilidade';
 import NewDisp from 'pages/Disponibilidade/NewDisp';
 
@@ -51,6 +52,7 @@ const Router = () => {
             <Route component={EditarDadosConsulta} path='/consulta/editar/:id' />
             <Route component={Disponibilidade} path='/disponibilidade' />
             <Route component={NewDisp} path='/disponibilidade/criar' />
+            <Route component={EditarDadosTratamento} path='/tratamento/editar/:id' />
             <Route component={Login} path='/login' />
         </Routes>
     )
