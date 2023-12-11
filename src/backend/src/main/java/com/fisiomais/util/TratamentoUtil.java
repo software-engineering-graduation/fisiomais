@@ -31,6 +31,7 @@ public class TratamentoUtil {
     }
 
     public Tratamento convertToTratamento(NovoTratamentoRequest tratamento) {
+        System.out.println("NovoTratamentoRequest: " + tratamento);
         Paciente paciente = pacienteRepository.findById(tratamento.pacienteId())
                 .orElseThrow(() -> new BusinessException("Paciente não encontrado"));
         Fisioterapeuta fisioterapeuta = fisioterapeutaRepository.findById(tratamento.fisioterapeutaId())

@@ -44,6 +44,21 @@ public class TratamentoController {
     private final TratamentoUtil tratamentoUtil;
     private final TokenService tokenService;
 
+    @DeleteMapping("{ids}")
+    @Operation(summary = "Excluir tratamento", description = "Excluir um ou mais tratamentos com base nos seus IDs.")
+    @ApiResponse(responseCode = "200", description = "Tratamento excluído com sucesso")
+    @ApiResponse(responseCode = "404", description = "Tratamento não encontrado")
+    public ResponseEntity<Void> deleteTratamento(@PathVariable List<Integer> ids,
+            @RequestHeader("Authorization") String token) {
+        System.out.println("Deleting tratamento with IDs: " + ids);
+        if (ids == null || ids.isEmpty()) {
+            throw new BusinessException("No tratamento IDs provided. Accepted format: /tratamento/12,78,5,4,1,2");
+        }
+        tratamentoService.deleteTratamento(ids, token);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     public TratamentoController(TratamentoService tratamentoService,
             TratamentoUtil tratamentoUtil,
             TokenService tokenService) {
@@ -66,12 +81,6 @@ public class TratamentoController {
         List<Tratamento> obj = this.tratamentoService.findAll();
         logger.info("Tratamentos: {}", obj);
         return ResponseEntity.ok().body(TratamentoResponse.toTratamentoResponse(obj));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
-        this.tratamentoService.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/paciente/{id}")
@@ -120,7 +129,8 @@ public class TratamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tratamento> putTratamento(@PathVariable Integer id, @RequestBody NovoTratamentoRequest tratamento) {
+    public ResponseEntity<Tratamento> putTratamento(@PathVariable Integer id,
+            @RequestBody NovoTratamentoRequest tratamento) {
         Tratamento novoTratamentoMapped = tratamentoUtil.convertToTratamento(tratamento);
         Tratamento newTratamento = tratamentoService.updateTratamento(id, novoTratamentoMapped);
         return new ResponseEntity<>(newTratamento, HttpStatus.OK);
