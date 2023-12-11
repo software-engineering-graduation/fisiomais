@@ -63,7 +63,7 @@ Tabela de Cenários:
 
 | Usuário | Taxa de Sucesso | Satisfação Subjetiva | Tempo para Conclusão |
 |---------|-----------------|----------------------|-----------------------|
-| 1       | SIM             | 5                    | 35 segundos           |
+| 1       | SIM             | 5                    | 33 segundos           |
 | 2       | SIM             | 4                    | 42 segundos           |
 | 3       | SIM             | 5                    | 38 segundos           |
 | **Média** | 100%          | 4.67               | 38.33 segundos       |
@@ -73,9 +73,9 @@ Tabela de Cenários:
 
 | Usuário | Taxa de Sucesso | Satisfação Subjetiva | Tempo para Conclusão |
 |---------|-----------------|----------------------|-----------------------|
-| 1       | SIM             | 5                    | 22 segundos           |
-| 2       | SIM             | 4                    | 28 segundos           |
-| 3       | SIM             | 5                    | 20 segundos           |
+| 1       | SIM             | 5                    | 09 segundos           |
+| 2       | SIM             | 4                    | 12 segundos           |
+| 3       | SIM             | 5                    | 10 segundos           |
 | **Média** | 100%          | 4.67               | 23.33 segundos       |
 | **Tempo para Conclusão pelo Especialista** | SIM | 5 | 13.57 segundos |
 
@@ -83,9 +83,9 @@ Tabela de Cenários:
 
 | Usuário | Taxa de Sucesso | Satisfação Subjetiva | Tempo para Conclusão |
 |---------|-----------------|----------------------|-----------------------|
-| 1       | SIM             | 5                    | 45 segundos           |
-| 2       | SIM             | 4                    | 50 segundos           |
-| 3       | SIM             | 5                    | 48 segundos           |
+| 1       | SIM             | 5                    | 35 segundos           |
+| 2       | SIM             | 4                    | 33 segundos           |
+| 3       | SIM             | 5                    | 42 segundos           |
 | **Média** | 100%          | 4.67               | 47.67 segundos       |
 | **Tempo para Conclusão pelo Especialista** | SIM | 5 | 13.57 segundos |
 
@@ -93,9 +93,9 @@ Tabela de Cenários:
 
 | Usuário | Taxa de Sucesso | Satisfação Subjetiva | Tempo para Conclusão |
 |---------|-----------------|----------------------|-----------------------|
-| 1       | SIM             | 5                    | 30 segundos           |
-| 2       | SIM             | 4                    | 35 segundos           |
-| 3       | SIM             | 5                    | 32 segundos           |
+| 1       | SIM             | 5                    | 10 segundos           |
+| 2       | SIM             | 4                    | 10 segundos           |
+| 3       | SIM             | 5                    | 12 segundos           |
 | **Média** | 100%          | 4.67               | 32.33 segundos       |
 | **Tempo para Conclusão pelo Especialista** | SIM | 5 | 13.57 segundos |
 
@@ -103,9 +103,9 @@ Tabela de Cenários:
 
 | Usuário | Taxa de Sucesso | Satisfação Subjetiva | Tempo para Conclusão |
 |---------|-----------------|----------------------|-----------------------|
-| 1       | SIM             | 5                    | 40 segundos           |
-| 2       | SIM             | 4                    | 45 segundos           |
-| 3       | SIM             | 5                    | 42 segundos           |
+| 1       | SIM             | 5                    | 15 segundos           |
+| 2       | SIM             | 4                    | 12 segundos           |
+| 3       | SIM             | 5                    | 13 segundos           |
 | **Média** | 100%          | 4.67               | 42.33 segundos       |
 | **Tempo para Conclusão pelo Especialista** | SIM | 5 | 13.57 segundos |
 
