@@ -16,7 +16,7 @@ import locale from 'antd/es/date-picker/locale/pt_BR';
 import dayjs from 'dayjs';
 import { useNavigate } from "react-router-dom";
 
-const NovoTratamento = ({ tratamento }) => {
+const NovoTratamento = ({ tratamento = null }) => {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.currentUser.value);
   const { token } = currentUser;
@@ -26,16 +26,16 @@ const NovoTratamento = ({ tratamento }) => {
   const [exercicios, setExercicios] = useState([]);
   const [exerciciosSelecionados, setExerciciosSelecionados] = useState(tratamento ? tratamento.exercicios : []);
   const [fetchStatus, setFetchStatus] = useState("idle");
-  const isEditing = tratamento !== undefined;
+  const isEditing = tratamento !== null;
   const role = useSelector((state) => state.currentUser.value.user.role);
 
   if (role === 'paciente') {
     return (
-        <Result title="Usuário não tem permissão para acessar essa página"
-            subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
-        </Result>
+      <Result title="Usuário não tem permissão para acessar essa página"
+        subTitle="Desculpe, ocorreu um erro ao buscar os detalhes de usuário">
+      </Result>
     );
-}
+  }
 
   useEffect(() => {
     setFetchStatus("loading");
@@ -111,7 +111,7 @@ const NovoTratamento = ({ tratamento }) => {
       const fisioterapeutaId = currentUser.user.id;
 
       for (const exercicio of exerciciosSelecionados) {
-        const formatedDate = dayjs(endDate).format('DD/MM/YYYY');
+        // const formatedDate = dayjs(endDate).format('DD/MM/YYYY');
         const payload = {
           pacienteId,
           fisioterapeutaId,
@@ -123,12 +123,14 @@ const NovoTratamento = ({ tratamento }) => {
         };
 
         if (!edit) {
+          console.log("novo")
           await axios.post(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/novo`, payload, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
+          console.log("editando")
           await axios.put(`${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/tratamento/${tratamento.id}`, payload, {
             headers: {
               Authorization: `Bearer ${token}`,
