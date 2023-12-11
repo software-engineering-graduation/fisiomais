@@ -118,7 +118,7 @@ const NovoTratamento = ({ tratamento }) => {
           titulo,
           observacoes,
           feedback,
-          endDate: formatedDate,
+          endDate: endDate.toISOString(),
           exercicioId: exercicio.id,
         };
 
