@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
 
-export const HeaderTable = ({ updateFiltroData, setCheckFilterDate }) => {
+export const HeaderTable = ({ updateFiltroData, setCheckFilterDate, checkFilterDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const currentUser = useSelector((state) => state.currentUser.value);
   const datePickerRef = useRef(null);
@@ -56,6 +56,7 @@ export const HeaderTable = ({ updateFiltroData, setCheckFilterDate }) => {
               type="checkbox"
               id="checkFilterDate"
               name="checkFilterDate"
+              checked={checkFilterDate}
               onChange={(e) => setCheckFilterDate(e.target.checked)}
             />
           </div>

@@ -59,7 +59,6 @@ const NewDisp = () => {
                 setLoadingDisponibilidades('succeeded');
             })
             .catch((error) => {
-                // console.error(error);
                 setLoadingDisponibilidades(false);
                 setLoadingDisponibilidades('failed');
             })
@@ -146,7 +145,6 @@ const NewDisp = () => {
                 hoursDisabledFinal = hoursDisabledFinal.concat(hours);
             });
 
-            // console.log('hoursDisabledFinal', hoursDisabledFinal);
         }
 
         return {
@@ -158,13 +156,10 @@ const NewDisp = () => {
     function disabledTimeEnd() {
         const startDisabled = disabledTimeStart();
 
-        // disable all before the timeSelectedStart
         const startHour = timeSelectedStart ? timeSelectedStart.hour() : 0;
 
         const hours = range(0, startHour + 1);
         const hoursDisabledFinal = startDisabled.disabledHours().filter(hour => hour <= startHour).concat(hours);
-        // console.log('disabledHours already', startDisabled.disabledHours())
-        // console.log('hoursDisabledFinal', hoursDisabledFinal);
         return {
             disabledHours: () => hoursDisabledFinal,
             disabledMinutes: () => [],

@@ -33,7 +33,6 @@ const CadastroFisioterapeuta = () => {
         endereco: form.endereco,
         controleAutomatico: form.controleAutomatico,
       });
-      // console.log('Fisioterapeuta cadastrado:', response.data);
       setForm({
         nome: '',
         endereco: '',
@@ -43,7 +42,7 @@ const CadastroFisioterapeuta = () => {
         controleAutomatico: false,
       });
     } catch (error) {
-      // console.error('Erro ao enviar o formulário:', error);
+      console.error('Erro ao enviar o formulário:', error);
     }
   };
 

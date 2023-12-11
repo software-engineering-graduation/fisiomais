@@ -20,7 +20,6 @@ const AcompanhamentoVirtual = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(form)
     try {
       const url = `${import.meta.env.VITE_API_BASE_ROUTE_SPRING}/acompanhamento`;
       const response = await axios.post(url, form, {
@@ -28,7 +27,6 @@ const AcompanhamentoVirtual = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log('Formulário de acompanhamento enviado:', response.data);
       setForm({
         dataSessao: '',
         plataforma: '',
@@ -37,7 +35,7 @@ const AcompanhamentoVirtual = () => {
         avaliacao: '',
       });
     } catch (error) {
-      // console.error('Erro ao enviar o formulário:', error);
+       console.error('Erro ao enviar o formulário:', error);
     }
   };
 

@@ -20,7 +20,7 @@ export const Filters = ({ totalAppointments, statusOptions, onStatusChange, sele
         marginLeft: '17px'
       }
     }>
-        Showing <span className="font-bold">{totalAppointments}</span> Appointments
+        Mostrando <span className="font-bold">{totalAppointments}</span> consultas
       </p>
       <select
         onChange={onStatusChange}

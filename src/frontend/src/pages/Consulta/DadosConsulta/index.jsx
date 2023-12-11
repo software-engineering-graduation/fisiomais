@@ -15,7 +15,6 @@ const { Content } = Layout;
 const { Title, Text, Link } = Typography;
 
 const DadosConsulta = ({ consulta }) => {
-    // console.log('consulta', consulta)
     const initialFisioterapeuta = consulta ? consulta.fisioterapeuta : null;
 
     const initialDateSelected = consulta ?
@@ -69,7 +68,6 @@ const DadosConsulta = ({ consulta }) => {
         let fisio = null;
         await axios.get(apiRoute)
             .then((res) => {
-                // console.log('fisio', res.data)
                 fisio = res.data;
             })
             .catch((err) => {

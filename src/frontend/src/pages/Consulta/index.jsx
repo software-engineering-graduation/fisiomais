@@ -35,13 +35,13 @@ const Consulta = () => {
                 endereco,
             }
         } catch (error) {
-            // console.error('Error parsing user object: ', error.message);
+             console.error('Error parsing user object: ', error.message);
             return {};
         }
     }
 
     const [paciente, setPaciente] = useState(null);
-    const [statusPaciente, setStatusPaciente] = useState('idle'); // ['loading', 'success', 'error', 'idle']
+    const [statusPaciente, setStatusPaciente] = useState('idle');
     const navigate = useNavigate()
     const currentUser = useSelector(state => state.currentUser.value);
     const { token } = currentUser;
