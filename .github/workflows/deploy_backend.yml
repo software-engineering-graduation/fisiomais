@@ -15,6 +15,12 @@ jobs:
       DOCKER_REGISTRY_URL: fisiomais.azurecr.io
 
     steps:
+    - name: Test env
+      run: |
+        echo ${{ env.DOCKER_REGISTRY_URL }}
+        echo ${{ env.DOCKER_USERNAME }}
+        echo ${{ env.DOCKER_PASSWORD }}
+        
     - name: Checkout repository
       uses: actions/checkout@v2
 
