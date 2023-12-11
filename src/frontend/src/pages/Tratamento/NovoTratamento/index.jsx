@@ -111,13 +111,14 @@ const NovoTratamento = ({ tratamento }) => {
       const fisioterapeutaId = currentUser.user.id;
 
       for (const exercicio of exerciciosSelecionados) {
+        const formatedDate = dayjs(endDate).format('DD/MM/YYYY');
         const payload = {
           pacienteId,
           fisioterapeutaId,
           titulo,
           observacoes,
           feedback,
-          endDate: endDate.toISOString(),
+          endDate: formatedDate,
           exercicioId: exercicio.id,
         };
 
