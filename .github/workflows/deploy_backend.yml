@@ -19,7 +19,7 @@ jobs:
       DOCKER_REGISTRY_URL: fisiomais.azurecr.io
 
     steps:
-    - name: Test env
+    - name: Test env secrets
       run: |
         echo ${{ env.DOCKER_REGISTRY_URL }}
         echo ${{ env.DOCKER_USERNAME }}
