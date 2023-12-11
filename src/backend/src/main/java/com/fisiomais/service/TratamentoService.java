@@ -104,4 +104,8 @@ public class TratamentoService {
         tratamento.get().setFeedback(novoTratamentoMapped.getFeedback());
         return tratamentoRepository.save(tratamento.get());
     }
+
+    public void deleteById(Integer id) {
+        tratamentoRepository.deleteById(id);
+    }
 }
