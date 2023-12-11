@@ -18,7 +18,11 @@ jobs:
 
     - name: Log in to Azure Container Registry
       run: |
-        echo ${{ secrets.DOCKER_REGISTRY_SERVER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_REGISTRY_SERVER_USERNAME }} --password-stdin ${{ secrets.DOCKER_REGISTRY_SERVER_URL }}
+        echo "DOCKER_USERNAME=${{ secrets.DOCKER_REGISTRY_SERVER_USERNAME }}" >> $GITHUB_ENV
+        echo "DOCKER_PASSWORD=${{ secrets.DOCKER_REGISTRY_SERVER_PASSWORD }}" >> $GITHUB_ENV
+        echo "DOCKER_REGISTRY_URL=${{ secrets.DOCKER_REGISTRY_SERVER_URL }}" >> $GITHUB_ENV
+
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY_URL
 
     - name: Build and push Docker image
       run: |
