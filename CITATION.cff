@@ -28,12 +28,12 @@ authors:
 cff-version: "1.1.0"
 keywords: 
   - "Modelagem de Processos de Negócios"
-  - "Palavra chave 2"
-  - "Palavra chave 3"
+  - "Fisioterapia"
+  - "Online"
 message: |
     "If you use this software, please cite it using these metadata.
     Se você utilizar este software, por favor cite-o utilizando estes metadados."
-repository-code: "https://github.com/url do projeto"
+repository-code: "https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2023-2-ti2-1381100-fisiomais"
 title: "Fisio+"
 abstract: |
     " Oferecer serviços online de fisioterapia, proporcionando atividades personalizadas para melhorar a saúde física. Os programas incluem exercícios guiados e acompanhamento virtual, visando a recuperação, fortalecimento e prevenção de lesões."
