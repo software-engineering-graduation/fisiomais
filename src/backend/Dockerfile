@@ -3,6 +3,8 @@ FROM openjdk:18-alpine
 WORKDIR /app
 COPY . /app
 
+COPY /etc/secrets/credentials.json /app/src/main/resources/
+
 RUN chmod +x mvnw
 RUN ./mvnw -B -DskipTests clean package
 
