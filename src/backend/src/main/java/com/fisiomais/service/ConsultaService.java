@@ -28,11 +28,11 @@ import java.util.Optional;
 public class ConsultaService {
 
     private final ConsultaRepository consultaRepository;
-    private final GoogleCalendarService googleCalendarService;
+    // private final GoogleCalendarService googleCalendarService;
 
-    public ConsultaService(ConsultaRepository consultaRepository, GoogleCalendarService googleCalendarService) {
+    public ConsultaService(ConsultaRepository consultaRepository/* , GoogleCalendarService googleCalendarService */) {
         this.consultaRepository = consultaRepository;
-        this.googleCalendarService = googleCalendarService;
+        // this.googleCalendarService = googleCalendarService;
     }
 
     public List<Consulta> getConsultasForDate(LocalDate start, LocalDate end) {
@@ -54,9 +54,9 @@ public class ConsultaService {
 
     public ConsultaResponse addConsulta(Consulta consulta) {
         if (consulta.getFisioterapeuta().getAutomatic()) {
-            ConferenceEventData consultaCriada = googleCalendarService.criarEventoConsulta(consulta);
-            consulta.setGoogleEventId(consultaCriada.eventId());
-            consulta.setLink(consultaCriada.meetLink());
+            // ConferenceEventData consultaCriada = googleCalendarService.criarEventoConsulta(consulta);
+            // consulta.setGoogleEventId(consultaCriada.eventId());
+            // consulta.setLink(consultaCriada.meetLink());
         }
 
         Consulta consultaSalva = consultaRepository.save(consulta);
