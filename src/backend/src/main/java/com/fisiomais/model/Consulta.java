@@ -41,7 +41,6 @@ public class Consulta {
     @Column(length = 500, nullable = true)
     private String observacoes;
 
-    @Column(nullable = false, columnDefinition = "ENUM('confirmado', 'cancelado', 'realizado', 'pendente')")
     @Enumerated(EnumType.STRING)
     private StatusConsulta confirmacao;
 

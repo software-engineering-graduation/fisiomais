@@ -20,6 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fisiomais.model.enums.Genero;
 
 @Data
@@ -35,7 +36,7 @@ public class Paciente extends User {
     private String cpf;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "ENUM('Homem', 'Mulher', 'Outro')")
+    @Column(nullable = false)
     private Genero genero;
 
     @OneToMany(mappedBy = "paciente")

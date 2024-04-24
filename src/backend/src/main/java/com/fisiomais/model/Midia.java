@@ -29,7 +29,6 @@ public class Midia {
     @JoinColumn(name = "fisioterapeuta__id", nullable = false)
     private Fisioterapeuta fisioterapeuta;
 
-    @Column(nullable = false, columnDefinition = "ENUM('Video', 'Imagem', 'GIF')")
     @Enumerated(EnumType.STRING)
     private TipoArquivo type;
 
